@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f1ec;
+      padding: 30px;
+    }
+    .vin {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .entete-vin {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    .photo-bouteille {
+      width: 140px;
+      min-height: 180px;
+      max-height: 240px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: #f4f1ec;
+      padding: 10px;
+    }
+    .infos-vin {
+      flex: 1;
+    }
+    .photo-a-ajouter {
+      width: 140px;
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border-radius: 8px;
+      background: #f4f1ec;
+      color: #7a6f63;
+      font-size: 14px;
+      padding: 10px;
+    }
+    h2 { color: #5a1f1f; }
+    summary {
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #333;
+    }
+    button {
+      background: #5a1f1f;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    button:hover { opacity: 0.9; }
+    @media (max-width: 700px) {
+      .entete-vin {
+        flex-direction: column;
+      }
+      .photo-bouteille {
+        width: 120px;
+      }
+      .photo-a-ajouter {
+        width: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <button onclick="ajouterVin()">Ajouter un vin</button>
+
+  <div id="cave">
+
+    <div class="vin">
+      <div class="entete-vin">
+        <img src="images/il-carnasciale-2020.jpg" alt="Bouteille Podere Il Carnasciale 2020" class="photo-bouteille">
+        <div class="infos-vin">
+      <h2>Podere Il Carnasciale – Il Carnasciale 2020</h2>
+      <h3>1. Identité</h3>
+  <p><strong>Pays / région :</strong> Italie – Toscane</p>
+  <p><strong>Cépage :</strong> Caberlot</p>
+  <p><strong>Style :</strong> élégant, complexe, tanins fins, vin de dégustation avec belle évolution</p>
+
+  <h3>2. Profil</h3>
+  <p>
+    Podere Il Carnasciale est un domaine toscan culte entièrement dédié au Caberlot,
+    un croisement naturel entre Cabernet Franc et Merlot, cultivé exclusivement sur la propriété.
+    C’est ce qui rend ces vins extrêmement rares et recherchés.
+  </p>
+
+  <p>
+    Il Carnasciale est l’expression plus accessible du domaine, combinant intensité,
+    structure et une approche déjà très aboutie dans le millésime 2020 : sombre, épicé et sculpté.
+  </p>
+
+  <p><strong>Notes experts :</strong> 93/100 Wine Advocate – 17+/20 Jancis Robinson – 93/100 James Suckling – 93/100 Peak Wines</p>
+
+        </div>
+      </div>
+
+  <details>
+    <summary>3. Dégustation</summary>
+
+    <p><strong>Couleur :</strong> Ruby quasiment encre</p>
+    <p><strong>Nez :</strong> Cassis, prune et cerise noire, herbes sauvages, graphite, tabac, pointe de poivre</p>
+    <p><strong>Bouche :</strong> Concentré, vertical, savoureux, minéral persistant, finale légèrement saline</p>
+
+  </details>
+
+  <details>
+    <summary>4. Infos techniques</summary>
+
+    <p><strong>Vinification :</strong> Fermentation en cuves inox et bois, longue macération, élevage ~18 mois en barriques de chêne français (partiellement neuves)</p>
+    <p><strong>Classification :</strong> Toscana IGT</p>
+    <p><strong>Garde :</strong> 10–15 ans</p>
+    <p><strong>Carafage :</strong> au moins 1h, évolution dans le verre recommandée</p>
+    <p><strong>Température :</strong> 16–18°C</p>
+    <p><strong>Accords mets :</strong> viandes rouges, plats mijotés, cuisine toscane</p>
+
+  </details>
+
+  <details>
+    <summary>5. Journal personnel</summary>
+
+    <p><strong>Date de dégustation :</strong> (à compléter)</p>
+    <p><strong>Occasion :</strong> (à compléter)</p>
+    <p><strong>Avec quoi :</strong> (à compléter)</p>
+
+    <p><strong>Ressenti global :</strong> (à compléter)</p>
+    <p><strong>Évolution dans le verre :</strong> (à compléter)</p>
+    <p><strong>Note personnelle :</strong> (à compléter)</p>
+
+  </details>
+
+
+    </div>
+
+    <div class="vin">
+      <div class="entete-vin">
+        <img src="images/andrius-sauvignon-blanc-alto-adige-doc.jpg" alt="Bouteille Andrius Sauvignon Blanc Alto Adige DOC" class="photo-bouteille">
+        <div class="infos-vin">
+  <h2>Andrius Sauvignon Blanc Alto Adige DOC</h2>
+
+  <h3>1. Identité</h3>
+  <p><strong>Pays / région :</strong> Italie – Alto Adige</p>
+  <p><strong>Cépage :</strong> Sauvignon Blanc - 60% Pinot Bianco, 30% Chardonnay et 10% Sauvignon Blanc.</p>
+  <p><strong>Style :</strong> Tendu, cristallin, aromatique</p>
+
+  <h3>2. Profil</h3>
+  <p>Ce vin est vraiment l’école Alto Adige : pureté, fraîcheur, précision aromatique, gros travail sur la minéralité. On est dans quelque chose de lumineux et énergique. 
+    Si tu aimes les blancs qui “claquent” avec une sensation de montagne, de roche froide, ça peut être superbe. Les notes classiques décrites sont le sureau, les agrumes,
+     la sauge, un côté pierre à fusil/flint.
+  </p>
+
+  <p>
+    La coopérative Cantina Terlano a été fondée en 1893 et est aujourd'hui l'une des références de l'Alto Adige. Leur philosophie repose sur des vins de grande longévité, 
+    grâce à une vinification sur lies prolongée — souvent plusieurs années — qui développe des arômes secondaires et tertiaires complexes.
+    
+  </p>
+
+  <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – 95/100 James Suckling – N/a Peak Wines</p>
+
+        </div>
+      </div>
+
+  <details>
+    <summary>3. Dégustation</summary>
+
+    <p><strong>Couleur :</strong> À compléter</p>
+    <p><strong>Nez :</strong> Pomme verte et péche blanche, avec des nuances de mélisse et menthe, puis des notes persistantes de pêche en bouche</p>
+    <p><strong>Bouche :</strong> finale longue et saline</p>
+
+  </details>
+
+  <details>
+    <summary>4. Infos techniques</summary>
+
+    <p><strong>Vinification :</strong> vinification sur lies prolongée — souvent plusieurs années — qui développe des arômes secondaires et tertiaires complexes. </p>
+    <p><strong>Classification :</strong> À compléter</p>
+    <p><strong>Garde :</strong> 5–8 ans</p>
+    <p><strong>Carafage :</strong> Non</p>
+    <p><strong>Température :</strong> 10–12°C</p>
+    <p><strong>Accords mets :</strong> ceviche, sashimi, asperges vertes, burrata citronnée, sole meunière, risotto aux herbes,fromage de chèvre frais.</p>
+
+  </details>
+
+  <details>
+    <summary>5. Journal personnel</summary>
+
+    <p><strong>Date de dégustation :</strong> (à compléter)</p>
+    <p><strong>Occasion :</strong> (à compléter)</p>
+    <p><strong>Avec quoi :</strong> (à compléter)</p>
+
+    <p><strong>Ressenti global :</strong> (à compléter)</p>
+    <p><strong>Évolution dans le verre :</strong> (à compléter)</p>
+    <p><strong>Note personnelle :</strong> (à compléter)</p>
+
+  </details>
+
+    </div>
+
+    <div class="vin">
+      <div class="entete-vin">
+        <img src="images/livio-felluga-potentilla-sauvignon-blanc.jpg" alt="Bouteille Livio Felluga Potentilla Sauvignon Blanc" class="photo-bouteille">
+        <div class="infos-vin">
+  <h2>Livio Felluga "Potentilla" Sauvignon Blanc</h2>
+
+  <h3>1. Identité</h3>
+  <p><strong>Pays / région :</strong> Italie – Friuli Colli Orientali </p>
+  <p><strong>Cépage :</strong> Sauvignon Blanc</p>
+  <p><strong>Style :</strong> Large, profond, gastronomique</p>
+
+  <h3>2. Profil</h3>
+  <p>Le Potentilla joue dans un registre plus sérieux et plus profond. Livio Felluga est une référence absolue du Frioul, 
+    et cette cuvée est un peu pensée comme un cru de Sauvignon. Vieilles vignes issues de sélection massale, élevage plus travaillé, texture plus ample. On quitte un peu le Sauvignon “nerveux” pour aller vers un grand blanc gastronomique italien.
+  </p>
+
+  <p>
+    C'est une cuvée mono-cépage, mono-parcelle lancée avec le millésime 2018, issue d'une vigne plantée en 1975 sur les collines de Friuli Colli Orientali (nord-est de l'Italie).
+    
+  </p>
+
+  <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – 94/100 James Suckling – N/a Peak Wines</p>
+
+        </div>
+      </div>
+
+  <details>
+    <summary>3. Dégustation</summary>
+
+    <p><strong>Couleur :</strong> À compléter</p>
+    <p><strong>Nez :</strong> À compléter</p>
+    <p><strong>Bouche :</strong> À compléter</p>
+
+  </details>
+
+  <details>
+    <summary>4. Infos techniques</summary>
+
+    <p><strong>Vinification :</strong> La vinification est originale : les raisins sont macérés sur peaux quelques heures, puis le vin passe en fûts de chêne et bénéficie d'une fermentation malolactique d'un mois — ce qui est rare pour un Sauvignon. 
+    Le résultat est crémeux tout en restant vif et croquant, avec des notes de fleur de sureau, jasmin, agrumes et sauge. </p>
+    <p><strong>Classification :</strong> À compléter</p>
+    <p><strong>Garde :</strong> 10–15 ans</p>
+    <p><strong>Carafage :</strong> 30 minutes. évolution dans le verre recommandée</p>
+    <p><strong>Température :</strong> 10–12°C</p>
+    <p><strong>Accords mets :</strong> volaille à la crème légère, homard, lotte, risotto aux cèpes, turbot,
+ravioles aux herbes, cuisine un peu automnale, vieux comté pas trop puissant.</p>
+
+  </details>
+
+  <details>
+    <summary>5. Journal personnel</summary>
+
+    <p><strong>Date de dégustation :</strong> (à compléter)</p>
+    <p><strong>Occasion :</strong> (à compléter)</p>
+    <p><strong>Avec quoi :</strong> (à compléter)</p>
+
+    <p><strong>Ressenti global :</strong> (à compléter)</p>
+    <p><strong>Évolution dans le verre :</strong> (à compléter)</p>
+    <p><strong>Note personnelle :</strong> (à compléter)</p>
+
+  </details>
+
+</div>
+
+    <div class="vin">
+      <div class="entete-vin">
+        <img src="images/Ridgeback-Cab-Franc-2020.webp" alt="Bouteille Ridgeback Cabernet Franc 2020" class="photo-bouteille">
+        <div class="infos-vin">
+  <h2>Ridgeback Cabernet Franc 2020</h2>
+
+  <h3>1. Identité</h3>
+  <p><strong>Pays / région :</strong> Afrique du Sud – Paarl </p>
+  <p><strong>Cépage :</strong> Cabernet Franc</p>
+  <p><strong>Style :</strong> À compléter</p>
+
+  <h3>2. Profil</h3>
+  <p>Cabernet Franc sud-africain élégant et expressif issu de Paarl. Le vin séduit par son équilibre entre fruit rouge mûr, fraîcheur naturelle et notes épicées raffinées. 
+  Le nez dévoile des arômes de cerise, cassis, herbes sèches et poivre doux, tandis que la bouche offre des tanins polis et une belle tension.
+  </p>
+
+  <p>
+  Accessible dès aujourd’hui après aération, il possède néanmoins un potentiel d’évolution intéressant qui devrait lui apporter davantage de complexité et de fondu avec quelques années de garde. Un rouge sincère, précis et gastronomique, particulièrement adapté aux volailles nobles, au canard ou aux plats automnaux..
+    
+  </p>
+
+  <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – 94/100 James Suckling – N/a Peak Wines</p>
+
+        </div>
+      </div>
+
+  <details>
+    <summary>3. Dégustation</summary>
+
+    <p><strong>Couleur :</strong> Rubis, rouge profond</p>
+    <p><strong>Nez :</strong> arômes de fruits rouges mûrs, comme cerise ou baies, 
+    complétés par des touches épicées (“subtile crudité” ou épices légères)</p>
+    <p><strong>Bouche :</strong> avec du corps, des tanins modérés mais présents, bon équilibre entre fruit et acidité.</p>
+
+  </details>
+
+  <details>
+    <summary>4. Infos techniques</summary>
+
+    <p><strong>Vinification :</strong> maturation en barriques, mélange de fûts de différents âges (neufs, second remplissage, etc.). </p>
+    <p><strong>Classification :</strong> À compléter</p>
+    <p><strong>Garde :</strong> 3–7 ans</p>
+    <p><strong>Carafage :</strong> 1h minimum.</p>
+    <p><strong>Température :</strong> 16–18°C</p>
+    <p><strong>Accords mets :</strong> viandes grillées, gibiers, plats plus corsés, voire fromages à pâte dure..</p>
+
+  </details>
+
+  <details>
+    <summary>5. Journal personnel</summary>
+
+    <p><strong>Date de dégustation :</strong> 25 décembre 2025</p>
+    <p><strong>Occasion :</strong> Repas de Noël</p>
+    <p><strong>Avec quoi :</strong> Filet de canard aux fruits rouges</p>
+
+    <p><strong>Ressenti global :</strong> Bonne expérience, fort fruité et frais, très expressif au niveau du nez. Le côté épicé ressort vraiment bien</p>
+    <p><strong>Évolution dans le verre :</strong> 30 minutes de carafage et évolution dans le verre</p>
+    <p><strong>Note personnelle :</strong> 1ère bouteille déjà agréable. Pas encore à son sommet. Attendre fin 2027 pour apogée. Carafer 1h minimum. </p>
+
+  </details>
+
+</div>
+
+    <div class="vin">
+      <div class="entete-vin">
+        <img src="images/OrpheusTheRaven-No7.jpg" alt="Bouteille Orpheus & Raven n°7 Pinotage" class="photo-bouteille">
+        <div class="infos-vin">
+  <h2>Orpheus & Raven n°7 Pinotage 2022</h2>
+
+  <h3>1. Identité</h3>
+  <p><strong>Pays / région :</strong> Afrique du Sud – Simonsberg, Bottelary Hills, Durbanville </p>
+  <p><strong>Cépage :</strong> Pinotage</p>
+  <p><strong>Style :</strong> Nerveux, festif</p>
+
+  <h3>2. Profil</h3>
+  <p>Pinotage haut de gamme au style moderne, intense et sophistiqué. Élevé longuement en barriques françaises et américaines, il développe un profil profond mêlant fruits noirs mûrs, violette, cacao, épices douces et nuances toastées. La bouche est ample, structurée et veloutée, soutenue par une belle fraîcheur qui équilibre sa richesse naturelle..
+  </p>
+
+  <p>
+    Encore jeune, le vin gagne fortement à être carafé et devrait évoluer avec élégance au fil des années vers davantage de complexité et de sensualité. Un rouge de caractère, taillé pour les grandes tablées, les viandes grillées et les repas élégants.
+    
+  </p>
+
+  <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – 91/100 James Suckling – N/a Peak Wines</p>
+
+        </div>
+      </div>
+
+  <details>
+    <summary>3. Dégustation</summary>
+
+    <p><strong>Couleur :</strong> À compléter</p>
+    <p><strong>Nez :</strong> baies (blueberry, framboise, mulberry), touches florales (violette, lavande), nuances de chocolat noir, amande grillée, pointe de bois toasté.</p>
+    <p><strong>Bouche :</strong> entrée ronde, structure tannique élégante, bonne acidité pour garder de la vivacité, finale juvénile mais prometteuse</p>
+
+  </details>
+
+  <details>
+    <summary>4. Infos techniques</summary>
+
+    <p><strong>Vinification :</strong> 18 mois en barriques (utilisation de barriques de remplissage 1er, 2e, 3e ; 50 % de fûts neufs). </p>
+    <p><strong>Classification :</strong> À compléter</p>
+    <p><strong>Garde :</strong> 10–15 ans</p>
+    <p><strong>Carafage :</strong> 1h. évolution dans le verre recommandée</p>
+    <p><strong>Température :</strong> 16–18°C</p>
+    <p><strong>Accords mets :</strong> Se marie bien avec des viandes rouges, barbecue, côtes d’agneau, ou plats avec des touches fumées.</p>
+
+  </details>
+
+  <details>
+    <summary>5. Journal personnel</summary>
+
+    <p><strong>Date de dégustation :</strong> (à compléter)</p>
+    <p><strong>Occasion :</strong> (à compléter)</p>
+    <p><strong>Avec quoi :</strong> (à compléter)</p>
+
+    <p><strong>Ressenti global :</strong> (à compléter)</p>
+    <p><strong>Évolution dans le verre :</strong> (à compléter)</p>
+    <p><strong>Note personnelle :</strong> (à compléter)</p>
+
+  </details>
+
+</div>
+
+    <div class="vin">
+      <div class="entete-vin">
+        <img src="images/vilafontéseriouslyolddirt.png" alt="Bouteille Vilafonté Seriously Old Dirt 2020" class="photo-bouteille">
+        <div class="infos-vin">
+  <h2>Vilafonté Seriously Old Dirt 2020</h2>
+
+  <h3>1. Identité</h3>
+  <p><strong>Pays / région :</strong> Afrique du Sud – Western cape </p>
+  <p><strong>Cépage :</strong> Assemblage 86 % Cabernet Sauvignon, 8 % Merlot, 4 % Malbec, 2 % Cabernet Franc</p>
+  <p><strong>Style :</strong> Élégant, grand Bordeaux</p>
+
+  <h3>2. Profil</h3>
+  <p>Assemblage bordelais premium provenant des célèbres sols anciens (“Seriously Old Dirt”) du Western Cape sud-africain. Le vin allie puissance maîtrisée, précision et profondeur avec des arômes de mûre, prune noire, tabac, cacao, épices nobles et bois parfaitement intégré. La bouche est dense mais raffinée, portée par des tanins mûrs et une structure pensée pour la garde.
+  </p>
+
+  <p>
+  Encore dans sa jeunesse, il devrait gagner en complexité et en texture au fil du temps, développant progressivement des notes tertiaires plus profondes. Un vin ambitieux et élégant, idéal pour les grands repas, les viandes nobles et les occasions marquantes.
+    
+  </p>
+
+  <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – 91/100 James Suckling – N/a Peak Wines</p>
+
+        </div>
+      </div>
+
+  <details>
+    <summary>3. Dégustation</summary>
+
+    <p><strong>Couleur :</strong> À compléter</p>
+    <p><strong>Nez :</strong> cerise noire, prune, épices de boulangerie, vanille, tabac, noisette, une touche de réglisse ou de cacao..</p>
+    <p><strong>Bouche :</strong> vin corsé, tanins présents mais mûrs, acidité soutenant la structure, belle longévité.</p>
+
+  </details>
+
+  <details>
+    <summary>4. Infos techniques</summary>
+
+    <p><strong>Vinification :</strong> À compléter. </p>
+    <p><strong>Classification :</strong> À compléter</p>
+    <p><strong>Garde :</strong> 10–15 ans</p>
+    <p><strong>Carafage :</strong> 2-3h. évolution dans le verre recommandée</p>
+    <p><strong>Température :</strong> 16–18°C</p>
+    <p><strong>Accords mets :</strong> Filet de bœuf Wellington, Carré d’agneau rôti au thym, Civet de cerf ou biche, Purée truffée ou gratin dauphinois crémeux.</p>
+
+  </details>
+
+  <details>
+    <summary>5. Journal personnel</summary>
+
+    <p><strong>Date de dégustation :</strong> (à compléter)</p>
+    <p><strong>Occasion :</strong> (à compléter)</p>
+    <p><strong>Avec quoi :</strong> (à compléter)</p>
+
+    <p><strong>Ressenti global :</strong> (à compléter)</p>
+    <p><strong>Évolution dans le verre :</strong> (à compléter)</p>
+    <p><strong>Note personnelle :</strong> (à compléter)</p>
+
+  </details>
+
+</div>
+
+</div>
+
+  <script>
+    function ajouterVin() {
+      const cave = document.getElementById("cave");
+      const nouveauVin = `
+        <div class="vin">
+          <div class="entete-vin">
+            <img src="images/nom-du-vin.jpg" alt="Bouteille Nouveau vin" class="photo-bouteille">
+            <div class="infos-vin">
+              <h2>Nouveau vin</h2>
+              <h3>1. Identité</h3>
+              <p><strong>Pays / région :</strong> (à compléter)</p>
+              <p><strong>Cépage :</strong> (à compléter)</p>
+              <p><strong>Style :</strong> (à compléter)</p>
+
+              <h3>2. Profil</h3>
+              <p>(à compléter)</p>
+            </div>
+          </div>
+        </div>
+      `;
+      cave.insertAdjacentHTML('beforeend', nouveauVin); // ← mieux que innerHTML +=
+      afficherPhotosManquantes();
+    }
+
+    function afficherPhotosManquantes() {
+      document.querySelectorAll(".photo-bouteille").forEach((photo) => {
+        const remplacerParPlaceholder = () => {
+          const placeholder = document.createElement("div");
+          placeholder.className = "photo-a-ajouter";
+          placeholder.textContent = "Photo à ajouter";
+          photo.replaceWith(placeholder);
+        };
+        photo.onerror = remplacerParPlaceholder;
+        if (photo.complete && photo.naturalWidth === 0) {
+          remplacerParPlaceholder();
+        }
+      });
+    }
+
+    afficherPhotosManquantes();
+  </script>
+
+</body>
+</html>

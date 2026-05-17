@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Millésimes - Cave à vin</title>
+  <style>
+    :root {
+      --bg: #111315;
+      --card: #1b1f23;
+      --border: #2b3138;
+      --text: #f2f2f2;
+      --muted: #b0b7c3;
+      --gold: #d4af37;
+      --good: #3f7d4c;
+      --excellent: #7a5cff;
+      --average: #8c7a55;
+      --warning: #9b3d3d;
+      --bad: #5a1d1d;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background: linear-gradient(180deg, #0d0f11 0%, #171a1f 100%);
+      color: var(--text);
+      padding: 40px 20px;
+    }
+
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+      background: rgba(10, 12, 14, 0.82);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 40px;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+    }
+
+    .nav-logo {
+      color: white;
+      text-decoration: none;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      padding: 10px 14px;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      background: rgba(255,255,255,0.06);
+      color: white;
+    }
+
+    .nav-links a.active {
+      background: rgba(122, 92, 255, 0.18);
+      color: white;
+      border: 1px solid rgba(122, 92, 255, 0.4);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: auto;
+    }
+
+    .header {
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.6rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.5;
+      max-width: 850px;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 30px 0;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 14px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .excellent { background: var(--excellent); }
+    .good { background: var(--good); }
+    .average { background: var(--average); }
+    .warning { background: var(--warning); }
+    .bad { background: var(--bad); }
+
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1000px;
+    }
+
+    thead {
+      background: rgba(255,255,255,0.04);
+    }
+
+    th, td {
+      padding: 18px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    th {
+      color: var(--gold);
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    td.region {
+      text-align: left;
+      font-weight: 700;
+      color: white;
+      min-width: 180px;
+    }
+
+    td.style {
+      text-align: left;
+      color: var(--muted);
+      min-width: 250px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .vintage {
+      border-radius: 14px;
+      padding: 14px 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: center;
+      justify-content: center;
+      min-height: 92px;
+      transition: transform 0.18s ease;
+    }
+
+    .vintage:hover {
+      transform: translateY(-3px);
+    }
+
+    .vintage small {
+      font-size: 0.72rem;
+      font-weight: 500;
+      opacity: 0.9;
+      line-height: 1.2;
+    }
+
+    .footer-note {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+
+      .nav-links {
+        width: 100%;
+      }
+
+      .nav-links a {
+        flex: 1;
+        text-align: center;
+      }
+
+      body {
+        padding: 25px 12px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      th, td {
+        padding: 12px;
+      }
+
+      .vintage {
+        min-height: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">🍷 Ma Cave</a>
+
+      <div class="nav-links">
+        <a href="index.html">Accueil</a>
+        <a href="Ma Cave.html">Ma Cave</a>
+        <a href="degustations.html">Dégustations</a>
+        <a href="millesimes.html" class="active">Millésimes</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="header">
+      <h1>Millésimes</h1>
+      <p class="subtitle">
+        Vue rapide des principaux millésimes présents dans la cave. Ce tableau permet de visualiser instantanément la qualité générale d'une année selon les régions et le style dominant du millésime.
+      </p>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item">
+        <div class="badge excellent">⭐</div>
+        Excellent / référence
+      </div>
+
+      <div class="legend-item">
+        <div class="badge good">👍</div>
+        Très bon millésime
+      </div>
+
+      <div class="legend-item">
+        <div class="badge average">🙂</div>
+        Bon mais variable
+      </div>
+
+      <div class="legend-item">
+        <div class="badge warning">⚠️</div>
+        Millésime difficile
+      </div>
+
+      <div class="legend-item">
+        <div class="badge bad">❌</div>
+        Prudence
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Région</th>
+            <th>Style général</th>
+            <th>2019</th>
+            <th>2020</th>
+            <th>2021</th>
+            <th>2022</th>
+            <th>2023</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td class="region">Bourgogne</td>
+            <td class="style">Finesse, tension, minéralité</td>
+
+            <td>
+              <div class="vintage good">
+                👍
+                <small>Solaire & concentré</small>
+              </div>
+            </td>
+
+            <td>
+              <div class="vintage excellent">
+                ⭐
+                <small>Équilibre remarquable</small>
+              </div>
+            </td>
+
+            <td>
+              <div class="vintage warning">
+                ⚠️
+                <small>Gel & faibles rendements</small>
+              </div>
+            </td>
+
+            <td>
+              <div class="vintage excellent">
+                ⭐
+                <small>Pur & précis</small>
+              </div>
+            </td>
+
+            <td>
+              <div class="vintage good">
+                👍
+                <small>Charmeur & élégant</small>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="region">Piémont</td>
+            <td class="style">Structure, rose, goudron</td>
+
+            <td><div class="vintage excellent">⭐<small>Grand potentiel</small></div></td>
+            <td><div class="vintage good">👍<small>Mûr & accessible</small></div></td>
+            <td><div class="vintage average">🙂<small>Classique</small></div></td>
+            <td><div class="vintage excellent">⭐<small>Équilibré & noble</small></div></td>
+            <td><div class="vintage good">👍<small>Fruit éclatant</small></div></td>
+          </tr>
+
+          <tr>
+            <td class="region">Loire</td>
+            <td class="style">Fraîcheur, tension, énergie</td>
+
+            <td><div class="vintage good">👍<small>Mûr & intense</small></div></td>
+            <td><div class="vintage average">🙂<small>Généreux</small></div></td>
+            <td><div class="vintage excellent">⭐<small>Vif & énergique</small></div></td>
+            <td><div class="vintage good">👍<small>Ample & équilibré</small></div></td>
+            <td><div class="vintage good">👍<small>Frais & précis</small></div></td>
+          </tr>
+
+          <tr>
+            <td class="region">Toscane</td>
+            <td class="style">Fruits noirs, herbes, soleil</td>
+
+            <td><div class="vintage good">👍<small>Riche & mûr</small></div></td>
+            <td><div class="vintage excellent">⭐<small>Très harmonieux</small></div></td>
+            <td><div class="vintage warning">⚠️<small>Variable</small></div></td>
+            <td><div class="vintage excellent">⭐<small>Solaire maîtrisé</small></div></td>
+            <td><div class="vintage good">👍<small>Gourmand</small></div></td>
+          </tr>
+
+          <tr>
+            <td class="region">Alsace</td>
+            <td class="style">Aromatique, précision, pureté</td>
+
+            <td><div class="vintage excellent">⭐<small>Acidité superbe</small></div></td>
+            <td><div class="vintage good">👍<small>Riche & ample</small></div></td>
+            <td><div class="vintage average">🙂<small>Hétérogène</small></div></td>
+            <td><div class="vintage excellent">⭐<small>Pur & tendu</small></div></td>
+            <td><div class="vintage good">👍<small>Très aromatique</small></div></td>
+          </tr>
+
+          <tr>
+            <td class="region">Western Cape</td>
+            <td class="style">Puissance équilibrée, fraîcheur solaire</td>
+
+            <td><div class="vintage good">👍<small>Dense & puissant</small></div></td>
+            <td><div class="vintage excellent">⭐<small>Complet & harmonieux</small></div></td>
+            <td><div class="vintage average">🙂<small>Plus frais</small></div></td>
+            <td><div class="vintage good">👍<small>Solaire équilibré</small></div></td>
+            <td><div class="vintage good">👍<small>Accessible & fruité</small></div></td>
+          </tr>
+
+          <tr>
+            <td class="region">Sicile</td>
+            <td class="style">Soleil, salinité, fruits noirs</td>
+
+            <td><div class="vintage excellent">⭐<small>Intense mais frais</small></div></td>
+            <td><div class="vintage good">👍<small>Chaud & généreux</small></div></td>
+            <td><div class="vintage average">🙂<small>Plus fin</small></div></td>
+            <td><div class="vintage excellent">⭐<small>Très belle maturité</small></div></td>
+            <td><div class="vintage good">👍<small>Accessible</small></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="footer-note">
+      Conseil cave : les grands domaines peuvent largement surpasser les tendances générales d'un millésime. Ce tableau sert surtout de repère rapide pour comprendre le style dominant d'une année.
+    </p>
+  </div>
+</body>
+</html>
