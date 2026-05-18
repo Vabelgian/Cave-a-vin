@@ -260,6 +260,33 @@
         gap: 14px;
       }
     }
+    .explore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 12px 20px;
+  border-radius: 14px;
+  background: rgba(212,175,55,0.1);
+  border: 1px solid rgba(212,175,55,0.3);
+  color: var(--gold);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+.explore-btn:hover {
+  background: rgba(212,175,55,0.18);
+  border-color: rgba(212,175,55,0.55);
+}
+.explore-btn svg {
+  transition: transform 0.2s;
+}
+.explore-btn:hover svg {
+  transform: translateX(4px);
+}
+
   </style>
 </head>
 <body>
