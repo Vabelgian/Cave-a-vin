@@ -1,243 +1,362 @@
-<!DOCTYPE html><html lang="fr">
+<!DOCTYPE html>
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fenêtres de dégustation</title>  <style>
+  <title>Fenêtres de dégustation</title>
+  <style>
     :root{
       --bg:#0d1014;
-      --card:rgba(255,255,255,0.05);
-      --border:rgba(255,255,255,0.08);
+      --panel:#151a20;
+      --card:rgba(255,255,255,0.055);
+      --card-strong:rgba(255,255,255,0.08);
+      --border:rgba(255,255,255,0.1);
       --text:#f4f4f4;
       --muted:#b5bcc8;
       --gold:#d4af37;
       --green:#4caf50;
       --blue:#4aa3ff;
-      --shadow:rgba(0,0,0,0.4);
+      --rose:#d06a78;
+      --shadow:rgba(0,0,0,0.34);
     }
 
     *{box-sizing:border-box;}
 
     body{
       margin:0;
+      min-height:100vh;
       font-family:Inter,Arial,sans-serif;
-      background:linear-gradient(180deg,#0b0d10,#151a20);
+      background:
+        radial-gradient(circle at top left,rgba(212,175,55,0.12),transparent 32rem),
+        linear-gradient(180deg,#0b0d10,#151a20 45%,#0d1014);
       color:var(--text);
     }
 
     .container{
-      max-width:1200px;
+      max-width:1180px;
       margin:auto;
-      padding:40px 20px 80px;
+      padding:44px 20px 80px;
     }
 
-    /* HEADER */
+    .hero{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:28px;
+      align-items:end;
+      padding-bottom:28px;
+      border-bottom:1px solid var(--border);
+    }
+
     h1{
-      font-size:3rem;
+      font-size:clamp(2.2rem,5vw,4rem);
+      line-height:1;
       margin:0;
-      letter-spacing:-1px;
     }
 
     h1 span{color:var(--gold);}
 
-    p.subtitle{
+    .subtitle{
       color:var(--muted);
-      max-width:800px;
-      line-height:1.6;
-      margin-top:15px;
+      max-width:760px;
+      line-height:1.65;
+      margin:18px 0 0;
     }
 
-    /* TABS */
-    .tabs{
+    .legend{
       display:flex;
       gap:10px;
-      margin-top:40px;
       flex-wrap:wrap;
+      justify-content:flex-end;
     }
 
-    .tab{
-      padding:12px 18px;
+    .legend-item,
+    .tag,
+    .status{
+      border:1px solid var(--border);
       border-radius:999px;
-      background:rgba(255,255,255,0.05);
-      border:1px solid var(--border);
-      cursor:pointer;
-      transition:0.2s;
+      background:rgba(255,255,255,0.06);
       color:var(--muted);
+      white-space:nowrap;
     }
 
-    .tab.active{
-      background:rgba(212,175,55,0.15);
-      border-color:var(--gold);
-      color:white;
+    .legend-item{
+      padding:8px 12px;
+      font-size:0.82rem;
     }
 
-    /* PANELS */
-    .panel{
-      display:none;
-      margin-top:40px;
+    .legend-item.tasted{border-color:rgba(208,106,120,0.55);color:#ffc1c9;}
+    .legend-item.planned{border-color:rgba(74,163,255,0.55);color:#c6e2ff;}
+
+    .timeline{
+      margin-top:36px;
+      display:grid;
+      gap:24px;
     }
 
-    .panel.active{
-      display:block;
-    }
-
-    /* YEAR BLOCK */
     .year{
-      margin-bottom:40px;
+      display:grid;
+      grid-template-columns:120px minmax(0,1fr);
+      gap:22px;
+      align-items:start;
     }
 
-    .year h2{
+    .year-label{
+      position:sticky;
+      top:20px;
       color:var(--gold);
-      margin-bottom:20px;
-      font-size:1.6rem;
+      font-size:1.55rem;
+      font-weight:700;
+      padding-top:16px;
     }
 
-    /* CARDS */
-    .card{
-      background:var(--card);
+    .year-content{
       border:1px solid var(--border);
-      padding:18px;
-      border-radius:18px;
-      margin-bottom:15px;
-      box-shadow:0 10px 30px var(--shadow);
+      border-radius:8px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.025));
+      box-shadow:0 16px 38px var(--shadow);
+      overflow:hidden;
     }
+
+    .section{
+      padding:18px;
+    }
+
+    .section + .section{
+      border-top:1px solid var(--border);
+    }
+
+    .section-title{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
+      color:var(--muted);
+      font-size:0.78rem;
+      font-weight:700;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+    }
+
+    .count{
+      color:var(--gold);
+      letter-spacing:0;
+      text-transform:none;
+      font-size:0.76rem;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+    }
+
+    .card{
+      min-height:128px;
+      padding:17px;
+      border:1px solid var(--border);
+      border-radius:8px;
+      background:var(--card);
+    }
+
+    .card.tasted{border-left:3px solid var(--rose);}
+    .card.planned{border-left:3px solid var(--blue);}
 
     .card-title{
-      font-weight:600;
-      font-size:1.1rem;
+      font-weight:700;
+      font-size:1.02rem;
+      line-height:1.35;
     }
 
     .meta{
       color:var(--muted);
       font-size:0.9rem;
-      margin-top:5px;
+      margin-top:7px;
+      line-height:1.45;
     }
 
     .tags{
-      margin-top:10px;
+      margin-top:12px;
       display:flex;
       flex-wrap:wrap;
       gap:8px;
     }
 
     .tag{
-      font-size:0.75rem;
-      padding:6px 10px;
-      border-radius:999px;
-      background:rgba(255,255,255,0.06);
-      border:1px solid var(--border);
-      color:var(--muted);
+      font-size:0.74rem;
+      padding:6px 9px;
     }
 
-    /* PLANNING */
     .status{
-      font-size:0.8rem;
-      padding:4px 10px;
-      border-radius:999px;
       display:inline-block;
-      margin-top:8px;
+      margin-top:12px;
+      padding:6px 10px;
+      font-size:0.76rem;
+      font-weight:600;
     }
 
-    .green{background:rgba(76,175,80,0.15);color:var(--green);border:1px solid var(--green);}
-    .gold{background:rgba(212,175,55,0.15);color:var(--gold);border:1px solid var(--gold);}
-    .blue{background:rgba(74,163,255,0.15);color:var(--blue);border:1px solid var(--blue);}
+    .green{background:rgba(76,175,80,0.15);color:#9be49f;border-color:rgba(76,175,80,0.65);}
+    .gold{background:rgba(212,175,55,0.15);color:#f1d66c;border-color:rgba(212,175,55,0.65);}
+    .blue{background:rgba(74,163,255,0.15);color:#9fd0ff;border-color:rgba(74,163,255,0.65);}
 
-  </style></head><body><div class="container">  <h1>Fenêtres de <span>dégustation</span></h1>
-  <p class="subtitle">
-    Suivi des dégustations passées et planification des ouvertures futures.
-    Une mémoire du vin dans le temps.
-  </p>  <!-- TABS -->  <div class="tabs">
-    <div class="tab active" onclick="showTab('degust')">🍷 Dégustations</div>
-    <div class="tab" onclick="showTab('planning')">🔮 Planification</div>
-  </div>  <!-- PANEL DEGUSTATION -->  <div id="degust" class="panel active"><!-- 2025 -->
-<div class="year">
-  <h2>2025</h2>
+    .empty-note{
+      color:var(--muted);
+      font-size:0.92rem;
+      padding:14px 16px;
+      border:1px dashed var(--border);
+      border-radius:8px;
+      background:rgba(255,255,255,0.025);
+    }
 
-  <div class="card">
-    <div class="card-title">Ridgeback Cabernet Franc</div>
-    <div class="meta">📅 25/12/2025</div>
-    <div class="tags">
-      <div class="tag">Repas de noel</div>
-      <div class="tag">première ouverture</div>
-      <div class="tag">évolutif</div>
-    </div>
-  </div>
-</div>
+    @media (max-width:800px){
+      .hero{
+        grid-template-columns:1fr;
+      }
 
-    <div class="card">
-    <div class="card-title">Salvatore M Barbaresco 2021</div>
-    <div class="meta">📅 28/12/2025</div>
-    <div class="tags">
-      <div class="tag">Fin d'année</div>
-      <div class="tag">première ouverture</div>
-      <div class="tag">Trop jeune</div>
-    </div>
-  </div>
-</div>
-    
-<!-- 2026 -->
-<div class="year">
-  <h2>2026</h2>
+      .legend{
+        justify-content:flex-start;
+      }
 
-  <div class="card">
-    <div class="card-title">Oprheus & The Raven n°7 Pinotage 2022</div>
-    <div class="meta">📅 ETE 2026</div>
-    <div class="tags">
-      <div class="tag">dégustation analytique</div>
-      <div class="tag">Festif</div>
-      <div class="tag">BBQ</div>
-    </div>
-  </div>
-</div>
+      .year{
+        grid-template-columns:1fr;
+        gap:10px;
+      }
 
-<!-- 2027-2030 placeholders -->
-<div class="year"><h2>2027</h2></div>
-<div class="year"><h2>2028</h2></div>
-<div class="year"><h2>2029</h2></div>
-<div class="year"><h2>2030</h2></div>
+      .year-label{
+        position:static;
+        padding-top:0;
+      }
 
-  </div>  <!-- PANEL PLANNING -->  <div id="planning" class="panel"><div class="year">
-  <h2>2026</h2>
+      .cards{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header class="hero">
+      <div>
+        <h1>Fenêtres de <span>dégustation</span></h1>
+        <p class="subtitle">
+          Une seule chronologie pour suivre les bouteilles déjà ouvertes et celles à prévoir.
+          Chaque année rassemble la mémoire des dégustations et les prochaines ouvertures.
+        </p>
+      </div>
+      <div class="legend" aria-label="Légende">
+        <span class="legend-item tasted">Dégusté</span>
+        <span class="legend-item planned">À prévoir</span>
+      </div>
+    </header>
 
-  <div class="card">
-    <div class="card-title">Cabernet Franc 2020</div>
-    <div class="meta">📅 ouverture estimée : 2026-2028</div>
-    <div class="status gold">à surveiller</div>
-  </div>
-</div>
+    <section class="timeline" aria-label="Chronologie des dégustations">
+      <article class="year">
+        <div class="year-label">2025</div>
+        <div class="year-content">
+          <section class="section">
+            <div class="section-title">
+              <span>Dégustations</span>
+              <span class="count">2 bouteilles</span>
+            </div>
+            <div class="cards">
+              <div class="card tasted">
+                <div class="card-title">Ridgeback Cabernet Franc</div>
+                <div class="meta">25/12/2025</div>
+                <div class="tags">
+                  <span class="tag">Repas de Noël</span>
+                  <span class="tag">Première ouverture</span>
+                  <span class="tag">Évolutif</span>
+                </div>
+              </div>
 
-<div class="year">
-  <h2>2028</h2>
+              <div class="card tasted">
+                <div class="card-title">Salvatore M Barbaresco 2021</div>
+                <div class="meta">28/12/2025</div>
+                <div class="tags">
+                  <span class="tag">Fin d'année</span>
+                  <span class="tag">Première ouverture</span>
+                  <span class="tag">Trop jeune</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </article>
 
-  <div class="card">
-    <div class="card-title">Barolo 2019</div>
-    <div class="meta">📅 apogée estimée : 2030-2035</div>
-    <div class="status blue">longue garde</div>
-  </div>
+      <article class="year">
+        <div class="year-label">2026</div>
+        <div class="year-content">
+          <section class="section">
+            <div class="section-title">
+              <span>Dégustations prévues</span>
+              <span class="count">2 bouteilles</span>
+            </div>
+            <div class="cards">
+              <div class="card planned">
+                <div class="card-title">Orpheus &amp; The Raven n°7 Pinotage 2022</div>
+                <div class="meta">Été 2026</div>
+                <div class="tags">
+                  <span class="tag">Dégustation analytique</span>
+                  <span class="tag">Festif</span>
+                  <span class="tag">BBQ</span>
+                </div>
+                <div class="status green">Prêt probable</div>
+              </div>
 
-  <div class="card">
-    <div class="card-title">Cabernet Sauvignon (exemple)</div>
-    <div class="meta">📅 ouverture idéale : 2028</div>
-    <div class="status green">prêt probable</div>
-  </div>
-</div>
+              <div class="card planned">
+                <div class="card-title">Cabernet Franc 2020</div>
+                <div class="meta">Ouverture estimée : 2026-2028</div>
+                <div class="status gold">À surveiller</div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </article>
 
-<div class="year">
-  <h2>2030+</h2>
+      <article class="year">
+        <div class="year-label">2028</div>
+        <div class="year-content">
+          <section class="section">
+            <div class="section-title">
+              <span>Dégustations prévues</span>
+              <span class="count">2 bouteilles</span>
+            </div>
+            <div class="cards">
+              <div class="card planned">
+                <div class="card-title">Cabernet Sauvignon</div>
+                <div class="meta">Ouverture idéale : 2028</div>
+                <div class="status green">Prêt probable</div>
+              </div>
 
-  <div class="card">
-    <div class="card-title">Grands vins de garde</div>
-    <div class="meta">📅 horizon long terme</div>
-    <div class="status blue">patience</div>
-  </div>
-</div>
+              <div class="card planned">
+                <div class="card-title">Barolo 2019</div>
+                <div class="meta">Apogée estimée : 2030-2035</div>
+                <div class="status blue">Longue garde</div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </article>
 
-  </div></div><script>
-function showTab(id){
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-
-  document.getElementById(id).classList.add('active');
-  event.target.classList.add('active');
-}
-</script></body>
+      <article class="year">
+        <div class="year-label">2030+</div>
+        <div class="year-content">
+          <section class="section">
+            <div class="section-title">
+              <span>Horizon long terme</span>
+              <span class="count">Cave de garde</span>
+            </div>
+            <div class="cards">
+              <div class="card planned">
+                <div class="card-title">Grands vins de garde</div>
+                <div class="meta">À ouvrir quand la maturité aromatique devient le vrai sujet.</div>
+                <div class="status blue">Patience</div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
 </html>
