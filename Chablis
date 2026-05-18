@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chablis — Régions Viticoles</title>
+
+  <style>
+    :root {
+      --bg: #0d1014;
+      --card: rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.08);
+      --text: #f4f4f4;
+      --muted: #b5bcc8;
+      --gold: #d4af37;
+      --shadow: rgba(0,0,0,0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(212,175,55,0.12), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(90,110,180,0.12), transparent 35%),
+        linear-gradient(180deg, #0b0d10 0%, #151a20 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    .top-nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(8,10,12,0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-container {
+      max-width: 1400px; margin: auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 24px;
+    }
+    .nav-logo { text-decoration: none; color: white; font-weight: 700; font-size: 1.15rem; }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      padding: 10px 14px; border-radius: 12px; transition: 0.2s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(255,255,255,0.06); color: white;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      max-width: 1400px; margin: auto; padding: 20px 24px 0;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.88rem; color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { opacity: 0.4; }
+    .breadcrumb .current { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 1400px; margin: auto; padding: 50px 24px 40px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .hero-text h1 { margin: 0; font-size: 3.8rem; letter-spacing: -2px; line-height: 1.05; }
+    .hero-text h1 span { color: var(--gold); }
+    .hero-text .subtitle {
+      margin-top: 20px; color: var(--muted); line-height: 1.8; font-size: 1.05rem;
+    }
+    .hero-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 20px;
+    }
+    .stat-card .label {
+      color: var(--gold); font-size: 0.78rem;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+    }
+    .stat-card .value { font-size: 1.3rem; font-weight: 600; line-height: 1.3; }
+
+    /* ── CONTAINER ── */
+    .container { max-width: 1400px; margin: auto; padding: 0 24px 80px; }
+
+    .section-title {
+      margin: 60px 0 24px; font-size: 1.8rem; letter-spacing: -1px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .section-title::after {
+      content: ""; flex: 1; height: 1px;
+      background: linear-gradient(to right, rgba(255,255,255,0.1), transparent);
+    }
+
+    /* ── CARTE SVG ── */
+    .map-wrapper {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px; padding: 24px; margin-bottom: 40px;
+      overflow: hidden;
+    }
+    .map-wrapper svg { width: 100%; height: auto; display: block; }
+
+    /* ── HIÉRARCHIE / NIVEAUX ── */
+    .levels-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+      margin-bottom: 48px;
+    }
+    .level-card {
+      border-radius: 20px; padding: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .level-card.gc {
+      background: rgba(212,175,55,0.08);
+      border-color: rgba(212,175,55,0.25);
+    }
+    .level-card.pc {
+      background: rgba(100,130,200,0.07);
+      border-color: rgba(100,130,200,0.2);
+    }
+    .level-card.vil {
+      background: rgba(255,255,255,0.04);
+    }
+    .level-card.petit {
+      background: rgba(255,255,255,0.03);
+    }
+    .level-card .lvl-badge {
+      display: inline-block; padding: 4px 10px; border-radius: 999px;
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px;
+      font-weight: 600; margin-bottom: 12px;
+    }
+    .gc .lvl-badge { background: rgba(212,175,55,0.2); color: var(--gold); }
+    .pc .lvl-badge { background: rgba(100,130,200,0.2); color: #8aaddb; }
+    .vil .lvl-badge { background: rgba(255,255,255,0.08); color: var(--muted); }
+    .petit .lvl-badge { background: rgba(255,255,255,0.05); color: var(--muted); }
+    .level-card h3 { margin: 0 0 8px; font-size: 1rem; }
+    .level-card p { margin: 0; font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── GRANDS CRUS ── */
+    .gc-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 18px; margin-bottom: 48px;
+    }
+    .gc-card {
+      background: rgba(212,175,55,0.05);
+      border: 1px solid rgba(212,175,55,0.15);
+      border-radius: 22px; padding: 24px;
+      transition: border-color 0.2s;
+    }
+    .gc-card:hover { border-color: rgba(212,175,55,0.35); }
+    .gc-card .gc-header {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 12px; margin-bottom: 14px;
+    }
+    .gc-card h3 { margin: 0; font-size: 1.25rem; }
+    .gc-card .hectares {
+      background: rgba(212,175,55,0.12); color: var(--gold);
+      padding: 4px 10px; border-radius: 999px; font-size: 0.78rem;
+      white-space: nowrap; flex-shrink: 0; height: fit-content;
+    }
+    .gc-card .gc-meta {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;
+    }
+    .gc-card .meta-tag {
+      font-size: 0.8rem; color: var(--muted);
+      background: rgba(255,255,255,0.05); border-radius: 999px;
+      padding: 4px 10px;
+    }
+    .gc-card .gc-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── PREMIERS CRUS ── */
+    .pc-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px; margin-bottom: 48px;
+    }
+    .pc-card {
+      background: rgba(100,130,200,0.05);
+      border: 1px solid rgba(100,130,200,0.15);
+      border-radius: 18px; padding: 18px 20px;
+      transition: border-color 0.2s;
+    }
+    .pc-card:hover { border-color: rgba(100,130,200,0.3); }
+    .pc-card .pc-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .pc-card h4 { margin: 0; font-size: 1rem; }
+    .pc-card .pc-ha { font-size: 0.78rem; color: #8aaddb; }
+    .pc-card .pc-desc { font-size: 0.86rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── ENCADRÉ TERROIR ── */
+    .terroir-box {
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 20px 20px 0;
+      padding: 28px 32px; margin-bottom: 48px;
+    }
+    .terroir-box h3 { margin: 0 0 14px; font-size: 1.1rem; color: var(--gold); }
+    .terroir-box p { margin: 0; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+
+    /* ── TAGS ── */
+    .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+    .tag {
+      padding: 8px 14px; border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.82rem; color: var(--muted);
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 80px; text-align: center;
+      color: var(--muted); line-height: 1.8; font-size: 0.95rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; gap: 32px; }
+      .hero-text h1 { font-size: 2.8rem; }
+      .levels-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .levels-grid { grid-template-columns: 1fr; }
+      .nav-container { flex-direction: column; align-items: flex-start; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="Index.html" class="nav-logo">🍷 Ma Cave</a>
+      <div class="nav-links">
+        <a href="Index.html">Accueil</a>
+        <a href="Ma-Cave.html">Ma Cave</a>
+        <a href="millesimes.html">Millésimes</a>
+        <a href="regionsviticoles.html" class="active">Régions</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Fil d'Ariane -->
+  <div class="breadcrumb">
+    <a href="regionsviticoles.html">Régions viticoles</a>
+    <span class="sep">›</span>
+    <span>France</span>
+    <span class="sep">›</span>
+    <span class="current">Chablis</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Chablis</h1>
+      <p class="subtitle">
+        Au nord de la Bourgogne, dans le département de l'Yonne, Chablis produit exclusivement
+        du Chardonnay sur des sols kimméridgiens. Ses vins sont reconnus pour leur tension,
+        leur minéralité tranchante et leurs notes de silex et d'agrumes.
+      </p>
+      <div class="tag-list">
+        <div class="tag">Kimméridgien</div>
+        <div class="tag">Portlandien</div>
+        <div class="tag">Minéralité</div>
+        <div class="tag">Tension</div>
+        <div class="tag">Silex</div>
+        <div class="tag">Chardonnay</div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="label">Superficie totale</div>
+        <div class="value">≈ 5 800 ha</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Cépage unique</div>
+        <div class="value">100 % Chardonnay</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Grands Crus</div>
+        <div class="value">7 climats</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Sol dominant</div>
+        <div class="value">Kimméridgien<br><small style="font-size:0.78rem;color:var(--muted);">Calcaire à huîtres fossiles</small></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- CARTE -->
+    <h2 class="section-title">Carte des appellations</h2>
+
+    <div class="map-wrapper">
+      <!--
+        Carte schématique simplifiée du vignoble de Chablis.
+        Rive droite du Serein = Grands Crus (en or).
+        Rive gauche = Premiers Crus principaux (en bleu-gris).
+      -->
+      <svg viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">
+        <defs>
+          <linearGradient id="river" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1a3a5c" stop-opacity="0"/>
+            <stop offset="30%" stop-color="#1a3a5c" stop-opacity="0.7"/>
+            <stop offset="70%" stop-color="#1a3a5c" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#1a3a5c" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Fond doux -->
+        <rect width="720" height="380" fill="rgba(255,255,255,0.02)" rx="12"/>
+
+        <!-- Zones Petit Chablis (arrière-plan) -->
+        <ellipse cx="360" cy="190" rx="320" ry="160" fill="rgba(255,255,255,0.025)" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="44" y="120" font-size="10" fill="rgba(255,255,255,0.3)" text-anchor="start">Petit Chablis</text>
+
+        <!-- Zone Chablis Villages (intermédiaire) -->
+        <ellipse cx="360" cy="200" rx="240" ry="120" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="3 3"/>
+
+        <!-- Fleuve Serein -->
+        <path d="M 60 210 Q 200 185 360 200 Q 500 215 660 185"
+              fill="none" stroke="url(#river)" stroke-width="14" stroke-linecap="round" opacity="0.8"/>
+        <path d="M 60 210 Q 200 185 360 200 Q 500 215 660 185"
+              fill="none" stroke="#2a5f9a" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+        <text x="360" y="230" font-size="11" fill="#4a90c4" text-anchor="middle" opacity="0.9">Le Serein</text>
+
+        <!-- ── RIVE DROITE : GRANDS CRUS ── -->
+        <!-- Bougros -->
+        <rect x="78" y="130" width="72" height="52" rx="8"
+              fill="rgba(212,175,55,0.12)" stroke="rgba(212,175,55,0.5)" stroke-width="1.2"/>
+        <text x="114" y="152" font-size="9.5" fill="#d4af37" text-anchor="middle" font-weight="600">Bougros</text>
+        <text x="114" y="166" font-size="8" fill="rgba(212,175,55,0.7)" text-anchor="middle">≈ 15 ha</text>
+        <text x="114" y="178" font-size="7.5" fill="rgba(212,175,55,0.5)" text-anchor="middle">Rive droite</text>
+
+        <!-- Les Preuses -->
+        <rect x="158" y="114" width="76" height="52" rx="8"
+              fill="rgba(212,175,55,0.12)" stroke="rgba(212,175,55,0.5)" stroke-width="1.2"/>
+        <text x="196" y="136" font-size="9.5" fill="#d4af37" text-anchor="middle" font-weight="600">Les Preuses</text>
+        <text x="196" y="150" font-size="8" fill="rgba(212,175,55,0.7)" text-anchor="middle">≈ 11 ha</text>
+        <text x="196" y="162" font-size="7.5" fill="rgba(212,175,55,0.5)" text-anchor="middle">Rive droite</text>
+
+        <!-- Vaudésir -->
+        <rect x="242" y="102" width="76" height="52" rx="8"
+              fill="rgba(212,175,55,0.15)" stroke="rgba(212,175,55,0.6)" stroke-width="1.4"/>
+        <text x="280" y="124" font-size="9.5" fill="#d4af37" text-anchor="middle" font-weight="600">Vaudésir</text>
+        <text x="280" y="138" font-size="8" fill="rgba(212,175,55,0.7)" text-anchor="middle">≈ 18 ha</text>
+        <text x="280" y="150" font-size="7.5" fill="rgba(212,175,55,0.5)" text-anchor="middle">Rive droite</text>
+
+        <!-- Grenouilles (plus petit, enclavé) -->
+        <rect x="325" y="130" width="62" height="48" rx="8"
+              fill="rgba(212,175,55,0.1)" stroke="rgba(212,175,55,0.45)" stroke-width="1"/>
+        <text x="356" y="151" font-size="9" fill="#d4af37" text-anchor="middle" font-weight="600">Grenouilles</text>
+        <text x="356" y="165" font-size="8" fill="rgba(212,175,55,0.7)" text-anchor="middle">≈ 9 ha</text>
+
+        <!-- Valmur -->
+        <rect x="394" y="108" width="68" height="52" rx="8"
+              fill="rgba(212,175,55,0.12)" stroke="rgba(212,175,55,0.5)" stroke-width="1.2"/>
+        <text x="428" y="130" font-size="9.5" fill="#d4af37" text-anchor="middle" font-weight="600">Valmur</text>
+        <text x="428" y="144" font-size="8" fill="rgba(212,175,55,0.7)" text-anchor="middle">≈ 13 ha</text>
+        <text x="428" y="156" font-size="7.5" fill="rgba(212,175,55,0.5)" text-anchor="middle">Rive droite</text>
+
+        <!-- Les Clos (le plus grand, mis en valeur) -->
+        <rect x="468" y="96" width="90" height="58" rx="8"
+              fill="rgba(212,175,55,0.18)" stroke="#d4af37" stroke-width="1.8"/>
+        <text x="513" y="118" font-size="10" fill="#d4af37" text-anchor="middle" font-weight="700">Les Clos</text>
+        <text x="513" y="132" font-size="8.5" fill="rgba(212,175,55,0.8)" text-anchor="middle">≈ 26 ha</text>
+        <text x="513" y="144" font-size="7.5" fill="rgba(212,175,55,0.6)" text-anchor="middle">Le plus vaste</text>
+
+        <!-- Blanchots -->
+        <rect x="566" y="114" width="72" height="52" rx="8"
+              fill="rgba(212,175,55,0.10)" stroke="rgba(212,175,55,0.4)" stroke-width="1"/>
+        <text x="602" y="136" font-size="9.5" fill="#d4af37" text-anchor="middle" font-weight="600">Blanchots</text>
+        <text x="602" y="150" font-size="8" fill="rgba(212,175,55,0.7)" text-anchor="middle">≈ 13 ha</text>
+        <text x="602" y="162" font-size="7.5" fill="rgba(212,175,55,0.5)" text-anchor="middle">Rive droite</text>
+
+        <!-- Label Grands Crus -->
+        <text x="360" y="84" font-size="11" fill="rgba(212,175,55,0.6)" text-anchor="middle" letter-spacing="2">GRANDS CRUS — RIVE DROITE</text>
+
+        <!-- ── RIVE GAUCHE : PREMIERS CRUS ── -->
+        <!-- Montée de Tonnerre -->
+        <rect x="480" y="262" width="120" height="44" rx="7"
+              fill="rgba(100,140,200,0.1)" stroke="rgba(100,140,200,0.35)" stroke-width="1"/>
+        <text x="540" y="281" font-size="9" fill="#8aaddb" text-anchor="middle" font-weight="600">Montée de Tonnerre</text>
+        <text x="540" y="296" font-size="8" fill="rgba(138,173,219,0.6)" text-anchor="middle">1er Cru · rive gauche</text>
+
+        <!-- Fourchaume -->
+        <rect x="148" y="256" width="96" height="44" rx="7"
+              fill="rgba(100,140,200,0.1)" stroke="rgba(100,140,200,0.35)" stroke-width="1"/>
+        <text x="196" y="275" font-size="9" fill="#8aaddb" text-anchor="middle" font-weight="600">Fourchaume</text>
+        <text x="196" y="289" font-size="8" fill="rgba(138,173,219,0.6)" text-anchor="middle">1er Cru · rive gauche</text>
+
+        <!-- Vaillons -->
+        <rect x="290" y="268" width="84" height="40" rx="7"
+              fill="rgba(100,140,200,0.08)" stroke="rgba(100,140,200,0.28)" stroke-width="1"/>
+        <text x="332" y="284" font-size="9" fill="#8aaddb" text-anchor="middle" font-weight="600">Vaillons</text>
+        <text x="332" y="297" font-size="8" fill="rgba(138,173,219,0.6)" text-anchor="middle">1er Cru</text>
+
+        <!-- Montmains -->
+        <rect x="386" y="260" width="82" height="40" rx="7"
+              fill="rgba(100,140,200,0.08)" stroke="rgba(100,140,200,0.28)" stroke-width="1"/>
+        <text x="427" y="276" font-size="9" fill="#8aaddb" text-anchor="middle" font-weight="600">Montmains</text>
+        <text x="427" y="290" font-size="8" fill="rgba(138,173,219,0.6)" text-anchor="middle">1er Cru</text>
+
+        <!-- Label Premiers Crus -->
+        <text x="360" y="346" font-size="11" fill="rgba(138,173,219,0.5)" text-anchor="middle" letter-spacing="2">PREMIERS CRUS — RIVE GAUCHE (sélection)</text>
+
+        <!-- Légende -->
+        <rect x="24" y="322" width="14" height="14" rx="3"
+              fill="rgba(212,175,55,0.15)" stroke="rgba(212,175,55,0.5)" stroke-width="1"/>
+        <text x="44" y="333" font-size="9.5" fill="rgba(255,255,255,0.55)">Grand Cru</text>
+
+        <rect x="120" y="322" width="14" height="14" rx="3"
+              fill="rgba(100,140,200,0.1)" stroke="rgba(100,140,200,0.35)" stroke-width="1"/>
+        <text x="140" y="333" font-size="9.5" fill="rgba(255,255,255,0.55)">1er Cru</text>
+
+        <rect x="16" y="316" width="0" height="0"/><!-- spacer -->
+
+        <!-- Compass rose -->
+        <text x="680" y="36" font-size="13" fill="rgba(255,255,255,0.3)" text-anchor="middle">N</text>
+        <line x1="680" y1="40" x2="680" y2="58" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+        <polygon points="680,40 675,52 680,49 685,52" fill="rgba(255,255,255,0.25)"/>
+      </svg>
+    </div>
+
+    <!-- HIÉRARCHIE DES APPELLATIONS -->
+    <h2 class="section-title">Hiérarchie des appellations</h2>
+
+    <div class="levels-grid">
+      <div class="level-card gc">
+        <div class="lvl-badge">Grand Cru</div>
+        <h3>7 Grands Crus</h3>
+        <p>Le sommet de Chablis. Exclusivement sur la rive droite du Serein. Moins de 100 ha au total. Potentiel de garde exceptionnel.</p>
+      </div>
+      <div class="level-card pc">
+        <div class="lvl-badge">1er Cru</div>
+        <h3>40 Premiers Crus</h3>
+        <p>≈ 750 ha. Regroupés en 17 noms principaux (ex. Montée de Tonnerre, Fourchaume, Vaillons). Très bon potentiel de garde.</p>
+      </div>
+      <div class="level-card vil">
+        <div class="lvl-badge">Chablis</div>
+        <h3>Chablis AOC</h3>
+        <p>≈ 3 500 ha. L'appellation de base. Vins frais, droits, sur silex et agrumes. À boire dans les 3–6 ans en général.</p>
+      </div>
+      <div class="level-card petit">
+        <div class="lvl-badge">Village</div>
+        <h3>Petit Chablis</h3>
+        <p>≈ 1 500 ha. Sols portlandiens. Profil plus léger, plaisir immédiat. Entrée de gamme de l'appellation.</p>
+      </div>
+    </div>
+
+    <!-- ENCADRÉ TERROIR -->
+    <div class="terroir-box">
+      <h3>Le Kimméridgien : l'âme du vignoble</h3>
+      <p>
+        Le sol kimméridgien est une marne calcaire formée il y a environ 150 millions d'années, composée de calcaire et d'argile,
+        parsemée de minuscules huîtres fossiles (<em>Exogyra virgula</em>). Ce substrat confère aux vins de Chablis leur signature
+        minérale unique — souvent décrite comme une sensation de silex mouillé ou de pierre à fusil.
+        Les Grands Crus et meilleurs Premiers Crus sont systématiquement implantés sur ce sol.
+        Le Portlandien, légèrement différent, correspond aux zones de Petit Chablis.
+      </p>
+    </div>
+
+    <!-- GRANDS CRUS -->
+    <h2 class="section-title">Les 7 Grands Crus</h2>
+
+    <div class="gc-grid">
+
+      <div class="gc-card">
+        <div class="gc-header">
+          <h3>Les Clos</h3>
+          <span class="hectares">≈ 26 ha</span>
+        </div>
+        <div class="gc-meta">
+          <span class="meta-tag">Rive droite</span>
+          <span class="meta-tag">Exposition S–SE</span>
+          <span class="meta-tag">Le plus vaste</span>
+        </div>
+        <p class="gc-desc">
+          Le Grand Cru le plus réputé et le plus étendu. Vins puissants, complexes, avec une tension remarquable.
+          Notes de silex, d'agrumes confits, de miel et de minéral. Garde potentielle de 10 à 20 ans pour les meilleures années.
+        </p>
+      </div>
+
+      <div class="gc-card">
+        <div class="gc-header">
+          <h3>Vaudésir</h3>
+          <span class="hectares">≈ 18 ha</span>
+        </div>
+        <div class="gc-meta">
+          <span class="meta-tag">Rive droite</span>
+          <span class="meta-tag">Exposition S</span>
+        </div>
+        <p class="gc-desc">
+          L'un des Grands Crus les plus élégants. Partagé entre plusieurs propriétaires.
+          Vins floraux, aériens et minéraux, avec une belle longueur en bouche. Style plus délicat que Les Clos.
+        </p>
+      </div>
+
+      <div class="gc-card">
+        <div class="gc-header">
+          <h3>Blanchots</h3>
+          <span class="hectares">≈ 13 ha</span>
+        </div>
+        <div class="gc-meta">
+          <span class="meta-tag">Rive droite</span>
+          <span class="meta-tag">Exposition E–SE</span>
+        </div>
+        <p class="gc-desc">
+          Le climat le plus à l'est des Grands Crus. Maturité légèrement plus tardive, vins délicats et très minéraux.
+          Profil plus léger que Vaudésir ou Les Clos, avec une fraîcheur marquée.
+        </p>
+      </div>
+
+      <div class="gc-card">
+        <div class="gc-header">
+          <h3>Grenouilles</h3>
+          <span class="hectares">≈ 9 ha</span>
+        </div>
+        <div class="gc-meta">
+          <span class="meta-tag">Rive droite</span>
+          <span class="meta-tag">Le plus petit GC</span>
+        </div>
+        <p class="gc-desc">
+          Le plus petit Grand Cru en superficie. Vins ronds, fruités et expressifs, légèrement moins austes que Les Clos.
+          Peut offrir un accès plus précoce que ses voisins.
+        </p>
+      </div>
+
+      <div class="gc-card">
+        <div class="gc-header">
+          <h3>Valmur</h3>
+          <span class="hectares">≈ 13 ha</span>
+        </div>
+        <div class="gc-meta">
+          <span class="meta-tag">Rive droite</span>
+          <span class="meta-tag">Exposition S–SW</span>
+        </div>
+        <p class="gc-desc">
+          Situé entre Les Clos et Grenouilles. Vins à la fois riches et minéraux, avec une texture enveloppante.
+          Bonne complexité aromatique et potentiel de vieillissement solide.
+        </p>
+      </div>
+
+      <div class="gc-card">
+        <div class="gc-header">
+          <h3>Les Preuses</h3>
+          <span class="hectares">≈ 11 ha</span>
+        </div>
+        <div class="gc-meta">
+          <span class="meta-tag">Rive droite</span>
+          <span class="meta-tag">Exposition S</span>
+        </div>
+        <p class="gc-desc">
+          Vins élégants, précis et minéraux. Souvent décrits comme l'un des plus raffinés des 7 Grands Crus.
+          Belle acidité et finesse aromatique.
+        </p>
+      </div>
+
+      <div class="gc-card">
+        <div class="gc-header">
+          <h3>Bougros</h3>
+          <span class="hectares">≈ 15 ha</span>
+        </div>
+        <div class="gc-meta">
+          <span class="meta-tag">Rive droite</span>
+          <span class="meta-tag">Exposition SW</span>
+          <span class="meta-tag">Le plus à l'ouest</span>
+        </div>
+        <p class="gc-desc">
+          Le Grand Cru le plus occidental. Exposition sud-ouest. Vins souvent plus larges et généreux,
+          avec un profil fruité plus marqué que Les Clos ou Vaudésir.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- SÉLECTION PREMIERS CRUS -->
+    <h2 class="section-title">Premiers Crus à connaître</h2>
+
+    <div class="pc-grid">
+      <div class="pc-card">
+        <div class="pc-header">
+          <h4>Montée de Tonnerre</h4>
+          <span class="pc-ha">≈ 36 ha</span>
+        </div>
+        <p class="pc-desc">
+          Souvent considéré comme le meilleur Premier Cru. Rive gauche, exposition S–SE.
+          Minéralité et tension proches d'un Grand Cru. Vins de haute référence.
+        </p>
+      </div>
+      <div class="pc-card">
+        <div class="pc-header">
+          <h4>Fourchaume</h4>
+          <span class="pc-ha">≈ 135 ha</span>
+        </div>
+        <p class="pc-desc">
+          Le plus grand Premier Cru. Rive droite. Style ample, généreux, légèrement plus souple.
+          Bonne expression de la minéralité chablisienne.
+        </p>
+      </div>
+      <div class="pc-card">
+        <div class="pc-header">
+          <h4>Vaillons</h4>
+          <span class="pc-ha">≈ 95 ha</span>
+        </div>
+        <p class="pc-desc">
+          Rive gauche. Vins frais, droits, avec une acidité vivace.
+          L'un des Premiers Crus les plus représentatifs du style de Chablis.
+        </p>
+      </div>
+      <div class="pc-card">
+        <div class="pc-header">
+          <h4>Montmains</h4>
+          <span class="pc-ha">≈ 57 ha</span>
+        </div>
+        <p class="pc-desc">
+          Rive gauche. Vins tendus, minéraux, avec parfois une note herbacée élégante.
+          Bon rapport qualité-prix parmi les Premiers Crus.
+        </p>
+      </div>
+      <div class="pc-card">
+        <div class="pc-header">
+          <h4>Beauroy</h4>
+          <span class="pc-ha">≈ 92 ha</span>
+        </div>
+        <p class="pc-desc">
+          Exposition favorable, sols kimméridgiens. Vins ronds et expressifs,
+          avec un fruité plus immédiat que Montée de Tonnerre.
+        </p>
+      </div>
+      <div class="pc-card">
+        <div class="pc-header">
+          <h4>Côte de Léchet</h4>
+          <span class="pc-ha">≈ 37 ha</span>
+        </div>
+        <p class="pc-desc">
+          Style frais et nerveux. Rive gauche. Profil typiquement chablisien,
+          avec une belle minéralité saline et une acidité marquée.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">
+      Cette page évoluera avec la cave.<br>
+      Chaque nouvelle bouteille peut enrichir la compréhension d'une région, d'un terroir ou d'un style de vin.
+    </div>
+
+  </div>
+
+</body>
+</html>
