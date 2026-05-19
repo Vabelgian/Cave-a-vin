@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Piémont — Barolo & ses Communes</title>
+
+  <style>
+    :root {
+      --bg: #0d1014;
+      --card: rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.08);
+      --text: #f4f4f4;
+      --muted: #b5bcc8;
+      --gold: #d4af37;
+      --wine: #8b2c3e;
+      --wine-light: rgba(139,44,62,0.15);
+      --wine-border: rgba(139,44,62,0.35);
+      --tort: #c47a3a;
+      --tort-light: rgba(196,122,58,0.12);
+      --helv: #5a7ab5;
+      --helv-light: rgba(90,122,181,0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(139,44,62,0.12), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(90,110,180,0.10), transparent 35%),
+        linear-gradient(180deg, #0b0d10 0%, #151a20 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    .top-nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(8,10,12,0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-container {
+      max-width: 1400px; margin: auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 24px;
+    }
+    .nav-logo { text-decoration: none; color: white; font-weight: 700; font-size: 1.15rem; }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      padding: 10px 14px; border-radius: 12px; transition: 0.2s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(255,255,255,0.06); color: white;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      max-width: 1400px; margin: auto; padding: 20px 24px 0;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.88rem; color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { opacity: 0.4; }
+    .breadcrumb .current { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 1400px; margin: auto; padding: 50px 24px 40px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .hero-text h1 { margin: 0; font-size: 3.8rem; letter-spacing: -2px; line-height: 1.05; }
+    .hero-text h1 span { color: var(--gold); }
+    .hero-text .subtitle {
+      margin-top: 20px; color: var(--muted); line-height: 1.8; font-size: 1.05rem;
+    }
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 20px;
+    }
+    .stat-card .label {
+      color: var(--gold); font-size: 0.78rem;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+    }
+    .stat-card .value { font-size: 1.2rem; font-weight: 600; line-height: 1.4; }
+    .stat-card .value small { font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+
+    /* ── CONTAINER ── */
+    .container { max-width: 1400px; margin: auto; padding: 0 24px 80px; }
+
+    .section-title {
+      margin: 60px 0 24px; font-size: 1.8rem; letter-spacing: -1px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .section-title::after {
+      content: ""; flex: 1; height: 1px;
+      background: linear-gradient(to right, rgba(255,255,255,0.1), transparent);
+    }
+
+    /* ── CARTE SVG ── */
+    .map-wrapper {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px; padding: 24px; margin-bottom: 40px;
+      overflow: hidden;
+    }
+    .map-wrapper svg { width: 100%; height: auto; display: block; }
+
+    /* ── SOL TYPES ── */
+    .sol-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 48px;
+    }
+    .sol-card {
+      border-radius: 20px; padding: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .sol-card.tort {
+      background: var(--tort-light);
+      border-color: rgba(196,122,58,0.3);
+    }
+    .sol-card.helv {
+      background: var(--helv-light);
+      border-color: rgba(90,122,181,0.3);
+    }
+    .sol-card .sol-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      display: inline-block; margin-right: 8px; vertical-align: middle;
+    }
+    .sol-card h3 { margin: 0 0 10px; font-size: 1.05rem; }
+    .sol-card .sol-age {
+      font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .tort .sol-age { color: var(--tort); }
+    .helv .sol-age { color: var(--helv); }
+    .sol-card p { margin: 0; font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+    .sol-card .sol-communes {
+      margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .sol-tag {
+      font-size: 0.78rem; padding: 4px 10px; border-radius: 999px;
+      background: rgba(255,255,255,0.06); color: var(--muted);
+    }
+
+    /* ── COMMUNES GRID ── */
+    .communes-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px; margin-bottom: 48px;
+    }
+    .commune-card {
+      border-radius: 22px; padding: 26px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .commune-card:hover {
+      transform: translateY(-4px);
+    }
+    .commune-card.tort-card {
+      border-color: rgba(196,122,58,0.2);
+    }
+    .commune-card.tort-card:hover {
+      border-color: rgba(196,122,58,0.45);
+    }
+    .commune-card.helv-card {
+      border-color: rgba(90,122,181,0.2);
+    }
+    .commune-card.helv-card:hover {
+      border-color: rgba(90,122,181,0.45);
+    }
+    .commune-card::before {
+      content: "";
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      border-radius: 22px 22px 0 0;
+    }
+    .tort-card::before { background: linear-gradient(to right, var(--tort), transparent); }
+    .helv-card::before { background: linear-gradient(to right, var(--helv), transparent); }
+
+    .commune-header {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 12px; margin-bottom: 16px;
+    }
+    .commune-header h3 { margin: 0; font-size: 1.3rem; line-height: 1.2; }
+    .commune-badge {
+      font-size: 0.72rem; padding: 4px 10px; border-radius: 999px;
+      white-space: nowrap; font-weight: 600; flex-shrink: 0;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .tort-badge { background: rgba(196,122,58,0.15); color: var(--tort); }
+    .helv-badge { background: rgba(90,122,181,0.15); color: var(--helv); }
+
+    .commune-meta {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;
+    }
+    .meta-item { }
+    .meta-item .meta-label {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--gold); margin-bottom: 4px;
+    }
+    .meta-item .meta-value { font-size: 0.88rem; line-height: 1.4; }
+
+    .commune-desc {
+      font-size: 0.9rem; color: var(--muted); line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .mga-list { margin-top: 14px; }
+    .mga-title {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--gold); margin-bottom: 8px;
+    }
+    .mga-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .mga-tag {
+      font-size: 0.78rem; padding: 4px 10px; border-radius: 999px;
+      background: rgba(139,44,62,0.1);
+      border: 1px solid rgba(139,44,62,0.2);
+      color: #c97088;
+    }
+
+    /* ── ENCADRÉ NEBBIOLO ── */
+    .terroir-box {
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 20px 20px 0;
+      padding: 28px 32px; margin-bottom: 48px;
+    }
+    .terroir-box h3 { margin: 0 0 14px; font-size: 1.1rem; color: var(--gold); }
+    .terroir-box p { margin: 0 0 12px; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+    .terroir-box p:last-child { margin-bottom: 0; }
+
+    /* ── TAGS ── */
+    .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+    .tag {
+      padding: 8px 14px; border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.82rem; color: var(--muted);
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 80px; text-align: center;
+      color: var(--muted); line-height: 1.8; font-size: 0.95rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; gap: 32px; }
+      .hero-text h1 { font-size: 2.8rem; }
+      .sol-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .nav-container { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .commune-meta { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="Index.html" class="nav-logo">🍷 Ma Cave</a>
+      <div class="nav-links">
+        <a href="Index.html">Accueil</a>
+        <a href="Ma-Cave.html">Ma Cave</a>
+        <a href="millesimes.html">Millésimes</a>
+        <a href="regionsviticoles.html" class="active">Régions</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Fil d'Ariane -->
+  <div class="breadcrumb">
+    <a href="regionsviticoles.html">Régions viticoles</a>
+    <span class="sep">›</span>
+    <span>Italie</span>
+    <span class="sep">›</span>
+    <span class="current">Piémont — Barolo</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Piémont<br><span>Barolo</span></h1>
+      <p class="subtitle">
+        Au cœur des Langhe, dans le nord-ouest de l'Italie, Barolo est surnommé
+        le « Roi des vins » italiens. Produit exclusivement à partir du Nebbiolo,
+        il se décline en 6 communes aux personnalités radicalement différentes,
+        façonnées par deux types de sols opposés.
+      </p>
+      <div class="tag-list">
+        <div class="tag">Nebbiolo</div>
+        <div class="tag">Langhe</div>
+        <div class="tag">Tanins</div>
+        <div class="tag">Rose & Goudron</div>
+        <div class="tag">Longue garde</div>
+        <div class="tag">MGA</div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="label">Superficie</div>
+        <div class="value">≈ 2 000 ha<br><small>en production</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Cépage unique</div>
+        <div class="value">100 % Nebbiolo</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Communes</div>
+        <div class="value">11 communes<br><small>6 majeures</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">MGA officielles</div>
+        <div class="value">181 lieux-dits<br><small>depuis 2010</small></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- CARTE -->
+    <h2 class="section-title">Carte des 6 communes</h2>
+
+    <div class="map-wrapper">
+      <svg viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">
+        <defs>
+          <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(255,255,255,0.015)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0.005)"/>
+          </linearGradient>
+          <!-- Hachures Helvetian -->
+          <pattern id="helvHatch" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="6" stroke="rgba(90,122,181,0.25)" stroke-width="1.5"/>
+          </pattern>
+          <!-- Pointillés Tortonian -->
+          <pattern id="tortDots" patternUnits="userSpaceOnUse" width="6" height="6">
+            <circle cx="3" cy="3" r="1" fill="rgba(196,122,58,0.3)"/>
+          </pattern>
+        </defs>
+
+        <!-- Fond -->
+        <rect width="720" height="420" fill="url(#bgGrad)" rx="12"/>
+
+        <!-- Relief schématique (collines Langhe) -->
+        <path d="M 0 260 Q 80 230 160 245 Q 240 260 320 240 Q 400 220 480 235 Q 560 250 640 230 Q 680 220 720 225 L 720 420 L 0 420 Z"
+              fill="rgba(255,255,255,0.015)" stroke="none"/>
+
+        <!-- ── Tanaro (rivière au sud) ── -->
+        <path d="M 0 360 Q 120 345 240 355 Q 380 365 500 350 Q 600 338 720 348"
+              fill="none" stroke="#1a3a5c" stroke-width="10" stroke-linecap="round" opacity="0.5"/>
+        <path d="M 0 360 Q 120 345 240 355 Q 380 365 500 350 Q 600 338 720 348"
+              fill="none" stroke="#2a5f9a" stroke-width="2.5" stroke-linecap="round" opacity="0.4"/>
+        <text x="620" y="345" font-size="10" fill="#4a90c4" opacity="0.7">Tanaro</text>
+
+        <!-- ── Petite rivière interne ── -->
+        <path d="M 310 120 Q 320 180 315 240 Q 310 300 318 360"
+              fill="none" stroke="#2a5f9a" stroke-width="2" stroke-linecap="round" opacity="0.3" stroke-dasharray="4 3"/>
+
+        <!-- ================================================================
+             COMMUNES — Tortonian (ouest, sols plus tendres, vins plus ronds)
+             ================================================================ -->
+
+        <!-- LA MORRA (grand, nord-ouest, Tortonian) -->
+        <path d="M 60 80 L 200 75 L 220 160 L 195 220 L 120 230 L 60 200 Z"
+              fill="url(#tortDots)" stroke="rgba(196,122,58,0.5)" stroke-width="1.5"/>
+        <rect x="80" y="118" width="115" height="60" rx="10"
+              fill="rgba(196,122,58,0.1)" stroke="rgba(196,122,58,0.4)" stroke-width="1"/>
+        <text x="137" y="140" font-size="12" fill="#e8a060" text-anchor="middle" font-weight="700">La Morra</text>
+        <text x="137" y="156" font-size="9" fill="rgba(196,122,58,0.75)" text-anchor="middle">≈ 700 ha · Tortonian</text>
+        <text x="137" y="170" font-size="8.5" fill="rgba(255,255,255,0.4)" text-anchor="middle">Souple · Floral · Précoce</text>
+
+        <!-- BAROLO village (centre, Tortonian + un peu Helv) -->
+        <path d="M 195 220 L 310 215 L 325 295 L 220 305 L 195 270 Z"
+              fill="url(#tortDots)" stroke="rgba(196,122,58,0.4)" stroke-width="1.2"/>
+        <rect x="210" y="240" width="100" height="52" rx="9"
+              fill="rgba(196,122,58,0.09)" stroke="rgba(196,122,58,0.35)" stroke-width="1"/>
+        <text x="260" y="260" font-size="11" fill="#e8a060" text-anchor="middle" font-weight="700">Barolo</text>
+        <text x="260" y="274" font-size="8.5" fill="rgba(196,122,58,0.7)" text-anchor="middle">Village · Tortonian</text>
+        <text x="260" y="286" font-size="8" fill="rgba(255,255,255,0.35)" text-anchor="middle">Équilibré · Classique</text>
+
+        <!-- VERDUNO (extrême nord-ouest, Tortonian) -->
+        <path d="M 60 40 L 200 38 L 200 78 L 60 82 Z"
+              fill="url(#tortDots)" stroke="rgba(196,122,58,0.35)" stroke-width="1"/>
+        <rect x="82" y="44" width="100" height="28" rx="7"
+              fill="rgba(196,122,58,0.08)" stroke="rgba(196,122,58,0.3)" stroke-width="0.8"/>
+        <text x="132" y="58" font-size="10" fill="#e8a060" text-anchor="middle" font-weight="600">Verduno</text>
+        <text x="132" y="69" font-size="8" fill="rgba(196,122,58,0.6)" text-anchor="middle">Tortonian · Floral</text>
+
+        <!-- ================================================================
+             COMMUNES — Helvetian (est, sols compacts, vins plus structurés)
+             ================================================================ -->
+
+        <!-- SERRALUNGA D'ALBA (est, Helvetian pur, le plus structuré) -->
+        <path d="M 490 60 L 640 55 L 650 200 L 620 260 L 490 250 L 475 155 Z"
+              fill="url(#helvHatch)" stroke="rgba(90,122,181,0.5)" stroke-width="1.5"/>
+        <rect x="500" y="120" width="130" height="60" rx="10"
+              fill="rgba(90,122,181,0.1)" stroke="rgba(90,122,181,0.45)" stroke-width="1.2"/>
+        <text x="565" y="143" font-size="12" fill="#8aaddb" text-anchor="middle" font-weight="700">Serralunga d'Alba</text>
+        <text x="565" y="158" font-size="9" fill="rgba(90,122,181,0.8)" text-anchor="middle">≈ 300 ha · Helvetian</text>
+        <text x="565" y="170" font-size="8.5" fill="rgba(255,255,255,0.4)" text-anchor="middle">Austère · Ferme · Longue garde</text>
+
+        <!-- CASTIGLIONE FALLETTO (centre, transition) -->
+        <path d="M 325 215 L 472 210 L 476 300 L 325 298 Z"
+              fill="url(#helvHatch)" stroke="rgba(90,122,181,0.4)" stroke-width="1.2"/>
+        <rect x="340" y="236" width="120" height="48" rx="9"
+              fill="rgba(90,122,181,0.08)" stroke="rgba(90,122,181,0.35)" stroke-width="1"/>
+        <text x="400" y="256" font-size="10.5" fill="#8aaddb" text-anchor="middle" font-weight="700">Castiglione Falletto</text>
+        <text x="400" y="270" font-size="8.5" fill="rgba(90,122,181,0.7)" text-anchor="middle">Helvetian · Équilibré</text>
+        <text x="400" y="280" font-size="8" fill="rgba(255,255,255,0.35)" text-anchor="middle">Tension · Complexité</text>
+
+        <!-- MONFORTE D'ALBA (sud-est, Helvetian) -->
+        <path d="M 340 300 L 620 295 L 625 355 L 340 360 Z"
+              fill="url(#helvHatch)" stroke="rgba(90,122,181,0.4)" stroke-width="1.2"/>
+        <rect x="390" y="310" width="130" height="38" rx="8"
+              fill="rgba(90,122,181,0.08)" stroke="rgba(90,122,181,0.3)" stroke-width="1"/>
+        <text x="455" y="327" font-size="11" fill="#8aaddb" text-anchor="middle" font-weight="700">Monforte d'Alba</text>
+        <text x="455" y="341" font-size="8.5" fill="rgba(90,122,181,0.65)" text-anchor="middle">Helvetian · Puissant</text>
+
+        <!-- ── Nord (hors Barolo, zones générales) ── -->
+        <text x="220" y="35" font-size="10" fill="rgba(255,255,255,0.18)" text-anchor="middle">Alba ↑</text>
+
+        <!-- ── LÉGENDE ── -->
+        <rect x="24" y="370" width="14" height="14" rx="3"
+              fill="url(#tortDots)" stroke="rgba(196,122,58,0.5)" stroke-width="1"/>
+        <text x="44" y="381" font-size="9.5" fill="rgba(255,255,255,0.55)">Sol Tortonian (souple, floral)</text>
+
+        <rect x="220" y="370" width="14" height="14" rx="3"
+              fill="url(#helvHatch)" stroke="rgba(90,122,181,0.5)" stroke-width="1"/>
+        <text x="240" y="381" font-size="9.5" fill="rgba(255,255,255,0.55)">Sol Helvetian (ferme, structuré)</text>
+
+        <!-- Compass -->
+        <text x="690" y="32" font-size="13" fill="rgba(255,255,255,0.3)" text-anchor="middle">N</text>
+        <line x1="690" y1="36" x2="690" y2="54" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+        <polygon points="690,36 685,48 690,45 695,48" fill="rgba(255,255,255,0.25)"/>
+      </svg>
+    </div>
+
+    <!-- LES DEUX SOLS -->
+    <h2 class="section-title">Les deux âmes des sols</h2>
+
+    <div class="sol-grid">
+      <div class="sol-card tort">
+        <div class="sol-age">
+          <span class="sol-dot" style="background:var(--tort);"></span>
+          Miocène supérieur · ≈ 5–11 Ma
+        </div>
+        <h3>Sols Tortonian</h3>
+        <p>
+          Marnes bleutées à plus forte teneur en argile et en calcaire compact.
+          Sol plus fertile, retenant mieux l'eau. Ces conditions donnent des vins
+          plus ronds, aromatiques et floraux, accessibles plus tôt. Les notes de rose,
+          cerise et violette sont plus marquées. Le Nebbiolo y exprime sa face la plus séduisante.
+        </p>
+        <div class="sol-communes">
+          <span class="sol-tag">La Morra</span>
+          <span class="sol-tag">Barolo village</span>
+          <span class="sol-tag">Verduno</span>
+        </div>
+      </div>
+      <div class="sol-card helv">
+        <div class="sol-age">
+          <span class="sol-dot" style="background:var(--helv);"></span>
+          Miocène moyen · ≈ 11–15 Ma
+        </div>
+        <h3>Sols Helvetian</h3>
+        <p>
+          Marnes compactes, plus calcaires, moins fertiles, drainantes. Ces sols pauvres
+          poussent le Nebbiolo à produire peu mais intensément. Les vins sont plus austères,
+          plus tanniques, avec une acidité plus vive. Ils demandent plus de temps
+          mais atteignent une complexité et une longueur incomparables. Profil rose séchée,
+          goudron, tabac.
+        </p>
+        <div class="sol-communes">
+          <span class="sol-tag">Serralunga d'Alba</span>
+          <span class="sol-tag">Castiglione Falletto</span>
+          <span class="sol-tag">Monforte d'Alba</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ENCADRÉ NEBBIOLO -->
+    <div class="terroir-box">
+      <h3>Le Nebbiolo : un cépage extrême</h3>
+      <p>
+        Le Nebbiolo est l'un des cépages les plus tardifs au monde — il mûrit jusqu'à fin octobre.
+        Il tire son nom de la <em>nebbia</em>, le brouillard piémontais qui enveloppe les collines des Langhe
+        à l'automne au moment des vendanges.
+      </p>
+      <p>
+        Il produit des vins d'une couleur trompeusement légère (grenat translucide) mais d'une structure
+        massive : tanins soyeux mais puissants, acidité vive, corps ample. Les arômes évoluent de la rose
+        et cerise fraîche vers le goudron, le tabac, le cuir et les champignons avec l'âge.
+        Un grand Barolo a besoin de 10 à 30 ans pour s'exprimer pleinement.
+      </p>
+    </div>
+
+    <!-- LES 6 COMMUNES -->
+    <h2 class="section-title">Les 6 communes</h2>
+
+    <div class="communes-grid">
+
+      <!-- SERRALUNGA D'ALBA -->
+      <div class="commune-card helv-card">
+        <div class="commune-header">
+          <h3>Serralunga d'Alba</h3>
+          <span class="commune-badge helv-badge">Helvetian</span>
+        </div>
+        <div class="commune-meta">
+          <div class="meta-item">
+            <div class="meta-label">Sol</div>
+            <div class="meta-value">Helvetian compact</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Superficie</div>
+            <div class="meta-value">≈ 300 ha</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Style</div>
+            <div class="meta-value">Le plus austère & structuré</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Garde</div>
+            <div class="meta-value">20–40 ans</div>
+          </div>
+        </div>
+        <p class="commune-desc">
+          Considérée par beaucoup comme la commune la plus puissante de l'appellation.
+          Les sols Helvetian durs et pauvres imposent au Nebbiolo un profil maximaliste :
+          tanins fermes et serrés, acidité vive, arômes de goudron, rose séchée, tabac et réglisse.
+          Ces vins sont les plus lents à s'ouvrir mais parmi les plus complexes à maturité.
+          La crête étroite de Serralunga offre une exposition idéale sur ses deux flancs.
+        </p>
+        <div class="mga-list">
+          <div class="mga-title">MGA notables</div>
+          <div class="mga-tags">
+            <span class="mga-tag">Falletto</span>
+            <span class="mga-tag">Lazzarito</span>
+            <span class="mga-tag">Vigna Rionda</span>
+            <span class="mga-tag">Francia</span>
+            <span class="mga-tag">Cerretta</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- LA MORRA -->
+      <div class="commune-card tort-card">
+        <div class="commune-header">
+          <h3>La Morra</h3>
+          <span class="commune-badge tort-badge">Tortonian</span>
+        </div>
+        <div class="commune-meta">
+          <div class="meta-item">
+            <div class="meta-label">Sol</div>
+            <div class="meta-value">Tortonian argileux</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Superficie</div>
+            <div class="meta-value">≈ 700 ha</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Style</div>
+            <div class="meta-value">Floral, rond, séduisant</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Garde</div>
+            <div class="meta-value">10–20 ans</div>
+          </div>
+        </div>
+        <p class="commune-desc">
+          La commune la plus étendue de l'appellation et l'une des plus productrices.
+          Les sols Tortonian, riches en argile, donnent des Barolo plus souples, floraux et
+          accessibles comparativement. Notes dominantes de rose fraîche, cerise, violette et épices douces.
+          Ces vins s'ouvrent plus tôt mais les meilleurs MGA vieillissent très bien.
+          Siège de nombreuses grandes maisons (Giacomo Conterno avant son installation à Monforte, Elio Altare…).
+        </p>
+        <div class="mga-list">
+          <div class="mga-title">MGA notables</div>
+          <div class="mga-tags">
+            <span class="mga-tag">Brunate</span>
+            <span class="mga-tag">Cerequio</span>
+            <span class="mga-tag">Rocche dell'Annunziata</span>
+            <span class="mga-tag">La Serra</span>
+            <span class="mga-tag">Arborina</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASTIGLIONE FALLETTO -->
+      <div class="commune-card helv-card">
+        <div class="commune-header">
+          <h3>Castiglione Falletto</h3>
+          <span class="commune-badge helv-badge">Helvetian</span>
+        </div>
+        <div class="commune-meta">
+          <div class="meta-item">
+            <div class="meta-label">Sol</div>
+            <div class="meta-value">Helvetian · transition</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Superficie</div>
+            <div class="meta-value">≈ 150 ha</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Style</div>
+            <div class="meta-value">Équilibré, précis, complexe</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Garde</div>
+            <div class="meta-value">15–25 ans</div>
+          </div>
+        </div>
+        <p class="commune-desc">
+          Petite commune perchée au centre de l'appellation, souvent décrite comme la plus équilibrée.
+          Ses sols Helvetian apportent structure et tension sans l'austérité de Serralunga.
+          Les vins allient profondeur aromatique et élégance — une synthèse des deux âmes de Barolo.
+          Vitello d'oro : le célébrissime Barolo Bricco Boschis de Cavallotto en est l'emblème.
+        </p>
+        <div class="mga-list">
+          <div class="mga-title">MGA notables</div>
+          <div class="mga-tags">
+            <span class="mga-tag">Bricco Boschis</span>
+            <span class="mga-tag">Fiasco</span>
+            <span class="mga-tag">Monprivato</span>
+            <span class="mga-tag">Villero</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BAROLO village -->
+      <div class="commune-card tort-card">
+        <div class="commune-header">
+          <h3>Barolo</h3>
+          <span class="commune-badge tort-badge">Tortonian</span>
+        </div>
+        <div class="commune-meta">
+          <div class="meta-item">
+            <div class="meta-label">Sol</div>
+            <div class="meta-value">Tortonian dominant</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Superficie</div>
+            <div class="meta-value">≈ 180 ha</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Style</div>
+            <div class="meta-value">Classique, élégant</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Garde</div>
+            <div class="meta-value">12–22 ans</div>
+          </div>
+        </div>
+        <p class="commune-desc">
+          Le village éponyme de l'appellation. Ses sols principalement Tortonian produisent
+          des vins dans le style « classique » de Barolo : équilibrés, avec une belle
+          maturité fruitée et des tanins ronds. Certaines parcelles jouxtent les sols
+          Helvetian, ajoutant de la profondeur. C'est ici que Marchesi di Barolo et
+          Terre del Barolo ont leurs racines historiques.
+        </p>
+        <div class="mga-list">
+          <div class="mga-title">MGA notables</div>
+          <div class="mga-tags">
+            <span class="mga-tag">Cannubi</span>
+            <span class="mga-tag">Sarmassa</span>
+            <span class="mga-tag">Liste</span>
+            <span class="mga-tag">Brunate</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MONFORTE D'ALBA -->
+      <div class="commune-card helv-card">
+        <div class="commune-header">
+          <h3>Monforte d'Alba</h3>
+          <span class="commune-badge helv-badge">Helvetian</span>
+        </div>
+        <div class="commune-meta">
+          <div class="meta-item">
+            <div class="meta-label">Sol</div>
+            <div class="meta-value">Helvetian profond</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Superficie</div>
+            <div class="meta-value">≈ 380 ha</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Style</div>
+            <div class="meta-value">Puissant, dense, profond</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Garde</div>
+            <div class="meta-value">15–35 ans</div>
+          </div>
+        </div>
+        <p class="commune-desc">
+          Grande commune au sud de l'appellation, aux sols Helvetian profonds.
+          Ses vins sont massifs, concentrés, avec des tanins serrés et une acidité
+          soutenue. Le profil est sombre — pruneaux, réglisse, tabac, cuir — avec
+          une densité remarquable. Giacomo Conterno (Monfortino) et Aldo Conterno
+          ont fait la réputation mondiale de cette commune.
+        </p>
+        <div class="mga-list">
+          <div class="mga-title">MGA notables</div>
+          <div class="mga-tags">
+            <span class="mga-tag">Bussia</span>
+            <span class="mga-tag">Ginestra</span>
+            <span class="mga-tag">Santo Stefano di Perno</span>
+            <span class="mga-tag">Mosconi</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- VERDUNO -->
+      <div class="commune-card tort-card">
+        <div class="commune-header">
+          <h3>Verduno</h3>
+          <span class="commune-badge tort-badge">Tortonian</span>
+        </div>
+        <div class="commune-meta">
+          <div class="meta-item">
+            <div class="meta-label">Sol</div>
+            <div class="meta-value">Tortonian léger</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Superficie</div>
+            <div class="meta-value">≈ 55 ha</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Style</div>
+            <div class="meta-value">Le plus léger & floral</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Garde</div>
+            <div class="meta-value">8–18 ans</div>
+          </div>
+        </div>
+        <p class="commune-desc">
+          La plus petite et la plus septentrionale des communes majeures, souvent
+          surnommée le « Chambolle-Musigny de Barolo ». Sols Tortonian très tendres,
+          vins légers en couleur et en corps mais d'une finesse aromatique étonnante.
+          Notes de rose, violette, épices rouges. Accessible assez tôt.
+          Verduno est aussi connu pour son cépage autochtone le Pelaverga.
+        </p>
+        <div class="mga-list">
+          <div class="mga-title">MGA notables</div>
+          <div class="mga-tags">
+            <span class="mga-tag">Monvigliero</span>
+            <span class="mga-tag">Neirane</span>
+            <span class="mga-tag">Massara</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      Cette page évoluera avec la cave.<br>
+      Chaque nouvelle bouteille peut enrichir la compréhension d'une région, d'un terroir ou d'un style de vin.
+    </div>
+
+  </div>
+
+</body>
+</html>
