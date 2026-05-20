@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sancerre & Pouilly-Fumé — Loire</title>
+
+  <style>
+    :root {
+      --bg: #0d1014;
+      --border: rgba(255,255,255,0.08);
+      --text: #f4f4f4;
+      --muted: #b5bcc8;
+      --gold: #d4af37;
+      /* Terroir colors */
+      --silex: #c8b87a;
+      --silex-light: rgba(200,184,122,0.12);
+      --silex-border: rgba(200,184,122,0.35);
+      --terres: #8fbcd4;
+      --terres-light: rgba(143,188,212,0.12);
+      --terres-border: rgba(143,188,212,0.35);
+      --caillot: #b8a090;
+      --caillot-light: rgba(184,160,144,0.12);
+      --caillot-border: rgba(184,160,144,0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(212,175,55,0.10), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(143,188,212,0.08), transparent 35%),
+        linear-gradient(180deg, #0b0d10 0%, #151a20 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    .top-nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(8,10,12,0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-container {
+      max-width: 1400px; margin: auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 24px;
+    }
+    .nav-logo { text-decoration: none; color: white; font-weight: 700; font-size: 1.15rem; }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      padding: 10px 14px; border-radius: 12px; transition: 0.2s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(255,255,255,0.06); color: white;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      max-width: 1400px; margin: auto; padding: 20px 24px 0;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.88rem; color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { opacity: 0.4; }
+    .breadcrumb .current { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 1400px; margin: auto; padding: 50px 24px 40px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .hero-text h1 { margin: 0; font-size: 3.6rem; letter-spacing: -2px; line-height: 1.05; }
+    .hero-text h1 span { color: var(--gold); }
+    .hero-text .subtitle { margin-top: 20px; color: var(--muted); line-height: 1.8; font-size: 1.05rem; }
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 20px;
+    }
+    .stat-card .label {
+      color: var(--gold); font-size: 0.78rem;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+    }
+    .stat-card .value { font-size: 1.15rem; font-weight: 600; line-height: 1.4; }
+    .stat-card .value small { font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .tag {
+      padding: 8px 14px; border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.82rem; color: var(--muted);
+    }
+
+    /* ── CONTAINER ── */
+    .container { max-width: 1400px; margin: auto; padding: 0 24px 80px; }
+
+    .section-title {
+      margin: 60px 0 24px; font-size: 1.8rem; letter-spacing: -1px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .section-title::after {
+      content: ""; flex: 1; height: 1px;
+      background: linear-gradient(to right, rgba(255,255,255,0.1), transparent);
+    }
+
+    /* ── CARTE ── */
+    .map-wrapper {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px; padding: 24px; margin-bottom: 40px;
+    }
+    .map-wrapper svg { width: 100%; height: auto; display: block; }
+
+    /* ── TERROIRS ── */
+    .terroirs-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 18px; margin-bottom: 48px;
+    }
+    .terroir-card {
+      border-radius: 22px; padding: 26px;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative; overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .terroir-card:hover { transform: translateY(-4px); }
+    .terroir-card::before {
+      content: ""; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      border-radius: 22px 22px 0 0;
+    }
+    .terroir-card.silex {
+      background: var(--silex-light);
+      border-color: var(--silex-border);
+    }
+    .terroir-card.silex::before { background: linear-gradient(to right, var(--silex), transparent); }
+    .terroir-card.terres {
+      background: var(--terres-light);
+      border-color: var(--terres-border);
+    }
+    .terroir-card.terres::before { background: linear-gradient(to right, var(--terres), transparent); }
+    .terroir-card.caillot {
+      background: var(--caillot-light);
+      border-color: var(--caillot-border);
+    }
+    .terroir-card.caillot::before { background: linear-gradient(to right, var(--caillot), transparent); }
+
+    .terroir-badge {
+      display: inline-block; padding: 4px 12px; border-radius: 999px;
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px;
+      font-weight: 600; margin-bottom: 14px;
+    }
+    .silex .terroir-badge { background: rgba(200,184,122,0.15); color: var(--silex); }
+    .terres .terroir-badge { background: rgba(143,188,212,0.15); color: var(--terres); }
+    .caillot .terroir-badge { background: rgba(184,160,144,0.15); color: var(--caillot); }
+
+    .terroir-card h3 { margin: 0 0 10px; font-size: 1.2rem; }
+    .terroir-card .terroir-sub {
+      font-size: 0.78rem; margin-bottom: 14px; opacity: 0.6;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .terroir-card p { margin: 0; font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+
+    .terroir-profil {
+      margin-top: 16px; padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .terroir-profil .profil-label {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--gold); margin-bottom: 8px;
+    }
+    .terroir-profil .profil-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .profil-tag {
+      font-size: 0.78rem; padding: 4px 10px; border-radius: 999px;
+      background: rgba(255,255,255,0.05); color: var(--muted);
+    }
+
+    /* ── APPELLATIONS ── */
+    .appel-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 22px; margin-bottom: 48px;
+    }
+    .appel-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 22px; padding: 28px;
+      transition: border-color 0.2s;
+    }
+    .appel-card:hover { border-color: rgba(212,175,55,0.25); }
+    .appel-card .appel-flag {
+      font-size: 0.78rem; color: var(--gold);
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;
+    }
+    .appel-card h3 { margin: 0 0 14px; font-size: 1.5rem; letter-spacing: -0.5px; }
+    .appel-card p { margin: 0 0 18px; color: var(--muted); line-height: 1.75; font-size: 0.92rem; }
+    .appel-meta {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;
+    }
+    .meta-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px; padding: 12px;
+    }
+    .meta-box .meta-label {
+      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--gold); margin-bottom: 5px;
+    }
+    .meta-box .meta-val { font-size: 0.88rem; }
+
+    /* ── ENCADRÉ ── */
+    .focus-box {
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 20px 20px 0;
+      padding: 28px 32px; margin-bottom: 48px;
+    }
+    .focus-box h3 { margin: 0 0 14px; font-size: 1.1rem; color: var(--gold); }
+    .focus-box p { margin: 0 0 12px; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+    .focus-box p:last-child { margin-bottom: 0; }
+
+    /* ── PRODUCTEURS ── */
+    .prod-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px; margin-bottom: 48px;
+    }
+    .prod-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px; padding: 18px;
+      transition: border-color 0.2s;
+    }
+    .prod-card:hover { border-color: rgba(212,175,55,0.2); }
+    .prod-card .prod-name { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+    .prod-card .prod-appel { font-size: 0.78rem; color: var(--gold); margin-bottom: 8px; }
+    .prod-card .prod-note { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 80px; text-align: center;
+      color: var(--muted); line-height: 1.8; font-size: 0.95rem;
+    }
+
+    @media (max-width: 1000px) {
+      .terroirs-grid { grid-template-columns: 1fr; }
+      .appel-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; gap: 32px; }
+      .hero-text h1 { font-size: 2.8rem; }
+    }
+    @media (max-width: 600px) {
+      .nav-container { flex-direction: column; align-items: flex-start; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="Index.html" class="nav-logo">🍷 Ma Cave</a>
+      <div class="nav-links">
+        <a href="Index.html">Accueil</a>
+        <a href="Ma-Cave.html">Ma Cave</a>
+        <a href="millesimes.html">Millésimes</a>
+        <a href="regionsviticoles.html" class="active">Régions</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Fil d'Ariane -->
+  <div class="breadcrumb">
+    <a href="regionsviticoles.html">Régions viticoles</a>
+    <span class="sep">›</span>
+    <a href="loire.html">Loire</a>
+    <span class="sep">›</span>
+    <span class="current">Sancerre & Pouilly-Fumé</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Sancerre &<br><span>Pouilly-Fumé</span></h1>
+      <p class="subtitle">
+        À l'extrémité est de la Loire, face à face de part et d'autre du fleuve,
+        Sancerre et Pouilly-Fumé incarnent l'expression la plus pure et la plus
+        minérale du Sauvignon Blanc dans le monde. Trois sols radicalement différents
+        façonnent trois visages du même cépage.
+      </p>
+      <div class="tag-list">
+        <div class="tag">Sauvignon Blanc</div>
+        <div class="tag">Silex</div>
+        <div class="tag">Terres blanches</div>
+        <div class="tag">Caillottes</div>
+        <div class="tag">Minéralité</div>
+        <div class="tag">Pinot Noir</div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="label">Sancerre</div>
+        <div class="value">≈ 2 800 ha<br><small>dont 300 ha en rouge</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Pouilly-Fumé</div>
+        <div class="value">≈ 1 300 ha<br><small>100 % Sauvignon Blanc</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Cépage blanc</div>
+        <div class="value">Sauvignon Blanc</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Cépage rouge</div>
+        <div class="value">Pinot Noir<br><small>Sancerre uniquement</small></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- CARTE -->
+    <h2 class="section-title">Carte des terroirs</h2>
+
+    <div class="map-wrapper">
+      <svg viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">
+        <defs>
+          <!-- Silex : hachures croisées fines -->
+          <pattern id="silexPat" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="8" stroke="rgba(200,184,122,0.3)" stroke-width="1.5"/>
+          </pattern>
+          <!-- Terres blanches : pointillés blancs -->
+          <pattern id="terresPat" patternUnits="userSpaceOnUse" width="7" height="7">
+            <circle cx="3.5" cy="3.5" r="1.2" fill="rgba(143,188,212,0.35)"/>
+          </pattern>
+          <!-- Caillottes : damier subtil -->
+          <pattern id="caillotPat" patternUnits="userSpaceOnUse" width="10" height="10">
+            <rect x="0" y="0" width="5" height="5" fill="rgba(184,160,144,0.15)"/>
+            <rect x="5" y="5" width="5" height="5" fill="rgba(184,160,144,0.15)"/>
+          </pattern>
+          <linearGradient id="loireR" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1a3a5c" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#1a3a5c" stop-opacity="0.4"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="720" height="400" fill="rgba(255,255,255,0.015)" rx="12"/>
+
+        <!-- ── La Loire (axe central vertical) ── -->
+        <path d="M 340 20 Q 355 100 348 180 Q 342 260 350 340 Q 355 380 352 400"
+              fill="none" stroke="url(#loireR)" stroke-width="20" stroke-linecap="round" opacity="0.7"/>
+        <path d="M 340 20 Q 355 100 348 180 Q 342 260 350 340 Q 355 380 352 400"
+              fill="none" stroke="#2a5f9a" stroke-width="3.5" stroke-linecap="round" opacity="0.5"/>
+        <text x="368" y="200" font-size="10" fill="#4a90c4" opacity="0.8"
+              transform="rotate(90,368,200)">La Loire</text>
+
+        <!-- ════════════════════════════════
+             RIVE GAUCHE : SANCERRE
+             ════════════════════════════════ -->
+        <text x="130" y="34" font-size="13" fill="rgba(255,255,255,0.5)"
+              text-anchor="middle" font-weight="600" letter-spacing="1">SANCERRE</text>
+        <text x="130" y="50" font-size="9" fill="rgba(255,255,255,0.25)"
+              text-anchor="middle">Rive gauche</text>
+
+        <!-- Zone Silex Sancerre -->
+        <path d="M 30 80 Q 80 65 160 72 Q 200 75 220 100 L 210 180 Q 160 195 100 185 Q 50 175 28 150 Z"
+              fill="url(#silexPat)" stroke="rgba(200,184,122,0.4)" stroke-width="1.2"/>
+        <rect x="68" y="108" width="108" height="48" rx="9"
+              fill="rgba(200,184,122,0.1)" stroke="rgba(200,184,122,0.4)" stroke-width="1"/>
+        <text x="122" y="128" font-size="9.5" fill="#c8b87a" text-anchor="middle" font-weight="700">Silex</text>
+        <text x="122" y="142" font-size="8" fill="rgba(200,184,122,0.65)" text-anchor="middle">Chavignol · Verdigny</text>
+        <text x="122" y="153" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Fumé · Pierre à fusil</text>
+
+        <!-- Zone Terres blanches Sancerre -->
+        <path d="M 28 155 Q 55 180 110 190 Q 180 200 220 185 L 225 280 Q 175 295 110 285 Q 55 275 25 250 Z"
+              fill="url(#terresPat)" stroke="rgba(143,188,212,0.4)" stroke-width="1.2"/>
+        <rect x="60" y="218" width="120" height="48" rx="9"
+              fill="rgba(143,188,212,0.08)" stroke="rgba(143,188,212,0.38)" stroke-width="1"/>
+        <text x="120" y="238" font-size="9.5" fill="#8fbcd4" text-anchor="middle" font-weight="700">Terres blanches</text>
+        <text x="120" y="252" font-size="8" fill="rgba(143,188,212,0.65)" text-anchor="middle">Bué · Crézancy</text>
+        <text x="120" y="263" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Floral · Généreux</text>
+
+        <!-- Zone Caillottes Sancerre -->
+        <path d="M 28 255 Q 60 278 115 288 Q 180 298 228 282 L 232 360 Q 185 375 115 365 Q 60 356 28 335 Z"
+              fill="url(#caillotPat)" stroke="rgba(184,160,144,0.4)" stroke-width="1.2"/>
+        <rect x="62" y="308" width="116" height="44" rx="9"
+              fill="rgba(184,160,144,0.08)" stroke="rgba(184,160,144,0.35)" stroke-width="1"/>
+        <text x="120" y="326" font-size="9.5" fill="#b8a090" text-anchor="middle" font-weight="700">Caillottes</text>
+        <text x="120" y="340" font-size="8" fill="rgba(184,160,144,0.65)" text-anchor="middle">Ménétréol · Thauvenay</text>
+        <text x="120" y="351" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Vif · Fruité · Leger</text>
+
+        <!-- Village de Sancerre (bourg) -->
+        <circle cx="232" cy="155" r="6" fill="rgba(212,175,55,0.5)" stroke="#d4af37" stroke-width="1.5"/>
+        <text x="244" y="152" font-size="9" fill="#d4af37">Sancerre ●</text>
+
+        <!-- ════════════════════════════════
+             RIVE DROITE : POUILLY-FUMÉ
+             ════════════════════════════════ -->
+        <text x="580" y="34" font-size="13" fill="rgba(255,255,255,0.5)"
+              text-anchor="middle" font-weight="600" letter-spacing="1">POUILLY-FUMÉ</text>
+        <text x="580" y="50" font-size="9" fill="rgba(255,255,255,0.25)"
+              text-anchor="middle">Rive droite</text>
+
+        <!-- Zone Silex Pouilly -->
+        <path d="M 375 70 Q 430 58 510 65 Q 570 70 600 90 L 595 175 Q 545 190 475 182 Q 415 172 378 148 Z"
+              fill="url(#silexPat)" stroke="rgba(200,184,122,0.4)" stroke-width="1.2"/>
+        <rect x="420" y="105" width="120" height="48" rx="9"
+              fill="rgba(200,184,122,0.1)" stroke="rgba(200,184,122,0.38)" stroke-width="1"/>
+        <text x="480" y="126" font-size="9.5" fill="#c8b87a" text-anchor="middle" font-weight="700">Silex</text>
+        <text x="480" y="140" font-size="8" fill="rgba(200,184,122,0.65)" text-anchor="middle">Les Loges · Tracy</text>
+        <text x="480" y="151" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Poudre à canon · Fumé</text>
+
+        <!-- Zone Terres blanches Pouilly -->
+        <path d="M 378 152 Q 416 175 476 185 Q 545 193 596 178 L 598 265 Q 548 280 476 272 Q 415 262 376 240 Z"
+              fill="url(#terresPat)" stroke="rgba(143,188,212,0.35)" stroke-width="1.2"/>
+        <rect x="416" y="206" width="124" height="44" rx="9"
+              fill="rgba(143,188,212,0.07)" stroke="rgba(143,188,212,0.32)" stroke-width="1"/>
+        <text x="478" y="224" font-size="9.5" fill="#8fbcd4" text-anchor="middle" font-weight="700">Terres blanches</text>
+        <text x="478" y="238" font-size="8" fill="rgba(143,188,212,0.65)" text-anchor="middle">Pouilly-sur-Loire</text>
+        <text x="478" y="249" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Ample · Aromatique</text>
+
+        <!-- Zone Caillottes Pouilly -->
+        <path d="M 376 243 Q 415 265 476 274 Q 546 283 598 267 L 600 345 Q 550 360 476 352 Q 415 344 376 320 Z"
+              fill="url(#caillotPat)" stroke="rgba(184,160,144,0.35)" stroke-width="1.2"/>
+        <rect x="414" y="294" width="126" height="40" rx="9"
+              fill="rgba(184,160,144,0.07)" stroke="rgba(184,160,144,0.3)" stroke-width="1"/>
+        <text x="477" y="311" font-size="9.5" fill="#b8a090" text-anchor="middle" font-weight="700">Caillottes</text>
+        <text x="477" y="325" font-size="8" fill="rgba(184,160,144,0.65)" text-anchor="middle">Saint-Andelain · Garchy</text>
+        <text x="477" y="336" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Léger · Accessible</text>
+
+        <!-- Village Pouilly-sur-Loire -->
+        <circle cx="375" cy="200" r="6" fill="rgba(212,175,55,0.5)" stroke="#d4af37" stroke-width="1.5"/>
+        <text x="300" y="204" font-size="9" fill="#d4af37" text-anchor="middle">● Pouilly-sur-Loire</text>
+
+        <!-- ── LÉGENDE ── -->
+        <rect x="24" y="370" width="12" height="12" rx="2"
+              fill="url(#silexPat)" stroke="rgba(200,184,122,0.5)" stroke-width="1"/>
+        <text x="42" y="380" font-size="9" fill="rgba(255,255,255,0.5)">Silex</text>
+
+        <rect x="100" y="370" width="12" height="12" rx="2"
+              fill="url(#terresPat)" stroke="rgba(143,188,212,0.5)" stroke-width="1"/>
+        <text x="118" y="380" font-size="9" fill="rgba(255,255,255,0.5)">Terres blanches</text>
+
+        <rect x="230" y="370" width="12" height="12" rx="2"
+              fill="url(#caillotPat)" stroke="rgba(184,160,144,0.5)" stroke-width="1"/>
+        <text x="248" y="380" font-size="9" fill="rgba(255,255,255,0.5)">Caillottes</text>
+
+        <!-- Compass -->
+        <text x="690" y="32" font-size="13" fill="rgba(255,255,255,0.28)" text-anchor="middle">N</text>
+        <line x1="690" y1="36" x2="690" y2="54" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+        <polygon points="690,36 685,48 690,45 695,48" fill="rgba(255,255,255,0.25)"/>
+      </svg>
+    </div>
+
+    <!-- LES TROIS TERROIRS -->
+    <h2 class="section-title">Les trois terroirs</h2>
+
+    <div class="terroirs-grid">
+
+      <div class="terroir-card silex">
+        <span class="terroir-badge">Silex</span>
+        <h3>Le Silex</h3>
+        <p class="terroir-sub">Chailles · Pierre à fusil</p>
+        <p>
+          Sol composé de silex — rognons de silice issus du Crétacé supérieur (≈ 90 Ma).
+          Les racines doivent fendre ces roches dures pour s'alimenter, ce qui génère
+          un stress hydrique contrôlé. Résultat : des vins d'une tension et d'une minéralité
+          tranchante, avec une note caractéristique de poudre à canon ou de pierre à fusil
+          tout juste frappée. C'est l'expression la plus tendue et la plus racée du terroir.
+        </p>
+        <div class="terroir-profil">
+          <div class="profil-label">Profil aromatique</div>
+          <div class="profil-tags">
+            <span class="profil-tag">Pierre à fusil</span>
+            <span class="profil-tag">Agrumes</span>
+            <span class="profil-tag">Fumé</span>
+            <span class="profil-tag">Tension</span>
+            <span class="profil-tag">Longue garde</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="terroir-card terres">
+        <span class="terroir-badge">Terres blanches</span>
+        <h3>Les Terres Blanches</h3>
+        <p class="terroir-sub">Marnes kimméridgiennes</p>
+        <p>
+          Argilo-calcaire blanc-grisâtre d'origine kimméridgienne — le même sol que Chablis.
+          Ces marnes retiennent mieux l'eau, permettant une maturation plus régulière.
+          Les vins sont plus amples, floraux et généreux, avec une texture plus ronde
+          que le silex. Notes de fleurs blanches, agrumes mûrs, parfois une pointe de miel.
+          Style plus accessible jeune, avec un beau potentiel de vieillissement.
+        </p>
+        <div class="terroir-profil">
+          <div class="profil-label">Profil aromatique</div>
+          <div class="profil-tags">
+            <span class="profil-tag">Fleurs blanches</span>
+            <span class="profil-tag">Citron confit</span>
+            <span class="profil-tag">Ampleur</span>
+            <span class="profil-tag">Rondeur</span>
+            <span class="profil-tag">Minéral doux</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="terroir-card caillot">
+        <span class="terroir-badge">Caillottes</span>
+        <h3>Les Caillottes</h3>
+        <p class="terroir-sub">Calcaire oolithique</p>
+        <p>
+          Calcaire oolithique friable, parsemé de petits cailloux blancs en surface.
+          Sol drainant, réchauffant rapidement au printemps. Les vins sont les plus
+          légers et les plus fruités des trois terroirs : vifs, directs, avec un
+          fruit croquant d'agrumes et de groseille à maquereau. Style plaisant et
+          accessible, idéal à boire jeune. Représentent une bonne introduction
+          au style Sancerre.
+        </p>
+        <div class="terroir-profil">
+          <div class="profil-label">Profil aromatique</div>
+          <div class="profil-tags">
+            <span class="profil-tag">Groseille à maquereau</span>
+            <span class="profil-tag">Citron frais</span>
+            <span class="profil-tag">Herbacé doux</span>
+            <span class="profil-tag">Fruité direct</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DEUX APPELLATIONS -->
+    <h2 class="section-title">Deux appellations face à face</h2>
+
+    <div class="appel-grid">
+
+      <div class="appel-card">
+        <div class="appel-flag">Rive gauche · Cher (18)</div>
+        <h3>Sancerre</h3>
+        <p>
+          La plus connue et la plus étendue des deux appellations. Sancerre produit
+          des blancs en Sauvignon Blanc mais aussi des rouges et rosés en Pinot Noir —
+          une particularité rare dans la Loire. La colline de Sancerre domine le fleuve
+          à 312 mètres, créant une multitude d'expositions et de microclimats.
+          Les vins blancs sont les plus complexes de la région ; les rouges, fins et
+          élégants, s'apparentent parfois à des Bourgognes légers.
+        </p>
+        <div class="appel-meta">
+          <div class="meta-box">
+            <div class="meta-label">Superficie</div>
+            <div class="meta-val">≈ 2 800 ha</div>
+          </div>
+          <div class="meta-box">
+            <div class="meta-label">Couleurs</div>
+            <div class="meta-val">Blanc · Rouge · Rosé</div>
+          </div>
+          <div class="meta-box">
+            <div class="meta-label">Cépages</div>
+            <div class="meta-val">Sauvignon Blanc, Pinot Noir</div>
+          </div>
+          <div class="meta-box">
+            <div class="meta-label">Communes notables</div>
+            <div class="meta-val">Chavignol, Bué, Verdigny</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="appel-card">
+        <div class="appel-flag">Rive droite · Nièvre (58)</div>
+        <h3>Pouilly-Fumé</h3>
+        <p>
+          Appellation 100 % Sauvignon Blanc, face à Sancerre de l'autre côté de la Loire.
+          Le nom « Fumé » vient soit de la brume matinale sur le fleuve, soit des reflets
+          bleutés que prend le raisin à maturité — les deux théories coexistent.
+          Les vins sont souvent légèrement plus ronds et aromatiques que Sancerre,
+          avec ce fumé caractéristique plus prononcé sur les sols de silex.
+          À ne pas confondre avec le Pouilly-sur-Loire (appellation voisine en Chasselas).
+        </p>
+        <div class="appel-meta">
+          <div class="meta-box">
+            <div class="meta-label">Superficie</div>
+            <div class="meta-val">≈ 1 300 ha</div>
+          </div>
+          <div class="meta-box">
+            <div class="meta-label">Couleurs</div>
+            <div class="meta-val">Blanc uniquement</div>
+          </div>
+          <div class="meta-box">
+            <div class="meta-label">Cépage</div>
+            <div class="meta-val">100 % Sauvignon Blanc</div>
+          </div>
+          <div class="meta-box">
+            <div class="meta-label">Communes notables</div>
+            <div class="meta-val">Saint-Andelain, Tracy, Les Loges</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ENCADRÉ SAUVIGNON -->
+    <div class="focus-box">
+      <h3>Le Sauvignon Blanc : un cépage révélateur de terroir</h3>
+      <p>
+        Contrairement à d'autres cépages neutres qui expriment surtout le travail du vigneron,
+        le Sauvignon Blanc est un traducteur fidèle du sol. Sa peau fine et sa sensibilité
+        aux conditions pédologiques font qu'un silex, une marne ou un calcaire produisent
+        des vins perceptiblement différents — même vinifiés de la même façon.
+      </p>
+      <p>
+        À Sancerre et Pouilly, il n'est quasiment jamais élevé en fût de chêne neuf,
+        ce qui laisse le terroir s'exprimer sans interférence boisée. La fermentation
+        se fait en cuve inox ou en foudres neutres. La fraîcheur et la droiture sont
+        les valeurs cardinales.
+      </p>
+    </div>
+
+    <!-- PRODUCTEURS RÉFÉRENCE -->
+    <h2 class="section-title">Producteurs de référence</h2>
+
+    <div class="prod-grid">
+      <div class="prod-card">
+        <div class="prod-name">Henri Bourgeois</div>
+        <div class="prod-appel">Sancerre</div>
+        <div class="prod-note">Domaine familial emblématique, cuvées parcellaires sur les trois terroirs.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Henri Pellé</div>
+        <div class="prod-appel">Sancerre · Menetou-Salon</div>
+        <div class="prod-note">Expression précise des terres blanches. Cuvée Morogues remarquable.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Lucien Crochet</div>
+        <div class="prod-appel">Sancerre</div>
+        <div class="prod-note">Référence sur silex. La Croix du Roy, vin de garde exceptionnel.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Didier Dagueneau</div>
+        <div class="prod-appel">Pouilly-Fumé</div>
+        <div class="prod-note">Pionnier iconoclaste. Silex et Pur Sang, parmi les plus grands Sauvignons du monde.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">De Ladoucette</div>
+        <div class="prod-appel">Pouilly-Fumé</div>
+        <div class="prod-note">Le producteur le plus connu de l'appellation. Baron de L, cuvée prestige.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">François Cotat</div>
+        <div class="prod-appel">Sancerre</div>
+        <div class="prod-note">Vinifications très naturelles. Les Monts Damnés, cru mythique de Chavignol.</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Cette page évoluera avec la cave.<br>
+      Chaque nouvelle bouteille peut enrichir la compréhension d'une région, d'un terroir ou d'un style de vin.
+    </div>
+
+  </div>
+</body>
+</html>
