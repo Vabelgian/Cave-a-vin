@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loire — Régions Viticoles</title>
+
+  <style>
+    :root {
+      --bg: #0d1014;
+      --card: rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.08);
+      --text: #f4f4f4;
+      --muted: #b5bcc8;
+      --gold: #d4af37;
+      --shadow: rgba(0,0,0,0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(212,175,55,0.12), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(60,140,100,0.10), transparent 35%),
+        linear-gradient(180deg, #0b0d10 0%, #151a20 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .top-nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(8,10,12,0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-container {
+      max-width: 1400px; margin: auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 24px;
+    }
+    .nav-logo { text-decoration: none; color: white; font-weight: 700; font-size: 1.15rem; }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      padding: 10px 14px; border-radius: 12px; transition: 0.2s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(255,255,255,0.06); color: white;
+    }
+
+    .breadcrumb {
+      max-width: 1400px; margin: auto; padding: 20px 24px 0;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.88rem; color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { opacity: 0.4; }
+    .breadcrumb .current { color: var(--text); }
+
+    .hero {
+      max-width: 1200px; margin: auto;
+      padding: 70px 24px 50px; text-align: center;
+    }
+    .hero h1 { margin: 0; font-size: 3.8rem; letter-spacing: -2px; }
+    .hero h1 span { color: var(--gold); }
+    .hero p {
+      max-width: 780px; margin: 22px auto 0;
+      color: var(--muted); line-height: 1.8; font-size: 1.05rem;
+    }
+
+    /* Carte SVG fleuve */
+    .river-map {
+      max-width: 1400px; margin: auto; padding: 0 24px 20px;
+    }
+    .river-map svg { width: 100%; height: auto; display: block; }
+
+    .container { max-width: 1400px; margin: auto; padding: 0 24px 80px; }
+
+    .section-title {
+      margin: 48px 0 28px; font-size: 1.8rem; letter-spacing: -1px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .section-title::after {
+      content: ""; flex: 1; height: 1px;
+      background: linear-gradient(to right, rgba(255,255,255,0.1), transparent);
+    }
+
+    /* Cartes sous-régions */
+    .subregions-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 28px;
+    }
+
+    .sub-card {
+      border-radius: 28px; overflow: hidden;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+      transition: transform 0.25s ease;
+    }
+    .sub-card:hover { transform: translateY(-6px); }
+
+    .sub-image {
+      height: 200px;
+      background-size: cover; background-position: center;
+      position: relative;
+    }
+    .sub-image::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(12,14,17,0.88) 100%);
+    }
+
+    .sub-content { padding: 28px; }
+
+    .sub-zone {
+      color: var(--gold); font-size: 0.8rem;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+    }
+    .sub-content h2 { margin: 0 0 12px; font-size: 1.8rem; letter-spacing: -0.5px; }
+    .sub-content p { margin: 0; color: var(--muted); line-height: 1.7; font-size: 0.95rem; }
+
+    .sub-info {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px;
+    }
+    .info-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px; padding: 14px;
+    }
+    .info-box span {
+      display: block; color: var(--gold);
+      font-size: 0.72rem; text-transform: uppercase;
+      letter-spacing: 1px; margin-bottom: 6px;
+    }
+    .info-box strong { font-size: 0.88rem; line-height: 1.5; }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .tag {
+      padding: 6px 12px; border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.8rem; color: var(--muted);
+    }
+
+    .explore-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 22px; padding: 12px 20px; border-radius: 14px;
+      background: rgba(212,175,55,0.1);
+      border: 1px solid rgba(212,175,55,0.3);
+      color: var(--gold); font-size: 0.9rem; font-weight: 600;
+      text-decoration: none; transition: background 0.2s, border-color 0.2s;
+    }
+    .explore-btn:hover {
+      background: rgba(212,175,55,0.18);
+      border-color: rgba(212,175,55,0.55);
+    }
+    .explore-btn svg { transition: transform 0.2s; }
+    .explore-btn:hover svg { transform: translateX(4px); }
+
+    /* Stats globales */
+    .global-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 14px; margin-bottom: 48px;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 20px; text-align: center;
+    }
+    .stat-card .label {
+      color: var(--gold); font-size: 0.72rem;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+    }
+    .stat-card .value { font-size: 1.2rem; font-weight: 600; }
+
+    .footer {
+      margin-top: 80px; text-align: center;
+      color: var(--muted); line-height: 1.8; font-size: 0.95rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.8rem; }
+      .global-stats { grid-template-columns: 1fr 1fr; }
+      .nav-container { flex-direction: column; align-items: flex-start; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="Index.html" class="nav-logo">🍷 Ma Cave</a>
+      <div class="nav-links">
+        <a href="Index.html">Accueil</a>
+        <a href="Ma-Cave.html">Ma Cave</a>
+        <a href="millesimes.html">Millésimes</a>
+        <a href="regionsviticoles.html" class="active">Régions</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a href="regionsviticoles.html">Régions viticoles</a>
+    <span class="sep">›</span>
+    <span>France</span>
+    <span class="sep">›</span>
+    <span class="current">Loire</span>
+  </div>
+
+  <section class="hero">
+    <h1>Vallée de la <span>Loire</span></h1>
+    <p>
+      Le plus long vignoble de France s'étire sur plus de 1 000 km le long du fleuve royal.
+      Trois grandes familles de vins, trois terroirs, trois caractères — du Sauvignon tendu de Sancerre
+      au Chenin généreux de l'Anjou, en passant par le Cabernet Franc délicat de Touraine.
+    </p>
+  </section>
+
+  <!-- Carte schématique du fleuve -->
+  <div class="river-map">
+    <svg viewBox="0 0 900 160" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">
+      <defs>
+        <linearGradient id="loireGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#1a3a5c" stop-opacity="0.2"/>
+          <stop offset="20%" stop-color="#1a3a5c" stop-opacity="0.7"/>
+          <stop offset="80%" stop-color="#1a3a5c" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#1a3a5c" stop-opacity="0.2"/>
+        </linearGradient>
+      </defs>
+
+      <rect width="900" height="160" fill="rgba(255,255,255,0.015)" rx="16"/>
+
+      <!-- Le fleuve Loire -->
+      <path d="M 20 90 Q 100 78 180 85 Q 240 90 300 82 Q 380 72 460 80 Q 540 88 620 76 Q 700 65 780 72 Q 840 78 880 70"
+            fill="none" stroke="url(#loireGrad)" stroke-width="18" stroke-linecap="round"/>
+      <path d="M 20 90 Q 100 78 180 85 Q 240 90 300 82 Q 380 72 460 80 Q 540 88 620 76 Q 700 65 780 72 Q 840 78 880 70"
+            fill="none" stroke="#2a5f9a" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+      <text x="450" y="108" font-size="11" fill="#4a90c4" text-anchor="middle" opacity="0.8">La Loire</text>
+
+      <!-- Zones avec étiquettes -->
+      <!-- Sancerre / Pouilly (est, droite) -->
+      <rect x="790" y="32" width="90" height="32" rx="8"
+            fill="rgba(212,175,55,0.1)" stroke="rgba(212,175,55,0.35)" stroke-width="1"/>
+      <text x="835" y="44" font-size="9" fill="#d4af37" text-anchor="middle" font-weight="600">Sancerre</text>
+      <text x="835" y="57" font-size="8" fill="rgba(212,175,55,0.6)" text-anchor="middle">/ Pouilly</text>
+      <line x1="835" y1="64" x2="835" y2="74" stroke="rgba(212,175,55,0.3)" stroke-width="1" stroke-dasharray="3 2"/>
+
+      <!-- Touraine (centre) -->
+      <rect x="380" y="28" width="80" height="28" rx="8"
+            fill="rgba(100,160,120,0.1)" stroke="rgba(100,160,120,0.35)" stroke-width="1"/>
+      <text x="420" y="42" font-size="9" fill="#7ec8a0" text-anchor="middle" font-weight="600">Touraine</text>
+      <text x="420" y="53" font-size="8" fill="rgba(126,200,160,0.6)" text-anchor="middle">Chinon · Vouvray</text>
+      <line x1="420" y1="56" x2="420" y2="70" stroke="rgba(100,160,120,0.3)" stroke-width="1" stroke-dasharray="3 2"/>
+
+      <!-- Anjou-Saumur (ouest-centre) -->
+      <rect x="180" y="30" width="100" height="28" rx="8"
+            fill="rgba(160,100,180,0.1)" stroke="rgba(160,100,180,0.35)" stroke-width="1"/>
+      <text x="230" y="44" font-size="9" fill="#c07ae0" text-anchor="middle" font-weight="600">Anjou · Saumur</text>
+      <text x="230" y="55" font-size="8" fill="rgba(192,122,224,0.6)" text-anchor="middle">Chenin · Cab. Franc</text>
+      <line x1="230" y1="58" x2="230" y2="76" stroke="rgba(160,100,180,0.3)" stroke-width="1" stroke-dasharray="3 2"/>
+
+      <!-- Nantes (extrême ouest, hors scope) -->
+      <text x="44" y="76" font-size="9" fill="rgba(255,255,255,0.2)" text-anchor="middle">Nantes ←</text>
+
+      <!-- Bourgogne direction -->
+      <text x="856" y="130" font-size="9" fill="rgba(255,255,255,0.2)" text-anchor="middle">→ Bourgogne</text>
+
+      <!-- Compass -->
+      <text x="50" y="130" font-size="11" fill="rgba(255,255,255,0.25)">O</text>
+      <text x="850" y="130" font-size="11" fill="rgba(255,255,255,0.25)">E</text>
+    </svg>
+  </div>
+
+  <div class="container">
+
+    <h2 class="section-title">En chiffres</h2>
+    <div class="global-stats">
+      <div class="stat-card">
+        <div class="label">Longueur</div>
+        <div class="value">≈ 1 000 km</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Superficie totale</div>
+        <div class="value">≈ 70 000 ha</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Appellations</div>
+        <div class="value">Plus de 60 AOC</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Cépages clés</div>
+        <div class="value">Sauvignon · Chenin · Cab. Franc</div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Choisir une sous-région</h2>
+
+    <div class="subregions-grid">
+
+      <!-- SANCERRE / POUILLY -->
+      <div class="sub-card">
+        <div class="sub-image" style="background-image:url('https://images.unsplash.com/photo-1586348943529-beaae6c28db9?q=80&w=1400&auto=format&fit=crop');"></div>
+        <div class="sub-content">
+          <div class="sub-zone">Loire · Est</div>
+          <h2>Sancerre & Pouilly</h2>
+          <p>
+            Le royaume du Sauvignon Blanc. Trois terroirs distincts — silex, terres blanches, caillottes —
+            donnent des vins d'une précision et d'une minéralité incomparables.
+          </p>
+          <div class="sub-info">
+            <div class="info-box">
+              <span>Cépages</span>
+              <strong>Sauvignon Blanc, Pinot Noir</strong>
+            </div>
+            <div class="info-box">
+              <span>Style</span>
+              <strong>Tendu, minéral, agrumes</strong>
+            </div>
+            <div class="info-box">
+              <span>Appellations</span>
+              <strong>Sancerre, Pouilly-Fumé</strong>
+            </div>
+            <div class="info-box">
+              <span>Terroirs clés</span>
+              <strong>Silex · Terres blanches · Caillottes</strong>
+            </div>
+          </div>
+          <div class="tag-list">
+            <div class="tag">Silex</div>
+            <div class="tag">Minéralité</div>
+            <div class="tag">Fumé</div>
+          </div>
+          <a href="sancerre-pouilly.html" class="explore-btn">
+            Explorer la sous-région
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- ANJOU-SAUMUR -->
+      <div class="sub-card">
+        <div class="sub-image" style="background-image:url('https://images.unsplash.com/photo-1560493676-04071c5f467b?q=80&w=1400&auto=format&fit=crop');"></div>
+        <div class="sub-content">
+          <div class="sub-zone">Loire · Centre-Ouest</div>
+          <h2>Anjou & Saumur</h2>
+          <p>
+            Le domaine du Chenin Blanc dans toute sa diversité : sec ou moelleux, tranquille
+            ou effervescent. Et le Cabernet Franc à Saumur-Champigny, léger et fruité.
+          </p>
+          <div class="sub-info">
+            <div class="info-box">
+              <span>Cépages</span>
+              <strong>Chenin Blanc, Cabernet Franc</strong>
+            </div>
+            <div class="info-box">
+              <span>Style</span>
+              <strong>Généreux, miel, tuffeau</strong>
+            </div>
+            <div class="info-box">
+              <span>Appellations</span>
+              <strong>Savennières, Coteaux du Layon, Saumur-Champigny</strong>
+            </div>
+            <div class="info-box">
+              <span>Sol clé</span>
+              <strong>Tuffeau, schiste, ardoise</strong>
+            </div>
+          </div>
+          <div class="tag-list">
+            <div class="tag">Chenin</div>
+            <div class="tag">Tuffeau</div>
+            <div class="tag">Moelleux</div>
+          </div>
+          <a href="anjou-saumur.html" class="explore-btn">
+            Explorer la sous-région
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- TOURAINE -->
+      <div class="sub-card">
+        <div class="sub-image" style="background-image:url('https://images.unsplash.com/photo-1650869653858-1c2c0768014f?q=80&w=1332&auto=format&fit=crop');"></div>
+        <div class="sub-content">
+          <div class="sub-zone">Loire · Centre</div>
+          <h2>Touraine</h2>
+          <p>
+            Le jardin de la France produit des rouges délicats à base de Cabernet Franc
+            et des blancs vifs en Sauvignon et Chenin. Chinon, Bourgueil et Vouvray
+            en sont les plus belles expressions.
+          </p>
+          <div class="sub-info">
+            <div class="info-box">
+              <span>Cépages</span>
+              <strong>Cabernet Franc, Chenin, Sauvignon</strong>
+            </div>
+            <div class="info-box">
+              <span>Style</span>
+              <strong>Fruité, frais, délicat</strong>
+            </div>
+            <div class="info-box">
+              <span>Appellations</span>
+              <strong>Chinon, Bourgueil, Vouvray</strong>
+            </div>
+            <div class="info-box">
+              <span>Sol clé</span>
+              <strong>Tuffeau, graviers, argile</strong>
+            </div>
+          </div>
+          <div class="tag-list">
+            <div class="tag">Cabernet Franc</div>
+            <div class="tag">Vouvray</div>
+            <div class="tag">Fraîcheur</div>
+          </div>
+          <a href="touraine.html" class="explore-btn">
+            Explorer la sous-région
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      Cette page évoluera avec la cave.<br>
+      Chaque nouvelle bouteille peut enrichir la compréhension d'une région, d'un terroir ou d'un style de vin.
+    </div>
+
+  </div>
+</body>
+</html>
