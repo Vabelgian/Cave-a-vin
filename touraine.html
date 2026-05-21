@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Touraine — Loire</title>
+
+  <style>
+    :root {
+      --bg: #0d1014;
+      --border: rgba(255,255,255,0.08);
+      --text: #f4f4f4;
+      --muted: #b5bcc8;
+      --gold: #d4af37;
+      --tuffeau: #d4b483;
+      --tuffeau-light: rgba(212,180,131,0.12);
+      --tuffeau-border: rgba(212,180,131,0.35);
+      --gravier: #a09070;
+      --gravier-light: rgba(160,144,112,0.12);
+      --gravier-border: rgba(160,144,112,0.35);
+      --argile: #b07858;
+      --argile-light: rgba(176,120,88,0.12);
+      --argile-border: rgba(176,120,88,0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(100,160,120,0.10), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(212,180,131,0.08), transparent 35%),
+        linear-gradient(180deg, #0b0d10 0%, #151a20 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    .top-nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(8,10,12,0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-container {
+      max-width: 1400px; margin: auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 24px;
+    }
+    .nav-logo { text-decoration: none; color: white; font-weight: 700; font-size: 1.15rem; }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      padding: 10px 14px; border-radius: 12px; transition: 0.2s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(255,255,255,0.06); color: white;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      max-width: 1400px; margin: auto; padding: 20px 24px 0;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.88rem; color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { opacity: 0.4; }
+    .breadcrumb .current { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 1400px; margin: auto; padding: 50px 24px 40px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .hero-text h1 { margin: 0; font-size: 3.6rem; letter-spacing: -2px; line-height: 1.05; }
+    .hero-text h1 span { color: var(--gold); }
+    .hero-text .subtitle { margin-top: 20px; color: var(--muted); line-height: 1.8; font-size: 1.05rem; }
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 20px;
+    }
+    .stat-card .label {
+      color: var(--gold); font-size: 0.78rem;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+    }
+    .stat-card .value { font-size: 1.15rem; font-weight: 600; line-height: 1.4; }
+    .stat-card .value small { font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .tag {
+      padding: 8px 14px; border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.82rem; color: var(--muted);
+    }
+
+    /* ── CONTAINER ── */
+    .container { max-width: 1400px; margin: auto; padding: 0 24px 80px; }
+
+    .section-title {
+      margin: 60px 0 24px; font-size: 1.8rem; letter-spacing: -1px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .section-title::after {
+      content: ""; flex: 1; height: 1px;
+      background: linear-gradient(to right, rgba(255,255,255,0.1), transparent);
+    }
+
+    /* ── CARTE ── */
+    .map-wrapper {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px; padding: 24px; margin-bottom: 40px;
+    }
+    .map-wrapper svg { width: 100%; height: auto; display: block; }
+
+    /* ── TERROIRS ── */
+    .terroirs-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 18px; margin-bottom: 48px;
+    }
+    .terroir-card {
+      border-radius: 22px; padding: 26px;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative; overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .terroir-card:hover { transform: translateY(-4px); }
+    .terroir-card::before {
+      content: ""; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      border-radius: 22px 22px 0 0;
+    }
+    .terroir-card.tuffeau { background: var(--tuffeau-light); border-color: var(--tuffeau-border); }
+    .terroir-card.tuffeau::before { background: linear-gradient(to right, var(--tuffeau), transparent); }
+    .terroir-card.gravier { background: var(--gravier-light); border-color: var(--gravier-border); }
+    .terroir-card.gravier::before { background: linear-gradient(to right, var(--gravier), transparent); }
+    .terroir-card.argile { background: var(--argile-light); border-color: var(--argile-border); }
+    .terroir-card.argile::before { background: linear-gradient(to right, var(--argile), transparent); }
+
+    .terroir-badge {
+      display: inline-block; padding: 4px 12px; border-radius: 999px;
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px;
+      font-weight: 600; margin-bottom: 14px;
+    }
+    .tuffeau .terroir-badge { background: rgba(212,180,131,0.15); color: var(--tuffeau); }
+    .gravier .terroir-badge { background: rgba(160,144,112,0.15); color: var(--gravier); }
+    .argile .terroir-badge { background: rgba(176,120,88,0.15); color: var(--argile); }
+
+    .terroir-card h3 { margin: 0 0 10px; font-size: 1.2rem; }
+    .terroir-card .terroir-sub {
+      font-size: 0.78rem; margin-bottom: 14px; opacity: 0.6;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .terroir-card p { margin: 0; font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+    .terroir-profil {
+      margin-top: 16px; padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .terroir-profil .profil-label {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--gold); margin-bottom: 8px;
+    }
+    .profil-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .profil-tag {
+      font-size: 0.78rem; padding: 4px 10px; border-radius: 999px;
+      background: rgba(255,255,255,0.05); color: var(--muted);
+    }
+
+    /* ── APPELLATIONS ── */
+    .zone-separator {
+      display: flex; align-items: center; gap: 16px;
+      margin: 36px 0 24px;
+    }
+    .zone-separator h3 { margin: 0; font-size: 1.1rem; white-space: nowrap; color: var(--gold); }
+    .zone-separator::before, .zone-separator::after {
+      content: ""; flex: 1; height: 1px; background: rgba(212,175,55,0.2);
+    }
+
+    .appel-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 18px; margin-bottom: 24px;
+    }
+    .appel-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .appel-card:hover { border-color: rgba(212,175,55,0.22); transform: translateY(-3px); }
+    .appel-card .appel-zone {
+      font-size: 0.72rem; color: var(--gold);
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+    }
+    .appel-card h4 { margin: 0 0 10px; font-size: 1.15rem; }
+    .appel-card p { margin: 0 0 14px; color: var(--muted); font-size: 0.88rem; line-height: 1.75; }
+    .appel-meta {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px;
+    }
+    .meta-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px; padding: 10px;
+    }
+    .meta-box .meta-label {
+      font-size: 0.68rem; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--gold); margin-bottom: 4px;
+    }
+    .meta-box .meta-val { font-size: 0.85rem; }
+    .appel-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .appel-tag {
+      font-size: 0.76rem; padding: 3px 9px; border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.07); color: var(--muted);
+    }
+
+    /* ── FOCUS CABERNET FRANC ── */
+    .focus-box {
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 20px 20px 0;
+      padding: 28px 32px; margin-bottom: 48px;
+    }
+    .focus-box h3 { margin: 0 0 14px; font-size: 1.1rem; color: var(--gold); }
+    .focus-box p { margin: 0 0 12px; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+    .focus-box p:last-child { margin-bottom: 0; }
+
+    /* ── VOUVRAY STYLES ── */
+    .vouvray-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 14px; margin-bottom: 48px;
+    }
+    .vouvray-card {
+      background: rgba(212,180,131,0.06);
+      border: 1px solid rgba(212,180,131,0.18);
+      border-radius: 18px; padding: 20px; text-align: center;
+    }
+    .vouvray-card .v-icon { font-size: 1.6rem; margin-bottom: 10px; }
+    .vouvray-card h4 { margin: 0 0 8px; font-size: 0.95rem; }
+    .vouvray-card p { margin: 0; font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── PRODUCTEURS ── */
+    .prod-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px; margin-bottom: 48px;
+    }
+    .prod-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px; padding: 18px;
+      transition: border-color 0.2s;
+    }
+    .prod-card:hover { border-color: rgba(212,175,55,0.2); }
+    .prod-card .prod-name { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+    .prod-card .prod-appel { font-size: 0.78rem; color: var(--gold); margin-bottom: 8px; }
+    .prod-card .prod-note { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 80px; text-align: center;
+      color: var(--muted); line-height: 1.8; font-size: 0.95rem;
+    }
+
+    @media (max-width: 1000px) {
+      .terroirs-grid { grid-template-columns: 1fr; }
+      .vouvray-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; gap: 32px; }
+      .hero-text h1 { font-size: 2.8rem; }
+    }
+    @media (max-width: 600px) {
+      .nav-container { flex-direction: column; align-items: flex-start; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="Index.html" class="nav-logo">🍷 Ma Cave</a>
+      <div class="nav-links">
+        <a href="Index.html">Accueil</a>
+        <a href="Ma-Cave.html">Ma Cave</a>
+        <a href="millesimes.html">Millésimes</a>
+        <a href="regionsviticoles.html" class="active">Régions</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a href="regionsviticoles.html">Régions viticoles</a>
+    <span class="sep">›</span>
+    <a href="loire.html">Loire</a>
+    <span class="sep">›</span>
+    <span class="current">Touraine</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>La<br><span>Touraine</span></h1>
+      <p class="subtitle">
+        Surnommé le « Jardin de la France », le Touraine est le cœur historique et
+        géographique de la Loire. Entre tuffeau, graviers et argile, il produit
+        des rouges délicats en Cabernet Franc — Chinon, Bourgueil, Saint-Nicolas —
+        et des blancs d'une grande diversité en Chenin Blanc à Vouvray et Montlouis,
+        déclinés en sec, demi-sec, moelleux et pétillant.
+      </p>
+      <div class="tag-list">
+        <div class="tag">Cabernet Franc</div>
+        <div class="tag">Chenin Blanc</div>
+        <div class="tag">Tuffeau</div>
+        <div class="tag">Graviers</div>
+        <div class="tag">Chinon</div>
+        <div class="tag">Vouvray</div>
+        <div class="tag">Bourgueil</div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="label">Superficie totale</div>
+        <div class="value">≈ 13 000 ha<br><small>Touraine élargie</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Cépage rouge roi</div>
+        <div class="value">Cabernet Franc<br><small>aussi appelé Breton</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Appellations</div>
+        <div class="value">Plus de 15 AOC<br><small>rouges, blancs, effervescents</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Fleuve structurant</div>
+        <div class="value">La Loire<br><small>+ Vienne + Cher + Indre</small></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- CARTE -->
+    <h2 class="section-title">Carte des appellations</h2>
+
+    <div class="map-wrapper">
+      <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">
+        <defs>
+          <pattern id="tufPat" patternUnits="userSpaceOnUse" width="9" height="9">
+            <rect x="1" y="1" width="3" height="3" rx="1" fill="rgba(212,180,131,0.28)"/>
+          </pattern>
+          <pattern id="gravPat" patternUnits="userSpaceOnUse" width="7" height="7">
+            <circle cx="3.5" cy="3.5" r="1.3" fill="rgba(160,144,112,0.3)"/>
+          </pattern>
+          <pattern id="argPat" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="8" y2="0" stroke="rgba(176,120,88,0.25)" stroke-width="2"/>
+          </pattern>
+          <linearGradient id="loireT" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1a3a5c" stop-opacity="0.2"/>
+            <stop offset="30%" stop-color="#1a3a5c" stop-opacity="0.7"/>
+            <stop offset="70%" stop-color="#1a3a5c" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#1a3a5c" stop-opacity="0.2"/>
+          </linearGradient>
+          <linearGradient id="vienneG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1a3a5c" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#1a3a5c" stop-opacity="0.1"/>
+          </linearGradient>
+          <linearGradient id="cherG" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1a3a5c" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#1a3a5c" stop-opacity="0.1"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="800" height="400" fill="rgba(255,255,255,0.015)" rx="12"/>
+
+        <!-- Relief doux -->
+        <path d="M 0 210 Q 150 195 300 205 Q 450 215 600 200 Q 700 192 800 196 L 800 400 L 0 400 Z"
+              fill="rgba(255,255,255,0.01)"/>
+
+        <!-- ── La Loire (axe principal) ── -->
+        <path d="M 10 168 Q 100 155 200 162 Q 320 170 430 158 Q 540 148 650 154 Q 720 158 790 150"
+              fill="none" stroke="url(#loireT)" stroke-width="18" stroke-linecap="round" opacity="0.85"/>
+        <path d="M 10 168 Q 100 155 200 162 Q 320 170 430 158 Q 540 148 650 154 Q 720 158 790 150"
+              fill="none" stroke="#2a5f9a" stroke-width="3" stroke-linecap="round" opacity="0.45"/>
+        <text x="400" y="145" font-size="11" fill="#4a90c4" text-anchor="middle" opacity="0.8">La Loire</text>
+
+        <!-- ── La Vienne (affluent sud-ouest) ── -->
+        <path d="M 155 390 Q 160 340 162 300 Q 164 260 170 210 Q 174 188 182 175"
+              fill="none" stroke="url(#vienneG)" stroke-width="10" stroke-linecap="round" opacity="0.7"/>
+        <path d="M 155 390 Q 160 340 162 300 Q 164 260 170 210 Q 174 188 182 175"
+              fill="none" stroke="#2a5f9a" stroke-width="2" stroke-linecap="round" opacity="0.35" stroke-dasharray="4 3"/>
+        <text x="134" y="300" font-size="9" fill="#4a90c4" opacity="0.6"
+              transform="rotate(-85,134,300)">La Vienne</text>
+
+        <!-- ── Le Cher (affluent sud-est) ── -->
+        <path d="M 440 390 Q 450 350 455 310 Q 460 270 458 220 Q 457 195 455 178"
+              fill="none" stroke="url(#cherG)" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
+        <path d="M 440 390 Q 450 350 455 310 Q 460 270 458 220 Q 457 195 455 178"
+              fill="none" stroke="#2a5f9a" stroke-width="1.5" stroke-linecap="round" opacity="0.3" stroke-dasharray="3 3"/>
+        <text x="476" y="300" font-size="9" fill="#4a90c4" opacity="0.55"
+              transform="rotate(85,476,300)">Le Cher</text>
+
+        <!-- ════ RIVE NORD : VOUVRAY ════ -->
+        <path d="M 460 70 L 620 66 L 625 148 Q 565 155 462 150 Z"
+              fill="url(#tufPat)" stroke="rgba(212,180,131,0.45)" stroke-width="1.2"/>
+        <rect x="478" y="88" width="128" height="44" rx="9"
+              fill="rgba(212,180,131,0.1)" stroke="rgba(212,180,131,0.42)" stroke-width="1.1"/>
+        <text x="542" y="107" font-size="11" fill="#d4b483" text-anchor="middle" font-weight="700">Vouvray</text>
+        <text x="542" y="121" font-size="8.5" fill="rgba(212,180,131,0.7)" text-anchor="middle">Tuffeau · Chenin · Blanc</text>
+        <text x="542" y="131" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Sec · Demi-sec · Pétillant</text>
+
+        <!-- ════ RIVE SUD LOIRE : MONTLOUIS ════ -->
+        <path d="M 462 178 Q 525 185 620 180 L 625 250 Q 565 258 462 252 Z"
+              fill="url(#tufPat)" stroke="rgba(212,180,131,0.4)" stroke-width="1.1"/>
+        <rect x="478" y="198" width="130" height="40" rx="8"
+              fill="rgba(212,180,131,0.08)" stroke="rgba(212,180,131,0.35)" stroke-width="1"/>
+        <text x="543" y="215" font-size="10.5" fill="#d4b483" text-anchor="middle" font-weight="700">Montlouis-sur-Loire</text>
+        <text x="543" y="229" font-size="8.5" fill="rgba(212,180,131,0.65)" text-anchor="middle">Tuffeau · Chenin · Miroir de Vouvray</text>
+
+        <!-- ════ CHINON (Vienne + graviers) ════ -->
+        <path d="M 45 200 Q 80 192 140 198 Q 175 202 195 220 L 188 320 Q 155 332 110 325 Q 65 315 42 288 Z"
+              fill="url(#gravPat)" stroke="rgba(160,144,112,0.45)" stroke-width="1.2"/>
+        <rect x="58" y="240" width="120" height="48" rx="9"
+              fill="rgba(160,144,112,0.1)" stroke="rgba(160,144,112,0.42)" stroke-width="1.1"/>
+        <text x="118" y="260" font-size="11" fill="#a09070" text-anchor="middle" font-weight="700">Chinon</text>
+        <text x="118" y="274" font-size="8.5" fill="rgba(160,144,112,0.7)" text-anchor="middle">Graviers · Tuffeau</text>
+        <text x="118" y="285" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Cab. Franc · Rouge & Blanc</text>
+
+        <!-- ════ BOURGUEIL (rive droite, graviers) ════ -->
+        <path d="M 200 80 L 360 76 L 365 152 Q 300 158 200 152 Z"
+              fill="url(#gravPat)" stroke="rgba(160,144,112,0.4)" stroke-width="1.2"/>
+        <rect x="218" y="96" width="128" height="42" rx="9"
+              fill="rgba(160,144,112,0.1)" stroke="rgba(160,144,112,0.38)" stroke-width="1"/>
+        <text x="282" y="114" font-size="11" fill="#a09070" text-anchor="middle" font-weight="700">Bourgueil</text>
+        <text x="282" y="128" font-size="8.5" fill="rgba(160,144,112,0.7)" text-anchor="middle">Graviers · Tuffeau · Cab. Franc</text>
+        <text x="282" y="138" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Fruité · Léger à structuré</text>
+
+        <!-- ════ SAINT-NICOLAS-DE-BOURGUEIL ════ -->
+        <path d="M 200 152 L 362 155 L 362 200 Q 300 206 200 200 Z"
+              fill="url(#gravPat)" stroke="rgba(160,144,112,0.35)" stroke-width="1"/>
+        <rect x="215" y="162" width="138" height="32" rx="7"
+              fill="rgba(160,144,112,0.08)" stroke="rgba(160,144,112,0.3)" stroke-width="0.8"/>
+        <text x="284" y="175" font-size="9.5" fill="#a09070" text-anchor="middle" font-weight="600">St-Nicolas-de-Bourgueil</text>
+        <text x="284" y="187" font-size="8" fill="rgba(160,144,112,0.6)" text-anchor="middle">Sablonneux · Plus léger</text>
+
+        <!-- ════ TOURAINE (AOC générique, argile/silex) ════ -->
+        <path d="M 200 210 Q 280 205 370 210 Q 415 214 456 220 L 455 310 Q 410 320 355 316 Q 285 310 220 305 Q 195 302 188 288 Z"
+              fill="url(#argPat)" stroke="rgba(176,120,88,0.38)" stroke-width="1"/>
+        <rect x="268" y="245" width="128" height="42" rx="8"
+              fill="rgba(176,120,88,0.08)" stroke="rgba(176,120,88,0.3)" stroke-width="1"/>
+        <text x="332" y="263" font-size="10" fill="#b07858" text-anchor="middle" font-weight="700">Touraine AOC</text>
+        <text x="332" y="277" font-size="8" fill="rgba(176,120,88,0.65)" text-anchor="middle">Argile-Silex · Gamay · Sauvignon</text>
+
+        <!-- Villes -->
+        <circle cx="182" cy="173" r="5" fill="rgba(212,175,55,0.5)" stroke="#d4af37" stroke-width="1.2"/>
+        <text x="182" y="164" font-size="9" fill="#d4af37" text-anchor="middle">Tours</text>
+
+        <circle cx="140" cy="225" r="4" fill="rgba(212,175,55,0.4)" stroke="#d4af37" stroke-width="1"/>
+        <text x="120" y="218" font-size="8.5" fill="#d4af37" text-anchor="end">Chinon ●</text>
+
+        <circle cx="460" cy="165" r="4" fill="rgba(212,175,55,0.4)" stroke="#d4af37" stroke-width="1"/>
+        <text x="448" y="158" font-size="8.5" fill="#d4af37" text-anchor="end">Amboise ●</text>
+
+        <!-- ── LÉGENDE ── -->
+        <rect x="20" y="372" width="12" height="12" rx="2"
+              fill="url(#tufPat)" stroke="rgba(212,180,131,0.5)" stroke-width="1"/>
+        <text x="38" y="382" font-size="9" fill="rgba(255,255,255,0.5)">Tuffeau</text>
+
+        <rect x="110" y="372" width="12" height="12" rx="2"
+              fill="url(#gravPat)" stroke="rgba(160,144,112,0.5)" stroke-width="1"/>
+        <text x="128" y="382" font-size="9" fill="rgba(255,255,255,0.5)">Graviers</text>
+
+        <rect x="210" y="372" width="12" height="12" rx="2"
+              fill="url(#argPat)" stroke="rgba(176,120,88,0.5)" stroke-width="1"/>
+        <text x="228" y="382" font-size="9" fill="rgba(255,255,255,0.5)">Argile-Silex</text>
+
+        <!-- Compass -->
+        <text x="768" y="30" font-size="13" fill="rgba(255,255,255,0.28)" text-anchor="middle">N</text>
+        <line x1="768" y1="34" x2="768" y2="52" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+        <polygon points="768,34 763,46 768,43 773,46" fill="rgba(255,255,255,0.25)"/>
+      </svg>
+    </div>
+
+    <!-- TERROIRS -->
+    <h2 class="section-title">Les trois grands terroirs</h2>
+
+    <div class="terroirs-grid">
+
+      <div class="terroir-card tuffeau">
+        <span class="terroir-badge">Tuffeau</span>
+        <h3>Le Tuffeau</h3>
+        <p class="terroir-sub">Calcaire crayeux · Vouvray · Montlouis</p>
+        <p>
+          La roche emblématique de Touraine, un calcaire tendre et poreux qui sculpte
+          le paysage de ses falaises et de ses caves troglodytes. Sur les coteaux de
+          Vouvray et Montlouis, le tuffeau donne au Chenin Blanc une texture soyeuse
+          et une expression florale et fruitée unique. Il régule naturellement l'humidité,
+          protégeant la vigne des excès secs et humides.
+        </p>
+        <div class="terroir-profil">
+          <div class="profil-label">Profil aromatique</div>
+          <div class="profil-tags">
+            <span class="profil-tag">Fleurs blanches</span>
+            <span class="profil-tag">Coing</span>
+            <span class="profil-tag">Miel doux</span>
+            <span class="profil-tag">Texture soyeuse</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="terroir-card gravier">
+        <span class="terroir-badge">Graviers</span>
+        <h3>Les Graviers</h3>
+        <p class="terroir-sub">Alluvions · Chinon · Bourgueil</p>
+        <p>
+          Dépôts alluviaux laissés par la Loire et la Vienne, composés de graviers
+          siliceux et de sables. Sol drainant, réchauffant rapidement, idéal pour
+          le Cabernet Franc qui y produit ses vins les plus fruités et les plus légers.
+          À Chinon, les coteaux de tuffeau au-dessus des graviers permettent des
+          expressions plus structurées selon la parcelle. C'est le terroir des vins
+          de plaisir et de fraîcheur.
+        </p>
+        <div class="terroir-profil">
+          <div class="profil-label">Profil aromatique</div>
+          <div class="profil-tags">
+            <span class="profil-tag">Framboise</span>
+            <span class="profil-tag">Poivron doux</span>
+            <span class="profil-tag">Violette</span>
+            <span class="profil-tag">Fraîcheur directe</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="terroir-card argile">
+        <span class="terroir-badge">Argile-Silex</span>
+        <h3>L'Argile et le Silex</h3>
+        <p class="terroir-sub">Perruches · Touraine générique</p>
+        <p>
+          Les sols argilo-siliceux, appelés localement <em>perruches</em>, couvrent
+          une grande partie du plateau tourangeau. Réputés pour donner au Sauvignon
+          Blanc une minéralité et une tension proches de Sancerre. Le Gamay y produit
+          aussi des rouges légers et fruités, et le Cabernet Franc des vins plus
+          épicés et structurés que sur graviers.
+        </p>
+        <div class="terroir-profil">
+          <div class="profil-label">Profil aromatique</div>
+          <div class="profil-tags">
+            <span class="profil-tag">Silex</span>
+            <span class="profil-tag">Agrumes vifs</span>
+            <span class="profil-tag">Herbacé élégant</span>
+            <span class="profil-tag">Minéralité</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOCUS CABERNET FRANC -->
+    <div class="focus-box">
+      <h3>Le Cabernet Franc : le « Breton » de la Loire</h3>
+      <p>
+        En Touraine, le Cabernet Franc est appelé le <em>Breton</em> — un surnom dont l'origine
+        reste débattue, mais qui rappelle son ancrage historique profond dans la région.
+        C'est ici, et nulle part ailleurs, qu'il atteint sa forme la plus délicate et la plus
+        aromatique : léger en couleur, faible en tanins, mais d'une précision aromatique
+        remarquable. Notes de framboise, de poivron mûr, de violette et d'épices douces.
+      </p>
+      <p>
+        Contrairement aux expressions bordelaises ou au Piémont où il est taillé pour la garde
+        et la puissance, le Cabernet Franc de Touraine privilégie la fraîcheur et la buvabilité.
+        Il se boit légèrement frais (14–16°C), ce qui en fait l'un des rouges les plus
+        gastronomiques de France. Les meilleures cuvées de Chinon et Bourgueil vieillissent
+        néanmoins très bien sur 10 à 15 ans.
+      </p>
+    </div>
+
+    <!-- STYLES DE VOUVRAY -->
+    <h2 class="section-title">Les styles de Vouvray</h2>
+
+    <div class="vouvray-grid">
+      <div class="vouvray-card">
+        <div class="v-icon">🍋</div>
+        <h4>Sec</h4>
+        <p>Chenin tendu, agrumes, cire d'abeille. Acidité vive, pas de sucre résiduel. Style le plus minéral, garde 10–20 ans.</p>
+      </div>
+      <div class="vouvray-card">
+        <div class="v-icon">🍑</div>
+        <h4>Demi-sec</h4>
+        <p>Entre 8 et 18 g/l de sucre résiduel. Équilibre délicat sucre-acidité. Pêche, abricot, fleurs blanches. Le style historique.</p>
+      </div>
+      <div class="vouvray-card">
+        <div class="v-icon">🫧</div>
+        <h4>Pétillant & Mousseux</h4>
+        <p>Méthode traditionnelle sur tuffeau. Bulle fine et élégante. Pomme verte, brioche, zeste de citron. Caves troglodytes idéales.</p>
+      </div>
+    </div>
+
+    <!-- APPELLATIONS -->
+    <h2 class="section-title">Les appellations</h2>
+
+    <div class="zone-separator"><h3>Rouges — Cabernet Franc</h3></div>
+    <div class="appel-grid">
+
+      <div class="appel-card">
+        <div class="appel-zone">Indre-et-Loire · Graviers & Tuffeau · Rouge</div>
+        <h4>Chinon</h4>
+        <p>
+          La plus célèbre et la plus complexe des appellations rouges de Touraine.
+          Le Cabernet Franc s'exprime sur deux terroirs complémentaires : les graviers
+          de la plaine (vins fruités, légers, à boire jeunes) et les coteaux de tuffeau
+          (vins plus structurés, floraux, de garde). Rabelais, natif de Chinon,
+          louait déjà ces « vins de taffetas » dans ses écrits.
+        </p>
+        <div class="appel-meta">
+          <div class="meta-box"><div class="meta-label">Superficie</div><div class="meta-val">≈ 2 400 ha</div></div>
+          <div class="meta-box"><div class="meta-label">Cépage</div><div class="meta-val">Cabernet Franc (+ petit Cab. Sauv.)</div></div>
+          <div class="meta-box"><div class="meta-label">Couleurs</div><div class="meta-val">Rouge (90 %) · Blanc · Rosé</div></div>
+          <div class="meta-box"><div class="meta-label">Garde</div><div class="meta-val">3–15 ans selon terroir</div></div>
+        </div>
+        <div class="appel-tags">
+          <span class="appel-tag">Breton</span>
+          <span class="appel-tag">Graviers</span>
+          <span class="appel-tag">Tuffeau</span>
+          <span class="appel-tag">Framboise</span>
+          <span class="appel-tag">Violette</span>
+        </div>
+      </div>
+
+      <div class="appel-card">
+        <div class="appel-zone">Indre-et-Loire · Graviers · Rouge</div>
+        <h4>Bourgueil</h4>
+        <p>
+          Appellation sur la rive droite de la Loire, face à Chinon. Deux terroirs
+          distincts : les graviers de la plaine donnent des vins légers et fruités
+          (à boire en 2–4 ans), tandis que les coteaux de tuffeau produisent des
+          vins plus tanniques et structurés, capables de vieillir 10 à 15 ans.
+          Style globalement plus robuste que Saint-Nicolas voisin.
+        </p>
+        <div class="appel-meta">
+          <div class="meta-box"><div class="meta-label">Superficie</div><div class="meta-val">≈ 1 400 ha</div></div>
+          <div class="meta-box"><div class="meta-label">Cépage</div><div class="meta-val">Cabernet Franc dominant</div></div>
+          <div class="meta-box"><div class="meta-label">Style</div><div class="meta-val">Fruité à structuré</div></div>
+          <div class="meta-box"><div class="meta-label">Garde</div><div class="meta-val">2–15 ans</div></div>
+        </div>
+        <div class="appel-tags">
+          <span class="appel-tag">Graviers</span>
+          <span class="appel-tag">Tuffeau</span>
+          <span class="appel-tag">Fruits rouges</span>
+          <span class="appel-tag">Épices</span>
+        </div>
+      </div>
+
+      <div class="appel-card">
+        <div class="appel-zone">Indre-et-Loire · Sablonneux · Rouge léger</div>
+        <h4>Saint-Nicolas-de-Bourgueil</h4>
+        <p>
+          Enclave dans Bourgueil, sur sols sablonneux et légers. Vins plus délicats,
+          plus souples et plus précoces que Bourgueil, avec un fruit immédiat et
+          une fraîcheur croquante. C'est l'appellation idéale pour découvrir le
+          Cabernet Franc de Loire sans attendre. À servir légèrement frais.
+        </p>
+        <div class="appel-meta">
+          <div class="meta-box"><div class="meta-label">Superficie</div><div class="meta-val">≈ 1 000 ha</div></div>
+          <div class="meta-box"><div class="meta-label">Cépage</div><div class="meta-val">Cabernet Franc</div></div>
+          <div class="meta-box"><div class="meta-label">Style</div><div class="meta-val">Léger, fruité, croquant</div></div>
+          <div class="meta-box"><div class="meta-label">Garde</div><div class="meta-val">1–5 ans</div></div>
+        </div>
+        <div class="appel-tags">
+          <span class="appel-tag">Sablonneux</span>
+          <span class="appel-tag">Framboise fraîche</span>
+          <span class="appel-tag">Accessible jeune</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="zone-separator"><h3>Blancs — Chenin Blanc</h3></div>
+    <div class="appel-grid">
+
+      <div class="appel-card">
+        <div class="appel-zone">Indre-et-Loire · Tuffeau · Blanc</div>
+        <h4>Vouvray</h4>
+        <p>
+          L'appellation blanche la plus célèbre de Touraine. Chenin Blanc exclusivement,
+          sur les coteaux de tuffeau au nord de la Loire. La particularité de Vouvray est
+          sa diversité de styles : sec, demi-sec, moelleux et pétillant/mousseux, décidés
+          chaque année selon la maturité de la vendange. Les meilleures cuvées sèches
+          vieillissent 20 à 30 ans.
+        </p>
+        <div class="appel-meta">
+          <div class="meta-box"><div class="meta-label">Superficie</div><div class="meta-val">≈ 2 100 ha</div></div>
+          <div class="meta-box"><div class="meta-label">Cépage</div><div class="meta-val">100 % Chenin Blanc</div></div>
+          <div class="meta-box"><div class="meta-label">Styles</div><div class="meta-val">Sec · Demi-sec · Pétillant</div></div>
+          <div class="meta-box"><div class="meta-label">Garde</div><div class="meta-val">5–30 ans</div></div>
+        </div>
+        <div class="appel-tags">
+          <span class="appel-tag">Tuffeau</span>
+          <span class="appel-tag">Chenin Blanc</span>
+          <span class="appel-tag">Polyvalent</span>
+          <span class="appel-tag">Longue garde</span>
+        </div>
+      </div>
+
+      <div class="appel-card">
+        <div class="appel-zone">Indre-et-Loire · Tuffeau · Blanc · Rive sud</div>
+        <h4>Montlouis-sur-Loire</h4>
+        <p>
+          Le « miroir » de Vouvray, sur la rive opposée du Cher. Mêmes sols de tuffeau,
+          même cépage Chenin Blanc, mêmes styles possibles — mais un microclimat légèrement
+          plus chaud et une orientation différente donnent des vins souvent plus ronds et
+          aromatiques. Longtemps dans l'ombre de Vouvray, Montlouis s'impose aujourd'hui
+          comme une appellation de premier plan.
+        </p>
+        <div class="appel-meta">
+          <div class="meta-box"><div class="meta-label">Superficie</div><div class="meta-val">≈ 430 ha</div></div>
+          <div class="meta-box"><div class="meta-label">Cépage</div><div class="meta-val">100 % Chenin Blanc</div></div>
+          <div class="meta-box"><div class="meta-label">Style</div><div class="meta-val">Plus rond que Vouvray</div></div>
+          <div class="meta-box"><div class="meta-label">Garde</div><div class="meta-val">5–20 ans</div></div>
+        </div>
+        <div class="appel-tags">
+          <span class="appel-tag">Tuffeau</span>
+          <span class="appel-tag">Rive sud Cher</span>
+          <span class="appel-tag">Floral</span>
+          <span class="appel-tag">Émergent</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PRODUCTEURS -->
+    <h2 class="section-title">Producteurs de référence</h2>
+
+    <div class="prod-grid">
+      <div class="prod-card">
+        <div class="prod-name">Charles Joguet</div>
+        <div class="prod-appel">Chinon</div>
+        <div class="prod-note">La référence historique de Chinon. Clos de la Dioterie et Clos du Chêne Vert, vins mythiques.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Bernard Baudry</div>
+        <div class="prod-appel">Chinon</div>
+        <div class="prod-note">Style précis et élégant. Les Granges et La Croix Boissée, deux cuvées incontournables.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Olga Raffault</div>
+        <div class="prod-appel">Chinon</div>
+        <div class="prod-note">Domaine pionnier. Les Picasses, cuvée de garde issue des coteaux de tuffeau.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Domaine de la Chevalerie</div>
+        <div class="prod-appel">Bourgueil</div>
+        <div class="prod-note">Vieilles vignes sur graviers et tuffeau. Cuvée Busardières, emblématique.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Huet</div>
+        <div class="prod-appel">Vouvray</div>
+        <div class="prod-note">La maison de référence absolue à Vouvray. Trois clos, trois styles. Vins de légende.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">François Chidaine</div>
+        <div class="prod-appel">Montlouis · Vouvray</div>
+        <div class="prod-note">Pionnier de la biodynamie sur les deux rives. Cuvées parcellaires d'exception.</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Cette page évoluera avec la cave.<br>
+      Chaque nouvelle bouteille peut enrichir la compréhension d'une région, d'un terroir ou d'un style de vin.
+    </div>
+
+  </div>
+</body>
+</html>

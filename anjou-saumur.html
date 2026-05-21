@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anjou & Saumur — Loire</title>
+
+  <style>
+    :root {
+      --bg: #0d1014;
+      --border: rgba(255,255,255,0.08);
+      --text: #f4f4f4;
+      --muted: #b5bcc8;
+      --gold: #d4af37;
+      /* Terroir colors */
+      --schiste: #7a9e7e;
+      --schiste-light: rgba(122,158,126,0.12);
+      --schiste-border: rgba(122,158,126,0.35);
+      --tuffeau: #d4b483;
+      --tuffeau-light: rgba(212,180,131,0.12);
+      --tuffeau-border: rgba(212,180,131,0.35);
+      --ardoise: #7a8fa6;
+      --ardoise-light: rgba(122,143,166,0.12);
+      --ardoise-border: rgba(122,143,166,0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(160,100,180,0.10), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(212,180,131,0.08), transparent 35%),
+        linear-gradient(180deg, #0b0d10 0%, #151a20 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    .top-nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(8,10,12,0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-container {
+      max-width: 1400px; margin: auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 24px;
+    }
+    .nav-logo { text-decoration: none; color: white; font-weight: 700; font-size: 1.15rem; }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      padding: 10px 14px; border-radius: 12px; transition: 0.2s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(255,255,255,0.06); color: white;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      max-width: 1400px; margin: auto; padding: 20px 24px 0;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.88rem; color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { opacity: 0.4; }
+    .breadcrumb .current { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 1400px; margin: auto; padding: 50px 24px 40px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .hero-text h1 { margin: 0; font-size: 3.6rem; letter-spacing: -2px; line-height: 1.05; }
+    .hero-text h1 span { color: var(--gold); }
+    .hero-text .subtitle { margin-top: 20px; color: var(--muted); line-height: 1.8; font-size: 1.05rem; }
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 20px;
+    }
+    .stat-card .label {
+      color: var(--gold); font-size: 0.78rem;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+    }
+    .stat-card .value { font-size: 1.15rem; font-weight: 600; line-height: 1.4; }
+    .stat-card .value small { font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .tag {
+      padding: 8px 14px; border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.82rem; color: var(--muted);
+    }
+
+    /* ── CONTAINER ── */
+    .container { max-width: 1400px; margin: auto; padding: 0 24px 80px; }
+
+    .section-title {
+      margin: 60px 0 24px; font-size: 1.8rem; letter-spacing: -1px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .section-title::after {
+      content: ""; flex: 1; height: 1px;
+      background: linear-gradient(to right, rgba(255,255,255,0.1), transparent);
+    }
+
+    /* ── CARTE ── */
+    .map-wrapper {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px; padding: 24px; margin-bottom: 40px;
+    }
+    .map-wrapper svg { width: 100%; height: auto; display: block; }
+
+    /* ── TERROIRS ── */
+    .terroirs-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 18px; margin-bottom: 48px;
+    }
+    .terroir-card {
+      border-radius: 22px; padding: 26px;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative; overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .terroir-card:hover { transform: translateY(-4px); }
+    .terroir-card::before {
+      content: ""; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      border-radius: 22px 22px 0 0;
+    }
+    .terroir-card.schiste { background: var(--schiste-light); border-color: var(--schiste-border); }
+    .terroir-card.schiste::before { background: linear-gradient(to right, var(--schiste), transparent); }
+    .terroir-card.tuffeau { background: var(--tuffeau-light); border-color: var(--tuffeau-border); }
+    .terroir-card.tuffeau::before { background: linear-gradient(to right, var(--tuffeau), transparent); }
+    .terroir-card.ardoise { background: var(--ardoise-light); border-color: var(--ardoise-border); }
+    .terroir-card.ardoise::before { background: linear-gradient(to right, var(--ardoise), transparent); }
+
+    .terroir-badge {
+      display: inline-block; padding: 4px 12px; border-radius: 999px;
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px;
+      font-weight: 600; margin-bottom: 14px;
+    }
+    .schiste .terroir-badge { background: rgba(122,158,126,0.15); color: var(--schiste); }
+    .tuffeau .terroir-badge { background: rgba(212,180,131,0.15); color: var(--tuffeau); }
+    .ardoise .terroir-badge { background: rgba(122,143,166,0.15); color: var(--ardoise); }
+
+    .terroir-card h3 { margin: 0 0 10px; font-size: 1.2rem; }
+    .terroir-card .terroir-sub {
+      font-size: 0.78rem; margin-bottom: 14px; opacity: 0.6;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .terroir-card p { margin: 0; font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+
+    .terroir-profil {
+      margin-top: 16px; padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .terroir-profil .profil-label {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--gold); margin-bottom: 8px;
+    }
+    .profil-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .profil-tag {
+      font-size: 0.78rem; padding: 4px 10px; border-radius: 999px;
+      background: rgba(255,255,255,0.05); color: var(--muted);
+    }
+
+    /* ── APPELLATIONS GRID ── */
+    .appel-section { margin-bottom: 48px; }
+    .appel-intro {
+      font-size: 0.95rem; color: var(--muted); line-height: 1.8;
+      margin-bottom: 24px; max-width: 860px;
+    }
+    .appel-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 18px;
+    }
+    .appel-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .appel-card:hover {
+      border-color: rgba(212,175,55,0.22);
+      transform: translateY(-3px);
+    }
+    .appel-card .appel-zone {
+      font-size: 0.72rem; color: var(--gold);
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+    }
+    .appel-card h4 { margin: 0 0 10px; font-size: 1.15rem; }
+    .appel-card p { margin: 0 0 14px; color: var(--muted); font-size: 0.88rem; line-height: 1.7; }
+    .appel-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .appel-tag {
+      font-size: 0.76rem; padding: 3px 9px; border-radius: 999px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.07);
+      color: var(--muted);
+    }
+
+    /* Séparateur Anjou / Saumur */
+    .zone-separator {
+      display: flex; align-items: center; gap: 16px;
+      margin: 36px 0 24px;
+    }
+    .zone-separator h3 {
+      margin: 0; font-size: 1.1rem; white-space: nowrap;
+      color: var(--gold);
+    }
+    .zone-separator::before, .zone-separator::after {
+      content: ""; flex: 1; height: 1px;
+      background: rgba(212,175,55,0.2);
+    }
+
+    /* ── CHENIN FOCUS ── */
+    .focus-box {
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 20px 20px 0;
+      padding: 28px 32px; margin-bottom: 48px;
+    }
+    .focus-box h3 { margin: 0 0 14px; font-size: 1.1rem; color: var(--gold); }
+    .focus-box p { margin: 0 0 12px; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+    .focus-box p:last-child { margin-bottom: 0; }
+
+    /* Styles du Chenin */
+    .chenin-styles {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 14px; margin-bottom: 48px;
+    }
+    .chenin-card {
+      background: rgba(212,180,131,0.06);
+      border: 1px solid rgba(212,180,131,0.18);
+      border-radius: 18px; padding: 20px; text-align: center;
+    }
+    .chenin-card .chenin-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .chenin-card h4 { margin: 0 0 8px; font-size: 0.95rem; }
+    .chenin-card p { margin: 0; font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+    .chenin-card .chenin-appels {
+      margin-top: 12px; font-size: 0.75rem;
+      color: var(--tuffeau); font-style: italic;
+    }
+
+    /* ── PRODUCTEURS ── */
+    .prod-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px; margin-bottom: 48px;
+    }
+    .prod-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px; padding: 18px;
+      transition: border-color 0.2s;
+    }
+    .prod-card:hover { border-color: rgba(212,175,55,0.2); }
+    .prod-card .prod-name { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+    .prod-card .prod-appel { font-size: 0.78rem; color: var(--gold); margin-bottom: 8px; }
+    .prod-card .prod-note { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 80px; text-align: center;
+      color: var(--muted); line-height: 1.8; font-size: 0.95rem;
+    }
+
+    @media (max-width: 1000px) {
+      .terroirs-grid { grid-template-columns: 1fr; }
+      .chenin-styles { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; gap: 32px; }
+      .hero-text h1 { font-size: 2.8rem; }
+    }
+    @media (max-width: 600px) {
+      .nav-container { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .chenin-styles { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="Index.html" class="nav-logo">🍷 Ma Cave</a>
+      <div class="nav-links">
+        <a href="Index.html">Accueil</a>
+        <a href="Ma-Cave.html">Ma Cave</a>
+        <a href="millesimes.html">Millésimes</a>
+        <a href="regionsviticoles.html" class="active">Régions</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Fil d'Ariane -->
+  <div class="breadcrumb">
+    <a href="regionsviticoles.html">Régions viticoles</a>
+    <span class="sep">›</span>
+    <a href="loire.html">Loire</a>
+    <span class="sep">›</span>
+    <span class="current">Anjou & Saumur</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Anjou &<br><span>Saumur</span></h1>
+      <p class="subtitle">
+        Au cœur de la Vallée de la Loire, entre schistes et tuffeau, l'Anjou et le Saumurois
+        incarnent la diversité absolue du Chenin Blanc — sec, demi-sec, moelleux ou effervescent —
+        et révèlent un Cabernet Franc d'une élégance et d'une fraîcheur uniques à Saumur-Champigny.
+      </p>
+      <div class="tag-list">
+        <div class="tag">Chenin Blanc</div>
+        <div class="tag">Cabernet Franc</div>
+        <div class="tag">Tuffeau</div>
+        <div class="tag">Schiste</div>
+        <div class="tag">Ardoise</div>
+        <div class="tag">Moelleux</div>
+        <div class="tag">Crémant</div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="label">Superficie totale</div>
+        <div class="value">≈ 20 000 ha<br><small>Anjou + Saumur réunis</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Cépage blanc roi</div>
+        <div class="value">Chenin Blanc<br><small>aussi appelé Pineau de la Loire</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Appellations</div>
+        <div class="value">Plus de 20 AOC<br><small>blancs, rouges, rosés, effervescents</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Sols dominants</div>
+        <div class="value">Schiste · Tuffeau<br><small>Ardoise · Sables</small></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- CARTE -->
+    <h2 class="section-title">Carte de la région</h2>
+
+    <div class="map-wrapper">
+      <svg viewBox="0 0 780 380" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">
+        <defs>
+          <pattern id="schistePat" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(30)">
+            <line x1="0" y1="0" x2="8" y2="0" stroke="rgba(122,158,126,0.3)" stroke-width="1.5"/>
+          </pattern>
+          <pattern id="tuffeauPat" patternUnits="userSpaceOnUse" width="9" height="9">
+            <rect x="1" y="1" width="3" height="3" rx="1" fill="rgba(212,180,131,0.25)"/>
+          </pattern>
+          <pattern id="ardoisePat" patternUnits="userSpaceOnUse" width="7" height="7" patternTransform="rotate(60)">
+            <line x1="0" y1="0" x2="0" y2="7" stroke="rgba(122,143,166,0.28)" stroke-width="2"/>
+          </pattern>
+          <linearGradient id="loireGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1a3a5c" stop-opacity="0.2"/>
+            <stop offset="30%" stop-color="#1a3a5c" stop-opacity="0.7"/>
+            <stop offset="70%" stop-color="#1a3a5c" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#1a3a5c" stop-opacity="0.2"/>
+          </linearGradient>
+          <linearGradient id="layonGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1a3a5c" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#1a3a5c" stop-opacity="0.1"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="780" height="380" fill="rgba(255,255,255,0.015)" rx="12"/>
+
+        <!-- Relief schématique -->
+        <path d="M 0 200 Q 100 180 200 190 Q 300 200 400 185 Q 500 170 600 180 Q 700 190 780 175 L 780 380 L 0 380 Z"
+              fill="rgba(255,255,255,0.01)"/>
+
+        <!-- ── La Loire ── -->
+        <path d="M 20 175 Q 120 160 240 170 Q 350 180 460 165 Q 560 152 680 158 Q 730 162 770 155"
+              fill="none" stroke="url(#loireGrad)" stroke-width="16" stroke-linecap="round" opacity="0.8"/>
+        <path d="M 20 175 Q 120 160 240 170 Q 350 180 460 165 Q 560 152 680 158 Q 730 162 770 155"
+              fill="none" stroke="#2a5f9a" stroke-width="3" stroke-linecap="round" opacity="0.45"/>
+        <text x="390" y="195" font-size="11" fill="#4a90c4" text-anchor="middle" opacity="0.8">La Loire</text>
+
+        <!-- ── Layon (affluent sud) ── -->
+        <path d="M 220 340 Q 230 300 225 260 Q 222 230 235 195"
+              fill="none" stroke="url(#layonGrad)" stroke-width="7" stroke-linecap="round" opacity="0.6"/>
+        <path d="M 220 340 Q 230 300 225 260 Q 222 230 235 195"
+              fill="none" stroke="#2a5f9a" stroke-width="1.5" stroke-linecap="round" opacity="0.35" stroke-dasharray="4 3"/>
+        <text x="200" y="285" font-size="9" fill="#4a90c4" opacity="0.6"
+              transform="rotate(-80,200,285)">Le Layon</text>
+
+        <!-- ── Thouet ── -->
+        <path d="M 490 340 Q 495 300 490 255 Q 488 220 480 190"
+              fill="none" stroke="#2a5f9a" stroke-width="5" stroke-linecap="round" opacity="0.4"/>
+        <path d="M 490 340 Q 495 300 490 255 Q 488 220 480 190"
+              fill="none" stroke="#2a5f9a" stroke-width="1.2" stroke-linecap="round" opacity="0.3" stroke-dasharray="3 3"/>
+
+        <!-- ════ ANJOU — Schiste (rive nord, ouest) ════ -->
+        <!-- Savennières -->
+        <path d="M 100 110 L 235 105 L 240 158 Q 180 165 110 158 Z"
+              fill="url(#schistePat)" stroke="rgba(122,158,126,0.45)" stroke-width="1.2"/>
+        <rect x="118" y="118" width="102" height="34" rx="8"
+              fill="rgba(122,158,126,0.1)" stroke="rgba(122,158,126,0.4)" stroke-width="1"/>
+        <text x="169" y="132" font-size="9.5" fill="#7a9e7e" text-anchor="middle" font-weight="700">Savennières</text>
+        <text x="169" y="145" font-size="8" fill="rgba(122,158,126,0.65)" text-anchor="middle">Schiste · Sec · Minéral</text>
+
+        <!-- Coteaux du Layon (rive gauche Layon) -->
+        <path d="M 100 210 Q 140 205 195 210 Q 230 215 250 240 Q 240 290 220 335 Q 180 345 140 335 Q 100 315 95 280 Z"
+              fill="url(#schistePat)" stroke="rgba(122,158,126,0.4)" stroke-width="1.2"/>
+        <rect x="112" y="255" width="120" height="42" rx="8"
+              fill="rgba(122,158,126,0.1)" stroke="rgba(122,158,126,0.38)" stroke-width="1"/>
+        <text x="172" y="272" font-size="9" fill="#7a9e7e" text-anchor="middle" font-weight="700">Coteaux du Layon</text>
+        <text x="172" y="285" font-size="8" fill="rgba(122,158,126,0.65)" text-anchor="middle">Moelleux · Botrytis</text>
+        <text x="172" y="296" font-size="7.5" fill="rgba(255,255,255,0.3)" text-anchor="middle">Chaume · Quarts de Chaume</text>
+
+        <!-- ════ ANJOU — Ardoise (centre) ════ -->
+        <path d="M 240 108 L 360 104 L 368 168 Q 300 175 240 162 Z"
+              fill="url(#ardoisePat)" stroke="rgba(122,143,166,0.4)" stroke-width="1.2"/>
+        <rect x="258" y="118" width="92" height="34" rx="8"
+              fill="rgba(122,143,166,0.08)" stroke="rgba(122,143,166,0.35)" stroke-width="1"/>
+        <text x="304" y="132" font-size="9.5" fill="#7a8fa6" text-anchor="middle" font-weight="700">Anjou Villages</text>
+        <text x="304" y="145" font-size="8" fill="rgba(122,143,166,0.65)" text-anchor="middle">Ardoise · Rouge</text>
+
+        <!-- ════ SAUMUR — Tuffeau (est) ════ -->
+        <!-- Saumur-Champigny -->
+        <path d="M 430 195 Q 510 185 600 190 Q 640 195 660 210 L 655 290 Q 610 305 540 300 Q 475 295 432 275 Z"
+              fill="url(#tuffeauPat)" stroke="rgba(212,180,131,0.45)" stroke-width="1.3"/>
+        <rect x="468" y="228" width="140" height="42" rx="9"
+              fill="rgba(212,180,131,0.1)" stroke="rgba(212,180,131,0.42)" stroke-width="1.1"/>
+        <text x="538" y="246" font-size="10" fill="#d4b483" text-anchor="middle" font-weight="700">Saumur-Champigny</text>
+        <text x="538" y="260" font-size="8" fill="rgba(212,180,131,0.7)" text-anchor="middle">Tuffeau · Cab. Franc · Rouge</text>
+        <text x="538" y="271" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Fruité · Frais · Élégant</text>
+
+        <!-- Saumur Blanc -->
+        <path d="M 432 108 L 560 104 L 565 178 Q 510 188 432 182 Z"
+              fill="url(#tuffeauPat)" stroke="rgba(212,180,131,0.4)" stroke-width="1.2"/>
+        <rect x="450" y="118" width="100" height="36" rx="8"
+              fill="rgba(212,180,131,0.08)" stroke="rgba(212,180,131,0.38)" stroke-width="1"/>
+        <text x="500" y="132" font-size="9.5" fill="#d4b483" text-anchor="middle" font-weight="700">Saumur Blanc</text>
+        <text x="500" y="145" font-size="8" fill="rgba(212,180,131,0.65)" text-anchor="middle">Tuffeau · Chenin · Sec</text>
+
+        <!-- Crémant de Loire -->
+        <path d="M 560 108 L 690 104 L 695 175 Q 640 182 565 178 Z"
+              fill="url(#tuffeauPat)" stroke="rgba(212,180,131,0.35)" stroke-width="1"/>
+        <rect x="578" y="118" width="102" height="36" rx="8"
+              fill="rgba(212,180,131,0.07)" stroke="rgba(212,180,131,0.3)" stroke-width="1"/>
+        <text x="629" y="132" font-size="9.5" fill="#d4b483" text-anchor="middle" font-weight="700">Crémant de Loire</text>
+        <text x="629" y="145" font-size="8" fill="rgba(212,180,131,0.65)" text-anchor="middle">Effervescent · Chenin</text>
+
+        <!-- Villes -->
+        <circle cx="195" cy="172" r="5" fill="rgba(212,175,55,0.5)" stroke="#d4af37" stroke-width="1.2"/>
+        <text x="183" y="165" font-size="9" fill="#d4af37" text-anchor="middle">Angers</text>
+
+        <circle cx="488" cy="188" r="5" fill="rgba(212,175,55,0.5)" stroke="#d4af37" stroke-width="1.2"/>
+        <text x="488" y="180" font-size="9" fill="#d4af37" text-anchor="middle">Saumur</text>
+
+        <!-- ── LÉGENDE ── -->
+        <rect x="20" y="354" width="12" height="12" rx="2"
+              fill="url(#schistePat)" stroke="rgba(122,158,126,0.5)" stroke-width="1"/>
+        <text x="38" y="364" font-size="9" fill="rgba(255,255,255,0.5)">Schiste / Ardoise</text>
+
+        <rect x="175" y="354" width="12" height="12" rx="2"
+              fill="url(#tuffeauPat)" stroke="rgba(212,180,131,0.5)" stroke-width="1"/>
+        <text x="193" y="364" font-size="9" fill="rgba(255,255,255,0.5)">Tuffeau</text>
+
+        <rect x="280" y="354" width="12" height="12" rx="2"
+              fill="url(#ardoisePat)" stroke="rgba(122,143,166,0.5)" stroke-width="1"/>
+        <text x="298" y="364" font-size="9" fill="rgba(255,255,255,0.5)">Ardoise</text>
+
+        <!-- Compass -->
+        <text x="748" y="30" font-size="13" fill="rgba(255,255,255,0.28)" text-anchor="middle">N</text>
+        <line x1="748" y1="34" x2="748" y2="52" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+        <polygon points="748,34 743,46 748,43 753,46" fill="rgba(255,255,255,0.25)"/>
+      </svg>
+    </div>
+
+    <!-- TERROIRS -->
+    <h2 class="section-title">Les trois grands types de sols</h2>
+
+    <div class="terroirs-grid">
+
+      <div class="terroir-card schiste">
+        <span class="terroir-badge">Schiste</span>
+        <h3>Le Schiste</h3>
+        <p class="terroir-sub">Roche métamorphique · Anjou occidental</p>
+        <p>
+          Le schiste domine la partie occidentale de l'Anjou, notamment autour de Savennières
+          et des Coteaux du Layon. Roche dure, sombre, drainante, qui accumule la chaleur
+          le jour et la restitue la nuit. Il génère des vins de grande tension, avec une
+          minéralité saline et tranchante. Les racines du Chenin s'y enfoncent en profondeur
+          pour chercher l'eau, ce qui donne des vins concentrés et d'une longévité exceptionnelle.
+        </p>
+        <div class="terroir-profil">
+          <div class="profil-label">Profil aromatique</div>
+          <div class="profil-tags">
+            <span class="profil-tag">Minéralité tranchante</span>
+            <span class="profil-tag">Cire d'abeille</span>
+            <span class="profil-tag">Agrumes secs</span>
+            <span class="profil-tag">Longue garde</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="terroir-card tuffeau">
+        <span class="terroir-badge">Tuffeau</span>
+        <h3>Le Tuffeau</h3>
+        <p class="terroir-sub">Calcaire crayeux · Saumurois</p>
+        <p>
+          La roche emblématique du Saumurois — un calcaire tendre, jaunâtre, poreux,
+          facile à creuser (d'où les célèbres caves troglodytes). Le tuffeau retient
+          l'humidité en été et draine l'excès d'eau en hiver, régulant naturellement
+          le stress hydrique de la vigne. Il donne des vins plus ronds, floraux et
+          généreux que le schiste, avec une texture soyeuse caractéristique.
+          Les bulles du Crémant de Loire y trouvent leur finesse.
+        </p>
+        <div class="terroir-profil">
+          <div class="profil-label">Profil aromatique</div>
+          <div class="profil-tags">
+            <span class="profil-tag">Fleurs blanches</span>
+            <span class="profil-tag">Pêche</span>
+            <span class="profil-tag">Miel doux</span>
+            <span class="profil-tag">Texture soyeuse</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="terroir-card ardoise">
+        <span class="terroir-badge">Ardoise</span>
+        <h3>L'Ardoise</h3>
+        <p class="terroir-sub">Schiste ardoisier · Anjou centre</p>
+        <p>
+          Variante sombre et feuilletée du schiste, l'ardoise couvre une grande partie
+          de l'Anjou central et donne des rouges particulièrement intéressants en
+          Cabernet Franc et Cabernet Sauvignon (AOC Anjou Villages, Anjou Villages Brissac).
+          Sa faible fertilité et son drainage rapide poussent la vigne à limiter ses rendements.
+          Les vins rouges y sont frais, épicés et dotés d'une belle structure tannique.
+        </p>
+        <div class="terroir-profil">
+          <div class="profil-label">Profil aromatique</div>
+          <div class="profil-tags">
+            <span class="profil-tag">Fruits rouges frais</span>
+            <span class="profil-tag">Poivre</span>
+            <span class="profil-tag">Épices</span>
+            <span class="profil-tag">Structure fraîche</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CHENIN BLANC -->
+    <div class="focus-box">
+      <h3>Le Chenin Blanc : le cépage caméléon de la Loire</h3>
+      <p>
+        Nulle part au monde le Chenin Blanc ne s'exprime avec autant de diversité qu'en Anjou et Saumur.
+        Un même cépage, un même terroir, mais des vins radicalement différents selon le degré de maturité
+        à la vendange et la technique du vigneron. Son acidité naturellement élevée lui permet
+        de vieillir des décennies, qu'il soit sec, demi-sec ou liquoreux.
+      </p>
+      <p>
+        Localement, on l'appelle le <em>Pineau de la Loire</em> — un nom qui rappelle son ancrage
+        historique profond dans la région. Les meilleures cuvées de Savennières ou de Quarts de Chaume
+        peuvent rivaliser avec les plus grands blancs du monde.
+      </p>
+    </div>
+
+    <!-- LES 4 STYLES DU CHENIN -->
+    <h2 class="section-title">Les 4 styles du Chenin Blanc</h2>
+
+    <div class="chenin-styles">
+      <div class="chenin-card">
+        <div class="chenin-icon">🍋</div>
+        <h4>Sec</h4>
+        <p>Tendu, minéral, agrumes et cire d'abeille. Souvent le plus complexe à long terme.</p>
+        <div class="chenin-appels">Savennières · Saumur Blanc</div>
+      </div>
+      <div class="chenin-card">
+        <div class="chenin-icon">🍑</div>
+        <h4>Demi-sec</h4>
+        <p>Pêche, abricot, miel léger. Équilibre délicat entre sucre résiduel et acidité vive.</p>
+        <div class="chenin-appels">Vouvray demi-sec · Montlouis</div>
+      </div>
+      <div class="chenin-card">
+        <div class="chenin-icon">🍯</div>
+        <h4>Moelleux & Liquoreux</h4>
+        <p>Miel, coing, safran, botrytis. Les plus grands vins de garde de la Loire.</p>
+        <div class="chenin-appels">Quarts de Chaume · Bonnezeaux · Coteaux du Layon</div>
+      </div>
+      <div class="chenin-card">
+        <div class="chenin-icon">🫧</div>
+        <h4>Effervescent</h4>
+        <p>Bulle fine, fraîcheur, pomme verte et brioche. Méthode traditionnelle.</p>
+        <div class="chenin-appels">Crémant de Loire · Saumur Mousseux</div>
+      </div>
+    </div>
+
+    <!-- APPELLATIONS -->
+    <h2 class="section-title">Les appellations clés</h2>
+
+    <div class="appel-section">
+
+      <div class="zone-separator"><h3>Anjou</h3></div>
+
+      <div class="appel-grid">
+
+        <div class="appel-card">
+          <div class="appel-zone">Anjou · Schiste · Blanc sec</div>
+          <h4>Savennières</h4>
+          <p>
+            L'appellation la plus prestigieuse de l'Anjou pour les blancs secs.
+            Chenin Blanc sur schiste, vins d'une tension et d'une minéralité
+            incomparables. Deux crus classés : Coulée de Serrant (monopole de
+            Nicolas Joly) et Roche aux Moines. Garde facilement 20 à 30 ans.
+          </p>
+          <div class="appel-tags">
+            <span class="appel-tag">Chenin Blanc</span>
+            <span class="appel-tag">Sec</span>
+            <span class="appel-tag">Schiste</span>
+            <span class="appel-tag">Longue garde</span>
+          </div>
+        </div>
+
+        <div class="appel-card">
+          <div class="appel-zone">Anjou · Schiste · Moelleux</div>
+          <h4>Coteaux du Layon</h4>
+          <p>
+            Le grand terroir des moelleux angevins, le long de la rivière Layon.
+            Le Chenin y est vendangé tard, souvent atteint de botrytis cinerea
+            (pourriture noble). Six communes peuvent ajouter leur nom à l'appellation.
+            Style miel, coing, abricot confit, avec une acidité qui équilibre le sucre.
+          </p>
+          <div class="appel-tags">
+            <span class="appel-tag">Chenin Blanc</span>
+            <span class="appel-tag">Moelleux</span>
+            <span class="appel-tag">Botrytis</span>
+            <span class="appel-tag">Schiste</span>
+          </div>
+        </div>
+
+        <div class="appel-card">
+          <div class="appel-zone">Anjou · Schiste · Grand moelleux</div>
+          <h4>Quarts de Chaume</h4>
+          <p>
+            Premier Grand Cru classé de la Loire (2011). Un seul lieu-dit de 50 ha
+            dans les Coteaux du Layon, exposé plein sud. Rendements limités à 25 hl/ha.
+            Les vins sont parmi les plus concentrés et les plus complexes de France,
+            avec un potentiel de garde de 50 ans et plus.
+          </p>
+          <div class="appel-tags">
+            <span class="appel-tag">Grand Cru Loire</span>
+            <span class="appel-tag">50 ha</span>
+            <span class="appel-tag">Liquoreux</span>
+            <span class="appel-tag">Exception</span>
+          </div>
+        </div>
+
+        <div class="appel-card">
+          <div class="appel-zone">Anjou · Ardoise · Rouge</div>
+          <h4>Anjou Villages Brissac</h4>
+          <p>
+            La meilleure appellation rouge de l'Anjou, sur sols d'ardoise et de schiste.
+            Cabernet Franc et Cabernet Sauvignon donnent des vins charpentés, fruités
+            et épicés, avec une belle fraîcheur. Bien moins connus que Saumur-Champigny
+            mais d'un excellent rapport qualité-prix.
+          </p>
+          <div class="appel-tags">
+            <span class="appel-tag">Cab. Franc</span>
+            <span class="appel-tag">Cab. Sauvignon</span>
+            <span class="appel-tag">Ardoise</span>
+            <span class="appel-tag">Rouge</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="zone-separator"><h3>Saumur</h3></div>
+
+      <div class="appel-grid">
+
+        <div class="appel-card">
+          <div class="appel-zone">Saumur · Tuffeau · Rouge</div>
+          <h4>Saumur-Champigny</h4>
+          <p>
+            L'appellation rouge phare du Saumurois et l'une des plus célèbres de la Loire.
+            Cabernet Franc exclusivement, sur tuffeau. Vins fruités, frais, avec des notes
+            de framboise, de poivron doux et de réglisse. Plus légers et accessibles jeunes
+            que les Chinon ou Bourgueil, mais les meilleures cuvées vieillissent très bien.
+          </p>
+          <div class="appel-tags">
+            <span class="appel-tag">Cabernet Franc</span>
+            <span class="appel-tag">Tuffeau</span>
+            <span class="appel-tag">Rouge</span>
+            <span class="appel-tag">Fruité</span>
+          </div>
+        </div>
+
+        <div class="appel-card">
+          <div class="appel-zone">Saumur · Tuffeau · Blanc sec</div>
+          <h4>Saumur Blanc</h4>
+          <p>
+            Chenin Blanc sec sur tuffeau. Style plus ample et floral que Savennières,
+            avec une texture soyeuse caractéristique de la roche calcaire.
+            Notes de pêche blanche, fleurs d'acacia et d'agrumes. Excellent rapport
+            qualité-prix, souvent sous-estimé face à ses voisins.
+          </p>
+          <div class="appel-tags">
+            <span class="appel-tag">Chenin Blanc</span>
+            <span class="appel-tag">Sec</span>
+            <span class="appel-tag">Tuffeau</span>
+            <span class="appel-tag">Floral</span>
+          </div>
+        </div>
+
+        <div class="appel-card">
+          <div class="appel-zone">Saumur · Tuffeau · Effervescent</div>
+          <h4>Crémant de Loire</h4>
+          <p>
+            Méthode traditionnelle sur Chenin Blanc principalement, complété de Cabernet Franc
+            et Chardonnay. Les caves troglodytes creusées dans le tuffeau offrent des conditions
+            idéales pour l'élevage sur lattes. Bulle fine, fraîcheur vive, pomme verte et brioche.
+            Excellent rapport qualité-prix face au Champagne.
+          </p>
+          <div class="appel-tags">
+            <span class="appel-tag">Chenin</span>
+            <span class="appel-tag">Méthode traditionnelle</span>
+            <span class="appel-tag">Effervescent</span>
+            <span class="appel-tag">Caves troglodytes</span>
+          </div>
+        </div>
+
+        <div class="appel-card">
+          <div class="appel-zone">Saumur · Tuffeau · Moelleux rare</div>
+          <h4>Coteaux de Saumur</h4>
+          <p>
+            L'appellation la plus confidentielle et la plus rare du Saumurois.
+            Chenin Blanc moelleux produit en quantités infimes, uniquement les
+            meilleures années. Vins d'une finesse et d'une pureté remarquables,
+            à mi-chemin entre Saumur Blanc et les grands liquoreux de l'Anjou.
+          </p>
+          <div class="appel-tags">
+            <span class="appel-tag">Chenin Blanc</span>
+            <span class="appel-tag">Moelleux rare</span>
+            <span class="appel-tag">Confidentiel</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PRODUCTEURS -->
+    <h2 class="section-title">Producteurs de référence</h2>
+
+    <div class="prod-grid">
+      <div class="prod-card">
+        <div class="prod-name">Nicolas Joly</div>
+        <div class="prod-appel">Savennières — Coulée de Serrant</div>
+        <div class="prod-note">Pionnier de la biodynamie en France. Monopole de 7 ha, vins mythiques.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Domaine des Baumard</div>
+        <div class="prod-appel">Savennières · Quarts de Chaume</div>
+        <div class="prod-note">Référence sur les deux appellations. Style précis et classique.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Moulin Touchais</div>
+        <div class="prod-appel">Coteaux du Layon</div>
+        <div class="prod-note">Stocks légendaires de vieux millésimes. Vins de garde exceptionnels.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Château Pierre-Bise</div>
+        <div class="prod-appel">Coteaux du Layon · Quarts de Chaume</div>
+        <div class="prod-note">Claude Papin, reference absolue pour les moelleux du Layon.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Clos Rougeard</div>
+        <div class="prod-appel">Saumur-Champigny</div>
+        <div class="prod-note">Le producteur culte de l'appellation. Les Poyeux et Le Bourg, vins iconiques.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Domaine Filliatreau</div>
+        <div class="prod-appel">Saumur-Champigny</div>
+        <div class="prod-note">Grande maison familiale. La Grande Vignolle, cuvée de référence.</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Cette page évoluera avec la cave.<br>
+      Chaque nouvelle bouteille peut enrichir la compréhension d'une région, d'un terroir ou d'un style de vin.
+    </div>
+
+  </div>
+</body>
+</html>
