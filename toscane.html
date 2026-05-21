@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toscane — Régions Viticoles</title>
+
+  <style>
+    :root {
+      --bg: #0d1014;
+      --border: rgba(255,255,255,0.08);
+      --text: #f4f4f4;
+      --muted: #b5bcc8;
+      --gold: #d4af37;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(180,60,40,0.10), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(212,175,55,0.08), transparent 35%),
+        linear-gradient(180deg, #0b0d10 0%, #151a20 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .top-nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(8,10,12,0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-container {
+      max-width: 1400px; margin: auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 24px;
+    }
+    .nav-logo { text-decoration: none; color: white; font-weight: 700; font-size: 1.15rem; }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      padding: 10px 14px; border-radius: 12px; transition: 0.2s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(255,255,255,0.06); color: white;
+    }
+
+    .breadcrumb {
+      max-width: 1400px; margin: auto; padding: 20px 24px 0;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.88rem; color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { opacity: 0.4; }
+    .breadcrumb .current { color: var(--text); }
+
+    .hero {
+      max-width: 1200px; margin: auto;
+      padding: 70px 24px 50px; text-align: center;
+    }
+    .hero h1 { margin: 0; font-size: 3.8rem; letter-spacing: -2px; }
+    .hero h1 span { color: var(--gold); }
+    .hero p {
+      max-width: 780px; margin: 22px auto 0;
+      color: var(--muted); line-height: 1.8; font-size: 1.05rem;
+    }
+
+    /* Carte schématique Toscane */
+    .region-map {
+      max-width: 1400px; margin: auto; padding: 0 24px 20px;
+    }
+    .region-map svg { width: 100%; height: auto; display: block; }
+
+    .container { max-width: 1400px; margin: auto; padding: 0 24px 80px; }
+
+    .section-title {
+      margin: 48px 0 28px; font-size: 1.8rem; letter-spacing: -1px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .section-title::after {
+      content: ""; flex: 1; height: 1px;
+      background: linear-gradient(to right, rgba(255,255,255,0.1), transparent);
+    }
+
+    .global-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 14px; margin-bottom: 48px;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 20px; text-align: center;
+    }
+    .stat-card .label {
+      color: var(--gold); font-size: 0.72rem;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+    }
+    .stat-card .value { font-size: 1.15rem; font-weight: 600; line-height: 1.4; }
+    .stat-card .value small { font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+
+    .subregions-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 28px;
+    }
+
+    .sub-card {
+      border-radius: 28px; overflow: hidden;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+      transition: transform 0.25s ease;
+    }
+    .sub-card:hover { transform: translateY(-6px); }
+
+    .sub-image {
+      height: 200px;
+      background-size: cover; background-position: center;
+      position: relative;
+    }
+    .sub-image::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(12,14,17,0.88) 100%);
+    }
+
+    .sub-content { padding: 28px; }
+    .sub-zone {
+      color: var(--gold); font-size: 0.8rem;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+    }
+    .sub-content h2 { margin: 0 0 12px; font-size: 1.8rem; letter-spacing: -0.5px; }
+    .sub-content p { margin: 0; color: var(--muted); line-height: 1.7; font-size: 0.95rem; }
+
+    .sub-info {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px;
+    }
+    .info-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px; padding: 14px;
+    }
+    .info-box span {
+      display: block; color: var(--gold);
+      font-size: 0.72rem; text-transform: uppercase;
+      letter-spacing: 1px; margin-bottom: 6px;
+    }
+    .info-box strong { font-size: 0.88rem; line-height: 1.5; }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .tag {
+      padding: 6px 12px; border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.8rem; color: var(--muted);
+    }
+
+    .explore-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 22px; padding: 12px 20px; border-radius: 14px;
+      background: rgba(212,175,55,0.1);
+      border: 1px solid rgba(212,175,55,0.3);
+      color: var(--gold); font-size: 0.9rem; font-weight: 600;
+      text-decoration: none; transition: background 0.2s, border-color 0.2s;
+    }
+    .explore-btn:hover {
+      background: rgba(212,175,55,0.18);
+      border-color: rgba(212,175,55,0.55);
+    }
+    .explore-btn svg { transition: transform 0.2s; }
+    .explore-btn:hover svg { transform: translateX(4px); }
+
+    .footer {
+      margin-top: 80px; text-align: center;
+      color: var(--muted); line-height: 1.8; font-size: 0.95rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.8rem; }
+      .global-stats { grid-template-columns: 1fr 1fr; }
+      .nav-container { flex-direction: column; align-items: flex-start; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="Index.html" class="nav-logo">🍷 Ma Cave</a>
+      <div class="nav-links">
+        <a href="Index.html">Accueil</a>
+        <a href="Ma-Cave.html">Ma Cave</a>
+        <a href="millesimes.html">Millésimes</a>
+        <a href="regionsviticoles.html" class="active">Régions</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a href="regionsviticoles.html">Régions viticoles</a>
+    <span class="sep">›</span>
+    <span>Italie</span>
+    <span class="sep">›</span>
+    <span class="current">Toscane</span>
+  </div>
+
+  <section class="hero">
+    <h1>La <span>Toscane</span></h1>
+    <p>
+      Entre collines dorées, cyprès et oliviers, la Toscane est la région viticole la plus
+      iconique d'Italie. Du Sangiovese structuré de Chianti Classico au Brunello
+      monumental de Montalcino, en passant par les Super Toscans de Bolgheri —
+      trois univers, trois identités, une même passion du grand vin.
+    </p>
+  </section>
+
+  <!-- Carte schématique Toscane -->
+  <div class="region-map">
+    <svg viewBox="0 0 900 180" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">
+      <defs>
+        <linearGradient id="tuscBg" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(255,255,255,0.01)"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0.005)"/>
+        </linearGradient>
+      </defs>
+
+      <rect width="900" height="180" fill="url(#tuscBg)" rx="16"/>
+
+      <!-- Arno (fleuve) -->
+      <path d="M 60 80 Q 160 68 260 75 Q 340 80 400 72 Q 460 64 520 70"
+            fill="none" stroke="#1a3a5c" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
+      <path d="M 60 80 Q 160 68 260 75 Q 340 80 400 72 Q 460 64 520 70"
+            fill="none" stroke="#2a5f9a" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+      <text x="290" y="62" font-size="9" fill="#4a90c4" opacity="0.7">L'Arno</text>
+
+      <!-- Florence -->
+      <circle cx="340" cy="76" r="5" fill="rgba(212,175,55,0.5)" stroke="#d4af37" stroke-width="1.2"/>
+      <text x="340" y="64" font-size="9" fill="#d4af37" text-anchor="middle">Florence</text>
+
+      <!-- Chianti Classico -->
+      <rect x="270" y="88" width="140" height="52" rx="10"
+            fill="rgba(180,60,40,0.1)" stroke="rgba(180,60,40,0.4)" stroke-width="1.2"/>
+      <text x="340" y="110" font-size="11" fill="#c06040" text-anchor="middle" font-weight="700">Chianti Classico</text>
+      <text x="340" y="124" font-size="8.5" fill="rgba(192,96,64,0.7)" text-anchor="middle">Sangiovese · UGA · Collines</text>
+      <line x1="340" y1="80" x2="340" y2="88" stroke="rgba(180,60,40,0.3)" stroke-width="1" stroke-dasharray="3 2"/>
+
+      <!-- Brunello di Montalcino -->
+      <rect x="430" y="95" width="145" height="52" rx="10"
+            fill="rgba(140,40,40,0.1)" stroke="rgba(140,40,40,0.4)" stroke-width="1.2"/>
+      <text x="502" y="117" font-size="11" fill="#b05050" text-anchor="middle" font-weight="700">Brunello</text>
+      <text x="502" y="131" font-size="8.5" fill="rgba(176,80,80,0.7)" text-anchor="middle">di Montalcino · Colline isolée</text>
+
+      <!-- Bolgheri -->
+      <rect x="80" y="95" width="120" height="52" rx="10"
+            fill="rgba(60,80,140,0.1)" stroke="rgba(60,80,140,0.4)" stroke-width="1.2"/>
+      <text x="140" y="117" font-size="11" fill="#6080c0" text-anchor="middle" font-weight="700">Bolgheri</text>
+      <text x="140" y="131" font-size="8.5" fill="rgba(96,128,192,0.7)" text-anchor="middle">Côte tyrrhénienne · Super Toscans</text>
+
+      <!-- Mer Tyrrhénienne (indication) -->
+      <text x="44" y="155" font-size="9" fill="rgba(42,95,154,0.5)" text-anchor="middle">Mer</text>
+      <text x="44" y="166" font-size="9" fill="rgba(42,95,154,0.5)" text-anchor="middle">Tyrrhénienne</text>
+      <path d="M 16 140 Q 30 135 60 138 Q 80 140 100 136"
+            fill="none" stroke="rgba(42,95,154,0.3)" stroke-width="3" stroke-linecap="round"/>
+
+      <!-- Sienne -->
+      <circle cx="420" cy="112" r="4" fill="rgba(212,175,55,0.35)" stroke="#d4af37" stroke-width="1"/>
+      <text x="420" y="104" font-size="8.5" fill="#d4af37" text-anchor="middle">Sienne</text>
+
+      <!-- Montalcino -->
+      <circle cx="500" cy="148" r="4" fill="rgba(212,175,55,0.35)" stroke="#d4af37" stroke-width="1"/>
+      <text x="500" y="162" font-size="8.5" fill="#d4af37" text-anchor="middle">Montalcino</text>
+      <line x1="500" y1="148" x2="500" y2="147" stroke="rgba(212,175,55,0.3)" stroke-width="1"/>
+
+      <!-- Compass -->
+      <text x="868" y="28" font-size="12" fill="rgba(255,255,255,0.25)" text-anchor="middle">N</text>
+      <line x1="868" y1="32" x2="868" y2="48" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+      <polygon points="868,32 863,44 868,41 873,44" fill="rgba(255,255,255,0.22)"/>
+    </svg>
+  </div>
+
+  <div class="container">
+
+    <h2 class="section-title">En chiffres</h2>
+    <div class="global-stats">
+      <div class="stat-card">
+        <div class="label">Superficie totale</div>
+        <div class="value">≈ 63 000 ha<br><small>en production</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Cépage roi</div>
+        <div class="value">Sangiovese<br><small>sous de nombreux noms locaux</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">DOCG</div>
+        <div class="value">11 appellations<br><small>dont Brunello, Chianti, Bolgheri Sassicaia</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Altitude moyenne</div>
+        <div class="value">250–600 m<br><small>collines des Apennins</small></div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Choisir une sous-région</h2>
+
+    <div class="subregions-grid">
+
+      <!-- CHIANTI CLASSICO -->
+      <div class="sub-card">
+        <div class="sub-image" style="background-image:url('https://images.unsplash.com/photo-1669667867723-1e5dd1e8fec5?q=80&w=1170&auto=format&fit=crop');"></div>
+        <div class="sub-content">
+          <div class="sub-zone">Toscane · Centre · Collines</div>
+          <h2>Chianti Classico</h2>
+          <p>
+            Entre Florence et Sienne, le Chianti Classico est le berceau historique du Sangiovese toscan.
+            Onze UGA (Unità Geografiche Aggiuntive) depuis 2014 dessinent autant de terroirs
+            distincts, du plus élégant au plus puissant.
+          </p>
+          <div class="sub-info">
+            <div class="info-box">
+              <span>Cépage</span>
+              <strong>Sangiovese (Grosso)</strong>
+            </div>
+            <div class="info-box">
+              <span>Style</span>
+              <strong>Cerise, tabac, acidité vive</strong>
+            </div>
+            <div class="info-box">
+              <span>Appellations</span>
+              <strong>DOCG · Gran Selezione</strong>
+            </div>
+            <div class="info-box">
+              <span>Terroirs clés</span>
+              <strong>Panzano · Gaiole · Castelnuovo</strong>
+            </div>
+          </div>
+          <div class="tag-list">
+            <div class="tag">UGA</div>
+            <div class="tag">Galestro</div>
+            <div class="tag">Alberese</div>
+            <div class="tag">Gallo Nero</div>
+          </div>
+          <a href="chianti-classico.html" class="explore-btn">
+            Explorer la sous-région
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- BRUNELLO DI MONTALCINO -->
+      <div class="sub-card">
+        <div class="sub-image" style="background-image:url('https://images.unsplash.com/photo-1506377585622-bedcbb027afc?q=80&w=1400&auto=format&fit=crop');"></div>
+        <div class="sub-content">
+          <div class="sub-zone">Toscane · Sud · Colline isolée</div>
+          <h2>Brunello di Montalcino</h2>
+          <p>
+            Perché sur une colline isolée au sud de la Toscane, Montalcino produit l'un des
+            vins les plus puissants et les plus longévifs d'Italie. Le Brunello, clone local
+            du Sangiovese, y atteint une complexité et une profondeur incomparables.
+          </p>
+          <div class="sub-info">
+            <div class="info-box">
+              <span>Cépage</span>
+              <strong>Brunello (Sangiovese Grosso)</strong>
+            </div>
+            <div class="info-box">
+              <span>Style</span>
+              <strong>Puissant, minéral, longue garde</strong>
+            </div>
+            <div class="info-box">
+              <span>Appellation</span>
+              <strong>DOCG · Rosso di Montalcino</strong>
+            </div>
+            <div class="info-box">
+              <span>Terroirs clés</span>
+              <strong>Nord · Sud · Est · Ouest</strong>
+            </div>
+          </div>
+          <div class="tag-list">
+            <div class="tag">Brunello</div>
+            <div class="tag">Montalcino</div>
+            <div class="tag">20–40 ans</div>
+            <div class="tag">DOCG 1980</div>
+          </div>
+          <a href="brunello-montalcino.html" class="explore-btn">
+            Explorer la sous-région
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- BOLGHERI -->
+      <div class="sub-card">
+        <div class="sub-image" style="background-image:url('https://images.unsplash.com/photo-1502786129293-79981df4e689?q=80&w=1400&auto=format&fit=crop');"></div>
+        <div class="sub-content">
+          <div class="sub-zone">Toscane · Côte tyrrhénienne</div>
+          <h2>Bolgheri</h2>
+          <p>
+            Sur la côte tyrrhénienne, Bolgheri est le berceau des Super Toscans — ces vins
+            révolutionnaires qui ont brisé les codes de l'appellation italienne pour produire
+            des assemblages bordelais d'une élégance et d'une puissance mondiales.
+          </p>
+          <div class="sub-info">
+            <div class="info-box">
+              <span>Cépages</span>
+              <strong>Cabernet Sauvignon, Merlot, Cab. Franc</strong>
+            </div>
+            <div class="info-box">
+              <span>Style</span>
+              <strong>Puissant, velouté, élégant</strong>
+            </div>
+            <div class="info-box">
+              <span>Domaines</span>
+              <strong>Sassicaia · Ornellaia · Masseto</strong>
+            </div>
+            <div class="info-box">
+              <span>Sol</span>
+              <strong>Argile, calcaire, sable</strong>
+            </div>
+          </div>
+          <div class="tag-list">
+            <div class="tag">Super Toscans</div>
+            <div class="tag">Sassicaia</div>
+            <div class="tag">Influence maritime</div>
+          </div>
+          <a href="bolgheri.html" class="explore-btn">
+            Explorer la sous-région
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      Cette page évoluera avec la cave.<br>
+      Chaque nouvelle bouteille peut enrichir la compréhension d'une région, d'un terroir ou d'un style de vin.
+    </div>
+
+  </div>
+</body>
+</html>

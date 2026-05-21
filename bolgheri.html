@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bolgheri — Toscane</title>
+
+  <style>
+    :root {
+      --bg: #0d1014;
+      --border: rgba(255,255,255,0.08);
+      --text: #f4f4f4;
+      --muted: #b5bcc8;
+      --gold: #d4af37;
+      --bolgheri: #4a6098;
+      --bol-light: rgba(74,96,152,0.12);
+      --bol-border: rgba(74,96,152,0.35);
+      --argile: #9a7850;
+      --arg-light: rgba(154,120,80,0.12);
+      --arg-border: rgba(154,120,80,0.35);
+      --sable: #b8a878;
+      --sab-light: rgba(184,168,120,0.12);
+      --sab-border: rgba(184,168,120,0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(74,96,152,0.10), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(212,175,55,0.08), transparent 35%),
+        linear-gradient(180deg, #0b0d10 0%, #151a20 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .top-nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(8,10,12,0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-container {
+      max-width: 1400px; margin: auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 24px;
+    }
+    .nav-logo { text-decoration: none; color: white; font-weight: 700; font-size: 1.15rem; }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      padding: 10px 14px; border-radius: 12px; transition: 0.2s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(255,255,255,0.06); color: white;
+    }
+
+    .breadcrumb {
+      max-width: 1400px; margin: auto; padding: 20px 24px 0;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.88rem; color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { opacity: 0.4; }
+    .breadcrumb .current { color: var(--text); }
+
+    .hero {
+      max-width: 1400px; margin: auto; padding: 50px 24px 40px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .hero-text h1 { margin: 0; font-size: 3.6rem; letter-spacing: -2px; line-height: 1.05; }
+    .hero-text h1 span { color: var(--gold); }
+    .hero-text .subtitle { margin-top: 20px; color: var(--muted); line-height: 1.8; font-size: 1.05rem; }
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 20px;
+    }
+    .stat-card .label { color: var(--gold); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .stat-card .value { font-size: 1.15rem; font-weight: 600; line-height: 1.4; }
+    .stat-card .value small { font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .tag { padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); font-size: 0.82rem; color: var(--muted); }
+
+    .container { max-width: 1400px; margin: auto; padding: 0 24px 80px; }
+
+    .section-title {
+      margin: 60px 0 24px; font-size: 1.8rem; letter-spacing: -1px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .section-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(to right, rgba(255,255,255,0.1), transparent); }
+
+    .map-wrapper { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 24px; margin-bottom: 40px; }
+    .map-wrapper svg { width: 100%; height: auto; display: block; }
+
+    /* Timeline histoire */
+    .timeline { margin-bottom: 48px; }
+    .timeline-item { display: flex; gap: 20px; margin-bottom: 24px; align-items: flex-start; }
+    .timeline-year {
+      min-width: 60px; font-size: 0.85rem; font-weight: 700;
+      color: var(--gold); padding-top: 2px; text-align: right;
+    }
+    .timeline-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--gold); flex-shrink: 0; margin-top: 5px;
+      position: relative;
+    }
+    .timeline-dot::after {
+      content: ""; position: absolute;
+      top: 10px; left: 4px;
+      width: 1px; height: 28px;
+      background: rgba(212,175,55,0.25);
+    }
+    .timeline-item:last-child .timeline-dot::after { display: none; }
+    .timeline-content h4 { margin: 0 0 4px; font-size: 0.95rem; }
+    .timeline-content p { margin: 0; font-size: 0.87rem; color: var(--muted); line-height: 1.6; }
+
+    /* Terroirs */
+    .terroirs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 48px; }
+    .terroir-card { border-radius: 22px; padding: 24px; border: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden; transition: transform 0.2s; }
+    .terroir-card:hover { transform: translateY(-4px); }
+    .terroir-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 22px 22px 0 0; }
+    .terroir-card.argile { background: var(--arg-light); border-color: var(--arg-border); }
+    .terroir-card.argile::before { background: linear-gradient(to right, var(--argile), transparent); }
+    .terroir-card.sable { background: var(--sab-light); border-color: var(--sab-border); }
+    .terroir-card.sable::before { background: linear-gradient(to right, var(--sable), transparent); }
+    .terroir-card.calcaire { background: var(--bol-light); border-color: var(--bol-border); }
+    .terroir-card.calcaire::before { background: linear-gradient(to right, var(--bolgheri), transparent); }
+    .terroir-badge { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 14px; }
+    .argile .terroir-badge { background: rgba(154,120,80,0.15); color: var(--argile); }
+    .sable .terroir-badge { background: rgba(184,168,120,0.15); color: var(--sable); }
+    .calcaire .terroir-badge { background: rgba(74,96,152,0.15); color: var(--bolgheri); }
+    .terroir-card h3 { margin: 0 0 10px; font-size: 1.1rem; }
+    .terroir-card p { margin: 0 0 12px; font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+    .profil-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 8px; }
+    .profil-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .profil-tag { font-size: 0.78rem; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,0.05); color: var(--muted); }
+
+    /* Domaines */
+    .domaines-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin-bottom: 48px; }
+    .domaine-card {
+      background: rgba(74,96,152,0.05);
+      border: 1px solid rgba(74,96,152,0.18);
+      border-radius: 22px; padding: 26px;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .domaine-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 22px 22px 0 0; background: linear-gradient(to right, rgba(74,96,152,0.6), transparent); }
+    .domaine-card:hover { border-color: rgba(74,96,152,0.38); transform: translateY(-3px); }
+    .domaine-card .dom-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+    .domaine-card h4 { margin: 0; font-size: 1.2rem; }
+    .domaine-card .dom-since { font-size: 0.75rem; padding: 3px 9px; border-radius: 999px; background: rgba(74,96,152,0.12); color: #8aaddb; white-space: nowrap; flex-shrink: 0; }
+    .domaine-card p { margin: 0 0 14px; font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+    .domaine-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+    .meta-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 10px; }
+    .meta-box .meta-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 4px; }
+    .meta-box .meta-val { font-size: 0.85rem; }
+    .vins-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .vin-tag { font-size: 0.76rem; padding: 3px 9px; border-radius: 999px; background: rgba(74,96,152,0.1); border: 1px solid rgba(74,96,152,0.2); color: #8aaddb; }
+
+    .focus-box { background: rgba(255,255,255,0.03); border-left: 3px solid var(--gold); border-radius: 0 20px 20px 0; padding: 28px 32px; margin-bottom: 48px; }
+    .focus-box h3 { margin: 0 0 14px; font-size: 1.1rem; color: var(--gold); }
+    .focus-box p { margin: 0 0 12px; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+    .focus-box p:last-child { margin-bottom: 0; }
+
+    .footer { margin-top: 80px; text-align: center; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; gap: 32px; }
+      .hero-text h1 { font-size: 2.8rem; }
+      .terroirs-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) { .nav-container { flex-direction: column; align-items: flex-start; gap: 14px; } }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="Index.html" class="nav-logo">🍷 Ma Cave</a>
+      <div class="nav-links">
+        <a href="Index.html">Accueil</a>
+        <a href="Ma-Cave.html">Ma Cave</a>
+        <a href="millesimes.html">Millésimes</a>
+        <a href="regionsviticoles.html" class="active">Régions</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a href="regionsviticoles.html">Régions viticoles</a>
+    <span class="sep">›</span>
+    <a href="toscane.html">Toscane</a>
+    <span class="sep">›</span>
+    <span class="current">Bolgheri</span>
+  </div>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1><span>Bolgheri</span><br>& les Super Toscans</h1>
+      <p class="subtitle">
+        Sur la côte tyrrhénienne de Toscane, Bolgheri est le berceau d'une révolution viticole.
+        Dans les années 1970, une poignée de producteurs visionnaires ont brisé les règles des
+        appellations italiennes pour planter Cabernet Sauvignon, Merlot et Cabernet Franc —
+        donnant naissance aux légendaires « Super Toscans ».
+      </p>
+      <div class="tag-list">
+        <div class="tag">Cabernet Sauvignon</div>
+        <div class="tag">Merlot</div>
+        <div class="tag">Super Toscans</div>
+        <div class="tag">Sassicaia</div>
+        <div class="tag">Influence maritime</div>
+        <div class="tag">Côte tyrrhénienne</div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="label">Superficie</div>
+        <div class="value">≈ 1 200 ha<br><small>en Bolgheri DOC</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Cépages</div>
+        <div class="value">Cab. Sauvignon<br><small>Merlot · Cab. Franc · Syrah</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Appellation</div>
+        <div class="value">DOC 1983<br><small>Bolgheri Sassicaia DOCG 1994</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Influence</div>
+        <div class="value">Maritime<br><small>Mer Tyrrhénienne à 5 km</small></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- CARTE -->
+    <h2 class="section-title">Carte de la région</h2>
+
+    <div class="map-wrapper">
+      <svg viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">
+        <defs>
+          <pattern id="argilePat" patternUnits="userSpaceOnUse" width="7" height="7">
+            <circle cx="3.5" cy="3.5" r="1.2" fill="rgba(154,120,80,0.3)"/>
+          </pattern>
+          <pattern id="sablePat" patternUnits="userSpaceOnUse" width="9" height="9">
+            <rect x="1" y="1" width="3" height="3" rx="1" fill="rgba(184,168,120,0.22)"/>
+          </pattern>
+          <pattern id="calcPat" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="8" y2="0" stroke="rgba(74,96,152,0.25)" stroke-width="1.5"/>
+          </pattern>
+          <linearGradient id="merGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#0d2a4a" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#1a3a5c" stop-opacity="0.3"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="720" height="400" fill="rgba(255,255,255,0.015)" rx="12"/>
+
+        <!-- Mer Tyrrhénienne (ouest) -->
+        <rect x="0" y="0" width="120" height="400" fill="url(#merGrad)" rx="12 0 0 12"/>
+        <text x="60" y="195" font-size="10" fill="#4a90c4" text-anchor="middle" opacity="0.7"
+              transform="rotate(-90,60,195)">Mer Tyrrhénienne</text>
+        <path d="M 115 0 Q 118 100 115 200 Q 112 300 115 400"
+              fill="none" stroke="rgba(42,95,154,0.4)" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- Relief collines (est) -->
+        <path d="M 500 0 Q 580 40 620 120 Q 660 200 650 280 Q 640 360 600 400 L 720 400 L 720 0 Z"
+              fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+        <text x="640" y="200" font-size="9" fill="rgba(255,255,255,0.2)" text-anchor="middle"
+              transform="rotate(90,640,200)">Collines Metallifère</text>
+
+        <!-- Route des cyprès (SS1 Aurelia) -->
+        <path d="M 130 20 L 130 380"
+              fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2.5" stroke-dasharray="6 4"/>
+        <text x="130" y="14" font-size="8.5" fill="rgba(255,255,255,0.3)" text-anchor="middle">SS1 Aurelia</text>
+
+        <!-- Allée des cyprès (route de Bolgheri) -->
+        <path d="M 130 200 L 290 200"
+              fill="none" stroke="rgba(100,140,80,0.3)" stroke-width="2" stroke-dasharray="3 3"/>
+        <text x="210" y="192" font-size="8" fill="rgba(100,140,80,0.5)" text-anchor="middle">Viale dei Cipressi</text>
+
+        <!-- ── Zone sablonneuse côtière ── -->
+        <path d="M 120 60 L 260 55 L 268 190 Q 200 198 120 190 Z"
+              fill="url(#sablePat)" stroke="rgba(184,168,120,0.4)" stroke-width="1.1"/>
+        <rect x="138" y="96" width="110" height="44" rx="8"
+              fill="rgba(184,168,120,0.08)" stroke="rgba(184,168,120,0.35)" stroke-width="1"/>
+        <text x="193" y="115" font-size="9.5" fill="#b8a878" text-anchor="middle" font-weight="600">Zone côtière</text>
+        <text x="193" y="129" font-size="8" fill="rgba(184,168,120,0.65)" text-anchor="middle">Sable · Argile légère</text>
+
+        <!-- ── Sassicaia (Tenuta San Guido) ── -->
+        <path d="M 260 58 L 390 52 L 398 155 Q 340 162 262 155 Z"
+              fill="url(#argilePat)" stroke="rgba(212,175,55,0.5)" stroke-width="1.5"/>
+        <rect x="274" y="82" width="116" height="50" rx="9"
+              fill="rgba(212,175,55,0.1)" stroke="rgba(212,175,55,0.45)" stroke-width="1.2"/>
+        <text x="332" y="100" font-size="10" fill="#d4af37" text-anchor="middle" font-weight="700">Sassicaia</text>
+        <text x="332" y="114" font-size="8.5" fill="rgba(212,175,55,0.7)" text-anchor="middle">Tenuta San Guido</text>
+        <text x="332" y="125" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Cab. Sauv. · Argile calcaire</text>
+
+        <!-- ── Ornellaia / Masseto ── -->
+        <path d="M 262 158 L 398 158 L 405 268 Q 340 276 262 268 Z"
+              fill="url(#argilePat)" stroke="rgba(154,120,80,0.45)" stroke-width="1.3"/>
+        <rect x="272" y="188" width="124" height="52" rx="9"
+              fill="rgba(154,120,80,0.1)" stroke="rgba(154,120,80,0.4)" stroke-width="1.1"/>
+        <text x="334" y="207" font-size="10" fill="#c09060" text-anchor="middle" font-weight="700">Ornellaia</text>
+        <text x="334" y="221" font-size="8.5" fill="rgba(192,144,96,0.7)" text-anchor="middle">& Masseto</text>
+        <text x="334" y="234" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Merlot · Argile profonde</text>
+
+        <!-- ── Grattamacco / autres ── -->
+        <path d="M 400 55 L 530 50 L 538 270 Q 475 278 402 268 Z"
+              fill="url(#calcPat)" stroke="rgba(74,96,152,0.4)" stroke-width="1.2"/>
+        <rect x="418" y="138" width="110" height="50" rx="8"
+              fill="rgba(74,96,152,0.08)" stroke="rgba(74,96,152,0.35)" stroke-width="1"/>
+        <text x="473" y="158" font-size="9.5" fill="#7a9ac0" text-anchor="middle" font-weight="600">Grattamacco</text>
+        <text x="473" y="172" font-size="8.5" fill="rgba(122,154,192,0.65)" text-anchor="middle">& autres domaines</text>
+        <text x="473" y="183" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Calcaire · Elevation</text>
+
+        <!-- Village Bolgheri -->
+        <circle cx="290" cy="200" r="6" fill="rgba(212,175,55,0.6)" stroke="#d4af37" stroke-width="1.5"/>
+        <text x="290" y="190" font-size="9" fill="#d4af37" text-anchor="middle" font-weight="600">Bolgheri</text>
+
+        <!-- Zone Bolgheri Rosso -->
+        <path d="M 120 195 L 540 190 L 545 330 Q 380 340 120 332 Z"
+              fill="rgba(74,96,152,0.03)" stroke="rgba(74,96,152,0.15)" stroke-width="1" stroke-dasharray="4 3"/>
+        <text x="335" y="315" font-size="9" fill="rgba(74,96,152,0.4)" text-anchor="middle">AOC Bolgheri Rosso (zone élargie)</text>
+
+        <!-- Castagneto Carducci -->
+        <circle cx="420" cy="310" r="4" fill="rgba(212,175,55,0.35)" stroke="#d4af37" stroke-width="1"/>
+        <text x="420" y="325" font-size="8.5" fill="#d4af37" text-anchor="middle">Castagneto Carducci</text>
+
+        <!-- ── LÉGENDE ── -->
+        <rect x="20" y="368" width="12" height="12" rx="2" fill="url(#sablePat)" stroke="rgba(184,168,120,0.5)" stroke-width="1"/>
+        <text x="38" y="378" font-size="9" fill="rgba(255,255,255,0.5)">Sable côtier</text>
+
+        <rect x="140" y="368" width="12" height="12" rx="2" fill="url(#argilePat)" stroke="rgba(154,120,80,0.5)" stroke-width="1"/>
+        <text x="158" y="378" font-size="9" fill="rgba(255,255,255,0.5)">Argile calcaire</text>
+
+        <rect x="280" y="368" width="12" height="12" rx="2" fill="url(#calcPat)" stroke="rgba(74,96,152,0.5)" stroke-width="1"/>
+        <text x="298" y="378" font-size="9" fill="rgba(255,255,255,0.5)">Calcaire collines</text>
+
+        <rect x="420" y="368" width="12" height="12" rx="2" fill="rgba(212,175,55,0.15)" stroke="rgba(212,175,55,0.4)" stroke-width="1"/>
+        <text x="438" y="378" font-size="9" fill="rgba(255,255,255,0.5)">Grand domaine</text>
+
+        <!-- Compass -->
+        <text x="688" y="30" font-size="13" fill="rgba(255,255,255,0.28)" text-anchor="middle">N</text>
+        <line x1="688" y1="34" x2="688" y2="52" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+        <polygon points="688,34 683,46 688,43 693,46" fill="rgba(255,255,255,0.25)"/>
+      </svg>
+    </div>
+
+    <!-- HISTOIRE -->
+    <h2 class="section-title">La révolution Super Toscan</h2>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">1944</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>Mario Incisa della Rocchetta plante du Cabernet Sauvignon</h4>
+          <p>À Tenuta San Guido, il plante des boutures de Cabernet Sauvignon rapportées de Bordeaux pour sa consommation personnelle. Le projet n'est pas commercial au départ.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1968</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>Première commercialisation du Sassicaia</h4>
+          <p>Après 24 ans d'expérimentation, le Sassicaia est mis sur le marché. Il ne peut prétendre qu'au rang Vino da Tavola — le plus bas de la hiérarchie italienne — car le Cabernet Sauvignon n'est pas autorisé en Toscane.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1978</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>Antinori lance le Tignanello</h4>
+          <p>Piero Antinori et Giacomo Tachis créent le Tignanello — Sangiovese avec Cabernet Sauvignon, élevé en barriques françaises. Deuxième Super Toscan, deuxième scandale. La révolution s'accélère.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1983</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>Création de la DOC Bolgheri</h4>
+          <p>L'appellation Bolgheri est officiellement créée, permettant aux vins locaux d'accéder à une classification. Les cépages bordelais sont progressivement intégrés.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1994</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>Bolgheri Sassicaia devient DOCG</h4>
+          <p>Cas unique en Italie : une DOCG créée pour un seul domaine, Tenuta San Guido. La reconnaissance officielle consacre définitivement la légitimité des Super Toscans.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TERROIRS -->
+    <h2 class="section-title">Les trois types de sols</h2>
+
+    <div class="terroirs-grid">
+      <div class="terroir-card argile">
+        <span class="terroir-badge">Argile calcaire</span>
+        <h3>Argile & Calcaire</h3>
+        <p>Sol dominant des meilleurs domaines (Sassicaia, Ornellaia). Argile calcaire profonde, excellente rétention d'eau en été. Donne des vins concentrés, structurés, avec un potentiel de garde remarquable. La chaleur de la plaine est tempérée par les brises marines.</p>
+        <div class="profil-label">Profil</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Cassis</span>
+          <span class="profil-tag">Cèdre</span>
+          <span class="profil-tag">Structure</span>
+          <span class="profil-tag">Garde 15–30 ans</span>
+        </div>
+      </div>
+      <div class="terroir-card sable">
+        <span class="terroir-badge">Sable côtier</span>
+        <h3>Sable & Limon</h3>
+        <p>Zone la plus proche de la mer. Sols légers, drainants, réchauffant rapidement. Vins plus fruités, plus souples, plus accessibles jeunes. Moins de garde que l'argile calcaire mais un charme immédiat appréciable. Masseto (Merlot) y trouve en partie ses racines.</p>
+        <div class="profil-label">Profil</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Fruit mûr</span>
+          <span class="profil-tag">Souplesse</span>
+          <span class="profil-tag">Accessible</span>
+          <span class="profil-tag">5–15 ans</span>
+        </div>
+      </div>
+      <div class="terroir-card calcaire">
+        <span class="terroir-badge">Calcaire de colline</span>
+        <h3>Calcaire & Schiste</h3>
+        <p>Sols des collines intérieures, plus pauvres et drainants. Les vignes y souffrent davantage, concentrant leurs raisins. Vins plus fins, plus minéraux, avec une acidité plus marquée. Style qui rappelle parfois les assemblages bordelais classiques en période de fraîcheur.</p>
+        <div class="profil-label">Profil</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Minéralité</span>
+          <span class="profil-tag">Finesse</span>
+          <span class="profil-tag">Acidité</span>
+          <span class="profil-tag">Élégant</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOCUS -->
+    <div class="focus-box">
+      <h3>Pourquoi « Super Toscan » ?</h3>
+      <p>
+        Le terme « Super Toscan » est né dans les années 1980 dans la presse internationale — notamment
+        sous la plume de Burton Anderson — pour désigner des vins toscans d'une qualité exceptionnelle
+        mais classés simplement en <em>Vino da Tavola</em> parce qu'ils ne respectaient pas les cépages
+        autorisés par les DOC et DOCG existantes. Un paradoxe absolu : les vins les plus chers et les
+        plus recherchés d'Italie avaient la classification la plus basse.
+      </p>
+      <p>
+        Aujourd'hui, la plupart ont été intégrés dans des appellations ad hoc (Bolgheri DOC, Bolgheri
+        Sassicaia DOCG) ou utilisent le label IGT Toscana, qui permet une liberté totale sur les cépages.
+        Le terme reste néanmoins dans l'usage courant pour désigner ces vins de prestige hors convention.
+      </p>
+    </div>
+
+    <!-- LES GRANDS DOMAINES -->
+    <h2 class="section-title">Les grands domaines</h2>
+
+    <div class="domaines-grid">
+
+      <div class="domaine-card">
+        <div class="dom-header">
+          <h4>Tenuta San Guido — Sassicaia</h4>
+          <span class="dom-since">Depuis 1944</span>
+        </div>
+        <p>
+          Le domaine fondateur des Super Toscans. Mario Incisa della Rocchetta plante du Cabernet
+          Sauvignon pour sa consommation personnelle, inspiré par les grands châteaux bordelais.
+          Le Sassicaia, assemblage de Cabernet Sauvignon et Cabernet Franc, est le seul vin à posséder
+          sa propre DOCG en Italie. Millésime 1985, noté 100/100 par Wine Spectator, a changé l'histoire.
+        </p>
+        <div class="domaine-meta">
+          <div class="meta-box"><div class="meta-label">Superficie</div><div class="meta-val">≈ 90 ha</div></div>
+          <div class="meta-box"><div class="meta-label">Cépages</div><div class="meta-val">85 % Cab. Sauv. · 15 % Cab. Franc</div></div>
+        </div>
+        <div class="vins-tags">
+          <span class="vin-tag">Sassicaia</span>
+          <span class="vin-tag">DOCG unique</span>
+          <span class="vin-tag">Légendaire</span>
+        </div>
+      </div>
+
+      <div class="domaine-card">
+        <div class="dom-header">
+          <h4>Ornellaia</h4>
+          <span class="dom-since">Depuis 1981</span>
+        </div>
+        <p>
+          Fondé par Lodovico Antinori, aujourd'hui propriété de Frescobaldi. Ornellaia est le
+          Super Toscan le plus bordelais dans l'esprit — assemblage complexe sur des sols argilo-calcaires
+          profonds. Le vin phare (Ornellaia) est complété par Masseto, le Merlot de prestige vinifié
+          séparément depuis 1986 et devenu l'un des vins les plus chers d'Italie.
+        </p>
+        <div class="domaine-meta">
+          <div class="meta-box"><div class="meta-label">Superficie</div><div class="meta-val">≈ 100 ha</div></div>
+          <div class="meta-box"><div class="meta-label">Cépages</div><div class="meta-val">Cab. Sauv., Merlot, Cab. Franc, Petit Verdot</div></div>
+        </div>
+        <div class="vins-tags">
+          <span class="vin-tag">Ornellaia</span>
+          <span class="vin-tag">Masseto</span>
+          <span class="vin-tag">Le Serre Nuove</span>
+        </div>
+      </div>
+
+      <div class="domaine-card">
+        <div class="dom-header">
+          <h4>Grattamacco</h4>
+          <span class="dom-since">Depuis 1977</span>
+        </div>
+        <p>
+          L'un des pionniers méconnus de Bolgheri, fondé par Pier Mario Meletti Cavallari.
+          Aujourd'hui propriété de ColleMassari. Vignes en altitude sur sols calcaires, donnant
+          des vins plus fins et plus minéraux que les domaines de plaine. Le Grattamacco Rosso,
+          assemblage de Cabernet Sauvignon, Merlot et Sangiovese, est l'une des cuvées les plus
+          élégantes de l'appellation.
+        </p>
+        <div class="domaine-meta">
+          <div class="meta-box"><div class="meta-label">Superficie</div><div class="meta-val">≈ 35 ha</div></div>
+          <div class="meta-box"><div class="meta-label">Style</div><div class="meta-val">Fin · Minéral · Altitude</div></div>
+        </div>
+        <div class="vins-tags">
+          <span class="vin-tag">Grattamacco Rosso</span>
+          <span class="vin-tag">Élégance</span>
+          <span class="vin-tag">Pionnier</span>
+        </div>
+      </div>
+
+      <div class="domaine-card">
+        <div class="dom-header">
+          <h4>Michele Satta</h4>
+          <span class="dom-since">Depuis 1984</span>
+        </div>
+        <p>
+          Domaine familial indépendant de taille humaine, référence des vins accessibles de
+          Bolgheri. Michele Satta produit des cuvées d'une grande franchise aromatique,
+          avec un Cabernet Sauvignon fruité et direct (Cavaliere) et un assemblage polyvarié
+          (Piastraia) d'une belle complexité. Excellent rapport qualité-prix pour l'appellation.
+        </p>
+        <div class="domaine-meta">
+          <div class="meta-box"><div class="meta-label">Superficie</div><div class="meta-val">≈ 25 ha</div></div>
+          <div class="meta-box"><div class="meta-label">Esprit</div><div class="meta-val">Artisan · Accessible</div></div>
+        </div>
+        <div class="vins-tags">
+          <span class="vin-tag">Cavaliere</span>
+          <span class="vin-tag">Piastraia</span>
+          <span class="vin-tag">Bolgheri Rosso</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      Cette page évoluera avec la cave.<br>
+      Chaque nouvelle bouteille peut enrichir la compréhension d'une région, d'un terroir ou d'un style de vin.
+    </div>
+
+  </div>
+</body>
+</html>

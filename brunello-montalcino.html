@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brunello di Montalcino — Toscane</title>
+
+  <style>
+    :root {
+      --bg: #0d1014;
+      --border: rgba(255,255,255,0.08);
+      --text: #f4f4f4;
+      --muted: #b5bcc8;
+      --gold: #d4af37;
+      --brunello: #8b2c2c;
+      --brun-light: rgba(139,44,44,0.12);
+      --brun-border: rgba(139,44,44,0.35);
+      --nord: #7a9e8a;
+      --nord-light: rgba(122,158,138,0.12);
+      --sud: #c07840;
+      --sud-light: rgba(192,120,64,0.12);
+      --est: #7a8fa6;
+      --est-light: rgba(122,143,166,0.12);
+      --ouest: #9a7ab0;
+      --ouest-light: rgba(154,122,176,0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(139,44,44,0.12), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(212,175,55,0.08), transparent 35%),
+        linear-gradient(180deg, #0b0d10 0%, #151a20 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .top-nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(8,10,12,0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-container {
+      max-width: 1400px; margin: auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 24px;
+    }
+    .nav-logo { text-decoration: none; color: white; font-weight: 700; font-size: 1.15rem; }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      padding: 10px 14px; border-radius: 12px; transition: 0.2s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(255,255,255,0.06); color: white;
+    }
+
+    .breadcrumb {
+      max-width: 1400px; margin: auto; padding: 20px 24px 0;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.88rem; color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { opacity: 0.4; }
+    .breadcrumb .current { color: var(--text); }
+
+    .hero {
+      max-width: 1400px; margin: auto; padding: 50px 24px 40px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .hero-text h1 { margin: 0; font-size: 3.4rem; letter-spacing: -2px; line-height: 1.05; }
+    .hero-text h1 span { color: var(--gold); }
+    .hero-text .subtitle { margin-top: 20px; color: var(--muted); line-height: 1.8; font-size: 1.05rem; }
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 20px;
+    }
+    .stat-card .label {
+      color: var(--gold); font-size: 0.78rem;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+    }
+    .stat-card .value { font-size: 1.15rem; font-weight: 600; line-height: 1.4; }
+    .stat-card .value small { font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .tag {
+      padding: 8px 14px; border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.82rem; color: var(--muted);
+    }
+
+    .container { max-width: 1400px; margin: auto; padding: 0 24px 80px; }
+
+    .section-title {
+      margin: 60px 0 24px; font-size: 1.8rem; letter-spacing: -1px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .section-title::after {
+      content: ""; flex: 1; height: 1px;
+      background: linear-gradient(to right, rgba(255,255,255,0.1), transparent);
+    }
+
+    .map-wrapper {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px; padding: 24px; margin-bottom: 40px;
+    }
+    .map-wrapper svg { width: 100%; height: auto; display: block; }
+
+    /* Quadrants */
+    .quadrants-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 18px; margin-bottom: 48px;
+    }
+    .quad-card {
+      border-radius: 22px; padding: 26px;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative; overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .quad-card:hover { transform: translateY(-4px); }
+    .quad-card::before {
+      content: ""; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      border-radius: 22px 22px 0 0;
+    }
+    .quad-card.nord { background: var(--nord-light); border-color: rgba(122,158,138,0.3); }
+    .quad-card.nord::before { background: linear-gradient(to right, var(--nord), transparent); }
+    .quad-card.sud { background: var(--sud-light); border-color: rgba(192,120,64,0.3); }
+    .quad-card.sud::before { background: linear-gradient(to right, var(--sud), transparent); }
+    .quad-card.est { background: var(--est-light); border-color: rgba(122,143,166,0.3); }
+    .quad-card.est::before { background: linear-gradient(to right, var(--est), transparent); }
+    .quad-card.ouest { background: var(--ouest-light); border-color: rgba(154,122,176,0.3); }
+    .quad-card.ouest::before { background: linear-gradient(to right, var(--ouest), transparent); }
+
+    .quad-badge {
+      display: inline-block; padding: 4px 12px; border-radius: 999px;
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px;
+      font-weight: 600; margin-bottom: 14px;
+    }
+    .nord .quad-badge { background: rgba(122,158,138,0.15); color: var(--nord); }
+    .sud .quad-badge { background: rgba(192,120,64,0.15); color: var(--sud); }
+    .est .quad-badge { background: rgba(122,143,166,0.15); color: var(--est); }
+    .ouest .quad-badge { background: rgba(154,122,176,0.15); color: var(--ouest); }
+
+    .quad-card h3 { margin: 0 0 10px; font-size: 1.2rem; }
+    .quad-card .quad-sub { font-size: 0.78rem; margin-bottom: 12px; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.5px; }
+    .quad-card p { margin: 0 0 14px; font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+    .profil-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 8px; }
+    .profil-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .profil-tag {
+      font-size: 0.78rem; padding: 4px 10px; border-radius: 999px;
+      background: rgba(255,255,255,0.05); color: var(--muted);
+    }
+
+    /* Appellations */
+    .appel-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 18px; margin-bottom: 48px;
+    }
+    .appel-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 24px;
+      transition: border-color 0.2s;
+    }
+    .appel-card:hover { border-color: rgba(212,175,55,0.22); }
+    .appel-card .appel-zone { font-size: 0.72rem; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .appel-card h4 { margin: 0 0 10px; font-size: 1.2rem; }
+    .appel-card p { margin: 0 0 14px; color: var(--muted); font-size: 0.9rem; line-height: 1.75; }
+    .appel-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .meta-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 10px; }
+    .meta-box .meta-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 4px; }
+    .meta-box .meta-val { font-size: 0.85rem; }
+
+    .focus-box {
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 20px 20px 0;
+      padding: 28px 32px; margin-bottom: 48px;
+    }
+    .focus-box h3 { margin: 0 0 14px; font-size: 1.1rem; color: var(--gold); }
+    .focus-box p { margin: 0 0 12px; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+    .focus-box p:last-child { margin-bottom: 0; }
+
+    .prod-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px; margin-bottom: 48px;
+    }
+    .prod-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px; padding: 18px;
+      transition: border-color 0.2s;
+    }
+    .prod-card:hover { border-color: rgba(212,175,55,0.2); }
+    .prod-card .prod-name { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+    .prod-card .prod-appel { font-size: 0.78rem; color: var(--gold); margin-bottom: 8px; }
+    .prod-card .prod-note { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+    .footer { margin-top: 80px; text-align: center; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; gap: 32px; }
+      .hero-text h1 { font-size: 2.8rem; }
+      .quadrants-grid { grid-template-columns: 1fr; }
+      .appel-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .nav-container { flex-direction: column; align-items: flex-start; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="Index.html" class="nav-logo">🍷 Ma Cave</a>
+      <div class="nav-links">
+        <a href="Index.html">Accueil</a>
+        <a href="Ma-Cave.html">Ma Cave</a>
+        <a href="millesimes.html">Millésimes</a>
+        <a href="regionsviticoles.html" class="active">Régions</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a href="regionsviticoles.html">Régions viticoles</a>
+    <span class="sep">›</span>
+    <a href="toscane.html">Toscane</a>
+    <span class="sep">›</span>
+    <span class="current">Brunello di Montalcino</span>
+  </div>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Brunello di<br><span>Montalcino</span></h1>
+      <p class="subtitle">
+        Perché sur une colline isolée à 564 mètres au sud de la Toscane, Montalcino
+        produit l'un des vins les plus puissants, les plus complexes et les plus longévifs
+        d'Italie. Le Brunello — clone local du Sangiovese Grosso — y atteint une
+        concentration et une profondeur incomparables, façonnées par quatre quadrants
+        aux terroirs radicalement distincts.
+      </p>
+      <div class="tag-list">
+        <div class="tag">Brunello</div>
+        <div class="tag">Sangiovese Grosso</div>
+        <div class="tag">Galestro</div>
+        <div class="tag">Argile</div>
+        <div class="tag">DOCG 1980</div>
+        <div class="tag">20–50 ans</div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="label">Superficie</div>
+        <div class="value">≈ 3 500 ha<br><small>dont 2 100 ha en Brunello</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Cépage unique</div>
+        <div class="value">100 % Brunello<br><small>(Sangiovese Grosso)</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Élevage minimum</div>
+        <div class="value">5 ans total<br><small>dont 2 ans en fût de chêne</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Altitude colline</div>
+        <div class="value">120–567 m<br><small>centre bourg à 564 m</small></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <h2 class="section-title">Carte des quatre quadrants</h2>
+
+    <div class="map-wrapper">
+      <svg viewBox="0 0 620 560" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">
+        <defs>
+          <pattern id="nordPat" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(30)">
+            <line x1="0" y1="0" x2="8" y2="0" stroke="rgba(122,158,138,0.3)" stroke-width="1.5"/>
+          </pattern>
+          <pattern id="sudPat" patternUnits="userSpaceOnUse" width="7" height="7">
+            <circle cx="3.5" cy="3.5" r="1.2" fill="rgba(192,120,64,0.3)"/>
+          </pattern>
+          <pattern id="estPat" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(60)">
+            <line x1="0" y1="0" x2="0" y2="8" stroke="rgba(122,143,166,0.28)" stroke-width="2"/>
+          </pattern>
+          <pattern id="ouestPat" patternUnits="userSpaceOnUse" width="9" height="9">
+            <rect x="1" y="1" width="3" height="3" rx="1" fill="rgba(154,122,176,0.22)"/>
+          </pattern>
+          <radialGradient id="hillGrad" cx="50%" cy="45%" r="45%">
+            <stop offset="0%" stop-color="rgba(255,255,255,0.04)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+          </radialGradient>
+        </defs>
+
+        <rect width="620" height="560" fill="rgba(255,255,255,0.015)" rx="12"/>
+
+        <!-- Fond colline -->
+        <ellipse cx="308" cy="268" rx="230" ry="210" fill="url(#hillGrad)" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+        <!-- ── NORD : Galestro, fraîcheur ── -->
+        <path d="M 185 75 Q 250 55 308 50 Q 370 55 435 75 Q 470 95 478 145 Q 448 160 390 165 Q 348 170 308 168 Q 268 170 228 165 Q 170 158 142 145 Q 148 100 185 75 Z"
+              fill="url(#nordPat)" stroke="rgba(122,158,138,0.45)" stroke-width="1.3"/>
+        <rect x="236" y="88" width="146" height="52" rx="10"
+              fill="rgba(122,158,138,0.1)" stroke="rgba(122,158,138,0.42)" stroke-width="1.1"/>
+        <text x="309" y="108" font-size="11" fill="#7a9e8a" text-anchor="middle" font-weight="700">Quadrant Nord</text>
+        <text x="309" y="123" font-size="8.5" fill="rgba(122,158,138,0.7)" text-anchor="middle">Galestro · Altitude · Fraîcheur</text>
+        <text x="309" y="134" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Élégant · Floral · Longue garde</text>
+
+        <!-- ── SUD : Argile, chaleur ── -->
+        <path d="M 142 385 Q 148 440 185 465 Q 230 490 308 495 Q 386 490 435 465 Q 470 440 478 385 Q 445 375 390 372 Q 348 370 308 368 Q 268 370 228 372 Q 178 375 142 385 Z"
+              fill="url(#sudPat)" stroke="rgba(192,120,64,0.45)" stroke-width="1.3"/>
+        <rect x="236" y="408" width="146" height="52" rx="10"
+              fill="rgba(192,120,64,0.1)" stroke="rgba(192,120,64,0.42)" stroke-width="1.1"/>
+        <text x="309" y="428" font-size="11" fill="#c07840" text-anchor="middle" font-weight="700">Quadrant Sud</text>
+        <text x="309" y="443" font-size="8.5" fill="rgba(192,120,64,0.7)" text-anchor="middle">Argile · Chaleur · Fruit mûr</text>
+        <text x="309" y="454" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Ample · Accessible · Riche</text>
+
+        <!-- ── EST : Calcaire, tension ── -->
+        <path d="M 430 168 Q 478 148 505 175 Q 538 210 542 268 Q 538 328 505 362 Q 478 385 430 370 Q 445 330 448 268 Q 445 208 430 168 Z"
+              fill="url(#estPat)" stroke="rgba(122,143,166,0.45)" stroke-width="1.3"/>
+        <rect x="450" y="238" width="80" height="60" rx="9"
+              fill="rgba(122,143,166,0.1)" stroke="rgba(122,143,166,0.4)" stroke-width="1"/>
+        <text x="490" y="260" font-size="10" fill="#7a8fa6" text-anchor="middle" font-weight="700">Est</text>
+        <text x="490" y="274" font-size="8" fill="rgba(122,143,166,0.7)" text-anchor="middle">Calcaire</text>
+        <text x="490" y="285" font-size="8" fill="rgba(122,143,166,0.65)" text-anchor="middle">Tendu</text>
+        <text x="490" y="295" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Classique</text>
+
+        <!-- ── OUEST : Sable, rondeur ── -->
+        <path d="M 188 168 Q 172 148 115 175 Q 82 210 78 268 Q 82 328 115 362 Q 142 385 190 370 Q 175 330 172 268 Q 175 208 188 168 Z"
+              fill="url(#ouestPat)" stroke="rgba(154,122,176,0.45)" stroke-width="1.3"/>
+        <rect x="88" y="238" width="80" height="60" rx="9"
+              fill="rgba(154,122,176,0.1)" stroke="rgba(154,122,176,0.4)" stroke-width="1"/>
+        <text x="128" y="260" font-size="10" fill="#9a7ab0" text-anchor="middle" font-weight="700">Ouest</text>
+        <text x="128" y="274" font-size="8" fill="rgba(154,122,176,0.7)" text-anchor="middle">Sable</text>
+        <text x="128" y="285" font-size="8" fill="rgba(154,122,176,0.65)" text-anchor="middle">Rondes</text>
+        <text x="128" y="295" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Accessible</text>
+
+        <!-- Zone centrale — le bourg -->
+        <ellipse cx="308" cy="268" rx="72" ry="65" fill="rgba(139,44,44,0.08)" stroke="rgba(139,44,44,0.3)" stroke-width="1.5" stroke-dasharray="5 3"/>
+        <circle cx="308" cy="268" r="7" fill="rgba(212,175,55,0.6)" stroke="#d4af37" stroke-width="1.5"/>
+        <text x="308" y="252" font-size="10" fill="#d4af37" text-anchor="middle" font-weight="600">Montalcino</text>
+        <text x="308" y="263" font-size="8.5" fill="rgba(212,175,55,0.6)" text-anchor="middle">564 m</text>
+        <text x="308" y="293" font-size="8" fill="rgba(255,255,255,0.28)" text-anchor="middle">Bourg fortifié</text>
+
+        <!-- Routes (axes) -->
+        <line x1="308" y1="168" x2="308" y2="220" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <line x1="308" y1="316" x2="308" y2="368" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <line x1="188" y1="268" x2="236" y2="268" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <line x1="380" y1="268" x2="430" y2="268" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+        <!-- Compass (rose des vents centrale) -->
+        <text x="308" y="185" font-size="10" fill="rgba(122,158,138,0.7)" text-anchor="middle">N ↑</text>
+        <text x="308" y="358" font-size="10" fill="rgba(192,120,64,0.7)" text-anchor="middle">↓ S</text>
+        <text x="455" y="272" font-size="10" fill="rgba(122,143,166,0.7)">E →</text>
+        <text x="160" y="272" font-size="10" fill="rgba(154,122,176,0.7)" text-anchor="end">← O</text>
+
+        <!-- Ciel Tyrrhenien (ouest) -->
+        <text x="52" y="165" font-size="8.5" fill="rgba(42,95,154,0.4)" text-anchor="middle">Mer</text>
+        <text x="52" y="176" font-size="8.5" fill="rgba(42,95,154,0.4)" text-anchor="middle">Tyrrhén.</text>
+
+        <!-- ── LÉGENDE ── -->
+        <rect x="20" y="526" width="12" height="12" rx="2" fill="url(#nordPat)" stroke="rgba(122,158,138,0.5)" stroke-width="1"/>
+        <text x="38" y="536" font-size="9" fill="rgba(255,255,255,0.5)">Nord (Galestro)</text>
+
+        <rect x="160" y="526" width="12" height="12" rx="2" fill="url(#sudPat)" stroke="rgba(192,120,64,0.5)" stroke-width="1"/>
+        <text x="178" y="536" font-size="9" fill="rgba(255,255,255,0.5)">Sud (Argile)</text>
+
+        <rect x="290" y="526" width="12" height="12" rx="2" fill="url(#estPat)" stroke="rgba(122,143,166,0.5)" stroke-width="1"/>
+        <text x="308" y="536" font-size="9" fill="rgba(255,255,255,0.5)">Est (Calcaire)</text>
+
+        <rect x="420" y="526" width="12" height="12" rx="2" fill="url(#ouestPat)" stroke="rgba(154,122,176,0.5)" stroke-width="1"/>
+        <text x="438" y="536" font-size="9" fill="rgba(255,255,255,0.5)">Ouest (Sable)</text>
+      </svg>
+    </div>
+
+    <!-- LES QUATRE QUADRANTS -->
+    <h2 class="section-title">Les quatre quadrants de la colline</h2>
+
+    <div class="quadrants-grid">
+
+      <div class="quad-card nord">
+        <span class="quad-badge">Quadrant Nord</span>
+        <h3>Le Nord — Galestro & altitude</h3>
+        <p class="quad-sub">Vers Torrenieri · 350–567 m</p>
+        <p>
+          Le quadrant le plus frais de Montalcino, exposé au nord et bénéficiant
+          des vents des Apennins. Sols de Galestro schisteux, peu fertiles, drainants.
+          Ces conditions produisent les Brunello les plus élégants et les plus floraux,
+          avec une acidité vive et une tension remarquable. Vendanges tardives.
+          Potentiel de vieillissement exceptionnel — 30 à 50 ans pour les meilleures années.
+        </p>
+        <div class="profil-label">Profil aromatique</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Rose séchée</span>
+          <span class="profil-tag">Cerise fraîche</span>
+          <span class="profil-tag">Menthe</span>
+          <span class="profil-tag">Acidité vive</span>
+          <span class="profil-tag">Minéralité</span>
+          <span class="profil-tag">Longue garde</span>
+        </div>
+      </div>
+
+      <div class="quad-card sud">
+        <span class="quad-badge">Quadrant Sud</span>
+        <h3>Le Sud — Argile & chaleur</h3>
+        <p class="quad-sub">Vers Sant'Angelo in Colle · 120–300 m</p>
+        <p>
+          Le quadrant le plus chaud, exposé au sud et à basse altitude. Sols argileux
+          plus fertiles, maturité plus rapide et plus complète. Les Brunello du Sud
+          sont les plus amples, les plus riches et les plus accessibles jeunes.
+          Fruit mûr, tannins soyeux, structure enveloppante. Moins ausères que le
+          Nord mais d'une grande puissance. Certains producteurs y vinifient leurs
+          cuvées les plus accessibles.
+        </p>
+        <div class="profil-label">Profil aromatique</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Fruit noir mûr</span>
+          <span class="profil-tag">Prune</span>
+          <span class="profil-tag">Tabac</span>
+          <span class="profil-tag">Tannins soyeux</span>
+          <span class="profil-tag">Chaleureux</span>
+        </div>
+      </div>
+
+      <div class="quad-card est">
+        <span class="quad-badge">Quadrant Est</span>
+        <h3>L'Est — Calcaire & tension</h3>
+        <p class="quad-sub">Vers Castelnuovo dell'Abate · 200–450 m</p>
+        <p>
+          Sols calcaires compacts, altitude intermédiaire, influence du Monte Amiata
+          qui protège des pluies. Les Brunello de l'Est sont droits, précis, avec
+          une tension et une minéralité caractéristiques. Style intermédiaire entre
+          la fraîcheur du Nord et la richesse du Sud. C'est le style dit « classique »
+          de Montalcino que défendent les grands producteurs traditionnels.
+        </p>
+        <div class="profil-label">Profil aromatique</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Cerise noire</span>
+          <span class="profil-tag">Réglisse</span>
+          <span class="profil-tag">Pierre à fusil</span>
+          <span class="profil-tag">Droiture</span>
+          <span class="profil-tag">Classique</span>
+        </div>
+      </div>
+
+      <div class="quad-card ouest">
+        <span class="quad-badge">Quadrant Ouest</span>
+        <h3>L'Ouest — Sable & rondeur</h3>
+        <p class="quad-sub">Vers Montalcino bourg · 300–500 m</p>
+        <p>
+          Influence tyrrhénienne, sols sablonneux plus légers autour du bourg.
+          Les Brunello de l'Ouest sont les plus ronds et les plus soyeux, avec des
+          tannins plus souples. Accessibles relativement tôt, ils expriment une
+          générosité aromatique immédiate. Style moderne et séduisant, apprécié
+          des amateurs qui n'ont pas la patience d'attendre un Brunello du Nord.
+        </p>
+        <div class="profil-label">Profil aromatique</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Cerise confite</span>
+          <span class="profil-tag">Épices douces</span>
+          <span class="profil-tag">Vanille</span>
+          <span class="profil-tag">Tannins soyeux</span>
+          <span class="profil-tag">Accessible</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOCUS BRUNELLO -->
+    <div class="focus-box">
+      <h3>Le Brunello : le Sangiovese à son sommet</h3>
+      <p>
+        Le Brunello est un clone spécifique du Sangiovese Grosso sélectionné et développé à Montalcino
+        depuis le XIXe siècle, notamment par Clemente Santi et son petit-fils Ferruccio Biondi Santi,
+        fondateur du domaine éponyme. Le nom viendrait de la couleur brune des baies à maturité.
+      </p>
+      <p>
+        Produit en 100 % Brunello sans aucun assemblage autorisé, le Brunello di Montalcino est l'une
+        des appellations les plus strictes du monde. L'élevage minimum est de 5 ans (dont 2 ans en fût
+        de chêne et 4 mois en bouteille), portés à 6 ans pour la Riserva. Les vins ne peuvent être
+        mis en vente que 5 ans après la vendange — ce qui explique les prix élevés mais aussi la
+        garantie d'une certaine maturité à l'achat.
+      </p>
+    </div>
+
+    <!-- APPELLATIONS -->
+    <h2 class="section-title">Les appellations de la colline</h2>
+    <div class="appel-grid">
+      <div class="appel-card">
+        <div class="appel-zone">DOCG · Rouge · Élevage long</div>
+        <h4>Brunello di Montalcino</h4>
+        <p>
+          L'appellation phare, l'une des premières DOCG d'Italie (1980). 100 % Sangiovese Grosso,
+          élevage de 5 ans minimum. Vins d'une puissance et d'une complexité incomparables,
+          capables de vieillir 20 à 50 ans. Les prix s'échelonnent de 50 € à plusieurs centaines
+          pour les grands domaines et millésimes.
+        </p>
+        <div class="appel-meta">
+          <div class="meta-box"><div class="meta-label">Élevage</div><div class="meta-val">5 ans min. (6 ans Riserva)</div></div>
+          <div class="meta-box"><div class="meta-label">Vente</div><div class="meta-val">5 ans après vendange</div></div>
+          <div class="meta-box"><div class="meta-label">Garde</div><div class="meta-val">20–50 ans</div></div>
+          <div class="meta-box"><div class="meta-label">Rendement max</div><div class="meta-val">52 hl/ha</div></div>
+        </div>
+      </div>
+      <div class="appel-card">
+        <div class="appel-zone">DOC · Rouge · Accessible</div>
+        <h4>Rosso di Montalcino</h4>
+        <p>
+          Le « petit frère » du Brunello, produit sur les mêmes vignes mais avec un élevage
+          plus court (1 an minimum). Vendu 2 ans après la vendange. Vins fruités, directs,
+          avec la minéralité de Montalcino mais accessibles jeunes. Excellent rapport qualité-prix,
+          souvent vinifié à partir des raisins des jeunes vignes ou des lots non retenus pour le Brunello.
+        </p>
+        <div class="appel-meta">
+          <div class="meta-box"><div class="meta-label">Élevage</div><div class="meta-val">1 an min.</div></div>
+          <div class="meta-box"><div class="meta-label">Vente</div><div class="meta-val">2 ans après vendange</div></div>
+          <div class="meta-box"><div class="meta-label">Garde</div><div class="meta-val">3–10 ans</div></div>
+          <div class="meta-box"><div class="meta-label">Prix</div><div class="meta-val">Accessible</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCTEURS -->
+    <h2 class="section-title">Producteurs de référence</h2>
+    <div class="prod-grid">
+      <div class="prod-card">
+        <div class="prod-name">Biondi Santi</div>
+        <div class="prod-appel">Brunello · Quadrant Nord</div>
+        <div class="prod-note">Le domaine fondateur. Depuis 1888, la référence absolue du style traditionnel. Riserva millésimée, collection de légende.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Soldera (Case Basse)</div>
+        <div class="prod-appel">Brunello · Quadrant Nord</div>
+        <div class="prod-note">Vins cultes, produits en quantités infimes. Style pur, austère, minéral. Parmi les plus recherchés du monde.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Cerbaiona</div>
+        <div class="prod-appel">Brunello · Quadrant Est</div>
+        <div class="prod-note">Petit domaine de 5 ha. Diego Molinari, vinifications naturelles. Brunello d'une élégance et d'une pureté rares.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Poggio di Sotto</div>
+        <div class="prod-appel">Brunello · Quadrant Sud</div>
+        <div class="prod-note">Style traditionnel, foudres de Slavonie. Vins profonds, droits, capables d'une garde extraordinaire.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Ciacci Piccolomini d'Aragona</div>
+        <div class="prod-appel">Brunello · Quadrant Sud</div>
+        <div class="prod-note">Pianrosso, cru mythique du sud. Vins amples et généreux, accessibles plus tôt que les grands du nord.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Salvioni</div>
+        <div class="prod-appel">Brunello · Quadrant Ouest</div>
+        <div class="prod-note">Un seul vin, une seule vigne. Cerbaiola, cuvée unique d'une précision et d'une intensité absolues.</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Cette page évoluera avec la cave.<br>
+      Chaque nouvelle bouteille peut enrichir la compréhension d'une région, d'un terroir ou d'un style de vin.
+    </div>
+
+  </div>
+</body>
+</html>

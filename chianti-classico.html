@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chianti Classico — Toscane</title>
+
+  <style>
+    :root {
+      --bg: #0d1014;
+      --border: rgba(255,255,255,0.08);
+      --text: #f4f4f4;
+      --muted: #b5bcc8;
+      --gold: #d4af37;
+      --sangiovese: #c06040;
+      --sang-light: rgba(192,96,64,0.12);
+      --sang-border: rgba(192,96,64,0.35);
+      --galestro: #a09878;
+      --gal-light: rgba(160,152,120,0.12);
+      --gal-border: rgba(160,152,120,0.35);
+      --alberese: #7a6858;
+      --alb-light: rgba(122,104,88,0.12);
+      --alb-border: rgba(122,104,88,0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(192,96,64,0.10), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(212,175,55,0.08), transparent 35%),
+        linear-gradient(180deg, #0b0d10 0%, #151a20 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .top-nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(8,10,12,0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-container {
+      max-width: 1400px; margin: auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 24px;
+    }
+    .nav-logo { text-decoration: none; color: white; font-weight: 700; font-size: 1.15rem; }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      padding: 10px 14px; border-radius: 12px; transition: 0.2s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(255,255,255,0.06); color: white;
+    }
+
+    .breadcrumb {
+      max-width: 1400px; margin: auto; padding: 20px 24px 0;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.88rem; color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { opacity: 0.4; }
+    .breadcrumb .current { color: var(--text); }
+
+    .hero {
+      max-width: 1400px; margin: auto; padding: 50px 24px 40px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .hero-text h1 { margin: 0; font-size: 3.4rem; letter-spacing: -2px; line-height: 1.05; }
+    .hero-text h1 span { color: var(--gold); }
+    .hero-text .subtitle { margin-top: 20px; color: var(--muted); line-height: 1.8; font-size: 1.05rem; }
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 20px;
+    }
+    .stat-card .label {
+      color: var(--gold); font-size: 0.78rem;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+    }
+    .stat-card .value { font-size: 1.15rem; font-weight: 600; line-height: 1.4; }
+    .stat-card .value small { font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .tag {
+      padding: 8px 14px; border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.82rem; color: var(--muted);
+    }
+
+    .container { max-width: 1400px; margin: auto; padding: 0 24px 80px; }
+
+    .section-title {
+      margin: 60px 0 24px; font-size: 1.8rem; letter-spacing: -1px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .section-title::after {
+      content: ""; flex: 1; height: 1px;
+      background: linear-gradient(to right, rgba(255,255,255,0.1), transparent);
+    }
+
+    .map-wrapper {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px; padding: 24px; margin-bottom: 40px;
+    }
+    .map-wrapper svg { width: 100%; height: auto; display: block; }
+
+    /* Hiérarchie DOCG */
+    .hierarchy-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin-bottom: 48px;
+    }
+    .hier-card {
+      border-radius: 20px; padding: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+    }
+    .hier-card::before {
+      content: ""; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      border-radius: 20px 20px 0 0;
+    }
+    .hier-card.annata { background: rgba(192,96,64,0.06); border-color: rgba(192,96,64,0.2); }
+    .hier-card.annata::before { background: linear-gradient(to right, rgba(192,96,64,0.6), transparent); }
+    .hier-card.riserva { background: rgba(192,96,64,0.09); border-color: rgba(192,96,64,0.28); }
+    .hier-card.riserva::before { background: linear-gradient(to right, rgba(192,96,64,0.8), transparent); }
+    .hier-card.gran { background: rgba(212,175,55,0.08); border-color: rgba(212,175,55,0.25); }
+    .hier-card.gran::before { background: linear-gradient(to right, var(--gold), transparent); }
+    .hier-badge {
+      display: inline-block; padding: 4px 10px; border-radius: 999px;
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px;
+      font-weight: 600; margin-bottom: 12px;
+    }
+    .annata .hier-badge { background: rgba(192,96,64,0.15); color: var(--sangiovese); }
+    .riserva .hier-badge { background: rgba(192,96,64,0.18); color: #d07050; }
+    .gran .hier-badge { background: rgba(212,175,55,0.15); color: var(--gold); }
+    .hier-card h3 { margin: 0 0 8px; font-size: 1.05rem; }
+    .hier-card p { margin: 0; font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+    .hier-card .hier-specs {
+      margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .hier-spec {
+      font-size: 0.76rem; padding: 3px 9px; border-radius: 999px;
+      background: rgba(255,255,255,0.05); color: var(--muted);
+    }
+
+    /* Terroirs */
+    .terroirs-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 18px; margin-bottom: 48px;
+    }
+    .terroir-card {
+      border-radius: 22px; padding: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative; overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .terroir-card:hover { transform: translateY(-4px); }
+    .terroir-card::before {
+      content: ""; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      border-radius: 22px 22px 0 0;
+    }
+    .terroir-card.galestro { background: var(--gal-light); border-color: var(--gal-border); }
+    .terroir-card.galestro::before { background: linear-gradient(to right, var(--galestro), transparent); }
+    .terroir-card.alberese { background: var(--alb-light); border-color: var(--alb-border); }
+    .terroir-card.alberese::before { background: linear-gradient(to right, var(--alberese), transparent); }
+
+    .terroir-badge {
+      display: inline-block; padding: 4px 12px; border-radius: 999px;
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px;
+      font-weight: 600; margin-bottom: 14px;
+    }
+    .galestro .terroir-badge { background: rgba(160,152,120,0.15); color: var(--galestro); }
+    .alberese .terroir-badge { background: rgba(122,104,88,0.15); color: var(--alberese); }
+    .terroir-card h3 { margin: 0 0 10px; font-size: 1.2rem; }
+    .terroir-card p { margin: 0 0 14px; font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+    .profil-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 8px; }
+    .profil-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .profil-tag {
+      font-size: 0.78rem; padding: 4px 10px; border-radius: 999px;
+      background: rgba(255,255,255,0.05); color: var(--muted);
+    }
+
+    /* UGA Grid */
+    .uga-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 18px; margin-bottom: 48px;
+    }
+    .uga-card {
+      background: rgba(192,96,64,0.05);
+      border: 1px solid rgba(192,96,64,0.18);
+      border-radius: 20px; padding: 22px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .uga-card:hover { border-color: rgba(192,96,64,0.38); transform: translateY(-3px); }
+    .uga-card .uga-header {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 10px; margin-bottom: 12px;
+    }
+    .uga-card h4 { margin: 0; font-size: 1.1rem; }
+    .uga-card .uga-alt {
+      font-size: 0.75rem; padding: 3px 9px; border-radius: 999px;
+      background: rgba(192,96,64,0.12); color: var(--sangiovese);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .uga-card p { margin: 0 0 12px; font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+    .uga-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .uga-tag {
+      font-size: 0.76rem; padding: 3px 9px; border-radius: 999px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.07); color: var(--muted);
+    }
+
+    /* Focus box */
+    .focus-box {
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 20px 20px 0;
+      padding: 28px 32px; margin-bottom: 48px;
+    }
+    .focus-box h3 { margin: 0 0 14px; font-size: 1.1rem; color: var(--gold); }
+    .focus-box p { margin: 0 0 12px; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+    .focus-box p:last-child { margin-bottom: 0; }
+
+    /* Producteurs */
+    .prod-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px; margin-bottom: 48px;
+    }
+    .prod-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px; padding: 18px;
+      transition: border-color 0.2s;
+    }
+    .prod-card:hover { border-color: rgba(212,175,55,0.2); }
+    .prod-card .prod-name { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+    .prod-card .prod-appel { font-size: 0.78rem; color: var(--gold); margin-bottom: 8px; }
+    .prod-card .prod-note { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+    .footer {
+      margin-top: 80px; text-align: center;
+      color: var(--muted); line-height: 1.8; font-size: 0.95rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; gap: 32px; }
+      .hero-text h1 { font-size: 2.8rem; }
+      .hierarchy-grid { grid-template-columns: 1fr; }
+      .terroirs-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .nav-container { flex-direction: column; align-items: flex-start; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="Index.html" class="nav-logo">🍷 Ma Cave</a>
+      <div class="nav-links">
+        <a href="Index.html">Accueil</a>
+        <a href="Ma-Cave.html">Ma Cave</a>
+        <a href="millesimes.html">Millésimes</a>
+        <a href="regionsviticoles.html" class="active">Régions</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a href="regionsviticoles.html">Régions viticoles</a>
+    <span class="sep">›</span>
+    <a href="toscane.html">Toscane</a>
+    <span class="sep">›</span>
+    <span class="current">Chianti Classico</span>
+  </div>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Chianti<br><span>Classico</span></h1>
+      <p class="subtitle">
+        Entre Florence et Sienne, au cœur des collines toscanes, le Chianti Classico
+        est le berceau historique du Sangiovese. Depuis 2014, ses onze UGA (Unità
+        Geografiche Aggiuntive) révèlent des terroirs distincts, du Galestro schisteux
+        au compact Alberese, façonnant des vins d'une remarquable diversité.
+      </p>
+      <div class="tag-list">
+        <div class="tag">Sangiovese</div>
+        <div class="tag">Galestro</div>
+        <div class="tag">Alberese</div>
+        <div class="tag">UGA 2014</div>
+        <div class="tag">Gallo Nero</div>
+        <div class="tag">Gran Selezione</div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="label">Superficie</div>
+        <div class="value">≈ 7 200 ha<br><small>en production</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Cépage</div>
+        <div class="value">Sangiovese<br><small>min. 80 % (souvent 100 %)</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">UGA officielles</div>
+        <div class="value">11 communes<br><small>depuis 2014</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Altitude</div>
+        <div class="value">250–600 m<br><small>collines Apennins</small></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <h2 class="section-title">Carte des UGA</h2>
+
+    <div class="map-wrapper">
+      <svg viewBox="0 0 720 460" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">
+        <defs>
+          <pattern id="galestroPat" patternUnits="userSpaceOnUse" width="7" height="7" patternTransform="rotate(40)">
+            <line x1="0" y1="0" x2="7" y2="0" stroke="rgba(160,152,120,0.3)" stroke-width="1.5"/>
+          </pattern>
+          <pattern id="alberesePat" patternUnits="userSpaceOnUse" width="6" height="6">
+            <circle cx="3" cy="3" r="1.1" fill="rgba(122,104,88,0.3)"/>
+          </pattern>
+        </defs>
+
+        <rect width="720" height="460" fill="rgba(255,255,255,0.015)" rx="12"/>
+
+        <!-- Relief collines -->
+        <path d="M 0 230 Q 120 210 240 220 Q 360 230 480 215 Q 580 202 720 210 L 720 460 L 0 460 Z"
+              fill="rgba(255,255,255,0.01)"/>
+
+        <!-- Arno (nord) -->
+        <path d="M 20 90 Q 120 78 220 84 Q 300 88 360 80"
+              fill="none" stroke="#1a3a5c" stroke-width="10" stroke-linecap="round" opacity="0.5"/>
+        <path d="M 20 90 Q 120 78 220 84 Q 300 88 360 80"
+              fill="none" stroke="#2a5f9a" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+        <text x="180" y="70" font-size="9.5" fill="#4a90c4" opacity="0.7">L'Arno → Florence</text>
+
+        <!-- Florence (nord) -->
+        <circle cx="360" cy="82" r="5" fill="rgba(212,175,55,0.5)" stroke="#d4af37" stroke-width="1.2"/>
+        <text x="360" y="70" font-size="9" fill="#d4af37" text-anchor="middle">Florence ↑</text>
+
+        <!-- Sienne (sud) -->
+        <circle cx="540" cy="408" r="5" fill="rgba(212,175,55,0.5)" stroke="#d4af37" stroke-width="1.2"/>
+        <text x="540" y="422" font-size="9" fill="#d4af37" text-anchor="middle">Sienne ↓</text>
+
+        <!-- ══ UGA NORD ══ -->
+
+        <!-- Greve in Chianti -->
+        <path d="M 255 100 L 390 96 L 395 178 Q 340 185 255 178 Z"
+              fill="url(#galestroPat)" stroke="rgba(192,96,64,0.4)" stroke-width="1.2"/>
+        <rect x="268" y="118" width="114" height="44" rx="8"
+              fill="rgba(192,96,64,0.1)" stroke="rgba(192,96,64,0.38)" stroke-width="1"/>
+        <text x="325" y="136" font-size="9.5" fill="#c06040" text-anchor="middle" font-weight="700">Greve in Chianti</text>
+        <text x="325" y="150" font-size="8" fill="rgba(192,96,64,0.65)" text-anchor="middle">Galestro · Élégant · Floral</text>
+
+        <!-- Panzano (enclave dans Greve) -->
+        <path d="M 390 100 L 490 97 L 494 168 Q 445 175 392 170 Z"
+              fill="url(#galestroPat)" stroke="rgba(212,175,55,0.45)" stroke-width="1.3"/>
+        <rect x="398" y="114" width="88" height="42" rx="8"
+              fill="rgba(212,175,55,0.08)" stroke="rgba(212,175,55,0.35)" stroke-width="1"/>
+        <text x="442" y="132" font-size="9.5" fill="#d4af37" text-anchor="middle" font-weight="700">Panzano</text>
+        <text x="442" y="146" font-size="8" fill="rgba(212,175,55,0.65)" text-anchor="middle">Conca d'Oro · Intense</text>
+
+        <!-- San Casciano -->
+        <path d="M 100 100 L 252 97 L 255 175 Q 195 182 100 175 Z"
+              fill="url(#galestroPat)" stroke="rgba(192,96,64,0.35)" stroke-width="1"/>
+        <rect x="118" y="118" width="118" height="38" rx="8"
+              fill="rgba(192,96,64,0.07)" stroke="rgba(192,96,64,0.3)" stroke-width="0.8"/>
+        <text x="177" y="133" font-size="9.5" fill="#c06040" text-anchor="middle" font-weight="600">San Casciano</text>
+        <text x="177" y="147" font-size="8" fill="rgba(192,96,64,0.6)" text-anchor="middle">Galestro · Fruité · Accessible</text>
+
+        <!-- ══ UGA CENTRE ══ -->
+
+        <!-- Radda in Chianti -->
+        <path d="M 392 172 L 494 170 L 498 255 Q 445 262 392 257 Z"
+              fill="url(#alberesePat)" stroke="rgba(122,104,88,0.45)" stroke-width="1.2"/>
+        <rect x="400" y="196" width="90" height="42" rx="8"
+              fill="rgba(122,104,88,0.1)" stroke="rgba(122,104,88,0.38)" stroke-width="1"/>
+        <text x="445" y="214" font-size="9.5" fill="#a08878" text-anchor="middle" font-weight="700">Radda</text>
+        <text x="445" y="228" font-size="8" fill="rgba(160,136,120,0.65)" text-anchor="middle">Alberese · Hauteur · Tendu</text>
+
+        <!-- Castelnuovo Berardenga -->
+        <path d="M 497 258 L 640 253 L 645 340 Q 585 348 498 342 Z"
+              fill="url(#alberesePat)" stroke="rgba(122,104,88,0.4)" stroke-width="1.2"/>
+        <rect x="508" y="278" width="128" height="44" rx="8"
+              fill="rgba(122,104,88,0.09)" stroke="rgba(122,104,88,0.35)" stroke-width="1"/>
+        <text x="572" y="296" font-size="9.5" fill="#a08878" text-anchor="middle" font-weight="700">Castelnuovo</text>
+        <text x="572" y="310" font-size="8.5" fill="rgba(160,136,120,0.65)" text-anchor="middle">Berardenga · Sud · Chaleur</text>
+        <text x="572" y="320" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Puissant · Proche Brunello</text>
+
+        <!-- Gaiole in Chianti -->
+        <path d="M 497 170 L 640 165 L 644 255 Q 585 262 498 256 Z"
+              fill="url(#alberesePat)" stroke="rgba(122,104,88,0.42)" stroke-width="1.2"/>
+        <rect x="510" y="190" width="118" height="44" rx="8"
+              fill="rgba(122,104,88,0.09)" stroke="rgba(122,104,88,0.35)" stroke-width="1"/>
+        <text x="569" y="208" font-size="9.5" fill="#a08878" text-anchor="middle" font-weight="700">Gaiole in Chianti</text>
+        <text x="569" y="222" font-size="8" fill="rgba(160,136,120,0.65)" text-anchor="middle">Alberese · Austère · Garde</text>
+
+        <!-- ══ UGA SUD ══ -->
+
+        <!-- Poggibonsi -->
+        <path d="M 100 178 L 255 180 L 258 255 Q 195 262 100 255 Z"
+              fill="url(#galestroPat)" stroke="rgba(192,96,64,0.3)" stroke-width="1"/>
+        <rect x="118" y="198" width="118" height="36" rx="7"
+              fill="rgba(192,96,64,0.06)" stroke="rgba(192,96,64,0.25)" stroke-width="0.8"/>
+        <text x="177" y="212" font-size="9" fill="#c06040" text-anchor="middle" font-weight="600">Poggibonsi</text>
+        <text x="177" y="225" font-size="8" fill="rgba(192,96,64,0.55)" text-anchor="middle">Galestro · Accessible</text>
+
+        <!-- Barberino Tavarnelle -->
+        <path d="M 258 180 L 390 178 L 392 254 Q 335 260 258 255 Z"
+              fill="url(#galestroPat)" stroke="rgba(192,96,64,0.32)" stroke-width="1"/>
+        <rect x="272" y="200" width="108" height="38" rx="7"
+              fill="rgba(192,96,64,0.06)" stroke="rgba(192,96,64,0.25)" stroke-width="0.8"/>
+        <text x="326" y="214" font-size="9" fill="#c06040" text-anchor="middle" font-weight="600">Barberino</text>
+        <text x="326" y="226" font-size="8" fill="rgba(192,96,64,0.55)" text-anchor="middle">Tavarnelle · Fruité</text>
+
+        <!-- Chianti Classico générique (zones basses) -->
+        <path d="M 100 258 L 390 255 L 392 350 Q 300 360 100 355 Z"
+              fill="rgba(192,96,64,0.03)" stroke="rgba(192,96,64,0.2)" stroke-width="1" stroke-dasharray="4 3"/>
+        <text x="240" y="308" font-size="9.5" fill="rgba(192,96,64,0.4)" text-anchor="middle">Zones Chianti Classico</text>
+
+        <!-- ── LÉGENDE ── -->
+        <rect x="20" y="428" width="12" height="12" rx="2"
+              fill="url(#galestroPat)" stroke="rgba(160,152,120,0.5)" stroke-width="1"/>
+        <text x="38" y="438" font-size="9" fill="rgba(255,255,255,0.5)">Galestro (schisteux)</text>
+
+        <rect x="190" y="428" width="12" height="12" rx="2"
+              fill="url(#alberesePat)" stroke="rgba(122,104,88,0.5)" stroke-width="1"/>
+        <text x="208" y="438" font-size="9" fill="rgba(255,255,255,0.5)">Alberese (compact)</text>
+
+        <rect x="355" y="428" width="12" height="12" rx="2"
+              fill="rgba(212,175,55,0.1)" stroke="rgba(212,175,55,0.4)" stroke-width="1"/>
+        <text x="373" y="438" font-size="9" fill="rgba(255,255,255,0.5)">Panzano (cru d'exception)</text>
+
+        <!-- Compass -->
+        <text x="692" y="30" font-size="13" fill="rgba(255,255,255,0.28)" text-anchor="middle">N</text>
+        <line x1="692" y1="34" x2="692" y2="52" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+        <polygon points="692,34 687,46 692,43 697,46" fill="rgba(255,255,255,0.25)"/>
+      </svg>
+    </div>
+
+    <!-- HIÉRARCHIE -->
+    <h2 class="section-title">Hiérarchie des vins</h2>
+    <div class="hierarchy-grid">
+      <div class="hier-card annata">
+        <span class="hier-badge">Annata</span>
+        <h3>Chianti Classico</h3>
+        <p>Le niveau d'entrée. Sangiovese minimum 80 %, élevage court. Fruité, direct, parfait pour la table toscane au quotidien.</p>
+        <div class="hier-specs">
+          <span class="hier-spec">Min. 12 mois élevage</span>
+          <span class="hier-spec">80 % Sangiovese min.</span>
+          <span class="hier-spec">Boire 2–6 ans</span>
+        </div>
+      </div>
+      <div class="hier-card riserva">
+        <span class="hier-badge">Riserva</span>
+        <h3>Chianti Classico Riserva</h3>
+        <p>Sélection de meilleures parcelles, élevage plus long. Plus de structure, de complexité et de potentiel de garde.</p>
+        <div class="hier-specs">
+          <span class="hier-spec">Min. 24 mois élevage</span>
+          <span class="hier-spec">Boire 5–15 ans</span>
+          <span class="hier-spec">Bois possible</span>
+        </div>
+      </div>
+      <div class="hier-card gran">
+        <span class="hier-badge">Gran Selezione</span>
+        <h3>Gran Selezione</h3>
+        <p>Créé en 2014, le sommet absolu du Chianti Classico. Vigne unique ou sélection parcellaire, élevage long. Les plus grands vins de l'appellation.</p>
+        <div class="hier-specs">
+          <span class="hier-spec">Min. 30 mois élevage</span>
+          <span class="hier-spec">Vigne unique</span>
+          <span class="hier-spec">10–25 ans</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TERROIRS -->
+    <h2 class="section-title">Les deux grands types de sols</h2>
+    <div class="terroirs-grid">
+      <div class="terroir-card galestro">
+        <span class="terroir-badge">Galestro</span>
+        <h3>Le Galestro</h3>
+        <p>Roche schisteuse feuilletée, friable, très drainante. Sol pauvre par excellence — les racines doivent plonger profond pour s'alimenter. Dominant dans la partie nord du Chianti Classico (Greve, San Casciano, Panzano). Il donne des vins élégants, floraux, avec une acidité vive et une belle finesse aromatique. Le Sangiovese y exprime sa face la plus aérienne.</p>
+        <div class="profil-label">Profil aromatique</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Cerise fraîche</span>
+          <span class="profil-tag">Violette</span>
+          <span class="profil-tag">Épices douces</span>
+          <span class="profil-tag">Acidité vive</span>
+          <span class="profil-tag">Finesse</span>
+        </div>
+      </div>
+      <div class="terroir-card alberese">
+        <span class="terroir-badge">Alberese</span>
+        <h3>L'Alberese</h3>
+        <p>Calcaire compact et argileux, difficile à travailler, très peu fertile. Dominant dans la partie sud et est (Gaiole, Radda, Castelnuovo Berardenga). Il génère des vins plus puissants, plus tanniques et plus austères que le Galestro. Structure imposante, potentiel de garde élevé. Le Sangiovese y prend des notes de tabac, de cuir et de fruits noirs.</p>
+        <div class="profil-label">Profil aromatique</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Cerise noire</span>
+          <span class="profil-tag">Tabac</span>
+          <span class="profil-tag">Cuir</span>
+          <span class="profil-tag">Tanins serrés</span>
+          <span class="profil-tag">Longue garde</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOCUS SANGIOVESE -->
+    <div class="focus-box">
+      <h3>Le Sangiovese : l'âme de la Toscane</h3>
+      <p>
+        Le Sangiovese est le cépage le plus planté d'Italie et le pilier absolu du Chianti Classico.
+        Son nom viendrait du latin <em>Sanguis Jovis</em> — le sang de Jupiter — une étymologie
+        qui dit bien son caractère solaire et méditerranéen. Il est cultivé sous de nombreux
+        clones différents : le Grosso (Brunello à Montalcino, Prugnolo Gentile à Montepulciano)
+        est plus grand et plus tannique ; le Piccolo, plus courant en Chianti classique.
+      </p>
+      <p>
+        Son profil est immédiatement reconnaissable : cerise et griotte, fleur de violette,
+        tabac, herbes toscanes — et une acidité naturellement élevée qui en fait un partenaire
+        gastronomique exceptionnel. En vieillissant, il développe des notes de cuir, de
+        sous-bois et de réglisse d'une grande complexité.
+      </p>
+    </div>
+
+    <!-- LES UGA -->
+    <h2 class="section-title">Les UGA — Unità Geografiche Aggiuntive</h2>
+
+    <div class="uga-grid">
+
+      <div class="uga-card">
+        <div class="uga-header">
+          <h4>Panzano</h4>
+          <span class="uga-alt">250–400 m</span>
+        </div>
+        <p>La « Conca d'Oro » — le bassin d'or — est l'UGA la plus recherchée du Chianti Classico. Amphithéâtre naturel exposé plein sud, sols de Galestro profond. Les vins sont intenses, concentrés, avec une complexité et une longueur remarquables. Souvent comparés aux Gran Selezione. Badia a Passignano, Fontodi.</p>
+        <div class="uga-tags">
+          <span class="uga-tag">Galestro profond</span>
+          <span class="uga-tag">Exposition S</span>
+          <span class="uga-tag">Amphithéâtre</span>
+          <span class="uga-tag">Exceptionnel</span>
+        </div>
+      </div>
+
+      <div class="uga-card">
+        <div class="uga-header">
+          <h4>Gaiole in Chianti</h4>
+          <span class="uga-alt">300–600 m</span>
+        </div>
+        <p>La commune la plus austère et la plus orientale du Chianti Classico. Sols d'Alberese compact en altitude. Vins puissants, tanniques, réservés dans leur jeunesse mais capables de vieillir 20 à 30 ans. Style traditionnel par excellence. Badia a Coltibuono, Riecine.</p>
+        <div class="uga-tags">
+          <span class="uga-tag">Alberese</span>
+          <span class="uga-tag">Altitude élevée</span>
+          <span class="uga-tag">Tanins fermes</span>
+          <span class="uga-tag">Longue garde</span>
+        </div>
+      </div>
+
+      <div class="uga-card">
+        <div class="uga-header">
+          <h4>Greve in Chianti</h4>
+          <span class="uga-alt">220–500 m</span>
+        </div>
+        <p>La commune la plus vaste et la plus septentrionale. Galestro dominant, avec des altitudes variées créant des styles très différents selon la parcelle. C'est l'UGA la plus accessible et la plus fruitée dans l'ensemble. Comprend le hameau de Panzano. Antinori, Querciabella.</p>
+        <div class="uga-tags">
+          <span class="uga-tag">Galestro</span>
+          <span class="uga-tag">Diversité</span>
+          <span class="uga-tag">Fruité</span>
+          <span class="uga-tag">Floral</span>
+        </div>
+      </div>
+
+      <div class="uga-card">
+        <div class="uga-header">
+          <h4>Radda in Chianti</h4>
+          <span class="uga-alt">400–600 m</span>
+        </div>
+        <p>Commune d'altitude, la plus froide du Chianti Classico. Sol mixte Galestro-Alberese, vendanges tardives. Les vins sont élégants, acides, avec une fraîcheur et une tension inhabituelles pour la Toscane. Style proche de la Bourgogne par sa retenue. Montevertine, Volpaia.</p>
+        <div class="uga-tags">
+          <span class="uga-tag">Altitude max</span>
+          <span class="uga-tag">Fraîcheur</span>
+          <span class="uga-tag">Tension</span>
+          <span class="uga-tag">Élégance</span>
+        </div>
+      </div>
+
+      <div class="uga-card">
+        <div class="uga-header">
+          <h4>Castelnuovo Berardenga</h4>
+          <span class="uga-alt">180–350 m</span>
+        </div>
+        <p>L'UGA la plus méridionale, proche de Sienne. Altitude basse, chaleur plus marquée, sols d'Alberese argileux. Vins plus amples, plus chaleureux, avec un fruit plus mûr et des tanins plus souples. La frontière avec le Brunello di Montalcino s'y ressent. Fèlsina, San Felice.</p>
+        <div class="uga-tags">
+          <span class="uga-tag">Alberese argileux</span>
+          <span class="uga-tag">Sud · Chaleur</span>
+          <span class="uga-tag">Fruit mûr</span>
+          <span class="uga-tag">Ample</span>
+        </div>
+      </div>
+
+      <div class="uga-card">
+        <div class="uga-header">
+          <h4>San Casciano in Val di Pesa</h4>
+          <span class="uga-alt">200–380 m</span>
+        </div>
+        <p>La commune la plus proche de Florence, au nord-ouest. Galestro et alluvions fluviales. Vins fruités, ronds, accessibles relativement jeunes. Moins austères que Gaiole, moins intenses que Panzano. Antinori (Tignanello — hors appellation), Villa Calcinaia.</p>
+        <div class="uga-tags">
+          <span class="uga-tag">Galestro</span>
+          <span class="uga-tag">Alluvions</span>
+          <span class="uga-tag">Accessible</span>
+          <span class="uga-tag">Proche Florence</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PRODUCTEURS -->
+    <h2 class="section-title">Producteurs de référence</h2>
+    <div class="prod-grid">
+      <div class="prod-card">
+        <div class="prod-name">Fontodi</div>
+        <div class="prod-appel">Panzano · Gran Selezione</div>
+        <div class="prod-note">Flaccianello della Pieve, l'un des plus grands Sangiovese du monde. Biodynamie depuis 1990.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Montevertine</div>
+        <div class="prod-appel">Radda in Chianti</div>
+        <div class="prod-note">Le Pergole Torte — hors appellation — est devenu un mythe absolu du Sangiovese pur.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Badia a Coltibuono</div>
+        <div class="prod-appel">Gaiole in Chianti</div>
+        <div class="prod-note">Abbaye du XIe siècle, vins d'une austérité et d'une longévité remarquables. Style traditionnel.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Fèlsina</div>
+        <div class="prod-appel">Castelnuovo Berardenga</div>
+        <div class="prod-note">Fontalloro et Rancia, les deux cuvées de référence du sud du Chianti Classico.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Querciabella</div>
+        <div class="prod-appel">Greve in Chianti</div>
+        <div class="prod-note">Domaine biodynamique. Camartina (hors app.) et Chianti Classico exemplaires.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Volpaia</div>
+        <div class="prod-appel">Radda in Chianti</div>
+        <div class="prod-note">Village médiéval en altitude. Vins d'une élégance et d'une fraîcheur uniques au Chianti Classico.</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Cette page évoluera avec la cave.<br>
+      Chaque nouvelle bouteille peut enrichir la compréhension d'une région, d'un terroir ou d'un style de vin.
+    </div>
+
+  </div>
+</body>
+</html>
