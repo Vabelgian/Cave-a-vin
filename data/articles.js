@@ -77,7 +77,7 @@ const ARTICLES = [
     ]
   },
 
-  {
+   {
     id: "chardonnay-styles",
     titre: "Le Chardonnay sans masque : nu, boisé ou oxydatif ?",
     categorie: "cepages",
@@ -91,11 +91,89 @@ const ARTICLES = [
     featured: false,
     contenu: [
       {
+        type: "titre2",
+        texte: "Le cépage caméléon"
+      },
+      {
         type: "paragraphe",
-        texte: "Contenu de l'article à remplir."
+        texte: "Il existe des cépages qui parlent avant même que le vigneron ouvre la bouche. Le Sauvignon Blanc, par exemple, arrive au pressoir avec ses opinions bien arrêtées : buis, pamplemousse, herbe coupée. Difficile de le faire taire. Le Chardonnay, lui, est d'une autre nature. Jeune et non travaillé, il est presque discret — pomme jaune, agrumes légers, une trame florale timide. Une page relativement blanche."
+      },
+      {
+        type: "paragraphe",
+        texte: "C'est précisément cette neutralité de départ qui en fait le cépage le plus révélateur qui soit. Sans signature aromatique imposante à l'origine, il devient le miroir parfait de deux choses : le sol sur lequel il pousse, et l'homme qui le vinifie. Entre un Chablis tendu comme une lame de rasoir et un Meursault opulent et beurré, la différence tient autant au calcaire kimméridgien qu'aux choix faits en cave. Le Chardonnay ne ment pas — il amplifie."
+      },
+      {
+        type: "separateur"
+      },
+      {
+        type: "titre2",
+        texte: "Nu : la pureté du terroir"
+      },
+      {
+        type: "paragraphe",
+        texte: "Premier style, radical dans sa philosophie : s'effacer. Ici, le vigneron se veut simple passeur — son rôle est de ne pas interférer entre le sol et le verre. L'élevage se fait en cuve inox ou en vieux foudres neutres qui ne laissent aucune empreinte boisée. Pas de fût neuf, pas de bâtonnage appuyé. Le vin est livré à lui-même."
+      },
+      {
+        type: "paragraphe",
+        texte: "Le résultat est tranchant, minéral, salivant. L'acidité est le moteur, la tension la signature. À Chablis — surtout sur les cuvées sans passage en bois — le calcaire kimméridgien s'exprime avec une clarté presque clinique : coquille d'huître, citron frais, pierre mouillée. Certains Mâconnais et quelques vignerons du style « ouillé » au Jura (floral et vif) appartiennent à cette même famille."
+      },
+      {
+        type: "encadre",
+        titre: "Qu'est-ce que le kimméridgien ?",
+        texte: "Le kimméridgien est un calcaire marin datant du Jurassique, truffé de micro-fossiles d'huîtres. C'est la roche mère des grands Chablis. Beaucoup attribuent à ce sol la minéralité iodée caractéristique du style — une théorie débattue entre scientifiques, mais que chaque amateur de Chablis ressent dans son verre."
+      },
+      {
+        type: "titre2",
+        texte: "Boisé : l'art de l'élevage"
+      },
+      {
+        type: "paragraphe",
+        texte: "Le bois n'est pas un gros mot — à condition de savoir s'en servir. Dans la grande tradition de la Côte de Beaune, le Chardonnay passe en pièce bourguignonne (228 litres), avec un pourcentage variable de fûts neufs selon l'ambition du domaine. Le bois apporte de la texture, du gras, et une palette aromatique nouvelle : brioche, beurre frais, noisette grillée, épices douces. Le bâtonnage — ce geste consistant à remettre les lies en suspension — nourrit le vin, lui donne de la rondeur et de la longueur."
+      },
+      {
+        type: "paragraphe",
+        texte: "Meursault, Puligny-Montrachet, Corton-Charlemagne : ces noms sont les bastions de ce style. C'est un travail d'orfèvre, où le bois est utilisé comme exhausteur de relief, non comme cache-misère. La nuance est capitale. Car le piège existe, et il a un nom : le « jus de planche ». Dans les années 1990-2000, le Nouveau Monde — et certains producteurs bourguignons — ont poussé le curseur trop loin. Des vins bodybuildés, vanillés à l'excès, où le bois écrase tout. Une mode dont on revient aujourd'hui massivement."
+      },
+      {
+        type: "citation",
+        texte: "Un grand Meursault, ce n'est pas un vin boisé. C'est un vin où le bois a disparu pour ne laisser que la texture.",
+        source: "Un vigneron de la Côte de Beaune"
+      },
+      {
+        type: "titre2",
+        texte: "Oxydatif : le temps et le mystère"
+      },
+      {
+        type: "paragraphe",
+        texte: "C'est le style qui bouscule, qui divise, qui fascine. Au Jura, certains vignerons pratiquent l'élevage dit « sous voile » : le fût n'est pas complètement rempli, et une fine pellicule de levures se forme à la surface du vin. Ce voile de levures — le même que pour le Vin Jaune — protège le vin d'une oxydation brutale tout en développant des arômes que la vinification conventionnelle ne peut pas produire."
+      },
+      {
+        type: "paragraphe",
+        texte: "On bascule alors dans un autre univers aromatique : noix fraîche, amande, curry, céleri, pomme blette, cire d'abeille. C'est clivant — les non-initiés sont souvent déstabilisés au premier nez. Mais ceux qui y entrent n'en reviennent pas vraiment. La complexité est d'une autre dimension, le temps y joue un rôle presque mystique. Le vigneron ne guide plus le vin : il lui fait confiance, et attend."
+      },
+      {
+        type: "encadre",
+        titre: "Ouillé ou non ouillé ?",
+        texte: "Au Jura, les étiquettes portent parfois ces mentions. « Ouillé » signifie que le fût est maintenu plein (pas de contact avec l'air) — c'est le style tendu et floral. « Non ouillé » ou « traditionnel » signifie que le voile se développe — c'est le style oxydatif. Deux Chardonnays du même village, du même millésime, peuvent ainsi être radicalement opposés selon ce seul choix."
+      },
+      {
+        type: "separateur"
+      },
+      {
+        type: "titre2",
+        texte: "Alors, quelle vérité pour le Chardonnay ?"
+      },
+      {
+        type: "paragraphe",
+        texte: "Il n'y en a pas une. C'est précisément ce qui rend ce cépage si précieux — et parfois si déstabilisant pour qui s'y aventure sans boussole. Le Chardonnay est une passerelle culturelle autant qu'un cépage : il dit quelque chose de l'endroit, de l'époque, et de l'homme qui l'a fait."
+      },
+      {
+        type: "paragraphe",
+        texte: "Aujourd'hui, la tendance mondiale va clairement vers moins de bois neuf et plus de fraîcheur. Même en Bourgogne, les grandes maisons réduisent leur part de fûts neufs. Le Jura, longtemps confidentiel, connaît un engouement historique pour ses profils oxydatifs singuliers. Et Chablis n'a jamais été aussi populaire qu'en ce moment où le monde entier réclame de la tension et de la minéralité. Le retour au nu, en somme. La boucle est bouclée."
       }
     ]
   },
+
 
   {
     id: "napa-vs-bourgogne",
