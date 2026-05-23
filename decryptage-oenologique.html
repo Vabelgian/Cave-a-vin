@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Décryptage Œnologique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --creme: #F5F0E8;
+    --creme-dark: #EAE3D5;
+    --bordeaux: #6B1A2A;
+    --bordeaux-light: #8B2A3E;
+    --bordeaux-pale: #F0E5E8;
+    --or: #B8964A;
+    --or-light: #D4B06A;
+    --encre: #1C1410;
+    --gris-chaud: #7A736A;
+    --gris-pale: #C8C0B4;
+    --blanc: #FDFAF5;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--creme);
+    color: var(--encre);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--blanc);
+    border-bottom: 1px solid var(--creme-dark);
+    padding: 0 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--bordeaux);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gris-chaud);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--bordeaux); }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--bordeaux);
+    position: relative;
+    overflow: hidden;
+    padding: 7rem 3rem 5rem;
+    text-align: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse 60% 50% at 20% 80%, rgba(184,150,74,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 60% at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 70%);
+  }
+  .hero-eyebrow {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--or-light);
+    margin-bottom: 1.2rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--or-light);
+    opacity: 0.5;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(3.2rem, 7vw, 5.5rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--blanc);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    position: relative;
+    margin-bottom: 1.6rem;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--or-light);
+  }
+  .hero-tagline {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: rgba(255,255,255,0.65);
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.65;
+    position: relative;
+  }
+  .hero-ornament {
+    position: absolute;
+    font-size: 22rem;
+    font-family: var(--serif);
+    color: rgba(255,255,255,0.025);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .page-wrapper {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ── FEATURED ARTICLE ── */
+  .section-label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--or);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--or);
+    opacity: 0.3;
+  }
+
+  .featured-section {
+    padding: 4.5rem 0 3rem;
+  }
+
+  .featured-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--blanc);
+    border: 1px solid var(--creme-dark);
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+  }
+  .featured-card:hover {
+    box-shadow: 0 8px 40px rgba(107,26,42,0.12);
+  }
+  .featured-image {
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+  .featured-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .featured-card:hover .featured-image img {
+    transform: scale(1.03);
+  }
+  .featured-badge {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    background: var(--bordeaux);
+    color: var(--blanc);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.85rem;
+  }
+  .featured-content {
+    padding: 3rem 3rem 3rem 3.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .featured-category {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bordeaux);
+    margin-bottom: 1rem;
+  }
+  .featured-content h2 {
+    font-family: var(--serif);
+    font-size: 2.1rem;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.2;
+    color: var(--encre);
+    margin-bottom: 1.2rem;
+  }
+  .featured-content p {
+    color: var(--gris-chaud);
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-bottom: 2rem;
+    max-width: 42ch;
+  }
+  .featured-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--creme-dark);
+  }
+  .featured-meta-item {
+    font-size: 0.75rem;
+    color: var(--gris-pale);
+    font-weight: 400;
+  }
+  .featured-meta-item strong {
+    display: block;
+    font-weight: 500;
+    color: var(--gris-chaud);
+    font-size: 0.78rem;
+    margin-bottom: 0.1rem;
+  }
+  .btn-lire {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    background: var(--bordeaux);
+    color: var(--blanc);
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.8rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    align-self: flex-start;
+  }
+  .btn-lire:hover { background: var(--bordeaux-light); }
+  .btn-lire svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    transition: transform 0.2s;
+  }
+  .btn-lire:hover svg { transform: translateX(3px); }
+
+  /* ── FILTERS ── */
+  .filters-section {
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--creme-dark);
+    border-bottom: 1px solid var(--creme-dark);
+    margin-bottom: 3.5rem;
+  }
+  .filters-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .filters-label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gris-pale);
+    margin-right: 0.5rem;
+    white-space: nowrap;
+  }
+  .filter-btn {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--gris-chaud);
+    background: transparent;
+    border: 1px solid var(--gris-pale);
+    padding: 0.45rem 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+  .filter-btn:hover {
+    border-color: var(--bordeaux);
+    color: var(--bordeaux);
+  }
+  .filter-btn.active {
+    background: var(--bordeaux);
+    border-color: var(--bordeaux);
+    color: var(--blanc);
+  }
+
+  /* ── ARTICLES GRID ── */
+  .articles-section {
+    padding-bottom: 5rem;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--creme-dark);
+  }
+
+  .article-card {
+    background: var(--blanc);
+    cursor: pointer;
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+  .article-card:hover {
+    box-shadow: 0 6px 30px rgba(107,26,42,0.1);
+    z-index: 1;
+    position: relative;
+  }
+  .article-image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+  }
+  .article-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+    filter: saturate(0.92);
+  }
+  .article-card:hover .article-image img {
+    transform: scale(1.05);
+    filter: saturate(1);
+  }
+  .article-cat-badge {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: var(--creme);
+    color: var(--bordeaux);
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+  }
+  .article-body {
+    padding: 1.5rem 1.5rem 1.8rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .article-body h3 {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.3;
+    color: var(--encre);
+    margin-bottom: 0.7rem;
+  }
+  .article-body p {
+    font-size: 0.84rem;
+    color: var(--gris-chaud);
+    line-height: 1.65;
+    flex: 1;
+  }
+  .article-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.5rem;
+    border-top: 1px solid var(--creme-dark);
+    background: var(--blanc);
+  }
+  .article-read-time {
+    font-size: 0.7rem;
+    color: var(--gris-pale);
+    letter-spacing: 0.05em;
+  }
+  .article-arrow {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--creme-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .article-card:hover .article-arrow {
+    background: var(--bordeaux);
+    border-color: var(--bordeaux);
+    color: var(--blanc);
+  }
+  .article-arrow svg {
+    width: 12px;
+    height: 12px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+  }
+
+  /* ── PIED DE PAGE ── */
+  .page-footer {
+    border-top: 1px solid var(--creme-dark);
+    padding: 2.5rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--blanc);
+  }
+  .footer-brand {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--gris-chaud);
+  }
+  .footer-brand span { color: var(--bordeaux); }
+  .footer-note {
+    font-size: 0.72rem;
+    color: var(--gris-pale);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 5rem 1.5rem 4rem; }
+    .page-wrapper { padding: 0 1.5rem; }
+    .featured-card { grid-template-columns: 1fr; }
+    .featured-image { min-height: 280px; }
+    .featured-content { padding: 2rem; }
+    .articles-grid { grid-template-columns: 1fr; gap: 1px; }
+    .page-footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+  @media (min-width: 901px) and (max-width: 1100px) {
+    .articles-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">La Cave & l'Esprit</a>
+  <ul class="nav-links">
+    <li><a href="#">Cépages</a></li>
+    <li><a href="#">Régions</a></li>
+    <li><a href="#">Vinification</a></li>
+    <li><a href="#">Sélections</a></li>
+    <li><a href="#">À propos</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-ornament">§</div>
+  <p class="hero-eyebrow">Rubrique</p>
+  <h1>Décryptage <em>œnologique</em></h1>
+  <p class="hero-tagline">Comprendre pourquoi les vins goûtent différemment, comment les styles naissent et ce qui rend certaines régions uniques.</p>
+</section>
+
+<!-- MAIN CONTENT -->
+<div class="page-wrapper">
+
+  <!-- ARTICLE MIS EN AVANT -->
+  <section class="featured-section">
+    <div class="section-label">Article de la semaine</div>
+    <div id="featuredContainer"></div>
+  </section>
+
+  <!-- FILTRES -->
+  <section class="filters-section">
+    <div class="filters-inner">
+      <span class="filters-label">Thèmes</span>
+      <button class="filter-btn active" onclick="filterArticles('all', this)">Tous</button>
+      <button class="filter-btn" onclick="filterArticles('cepages', this)">Cépages</button>
+      <button class="filter-btn" onclick="filterArticles('regions', this)">Régions</button>
+      <button class="filter-btn" onclick="filterArticles('vinification', this)">Vinification</button>
+      <button class="filter-btn" onclick="filterArticles('histoire', this)">Histoire</button>
+      <button class="filter-btn" onclick="filterArticles('climat', this)">Climat</button>
+      <button class="filter-btn" onclick="filterArticles('styles', this)">Styles de vins</button>
+      <button class="filter-btn" onclick="filterArticles('comparaisons', this)">Comparaisons</button>
+      <button class="filter-btn" onclick="filterArticles('curiosites', this)">Curiosités</button>
+    </div>
+  </section>
+
+  <!-- GRILLE D'ARTICLES -->
+  <section class="articles-section">
+    <div class="section-label">Articles</div>
+    <div class="articles-grid" id="articlesGrid"></div>
+  </section>
+
+</div><!-- /page-wrapper -->
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <p class="footer-brand">La Cave & l'Esprit — <span>Décryptage œnologique</span></p>
+  <p class="footer-note">Tous droits réservés · Contenu éditorial</p>
+</footer>
+
+<script src="data/articles.js"></script>
+<script>
+  const ARROW_SVG = `<svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>`;
+
+  // ── ARTICLE MIS EN AVANT ──────────────────────────────────────────────────
+  function renderFeatured() {
+    const a = getFeaturedArticle();
+    const tags = a.tags.slice(0, 2).join(' · ');
+    document.getElementById('featuredContainer').innerHTML = `
+      <a href="article.html?id=${a.id}" class="featured-card" style="text-decoration:none;color:inherit;display:grid;grid-template-columns:1fr 1fr;">
+        <div class="featured-image">
+          <img src="${a.image}" alt="${a.imageAlt}">
+          <span class="featured-badge">À la une</span>
+        </div>
+        <div class="featured-content">
+          <p class="featured-category">${a.categorieLabel} · ${tags}</p>
+          <h2>${a.titre}</h2>
+          <p>${a.intro}</p>
+          <div class="featured-meta">
+            <div class="featured-meta-item">
+              <strong>Catégorie</strong>${a.categorieLabel}
+            </div>
+            <div class="featured-meta-item">
+              <strong>Date</strong>${formatDate(a.date)}
+            </div>
+            <div class="featured-meta-item">
+              <strong>Lecture</strong>${a.lecture} min
+            </div>
+          </div>
+          <span class="btn-lire">Lire l'article ${ARROW_SVG}</span>
+        </div>
+      </a>`;
+  }
+
+  // ── GRILLE D'ARTICLES ─────────────────────────────────────────────────────
+  function renderGrid(categorie = 'all') {
+    const articles = getGridArticles(categorie);
+    const grid = document.getElementById('articlesGrid');
+    if (articles.length === 0) {
+      grid.innerHTML = `<p style="padding:3rem;color:var(--gris-chaud);font-style:italic;grid-column:1/-1;">Aucun article dans cette catégorie pour l'instant.</p>`;
+      return;
+    }
+    grid.innerHTML = articles.map(a => `
+      <article class="article-card" data-cat="${a.categorie}" onclick="window.location='article.html?id=${a.id}'" style="cursor:pointer;">
+        <div class="article-image">
+          <img src="${a.image}" alt="${a.imageAlt}" loading="lazy">
+          <span class="article-cat-badge">${a.categorieLabel}</span>
+        </div>
+        <div class="article-body">
+          <h3>${a.titre}</h3>
+          <p>${a.intro}</p>
+        </div>
+        <div class="article-footer">
+          <span class="article-read-time">${a.lecture} min de lecture</span>
+          <div class="article-arrow">${ARROW_SVG}</div>
+        </div>
+      </article>`).join('');
+  }
+
+  // ── FILTRES ───────────────────────────────────────────────────────────────
+  function filterArticles(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderGrid(cat);
+  }
+
+  // ── INIT ──────────────────────────────────────────────────────────────────
+  renderFeatured();
+  renderGrid();
+</script>
+
+</body>
+</html>
