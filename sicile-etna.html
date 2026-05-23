@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sicile — Etna</title>
+
+  <style>
+    :root {
+      --bg: #0d1014;
+      --border: rgba(255,255,255,0.08);
+      --text: #f4f4f4;
+      --muted: #b5bcc8;
+      --gold: #d4af37;
+      /* Flancs */
+      --nord: #8aaddb;
+      --nord-light: rgba(138,173,219,0.12);
+      --nord-border: rgba(138,173,219,0.35);
+      --sud: #c07840;
+      --sud-light: rgba(192,120,64,0.12);
+      --sud-border: rgba(192,120,64,0.35);
+      --est: #7a9e8a;
+      --est-light: rgba(122,158,138,0.12);
+      --est-border: rgba(122,158,138,0.35);
+      /* Cépages */
+      --nerello: #8b2c3e;
+      --carricante: #4a7a5c;
+      --catarratto: #8a7a30;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(180,80,40,0.12), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(138,173,219,0.08), transparent 35%),
+        linear-gradient(180deg, #0b0d10 0%, #151a20 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    .top-nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(8,10,12,0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-container {
+      max-width: 1400px; margin: auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 24px;
+    }
+    .nav-logo { text-decoration: none; color: white; font-weight: 700; font-size: 1.15rem; }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      padding: 10px 14px; border-radius: 12px; transition: 0.2s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(255,255,255,0.06); color: white;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      max-width: 1400px; margin: auto; padding: 20px 24px 0;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.88rem; color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { opacity: 0.4; }
+    .breadcrumb .current { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 1400px; margin: auto; padding: 50px 24px 40px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .hero-text h1 { margin: 0; font-size: 3.6rem; letter-spacing: -2px; line-height: 1.05; }
+    .hero-text h1 span { color: var(--gold); }
+    .hero-text .subtitle { margin-top: 20px; color: var(--muted); line-height: 1.8; font-size: 1.05rem; }
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 20px;
+    }
+    .stat-card .label { color: var(--gold); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .stat-card .value { font-size: 1.15rem; font-weight: 600; line-height: 1.4; }
+    .stat-card .value small { font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .tag { padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); font-size: 0.82rem; color: var(--muted); }
+
+    /* ── CONTAINER ── */
+    .container { max-width: 1400px; margin: auto; padding: 0 24px 80px; }
+
+    .section-title {
+      margin: 60px 0 24px; font-size: 1.8rem; letter-spacing: -1px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .section-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(to right, rgba(255,255,255,0.1), transparent); }
+
+    /* ── CARTE ── */
+    .map-wrapper {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px; padding: 24px; margin-bottom: 40px;
+    }
+    .map-wrapper svg { width: 100%; height: auto; display: block; }
+
+    /* ── FLANCS ── */
+    .flancs-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 18px; margin-bottom: 48px;
+    }
+    .flanc-card {
+      border-radius: 22px; padding: 26px;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative; overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .flanc-card:hover { transform: translateY(-4px); }
+    .flanc-card::before {
+      content: ""; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      border-radius: 22px 22px 0 0;
+    }
+    .flanc-card.nord { background: var(--nord-light); border-color: var(--nord-border); }
+    .flanc-card.nord::before { background: linear-gradient(to right, var(--nord), transparent); }
+    .flanc-card.sud { background: var(--sud-light); border-color: var(--sud-border); }
+    .flanc-card.sud::before { background: linear-gradient(to right, var(--sud), transparent); }
+    .flanc-card.est { background: var(--est-light); border-color: var(--est-border); }
+    .flanc-card.est::before { background: linear-gradient(to right, var(--est), transparent); }
+
+    .flanc-badge {
+      display: inline-block; padding: 4px 12px; border-radius: 999px;
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px;
+      font-weight: 600; margin-bottom: 14px;
+    }
+    .nord .flanc-badge { background: rgba(138,173,219,0.15); color: var(--nord); }
+    .sud .flanc-badge { background: rgba(192,120,64,0.15); color: var(--sud); }
+    .est .flanc-badge { background: rgba(122,158,138,0.15); color: var(--est); }
+
+    .flanc-card h3 { margin: 0 0 8px; font-size: 1.2rem; }
+    .flanc-card .flanc-alt { font-size: 0.78rem; margin-bottom: 12px; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.5px; }
+    .flanc-card p { margin: 0 0 14px; font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+    .profil-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 8px; }
+    .profil-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .profil-tag { font-size: 0.78rem; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,0.05); color: var(--muted); }
+
+    /* ── ALTITUDE SCALE ── */
+    .altitude-section { margin-bottom: 48px; }
+    .altitude-intro { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 24px; max-width: 860px; }
+    .altitude-bands {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .alt-band {
+      display: grid; grid-template-columns: 90px 1fr auto;
+      align-items: center; gap: 16px;
+      padding: 14px 18px; border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .alt-band.a1 { background: rgba(212,175,55,0.08); border-color: rgba(212,175,55,0.2); }
+    .alt-band.a2 { background: rgba(138,173,219,0.07); border-color: rgba(138,173,219,0.18); }
+    .alt-band.a3 { background: rgba(122,158,138,0.07); border-color: rgba(122,158,138,0.18); }
+    .alt-band.a4 { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.07); }
+    .alt-metres { font-size: 1.0rem; font-weight: 600; color: var(--gold); }
+    .alt-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.5; }
+    .alt-desc strong { color: var(--text); display: block; margin-bottom: 3px; font-size: 0.92rem; }
+    .alt-cepages { font-size: 0.78rem; color: var(--muted); text-align: right; font-style: italic; }
+
+    /* ── CONTRADE ── */
+    .contrade-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px; margin-bottom: 48px;
+    }
+    .contrada-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px; padding: 20px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .contrada-card:hover { border-color: rgba(212,175,55,0.2); transform: translateY(-3px); }
+    .contrada-card .cont-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .contrada-card h4 { margin: 0; font-size: 1.05rem; }
+    .cont-flanc {
+      font-size: 0.72rem; padding: 3px 9px; border-radius: 999px;
+      font-weight: 600; white-space: nowrap;
+    }
+    .cont-flanc.n { background: rgba(138,173,219,0.15); color: var(--nord); }
+    .cont-flanc.s { background: rgba(192,120,64,0.15); color: var(--sud); }
+    .cont-flanc.e { background: rgba(122,158,138,0.15); color: var(--est); }
+    .contrada-card .cont-alt { font-size: 0.78rem; color: var(--gold); margin-bottom: 8px; }
+    .contrada-card p { margin: 0 0 10px; font-size: 0.86rem; color: var(--muted); line-height: 1.65; }
+    .cont-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .cont-tag { font-size: 0.74rem; padding: 3px 8px; border-radius: 999px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.07); color: var(--muted); }
+
+    /* ── CÉPAGES ── */
+    .cepages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-bottom: 48px; }
+    .cepage-card {
+      border-radius: 22px; padding: 26px;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative; overflow: hidden;
+    }
+    .cepage-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 22px 22px 0 0; }
+    .cepage-card.nerello { background: rgba(139,44,62,0.09); border-color: rgba(139,44,62,0.25); }
+    .cepage-card.nerello::before { background: linear-gradient(to right, var(--nerello), transparent); }
+    .cepage-card.carricante { background: rgba(74,122,92,0.09); border-color: rgba(74,122,92,0.25); }
+    .cepage-card.carricante::before { background: linear-gradient(to right, var(--carricante), transparent); }
+    .cepage-card.catarratto { background: rgba(138,122,48,0.09); border-color: rgba(138,122,48,0.25); }
+    .cepage-card.catarratto::before { background: linear-gradient(to right, var(--catarratto), transparent); }
+    .cepage-badge { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 14px; }
+    .nerello .cepage-badge { background: rgba(139,44,62,0.15); color: #c06878; }
+    .carricante .cepage-badge { background: rgba(74,122,92,0.15); color: #6aae82; }
+    .catarratto .cepage-badge { background: rgba(138,122,48,0.15); color: #c0aa50; }
+    .cepage-card h3 { margin: 0 0 10px; font-size: 1.2rem; }
+    .cepage-card .cepage-aka { font-size: 0.78rem; margin-bottom: 12px; opacity: 0.55; font-style: italic; }
+    .cepage-card p { margin: 0 0 14px; font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+
+    /* ── FOCUS ── */
+    .focus-box {
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 20px 20px 0;
+      padding: 28px 32px; margin-bottom: 48px;
+    }
+    .focus-box h3 { margin: 0 0 14px; font-size: 1.1rem; color: var(--gold); }
+    .focus-box p { margin: 0 0 12px; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+    .focus-box p:last-child { margin-bottom: 0; }
+
+    /* ── PRODUCTEURS ── */
+    .prod-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 48px; }
+    .prod-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 18px; transition: border-color 0.2s; }
+    .prod-card:hover { border-color: rgba(212,175,55,0.2); }
+    .prod-card .prod-name { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+    .prod-card .prod-appel { font-size: 0.78rem; color: var(--gold); margin-bottom: 8px; }
+    .prod-card .prod-note { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── FOOTER ── */
+    .footer { margin-top: 80px; text-align: center; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+
+    @media (max-width: 1000px) { .flancs-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; gap: 32px; }
+      .hero-text h1 { font-size: 2.8rem; }
+    }
+    @media (max-width: 600px) {
+      .nav-container { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .alt-band { grid-template-columns: 70px 1fr; }
+      .alt-cepages { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="Index.html" class="nav-logo">🍷 Ma Cave</a>
+      <div class="nav-links">
+        <a href="Index.html">Accueil</a>
+        <a href="Ma-Cave.html">Ma Cave</a>
+        <a href="millesimes.html">Millésimes</a>
+        <a href="regionsviticoles.html" class="active">Régions</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a href="regionsviticoles.html">Régions viticoles</a>
+    <span class="sep">›</span>
+    <span>Italie</span>
+    <span class="sep">›</span>
+    <span>Sicile</span>
+    <span class="sep">›</span>
+    <span class="current">Etna</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Sicile —<br><span>Etna</span></h1>
+      <p class="subtitle">
+        Sur les flancs du plus grand volcan actif d'Europe, à des altitudes comprises entre 400
+        et 1 000 mètres, le vignoble de l'Etna produit des vins d'une minéralité et d'une
+        complexité uniques au monde. Sols de lave et de cendres volcaniques, vieilles vignes
+        en gobelet, cépages autochtones millénaires — l'Etna est le Bourgogne de la Méditerranée.
+      </p>
+      <div class="tag-list">
+        <div class="tag">Nerello Mascalese</div>
+        <div class="tag">Carricante</div>
+        <div class="tag">Catarratto</div>
+        <div class="tag">Lave volcanique</div>
+        <div class="tag">400–1000 m</div>
+        <div class="tag">Vieilles vignes</div>
+        <div class="tag">Contrade</div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="label">Altitude vignoble</div>
+        <div class="value">400–1 000 m<br><small>vignes les plus hautes d'Europe</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Superficie DOC</div>
+        <div class="value">≈ 800 ha<br><small>en forte croissance depuis 2010</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Âge des vignes</div>
+        <div class="value">80–150 ans<br><small>pré-phylloxéra pour certaines</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Sol</div>
+        <div class="value">Lave volcanique<br><small>Cendres · Sable basaltique</small></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- CARTE -->
+    <h2 class="section-title">Carte des flancs et contrade</h2>
+
+    <div class="map-wrapper">
+      <svg viewBox="0 0 700 620" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">
+        <defs>
+          <pattern id="lavaNord" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(30)">
+            <line x1="0" y1="0" x2="8" y2="0" stroke="rgba(138,173,219,0.28)" stroke-width="1.5"/>
+          </pattern>
+          <pattern id="lavaSud" patternUnits="userSpaceOnUse" width="7" height="7">
+            <circle cx="3.5" cy="3.5" r="1.2" fill="rgba(192,120,64,0.28)"/>
+          </pattern>
+          <pattern id="lavaEst" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(60)">
+            <line x1="0" y1="0" x2="0" y2="8" stroke="rgba(122,158,138,0.25)" stroke-width="2"/>
+          </pattern>
+          <radialGradient id="volcGrad" cx="50%" cy="45%" r="50%">
+            <stop offset="0%" stop-color="rgba(255,100,40,0.12)"/>
+            <stop offset="40%" stop-color="rgba(180,60,20,0.06)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+          </radialGradient>
+          <radialGradient id="craterGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="rgba(255,120,40,0.5)"/>
+            <stop offset="60%" stop-color="rgba(200,60,20,0.2)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+          </craterGrad>
+        </defs>
+
+        <rect width="700" height="620" fill="rgba(255,255,255,0.015)" rx="12"/>
+
+        <!-- Mer Ionienne (est) -->
+        <path d="M 600 0 Q 640 100 660 200 Q 675 300 665 400 Q 655 500 640 600 L 700 600 L 700 0 Z"
+              fill="rgba(26,58,92,0.35)" stroke="none"/>
+        <text x="665" y="300" font-size="9" fill="#4a90c4" opacity="0.7"
+              transform="rotate(90,665,300)">Mer Ionienne</text>
+
+        <!-- Mer Tyrrhénienne (nord) -->
+        <path d="M 0 0 L 700 0 L 700 30 Q 500 45 300 38 Q 150 32 0 42 Z"
+              fill="rgba(26,58,92,0.25)" stroke="none"/>
+        <text x="120" y="22" font-size="9" fill="#4a90c4" opacity="0.6">Mer Tyrrhénienne →</text>
+
+        <!-- Fond volcanique (halo de chaleur) -->
+        <ellipse cx="340" cy="280" rx="280" ry="255" fill="url(#volcGrad)"/>
+
+        <!-- ══ FLANC NORD ══ -->
+        <path d="M 100 60 Q 200 42 300 38 Q 380 35 450 45 Q 490 52 510 68 L 490 148 Q 440 160 380 165 Q 320 168 268 165 Q 210 160 165 148 Q 128 138 105 115 Z"
+              fill="url(#lavaNord)" stroke="rgba(138,173,219,0.42)" stroke-width="1.3"/>
+        <rect x="210" y="68" width="148" height="56" rx="10"
+              fill="rgba(138,173,219,0.1)" stroke="rgba(138,173,219,0.4)" stroke-width="1.1"/>
+        <text x="284" y="90" font-size="11" fill="#8aaddb" text-anchor="middle" font-weight="700">Flanc Nord</text>
+        <text x="284" y="105" font-size="8.5" fill="rgba(138,173,219,0.7)" text-anchor="middle">400–900 m · Frais · Acide</text>
+        <text x="284" y="117" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Nerello Mascalese · Élégance</text>
+
+        <!-- ══ FLANC EST ══ -->
+        <path d="M 512 70 Q 560 80 595 105 Q 620 130 628 175 Q 632 220 622 260 Q 612 295 590 318 L 520 305 Q 510 260 508 215 Q 506 168 510 125 Z"
+              fill="url(#lavaEst)" stroke="rgba(122,158,138,0.42)" stroke-width="1.3"/>
+        <rect x="518" y="165" width="100" height="58" rx="9"
+              fill="rgba(122,158,138,0.1)" stroke="rgba(122,158,138,0.38)" stroke-width="1"/>
+        <text x="568" y="185" font-size="10" fill="#7a9e8a" text-anchor="middle" font-weight="700">Flanc Est</text>
+        <text x="568" y="200" font-size="8.5" fill="rgba(122,158,138,0.7)" text-anchor="middle">Carricante</text>
+        <text x="568" y="213" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Milo · Blanc</text>
+
+        <!-- ══ FLANC SUD ══ -->
+        <path d="M 108 420 Q 125 460 155 488 Q 195 515 248 528 Q 300 538 355 535 Q 415 530 460 512 Q 498 492 515 460 Q 525 435 522 408 L 490 388 Q 450 400 390 408 Q 338 414 284 414 Q 228 412 178 402 Z"
+              fill="url(#lavaSud)" stroke="rgba(192,120,64,0.42)" stroke-width="1.3"/>
+        <rect x="230" y="450" width="168" height="56" rx="10"
+              fill="rgba(192,120,64,0.1)" stroke="rgba(192,120,64,0.42)" stroke-width="1.1"/>
+        <text x="314" y="472" font-size="11" fill="#c07840" text-anchor="middle" font-weight="700">Flanc Sud</text>
+        <text x="314" y="487" font-size="8.5" fill="rgba(192,120,64,0.7)" text-anchor="middle">300–700 m · Chaud · Ample</text>
+        <text x="314" y="498" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Nerello · Catarratto · Rondeur</text>
+
+        <!-- ══ ZONE CENTRALE (cratère + sommet) ══ -->
+        <ellipse cx="340" cy="282" rx="145" ry="130" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="5 3"/>
+        <ellipse cx="340" cy="270" rx="60" ry="52" fill="rgba(200,80,30,0.08)" stroke="rgba(200,80,30,0.2)" stroke-width="1.2"/>
+        <circle cx="340" cy="262" r="18" fill="rgba(255,100,30,0.15)" stroke="rgba(255,120,40,0.4)" stroke-width="1.5"/>
+        <circle cx="340" cy="262" r="8" fill="rgba(255,80,20,0.3)" stroke="rgba(255,100,30,0.5)" stroke-width="1"/>
+        <text x="340" y="255" font-size="9.5" fill="rgba(255,150,80,0.9)" text-anchor="middle" font-weight="700">3 357 m</text>
+        <text x="340" y="246" font-size="8" fill="rgba(255,150,80,0.6)" text-anchor="middle">Cratère</text>
+        <text x="340" y="288" font-size="9" fill="rgba(255,255,255,0.3)" text-anchor="middle">Zone non viticole</text>
+        <text x="340" y="300" font-size="8" fill="rgba(255,255,255,0.2)" text-anchor="middle">au-dessus de 1 000 m</text>
+
+        <!-- Contrade notables — Flanc Nord -->
+        <!-- Calderara Sottana -->
+        <rect x="126" y="148" width="90" height="28" rx="6"
+              fill="rgba(138,173,219,0.08)" stroke="rgba(138,173,219,0.3)" stroke-width="0.8"/>
+        <text x="171" y="160" font-size="8.5" fill="#8aaddb" text-anchor="middle" font-weight="600">Calderara Sottana</text>
+        <text x="171" y="170" font-size="7.5" fill="rgba(138,173,219,0.55)" text-anchor="middle">500 m · Floral</text>
+
+        <!-- Caselle -->
+        <rect x="228" y="154" width="72" height="26" rx="6"
+              fill="rgba(138,173,219,0.08)" stroke="rgba(138,173,219,0.28)" stroke-width="0.8"/>
+        <text x="264" y="165" font-size="8.5" fill="#8aaddb" text-anchor="middle" font-weight="600">Caselle</text>
+        <text x="264" y="174" font-size="7.5" fill="rgba(138,173,219,0.55)" text-anchor="middle">600 m</text>
+
+        <!-- Barbabecchi -->
+        <rect x="310" y="150" width="88" height="26" rx="6"
+              fill="rgba(138,173,219,0.08)" stroke="rgba(138,173,219,0.28)" stroke-width="0.8"/>
+        <text x="354" y="161" font-size="8.5" fill="#8aaddb" text-anchor="middle" font-weight="600">Barbabecchi</text>
+        <text x="354" y="171" font-size="7.5" fill="rgba(138,173,219,0.55)" text-anchor="middle">700 m · Puissant</text>
+
+        <!-- Santo Spirito -->
+        <rect x="408" y="148" width="88" height="26" rx="6"
+              fill="rgba(138,173,219,0.08)" stroke="rgba(138,173,219,0.28)" stroke-width="0.8"/>
+        <text x="452" y="159" font-size="8.5" fill="#8aaddb" text-anchor="middle" font-weight="600">Santo Spirito</text>
+        <text x="452" y="169" font-size="7.5" fill="rgba(138,173,219,0.55)" text-anchor="middle">850 m · Altitude</text>
+
+        <!-- Contrade — Flanc Sud -->
+        <!-- Villagrande -->
+        <rect x="175" y="388" width="90" height="26" rx="6"
+              fill="rgba(192,120,64,0.08)" stroke="rgba(192,120,64,0.28)" stroke-width="0.8"/>
+        <text x="220" y="399" font-size="8.5" fill="#c07840" text-anchor="middle" font-weight="600">Villagrande</text>
+        <text x="220" y="409" font-size="7.5" fill="rgba(192,120,64,0.55)" text-anchor="middle">400 m · Ample</text>
+
+        <!-- Feudo di Mezzo -->
+        <rect x="278" y="390" width="96" height="26" rx="6"
+              fill="rgba(192,120,64,0.08)" stroke="rgba(192,120,64,0.28)" stroke-width="0.8"/>
+        <text x="326" y="401" font-size="8.5" fill="#c07840" text-anchor="middle" font-weight="600">Feudo di Mezzo</text>
+        <text x="326" y="411" font-size="7.5" fill="rgba(192,120,64,0.55)" text-anchor="middle">550 m</text>
+
+        <!-- Rinazzo -->
+        <rect x="388" y="385" width="78" height="26" rx="6"
+              fill="rgba(192,120,64,0.08)" stroke="rgba(192,120,64,0.28)" stroke-width="0.8"/>
+        <text x="427" y="396" font-size="8.5" fill="#c07840" text-anchor="middle" font-weight="600">Rinazzo</text>
+        <text x="427" y="406" font-size="7.5" fill="rgba(192,120,64,0.55)" text-anchor="middle">600 m · Concentré</text>
+
+        <!-- Contrade — Flanc Est -->
+        <!-- Milo -->
+        <rect x="512" y="298" width="70" height="26" rx="6"
+              fill="rgba(122,158,138,0.08)" stroke="rgba(122,158,138,0.28)" stroke-width="0.8"/>
+        <text x="547" y="309" font-size="8.5" fill="#7a9e8a" text-anchor="middle" font-weight="600">Milo</text>
+        <text x="547" y="319" font-size="7.5" fill="rgba(122,158,138,0.55)" text-anchor="middle">650 m · Carricante</text>
+
+        <!-- Villes -->
+        <circle cx="140" cy="445" r="4" fill="rgba(212,175,55,0.4)" stroke="#d4af37" stroke-width="1"/>
+        <text x="140" y="460" font-size="8.5" fill="#d4af37" text-anchor="middle">Bronte</text>
+
+        <circle cx="530" cy="380" r="4" fill="rgba(212,175,55,0.4)" stroke="#d4af37" stroke-width="1"/>
+        <text x="540" y="373" font-size="8.5" fill="#d4af37">Giarre</text>
+
+        <circle cx="340" cy="520" r="4" fill="rgba(212,175,55,0.4)" stroke="#d4af37" stroke-width="1"/>
+        <text x="340" y="535" font-size="8.5" fill="#d4af37" text-anchor="middle">Zafferana Etnea</text>
+
+        <!-- ── LÉGENDE ── -->
+        <rect x="20" y="586" width="12" height="12" rx="2" fill="url(#lavaNord)" stroke="rgba(138,173,219,0.5)" stroke-width="1"/>
+        <text x="38" y="596" font-size="9" fill="rgba(255,255,255,0.5)">Flanc Nord</text>
+
+        <rect x="140" y="586" width="12" height="12" rx="2" fill="url(#lavaSud)" stroke="rgba(192,120,64,0.5)" stroke-width="1"/>
+        <text x="158" y="596" font-size="9" fill="rgba(255,255,255,0.5)">Flanc Sud</text>
+
+        <rect x="255" y="586" width="12" height="12" rx="2" fill="url(#lavaEst)" stroke="rgba(122,158,138,0.5)" stroke-width="1"/>
+        <text x="273" y="596" font-size="9" fill="rgba(255,255,255,0.5)">Flanc Est</text>
+
+        <circle cx="382" cy="592" r="5" fill="rgba(255,100,30,0.25)" stroke="rgba(255,120,40,0.4)" stroke-width="1"/>
+        <text x="393" y="596" font-size="9" fill="rgba(255,255,255,0.5)">Cratère</text>
+
+        <!-- Compass -->
+        <text x="668" y="56" font-size="13" fill="rgba(255,255,255,0.28)" text-anchor="middle">N</text>
+        <line x1="668" y1="60" x2="668" y2="78" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+        <polygon points="668,60 663,72 668,69 673,72" fill="rgba(255,255,255,0.25)"/>
+      </svg>
+    </div>
+
+    <!-- FOCUS VOLCANIQUE -->
+    <div class="focus-box">
+      <h3>L'Etna : le volcan qui fait le vin</h3>
+      <p>
+        L'Etna culmine à 3 357 mètres et reste en activité permanente. Ses éruptions successives
+        au fil des millénaires ont déposé des couches de lave basaltique, de cendres et de ponces
+        qui constituent aujourd'hui l'un des sols les plus singuliers du monde viticole.
+        Ces sols volcaniques sont pauvres en nutriments, très drainants et naturellement acides —
+        conditions extrêmes qui produisent des vins d'une concentration et d'une minéralité uniques.
+      </p>
+      <p>
+        La grande particularité de l'Etna est que le phylloxéra, le puceron qui a ravagé presque
+        tous les vignobles européens à la fin du XIXe siècle, n'a jamais pu s'y installer : les sols
+        sablonneux et volcaniques sont hostiles à l'insecte. Résultat : il existe encore à l'Etna
+        des vignes sur leurs propres racines (franches de pied), âgées de 80 à 150 ans voire plus,
+        des trésors viticoles absolus qui donnent des vins d'une profondeur incomparable.
+      </p>
+    </div>
+
+    <!-- LES TROIS FLANCS -->
+    <h2 class="section-title">Les trois flancs du volcan</h2>
+
+    <div class="flancs-grid">
+
+      <div class="flanc-card nord">
+        <span class="flanc-badge">Flanc Nord</span>
+        <h3>Le Nord — Élégance & fraîcheur</h3>
+        <p class="flanc-alt">400–900 m · Exposition nord</p>
+        <p>
+          Le flanc nord est le plus réputé et le plus recherché de l'Etna. Exposé au nord,
+          il bénéficie de températures plus fraîches, de vendanges plus tardives et d'une
+          acidité naturellement plus élevée. Les sols de lave ancienne sont plus profonds
+          et plus riches en minéraux. Le Nerello Mascalese y atteint une finesse, une tension
+          et une complexité aromatique qui rappellent les grands Pinot Noir de Bourgogne.
+          C'est ici que se concentrent les contrade les plus célèbres.
+        </p>
+        <div class="profil-label">Profil aromatique</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Rose séchée</span>
+          <span class="profil-tag">Cerise fraîche</span>
+          <span class="profil-tag">Cendre</span>
+          <span class="profil-tag">Réglisse</span>
+          <span class="profil-tag">Acidité vive</span>
+          <span class="profil-tag">Longue garde</span>
+        </div>
+      </div>
+
+      <div class="flanc-card sud">
+        <span class="flanc-badge">Flanc Sud</span>
+        <h3>Le Sud — Chaleur & rondeur</h3>
+        <p class="flanc-alt">300–700 m · Exposition sud</p>
+        <p>
+          Le flanc sud est plus chaud, plus exposé au soleil sicilien. Les maturités sont
+          plus précoces, les vins plus amples et plus généreux. Le Nerello Mascalese y prend
+          un caractère plus méditerranéen — fruit plus mûr, tannins plus souples, corps plus
+          large. Le Catarratto, cépage blanc, y est aussi cultivé. Style plus accessible et
+          immédiat que le nord, avec une belle expression solaire et épicée. Moins de contrade
+          classées mais des productions intéressantes.
+        </p>
+        <div class="profil-label">Profil aromatique</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Cerise mûre</span>
+          <span class="profil-tag">Prune</span>
+          <span class="profil-tag">Épices chaudes</span>
+          <span class="profil-tag">Tabac</span>
+          <span class="profil-tag">Ample</span>
+        </div>
+      </div>
+
+      <div class="flanc-card est">
+        <span class="flanc-badge">Flanc Est</span>
+        <h3>L'Est — Carricante & blancs</h3>
+        <p class="flanc-alt">400–650 m · Milo · Ionien</p>
+        <p>
+          Le flanc est, exposé vers la mer Ionienne, est le domaine du Carricante blanc.
+          L'appellation Etna Bianco Superiore est réservée aux vins produits sur la commune de
+          Milo, à l'est du volcan. Les vins blancs y sont d'une tension et d'une minéralité
+          remarquables — ceux qui poussent le plus loin la comparaison avec Chablis n'ont pas
+          totalement tort. Sol de lave plus récente, légèrement différent du nord. Benanti
+          est la référence absolue de ce flanc.
+        </p>
+        <div class="profil-label">Profil aromatique</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Agrumes</span>
+          <span class="profil-tag">Pierre volcanique</span>
+          <span class="profil-tag">Fleur d'oranger</span>
+          <span class="profil-tag">Tension</span>
+          <span class="profil-tag">Salin</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ALTITUDES -->
+    <h2 class="section-title">L'altitude comme terroir</h2>
+
+    <div class="altitude-section">
+      <p class="altitude-intro">
+        À l'Etna, chaque tranche d'altitude correspond à un style de vin différent. La fraîcheur
+        augmente de 0,6°C tous les 100 mètres, ce qui crée des microclimats radicalement distincts
+        sur un espace géographique très resserré.
+      </p>
+      <div class="altitude-bands">
+        <div class="alt-band a1">
+          <div class="alt-metres">800–1000 m</div>
+          <div class="alt-desc">
+            <strong>Haute altitude — Tension extrême</strong>
+            Températures les plus fraîches, acidité maximale, vendanges tardives (novembre parfois).
+            Vins d'une minéralité et d'une longévité incomparables. Réservés aux meilleurs millésimes.
+          </div>
+          <div class="alt-cepages">Nerello Mascalese</div>
+        </div>
+        <div class="alt-band a2">
+          <div class="alt-metres">600–800 m</div>
+          <div class="alt-desc">
+            <strong>Altitude classique — Équilibre parfait</strong>
+            La zone idéale de l'Etna. Fraîcheur nocturne marquée, maturité complète le jour.
+            Les plus grandes contrade se trouvent dans cette fourchette (Calderara, Barbabecchi…).
+          </div>
+          <div class="alt-cepages">Nerello · Carricante</div>
+        </div>
+        <div class="alt-band a3">
+          <div class="alt-metres">400–600 m</div>
+          <div class="alt-desc">
+            <strong>Altitude intermédiaire — Accessibilité</strong>
+            Plus de chaleur résiduelle, maturité plus régulière. Vins plus accessibles jeunes,
+            avec un fruit plus immédiat. Flanc sud principalement. Idéal pour les cuvées d'entrée.
+          </div>
+          <div class="alt-cepages">Nerello · Catarratto</div>
+        </div>
+        <div class="alt-band a4">
+          <div class="alt-metres">< 400 m</div>
+          <div class="alt-desc">
+            <strong>Pied de colline — Chaleur sicilienne</strong>
+            Zone de transition. Influence méditerranéenne dominante, vins plus chaleureux
+            et généreux. Moins typiquement « Etna » mais d'un bel intérêt gastronomique.
+          </div>
+          <div class="alt-cepages">Catarratto · Nero d'Avola</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTRADE -->
+    <h2 class="section-title">Les contrade — lieux-dits de l'Etna</h2>
+
+    <div class="contrade-grid">
+
+      <div class="contrada-card">
+        <div class="cont-header">
+          <h4>Calderara Sottana</h4>
+          <span class="cont-flanc n">Flanc Nord</span>
+        </div>
+        <div class="cont-alt">≈ 500–600 m · Randazzo</div>
+        <p>L'une des contrade les plus réputées du flanc nord. Sols de lave ancienne très minéralisée. Vins d'une grande finesse florale et d'une acidité remarquable. Benanti et Cornelissen y produisent des cuvées de référence.</p>
+        <div class="cont-tags">
+          <span class="cont-tag">Lave ancienne</span>
+          <span class="cont-tag">Floral</span>
+          <span class="cont-tag">Tension</span>
+        </div>
+      </div>
+
+      <div class="contrada-card">
+        <div class="cont-header">
+          <h4>Barbabecchi</h4>
+          <span class="cont-flanc n">Flanc Nord</span>
+        </div>
+        <div class="cont-alt">≈ 650–750 m · Passopisciaro</div>
+        <p>Altitude élevée, exposition nord-est. Vins puissants et structurés pour le flanc nord, avec une minéralité intense et une belle profondeur. Passopisciaro (Andrea Franchetti) en est le producteur emblématique.</p>
+        <div class="cont-tags">
+          <span class="cont-tag">Haute altitude</span>
+          <span class="cont-tag">Puissant</span>
+          <span class="cont-tag">Minéral</span>
+        </div>
+      </div>
+
+      <div class="contrada-card">
+        <div class="cont-header">
+          <h4>Santo Spirito</h4>
+          <span class="cont-flanc n">Flanc Nord</span>
+        </div>
+        <div class="cont-alt">≈ 800–900 m · Passopisciaro</div>
+        <p>L'une des contrade les plus hautes en altitude. Vendanges très tardives. Vins d'une fraîcheur et d'une tension extrêmes, parfois austères dans leur jeunesse mais d'une longévité exceptionnelle.</p>
+        <div class="cont-tags">
+          <span class="cont-tag">Altitude max</span>
+          <span class="cont-tag">Tardif</span>
+          <span class="cont-tag">Longue garde</span>
+        </div>
+      </div>
+
+      <div class="contrada-card">
+        <div class="cont-header">
+          <h4>Caselle</h4>
+          <span class="cont-flanc n">Flanc Nord</span>
+        </div>
+        <div class="cont-alt">≈ 580–680 m · Castiglione di Sicilia</div>
+        <p>Contrade aux sols volcaniques bien drainés, vieilles vignes en gobelet. Style élégant et précis, avec un équilibre entre fruit et minéralité caractéristique du flanc nord à cette altitude.</p>
+        <div class="cont-tags">
+          <span class="cont-tag">Vieilles vignes</span>
+          <span class="cont-tag">Gobelet</span>
+          <span class="cont-tag">Élégant</span>
+        </div>
+      </div>
+
+      <div class="contrada-card">
+        <div class="cont-header">
+          <h4>Milo</h4>
+          <span class="cont-flanc e">Flanc Est</span>
+        </div>
+        <div class="cont-alt">≈ 550–700 m · Milo</div>
+        <p>La contrade de référence pour les blancs de l'Etna. Seule commune autorisée à produire l'Etna Bianco Superiore DOC. Carricante sur sols de lave plus récente. Benanti (Pietramarina) en est le producteur historique.</p>
+        <div class="cont-tags">
+          <span class="cont-tag">Carricante</span>
+          <span class="cont-tag">Blanc Superiore</span>
+          <span class="cont-tag">Salin</span>
+        </div>
+      </div>
+
+      <div class="contrada-card">
+        <div class="cont-header">
+          <h4>Feudo di Mezzo</h4>
+          <span class="cont-flanc s">Flanc Sud</span>
+        </div>
+        <div class="cont-alt">≈ 500–600 m · Zafferana</div>
+        <p>L'une des meilleures contrade du flanc sud. Sols de lave ancienne, exposition favorable. Vins plus amples que le nord mais avec une belle minéralité volcanique. Cornelissen produit ici une partie de ses Susucaru.</p>
+        <div class="cont-tags">
+          <span class="cont-tag">Lave ancienne</span>
+          <span class="cont-tag">Ample</span>
+          <span class="cont-tag">Solaire</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CÉPAGES AUTOCHTONES -->
+    <h2 class="section-title">Les cépages autochtones</h2>
+
+    <div class="cepages-grid">
+
+      <div class="cepage-card nerello">
+        <span class="cepage-badge">Rouge principal</span>
+        <h3>Nerello Mascalese</h3>
+        <p class="cepage-aka">aussi : Nerello del Bosco</p>
+        <p>
+          Le cépage roi de l'Etna, l'un des plus fascinants d'Italie. Il tire son nom de
+          <em>nero</em> (noir) et de Mascali, commune du flanc est. Sa peau fine donne des
+          vins d'une couleur grenat translucide trompeusement légère — qui cache une structure
+          tannique ferme et une acidité naturellement élevée. Le parallèle avec le Pinot Noir
+          est souvent cité mais reste réducteur : le Nerello possède une identité propre,
+          marquée par la cendre, la rose séchée, les fruits rouges frais et une minéralité
+          volcanique inimitable. Il peut vieillir 20 à 30 ans dans les grands millésimes.
+        </p>
+        <div class="profil-label">Profil aromatique</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Rose séchée</span>
+          <span class="profil-tag">Cerise fraîche</span>
+          <span class="profil-tag">Cendre volcanique</span>
+          <span class="profil-tag">Réglisse</span>
+          <span class="profil-tag">Épices</span>
+          <span class="profil-tag">Tanins fins</span>
+        </div>
+      </div>
+
+      <div class="cepage-card carricante">
+        <span class="cepage-badge">Blanc principal</span>
+        <h3>Carricante</h3>
+        <p class="cepage-aka">aussi : Catarratto Lucido selon certains</p>
+        <p>
+          Le grand cépage blanc de l'Etna, cultivé principalement sur le flanc est autour de Milo.
+          Son nom vient du sicilien <em>carricari</em> — charger — en référence à ses grappes très
+          lourdes. Il produit des vins blancs d'une tension et d'une minéralité absolument
+          remarquables : agrumes, fleur d'oranger, pierre volcanique, salinité. L'acidité naturelle
+          élevée lui confère un potentiel de garde de 10 à 20 ans. Le Pietramarina de Benanti,
+          produit sur la contrade de Milo, est la cuvée de référence mondiale.
+        </p>
+        <div class="profil-label">Profil aromatique</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Citron confit</span>
+          <span class="profil-tag">Fleur d'oranger</span>
+          <span class="profil-tag">Pierre volcanique</span>
+          <span class="profil-tag">Salinité</span>
+          <span class="profil-tag">Tension</span>
+        </div>
+      </div>
+
+      <div class="cepage-card catarratto">
+        <span class="cepage-badge">Blanc secondaire</span>
+        <h3>Catarratto</h3>
+        <p class="cepage-aka">aussi : Catarratto Bianco Comune</p>
+        <p>
+          Le cépage le plus planté de Sicile et l'un des plus répandus d'Italie. À l'Etna,
+          il est surtout présent sur le flanc sud à altitude plus basse. Moins tendu que le
+          Carricante, il produit des vins blancs plus amples, généreux et aromatiques — pêche,
+          abricot, fleurs blanches. Autrefois utilisé principalement pour le Marsala ou comme
+          vin de table, il bénéficie aujourd'hui d'une nouvelle attention grâce aux vignerons
+          qui l'exploitent en vieilles vignes sur lave. Style accessible et gastronomique.
+        </p>
+        <div class="profil-label">Profil aromatique</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Pêche blanche</span>
+          <span class="profil-tag">Abricot</span>
+          <span class="profil-tag">Fleurs blanches</span>
+          <span class="profil-tag">Rond</span>
+          <span class="profil-tag">Accessible</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PRODUCTEURS -->
+    <h2 class="section-title">Producteurs de référence</h2>
+
+    <div class="prod-grid">
+      <div class="prod-card">
+        <div class="prod-name">Benanti</div>
+        <div class="prod-appel">Flanc Est · Milo</div>
+        <div class="prod-note">Le domaine historique de l'Etna moderne. Pietramarina (Carricante blanc) et Serra della Contessa, références absolues.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Cornelissen (Frank)</div>
+        <div class="prod-appel">Flanc Nord · Malpasso</div>
+        <div class="prod-note">Vigneron belge devenu icône. Magma et Susucaru, vins naturels d'une pureté et d'une tension fascinantes.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Passopisciaro (Franchetti)</div>
+        <div class="prod-appel">Flanc Nord · Barbabecchi</div>
+        <div class="prod-note">Andrea Franchetti, vins puissants et précis sur le flanc nord. Cuvées parcellaires par contrade, parmi les plus recherchées.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Terre Nere</div>
+        <div class="prod-appel">Flanc Nord · Multiple contrade</div>
+        <div class="prod-note">Marc de Grazia, pionnier de la mise en valeur des contrade. Calderara, Santo Spirito — collection complète du flanc nord.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Cornelio Costanzo</div>
+        <div class="prod-appel">Flanc Nord · Caselle</div>
+        <div class="prod-note">Domaine familial sur vieilles vignes. Style pur et élégant, fidèle à l'expression minérale du flanc nord.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Tornatore</div>
+        <div class="prod-appel">Flanc Nord · Pietrarizzo</div>
+        <div class="prod-note">Grand domaine familial en biodynamie. Large gamme des deux flancs, rapport qualité-prix remarquable.</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Cette page évoluera avec la cave.<br>
+      Chaque nouvelle bouteille peut enrichir la compréhension d'une région, d'un terroir ou d'un style de vin.
+    </div>
+
+  </div>
+</body>
+</html>
