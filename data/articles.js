@@ -87,7 +87,7 @@ const ARTICLES = [
     imageAlt: "Grappes de Chardonnay dorées en lumière d'automne",
     intro: "Des Côtes du Jura aux grandes Bourgognes, ce cépage caméléon révèle la philosophie du vigneron plus que tout autre.",
     lecture: 6,
-    date: "2025-01-08",
+    date: "2026-05-23",
     featured: false,
     contenu: [
       {
