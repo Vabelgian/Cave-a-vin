@@ -447,9 +447,6 @@
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════
-     NAVIGATION
-═══════════════════════════════════════ -->
 <nav class="nav">
   <div class="nav-inner">
     <div class="nav-brand">Cave <span>à Vin</span></div>
@@ -460,36 +457,24 @@
   </div>
 </nav>
 
-<!-- ═══════════════════════════════════════
-     FILTRES
-═══════════════════════════════════════ -->
 <div class="filters-bar">
   <div class="filters-inner">
-
     <div class="filter-group">
       <span class="filter-label">Couleur</span>
       <button class="filter-btn active" data-filter="couleur" data-value="tous" onclick="setFilter('couleur', 'tous', this)">Tous</button>
       <button class="filter-btn" data-filter="couleur" data-value="rouge" onclick="setFilter('couleur', 'rouge', this)">Rouge</button>
       <button class="filter-btn" data-filter="couleur" data-value="blanc" onclick="setFilter('couleur', 'blanc', this)">Blanc</button>
     </div>
-
     <div class="filter-sep"></div>
-
     <div class="filter-group" id="year-filters">
       <span class="filter-label">Année</span>
       <button class="filter-btn active" data-filter="annee" data-value="tous" onclick="setFilter('annee', 'tous', this)">Toutes</button>
-      <!-- Les années se génèrent dynamiquement via JS -->
     </div>
-
     <button class="filter-reset" onclick="resetFilters()">✕ Réinitialiser</button>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     CONTENU
-═══════════════════════════════════════ -->
 <div class="container">
-
   <div class="page-header">
     <div class="header-eyebrow">Cave personnelle</div>
     <h1>Fenêtres de<br><em>dégustation</em></h1>
@@ -501,354 +486,309 @@
     <button class="tab" onclick="showTab('planning', this)">Planification</button>
   </div>
 
-  <!-- ═══════════════════════════════════════
-       PANEL DÉGUSTATIONS
-  ═══════════════════════════════════════ -->
-  <div id="degust" class="panel active">
-
-    <!-- 2025 -->
-    <div class="year-block" data-year="2025">
-      <div class="year-label">2025</div>
-
-      <div class="card" data-couleur="rouge" data-annee="2025">
-        <div class="card-header">
-          <div class="card-top-row">
-            <div>
-              <div class="card-title">Ridgeback Cabernet Franc</div>
-              <div class="card-date">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                25 décembre 2025
-              </div>
-            </div>
-            <span class="pill-couleur pill-rouge">Rouge</span>
-          </div>
-          <div class="card-comment">Un Cabernet Franc d'Afrique du Sud élégant, aux arômes de poivron rouge et de fraise. Première rencontre prometteuse avec ce producteur.</div>
-          <div class="tags">
-            <span class="tag">Repas de noël</span>
-            <span class="tag">Première ouverture</span>
-            <span class="tag">Évolutif</span>
-          </div>
-        </div>
-        <button class="openings-toggle" onclick="toggleOpenings(this)">
-          <span>Ouvertures · 1</span>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="openings-body">
-          <div class="opening">
-            <div class="opening-header">
-              <div class="opening-num">1</div>
-              <div class="opening-date">25 décembre 2025</div>
-            </div>
-            <div class="opening-note">Robe rubis brillant. Nez ouvert sur la framboise et la violette, légère touche herbacée. Bouche souple, tanins fins, finale courte mais agréable. À revoir dans 2–3 ans.</div>
-            <div class="tags">
-              <span class="tag">Repas de noël</span>
-              <span class="tag">Évolutif</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" data-couleur="rouge" data-annee="2025">
-        <div class="card-header">
-          <div class="card-top-row">
-            <div>
-              <div class="card-title">Salvatore M Barbaresco 2021</div>
-              <div class="card-date">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                28 décembre 2025
-              </div>
-            </div>
-            <span class="pill-couleur pill-rouge">Rouge</span>
-          </div>
-          <div class="card-comment">Barbaresco ambitieux d'un millésime solaire. Acheté pour explorer le style de la maison. Nécessite clairement du temps — à revoir autour de 2030.</div>
-          <div class="tags">
-            <span class="tag">Fin d'année</span>
-            <span class="tag">Première ouverture</span>
-            <span class="tag">Trop jeune</span>
-          </div>
-        </div>
-        <button class="openings-toggle" onclick="toggleOpenings(this)">
-          <span>Ouvertures · 1</span>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="openings-body">
-          <div class="opening">
-            <div class="opening-header">
-              <div class="opening-num">1</div>
-              <div class="opening-date">28 décembre 2025</div>
-            </div>
-            <div class="opening-note">Nez fermé, tanins serrés et astringents, fruit encore sous bois. Le potentiel est là mais le vin se défend. Carafe 3h minimum si tentative avant 2028.</div>
-            <div class="tags">
-              <span class="tag">Trop jeune</span>
-              <span class="tag">Fin d'année</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2026 -->
-    <div class="year-block" data-year="2026">
-      <div class="year-label">2026</div>
-
-      <div class="card" data-couleur="rouge" data-annee="2026">
-        <div class="card-header">
-          <div class="card-top-row">
-            <div>
-              <div class="card-title">Orpheus &amp; The Raven n°7 Pinotage 2022</div>
-              <div class="card-date">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                Été 2026
-              </div>
-            </div>
-            <span class="pill-couleur pill-rouge">Rouge</span>
-          </div>
-          <div class="card-comment">Pinotage sud-africain de caractère. Cépage souvent controversé mais ici travaillé avec soin. Dégustation analytique prévue en contexte BBQ.</div>
-          <div class="tags">
-            <span class="tag">Dégustation analytique</span>
-            <span class="tag">Festif</span>
-            <span class="tag">BBQ</span>
-          </div>
-        </div>
-        <button class="openings-toggle" onclick="toggleOpenings(this)">
-          <span>Ouvertures · 1</span>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="openings-body">
-          <div class="opening">
-            <div class="opening-header">
-              <div class="opening-num">1</div>
-              <div class="opening-date">Été 2026 — à venir</div>
-            </div>
-            <div class="opening-note empty">Notes à remplir après dégustation.</div>
-            <div class="tags">
-              <span class="tag">BBQ</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Années vides -->
-    <div class="year-block" data-year="2027">
-      <div class="year-label">2027</div>
-      <div class="empty-year">Aucune dégustation enregistrée.</div>
-    </div>
-    <div class="year-block" data-year="2028">
-      <div class="year-label">2028</div>
-      <div class="empty-year">Aucune dégustation enregistrée.</div>
-    </div>
-    <div class="year-block" data-year="2029">
-      <div class="year-label">2029</div>
-      <div class="empty-year">Aucune dégustation enregistrée.</div>
-    </div>
-    <div class="year-block" data-year="2030">
-      <div class="year-label">2030</div>
-      <div class="empty-year">Aucune dégustation enregistrée.</div>
-    </div>
-
-    <div class="no-result" id="no-result-degust">
-      <p>Aucun vin ne correspond à ces filtres.</p>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════
-       PANEL PLANIFICATION
-  ═══════════════════════════════════════ -->
-  <div id="planning" class="panel">
-
-    <div class="year-block" data-year="2026">
-      <div class="year-label">2026</div>
-
-      <div class="card" data-couleur="rouge" data-annee="2026">
-        <div class="card-header">
-          <div class="card-top-row">
-            <div>
-              <div class="card-title">Vouvray AOC 2023</div>
-              <div class="card-date">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                Ouverture estimée : 2026 – 2028
-              </div>
-            </div>
-            <span class="pill-couleur pill-blanc">Blanc</span>
-          </div>
-          <div class="card-comment">Bouteille achetée au salon du vin de Jurbise. 1ére bouteille d'une caisse de 6. Pour se faire une idée.</div>
-          <div class="tags">
-            <span class="tag">Loire</span>
-            <span class="tag">Garde moyenne</span>
-          </div>
-          <span class="badge gold">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            À surveiller
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <div class="year-block" data-year="2028">
-      <div class="year-label">2028</div>
-
-      <div class="card" data-couleur="rouge" data-annee="2028">
-        <div class="card-header">
-          <div class="card-top-row">
-            <div>
-              <div class="card-title">Podere Il Carnasciale – Il Carnasciale 2020</div>
-              <div class="card-date">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                Apogée estimée : 2028 – 2030
-              </div>
-            </div>
-            <span class="pill-couleur pill-rouge">Rouge</span>
-          </div>
-          <div class="card-comment">Cépage rarissime, le Caberlot. Patience nécessaire. Ne pas toucher avant 2028 pour un repas automnale.</div>
-          <div class="tags">
-            <span class="tag">Caberlot</span>
-            <span class="tag">Toscane</span>
-            <span class="tag">Grande garde</span>
-          </div>
-          <span class="badge blue">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg>
-            Longue garde
-          </span>
-        </div>
-      </div>
-
-      <div class="card" data-couleur="rouge" data-annee="2028">
-        <div class="card-header">
-          <div class="card-top-row">
-            <div>
-              <div class="card-title">Fontanafredda Barolo Serralunga d'Alba 2019</div>
-              <div class="card-date">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                Ouverture idéale : 2028
-              </div>
-            </div>
-            <span class="pill-couleur pill-rouge">Rouge</span>
-          </div>
-          <div class="card-comment">Devrait être à son apogée autour de 2028.</div>
-          <div class="tags">
-            <span class="tag">Barolo</span>
-          </div>
-          <span class="badge green">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            Grand Repas
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <div class="year-block" data-year="2030">
-      <div class="year-label">2030 +</div>
-
-      <div class="card" data-couleur="rouge" data-annee="2030">
-        <div class="card-header">
-          <div class="card-top-row">
-            <div>
-              <div class="card-title">Grands vins de garde</div>
-              <div class="card-date">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                Horizon long terme
-              </div>
-            </div>
-          </div>
-          <div class="card-comment">Section réservée aux vins nécessitant une garde exceptionnelle. À compléter au fil des acquisitions.</div>
-          <span class="badge blue">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg>
-            Patience
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <div class="no-result" id="no-result-planning">
-      <p>Aucun vin ne correspond à ces filtres.</p>
-    </div>
-  </div>
-
+  <div id="degust" class="panel active"></div>
+  <div id="planning" class="panel"></div>
 </div>
 
 <script>
-  /* ── ÉTAT DES FILTRES ── */
-  const filters = { couleur: 'tous', annee: 'tous' };
+/* ════════════════════════════════════════════════════════════
+   DONNÉES — c'est ici que tu gères ta cave.
 
-  /* ── GÉNÉRATION DYNAMIQUE DES ANNÉES ── */
-  function buildYearFilters() {
-    const years = new Set();
-    document.querySelectorAll('.card[data-annee]').forEach(c => years.add(c.dataset.annee));
-    const container = document.getElementById('year-filters');
-    [...years].sort().forEach(y => {
-      const btn = document.createElement('button');
-      btn.className = 'filter-btn';
-      btn.dataset.filter = 'annee';
-      btn.dataset.value = y;
-      btn.textContent = y;
-      btn.onclick = () => setFilter('annee', y, btn);
-      container.appendChild(btn);
-    });
+   statut : "degust"     → apparaît dans l'onglet Dégustations
+            "planification" → apparaît dans l'onglet Planification
+
+   annee_affichage : l'année sous laquelle la carte est rangée
+                     (pour les dégustations = année où tu l'as bu,
+                      pour la planification = année d'ouverture prévue)
+
+   couleur : "rouge" | "blanc" | "rose" | ...
+             (sert aussi aux filtres)
+
+   Pour les dégustations, chaque ouverture dans le tableau
+   `ouvertures` génère une ligne dans l'accordéon.
+   Si `note` est vide (""), elle s'affiche en grisé "Notes à remplir".
+
+   Pour la planification, le champ `fenetre` remplace la date,
+   et `badge` ajoute le badge coloré en bas de carte.
+   badge.type : "gold" | "blue" | "green"
+   badge.icone : "info" | "garde" | "check"
+════════════════════════════════════════════════════════════ */
+
+const VINS = [
+
+  /* ── DÉGUSTATIONS ───────────────────────────────────────── */
+  {
+    statut: "degust",
+    annee_affichage: 2025,
+    titre: "Ridgeback Cabernet Franc",
+    couleur: "rouge",
+    commentaire: "Un Cabernet Franc d'Afrique du Sud élégant, aux arômes de poivron rouge et de fraise. Première rencontre prometteuse avec ce producteur.",
+    tags: ["Repas de noël", "Première ouverture", "Évolutif"],
+    ouvertures: [
+      {
+        date: "25 décembre 2025",
+        note: "Robe rubis brillant. Nez ouvert sur la framboise et la violette, légère touche herbacée. Bouche souple, tanins fins, finale courte mais agréable. À revoir dans 2–3 ans.",
+        tags: ["Repas de noël", "Évolutif"]
+      }
+    ]
+  },
+
+  {
+    statut: "degust",
+    annee_affichage: 2025,
+    titre: "Salvatore M Barbaresco 2021",
+    couleur: "rouge",
+    commentaire: "Barbaresco ambitieux d'un millésime solaire. Acheté pour explorer le style de la maison. Nécessite clairement du temps — à revoir autour de 2030.",
+    tags: ["Fin d'année", "Première ouverture", "Trop jeune"],
+    ouvertures: [
+      {
+        date: "28 décembre 2025",
+        note: "Nez fermé, tanins serrés et astringents, fruit encore sous bois. Le potentiel est là mais le vin se défend. Carafe 3h minimum si tentative avant 2028.",
+        tags: ["Trop jeune", "Fin d'année"]
+      }
+    ]
+  },
+
+  {
+    statut: "degust",
+    annee_affichage: 2026,
+    titre: "Orpheus & The Raven n°7 Pinotage 2022",
+    couleur: "rouge",
+    commentaire: "Pinotage sud-africain de caractère. Cépage souvent controversé mais ici travaillé avec soin. Dégustation analytique prévue en contexte BBQ.",
+    tags: ["Dégustation analytique", "Festif", "BBQ"],
+    ouvertures: [
+      {
+        date: "Été 2026 — à venir",
+        note: "",
+        tags: ["BBQ"]
+      }
+    ]
+  },
+
+  /* ── PLANIFICATION ──────────────────────────────────────── */
+  {
+    statut: "planification",
+    annee_affichage: 2026,
+    titre: "Vouvray AOC 2023",
+    couleur: "blanc",
+    fenetre: "Ouverture estimée : 2026 – 2028",
+    commentaire: "Bouteille achetée au salon du vin de Jurbise. 1ère bouteille d'une caisse de 6. Pour se faire une idée.",
+    tags: ["Loire", "Garde moyenne"],
+    badge: { type: "gold", icone: "info", texte: "À surveiller" }
+  },
+
+  {
+    statut: "planification",
+    annee_affichage: 2028,
+    titre: "Podere Il Carnasciale – Il Carnasciale 2020",
+    couleur: "rouge",
+    fenetre: "Apogée estimée : 2028 – 2030",
+    commentaire: "Cépage rarissime, le Caberlot. Patience nécessaire. Ne pas toucher avant 2028 pour un repas automnale.",
+    tags: ["Caberlot", "Toscane", "Grande garde"],
+    badge: { type: "blue", icone: "garde", texte: "Longue garde" }
+  },
+
+  {
+    statut: "planification",
+    annee_affichage: 2028,
+    titre: "Fontanafredda Barolo Serralunga d'Alba 2019",
+    couleur: "rouge",
+    fenetre: "Ouverture idéale : 2028",
+    commentaire: "Devrait être à son apogée autour de 2028.",
+    tags: ["Barolo"],
+    badge: { type: "green", icone: "check", texte: "Grand Repas" }
+  },
+
+  {
+    statut: "planification",
+    annee_affichage: 2030,
+    titre: "Grands vins de garde",
+    couleur: null,
+    fenetre: "Horizon long terme",
+    commentaire: "Section réservée aux vins nécessitant une garde exceptionnelle. À compléter au fil des acquisitions.",
+    tags: [],
+    badge: { type: "blue", icone: "garde", texte: "Patience" }
   }
 
-  /* ── FILTRAGE ── */
-  function setFilter(type, value, btn) {
-    filters[type] = value;
-    document.querySelectorAll(`[data-filter="${type}"]`).forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    applyFilters();
-  }
+];
 
-  function applyFilters() {
-    const panels = ['degust', 'planning'];
-    panels.forEach(panelId => {
-      const panel = document.getElementById(panelId);
-      let anyVisible = false;
+/* ════════════════════════════════════════════════════════════
+   RENDU — ne pas modifier sauf si tu sais ce que tu fais
+════════════════════════════════════════════════════════════ */
 
-      panel.querySelectorAll('.card').forEach(card => {
-        const matchCouleur = filters.couleur === 'tous' || card.dataset.couleur === filters.couleur;
-        const matchAnnee = filters.annee === 'tous' || card.dataset.annee === filters.annee;
-        const visible = matchCouleur && matchAnnee;
-        card.classList.toggle('hidden', !visible);
-        if (visible) anyVisible = true;
-      });
+const SVG = {
+  clock: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+  calendar: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+  chevron: `<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>`,
+  info: `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+  garde: `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg>`,
+  check: `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>`
+};
 
-      /* Masquer/afficher les blocs année vides après filtre */
-      panel.querySelectorAll('.year-block').forEach(block => {
-        const cards = block.querySelectorAll('.card');
-        if (cards.length === 0) return;
-        const hasVisible = [...cards].some(c => !c.classList.contains('hidden'));
-        block.style.display = hasVisible ? '' : 'none';
-      });
+function buildTags(tags) {
+  if (!tags || !tags.length) return '';
+  return `<div class="tags">${tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>`;
+}
 
-      const noResult = panel.querySelector('.no-result');
-      if (noResult) noResult.style.display = anyVisible ? 'none' : 'block';
-    });
-  }
+function buildPill(couleur) {
+  if (!couleur) return '';
+  const map = { rouge: 'Rouge', blanc: 'Blanc', rose: 'Rosé' };
+  const label = map[couleur] || couleur;
+  return `<span class="pill-couleur pill-${couleur}">${label}</span>`;
+}
 
-  function resetFilters() {
-    filters.couleur = 'tous';
-    filters.annee = 'tous';
-    document.querySelectorAll('.filter-btn').forEach(b => {
-      b.classList.toggle('active', b.dataset.value === 'tous');
-    });
-    applyFilters();
-  }
+function buildBadge(badge) {
+  if (!badge) return '';
+  return `<span class="badge ${badge.type}">${SVG[badge.icone] || ''}${badge.texte}</span>`;
+}
 
-  /* ── TABS ── */
-  function showTab(id, btn) {
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    btn.classList.add('active');
-  }
+function buildDegustCard(vin) {
+  const ouverturesHtml = vin.ouvertures.map((o, i) => `
+    <div class="opening">
+      <div class="opening-header">
+        <div class="opening-num">${i + 1}</div>
+        <div class="opening-date">${o.date}</div>
+      </div>
+      <div class="opening-note${o.note ? '' : ' empty'}">${o.note || 'Notes à remplir après dégustation.'}</div>
+      ${buildTags(o.tags)}
+    </div>`).join('');
 
-  /* ── ACCORDÉON ── */
-  function toggleOpenings(btn) {
-    const body = btn.nextElementSibling;
-    const open = body.classList.toggle('open');
-    btn.classList.toggle('open', open);
-  }
+  return `
+    <div class="card" data-couleur="${vin.couleur || ''}" data-annee="${vin.annee_affichage}">
+      <div class="card-header">
+        <div class="card-top-row">
+          <div>
+            <div class="card-title">${vin.titre}</div>
+            <div class="card-date">${SVG.calendar} ${vin.ouvertures[0]?.date || ''}</div>
+          </div>
+          ${buildPill(vin.couleur)}
+        </div>
+        <div class="card-comment">${vin.commentaire}</div>
+        ${buildTags(vin.tags)}
+      </div>
+      <button class="openings-toggle" onclick="toggleOpenings(this)">
+        <span>Ouvertures · ${vin.ouvertures.length}</span>
+        ${SVG.chevron}
+      </button>
+      <div class="openings-body">${ouverturesHtml}</div>
+    </div>`;
+}
 
-  /* ── INIT ── */
-  buildYearFilters();
+function buildPlanningCard(vin) {
+  return `
+    <div class="card" data-couleur="${vin.couleur || ''}" data-annee="${vin.annee_affichage}">
+      <div class="card-header">
+        <div class="card-top-row">
+          <div>
+            <div class="card-title">${vin.titre}</div>
+            <div class="card-date">${SVG.clock} ${vin.fenetre}</div>
+          </div>
+          ${buildPill(vin.couleur)}
+        </div>
+        <div class="card-comment">${vin.commentaire}</div>
+        ${buildTags(vin.tags)}
+        ${buildBadge(vin.badge)}
+      </div>
+    </div>`;
+}
+
+function renderPanel(statut, containerId) {
+  const container = document.getElementById(containerId);
+  const vins = VINS.filter(v => v.statut === statut);
+
+  // Regrouper par année
+  const byYear = {};
+  vins.forEach(v => {
+    if (!byYear[v.annee_affichage]) byYear[v.annee_affichage] = [];
+    byYear[v.annee_affichage].push(v);
+  });
+
+  let html = '';
+  Object.keys(byYear).sort((a, b) => a - b).forEach(year => {
+    const cards = byYear[year].map(v =>
+      statut === 'degust' ? buildDegustCard(v) : buildPlanningCard(v)
+    ).join('');
+
+    const label = statut === 'planification' && year >= 2030 ? year + ' +' : year;
+    html += `<div class="year-block" data-year="${year}"><div class="year-label">${label}</div>${cards}</div>`;
+  });
+
+  html += `<div class="no-result"><p>Aucun vin ne correspond à ces filtres.</p></div>`;
+  container.innerHTML = html;
+}
+
+function buildYearFilters() {
+  const years = new Set(VINS.map(v => v.annee_affichage));
+  const container = document.getElementById('year-filters');
+  [...years].sort().forEach(y => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.dataset.filter = 'annee';
+    btn.dataset.value = y;
+    btn.textContent = y;
+    btn.onclick = () => setFilter('annee', y, btn);
+    container.appendChild(btn);
+  });
+}
+
+/* ── FILTRES & TABS ── */
+const filters = { couleur: 'tous', annee: 'tous' };
+
+function setFilter(type, value, btn) {
+  filters[type] = value;
+  document.querySelectorAll(`[data-filter="${type}"]`).forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
   applyFilters();
+}
+
+function applyFilters() {
+  ['degust', 'planning'].forEach(panelId => {
+    const panel = document.getElementById(panelId);
+    let anyVisible = false;
+    panel.querySelectorAll('.card').forEach(card => {
+      const matchCouleur = filters.couleur === 'tous' || card.dataset.couleur === filters.couleur;
+      const matchAnnee = filters.annee === 'tous' || card.dataset.annee === String(filters.annee);
+      const visible = matchCouleur && matchAnnee;
+      card.classList.toggle('hidden', !visible);
+      if (visible) anyVisible = true;
+    });
+    panel.querySelectorAll('.year-block').forEach(block => {
+      const cards = block.querySelectorAll('.card');
+      if (!cards.length) return;
+      block.style.display = [...cards].some(c => !c.classList.contains('hidden')) ? '' : 'none';
+    });
+    const noResult = panel.querySelector('.no-result');
+    if (noResult) noResult.style.display = anyVisible ? 'none' : 'block';
+  });
+}
+
+function resetFilters() {
+  filters.couleur = 'tous';
+  filters.annee = 'tous';
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.value === 'tous');
+  });
+  applyFilters();
+}
+
+function showTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function toggleOpenings(btn) {
+  const body = btn.nextElementSibling;
+  const open = body.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+
+/* ── INIT ── */
+renderPanel('degust', 'degust');
+renderPanel('planification', 'planning');
+buildYearFilters();
+applyFilters();
 </script>
 </body>
 </html>
