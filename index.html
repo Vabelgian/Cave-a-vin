@@ -227,6 +227,13 @@
       }
     }
   </style>
+  <link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#d4af37" />
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+</script>
 </head>
 
 <body>
