@@ -3,7 +3,7 @@
   "short_name": "Ma Cave",
   "description": "Ma cave personnelle — millésimes, régions, dégustation",
   "start_url": "/Cave-a-vin/index.html",
-  "scope": "/Cave-a-vin",
+  "scope": "/Cave-a-vin/",
   "display": "standalone",
   "background_color": "#0b0d10",
   "theme_color": "#0b0d10",
