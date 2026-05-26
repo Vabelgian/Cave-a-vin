@@ -1,4 +1,4 @@
-const CACHE = 'cave-v2';
+const CACHE = 'cave-v1';
 const PAGES = [
   '/Cave-a-vin/',
   '/Cave-a-vin/index.html',
