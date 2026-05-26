@@ -8,440 +8,93 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bordeaux: #5a1f1f;
-      --bordeaux-light: #7a2f2f;
-      --bordeaux-dark: #3d1515;
-      --bg: #0e0c0a;
-      --card: #1a1714;
-      --border: rgba(255,255,255,0.07);
-      --text: #ede8df;
-      --muted: #8a8278;
-      --hint: #5a5450;
-      --gold: #c9a84c;
-      --gold-dim: rgba(201,168,76,0.12);
-      --gold-soft: rgba(201,168,76,0.06);
-      --green: #6a9e5f;
-      --green-dim: rgba(106,158,95,0.12);
-      --blue: #5b8fb5;
-      --blue-dim: rgba(91,143,181,0.12);
-      --rouge-pill: rgba(180,60,60,0.18);
-      --rouge-pill-border: rgba(180,60,60,0.35);
-      --rouge-pill-text: #e07070;
-      --blanc-pill: rgba(201,168,76,0.13);
-      --blanc-pill-border: rgba(201,168,76,0.3);
-      --blanc-pill-text: #c9a84c;
+      --bordeaux: #5a1f1f; --bordeaux-light: #7a2f2f; --bordeaux-dark: #3d1515;
+      --bg: #0e0c0a; --card: #1a1714; --border: rgba(255,255,255,0.07);
+      --text: #ede8df; --muted: #8a8278; --hint: #5a5450;
+      --gold: #c9a84c; --gold-dim: rgba(201,168,76,0.12); --gold-soft: rgba(201,168,76,0.06);
+      --green: #6a9e5f; --green-dim: rgba(106,158,95,0.12);
+      --blue: #5b8fb5; --blue-dim: rgba(91,143,181,0.12);
+      --rouge-pill: rgba(180,60,60,0.18); --rouge-pill-border: rgba(180,60,60,0.35); --rouge-pill-text: #e07070;
+      --blanc-pill: rgba(201,168,76,0.13); --blanc-pill-border: rgba(201,168,76,0.3); --blanc-pill-text: #c9a84c;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Jost', sans-serif;
-      font-weight: 300;
-      font-size: 16px;
-      min-height: 100vh;
-    }
-
-    /* ── NAV ── */
-    .nav {
-      background: var(--bordeaux-dark);
-      padding: 0 32px;
-      position: sticky;
-      top: 0;
-      z-index: 200;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.5);
-    }
-    .nav::before {
-      content: '';
-      position: absolute;
-      top: -40px; right: -40px;
-      width: 200px; height: 200px;
-      border: 1px solid rgba(201,169,110,0.1);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-    .nav-inner {
-      max-width: 820px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 0;
-    }
-    .nav-brand {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem;
-      font-weight: 300;
-      color: rgba(244,241,236,0.5);
-      padding: 16px 24px 16px 0;
-      border-right: 1px solid rgba(255,255,255,0.1);
-      margin-right: 4px;
-      white-space: nowrap;
-      letter-spacing: .04em;
-    }
+    body { background: var(--bg); color: var(--text); font-family: "Jost", sans-serif; font-weight: 300; font-size: 16px; min-height: 100vh; }
+    .nav { background: var(--bordeaux-dark); padding: 0 32px; position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 20px rgba(0,0,0,0.5); }
+    .nav::before { content: ""; position: absolute; top: -40px; right: -40px; width: 200px; height: 200px; border: 1px solid rgba(201,169,110,0.1); border-radius: 50%; pointer-events: none; }
+    .nav-inner { max-width: 820px; margin: 0 auto; display: flex; align-items: center; }
+    .nav-brand { font-family: "Cormorant Garamond", serif; font-size: 1.05rem; font-weight: 300; color: rgba(244,241,236,0.5); padding: 16px 24px 16px 0; border-right: 1px solid rgba(255,255,255,0.1); margin-right: 4px; white-space: nowrap; letter-spacing: .04em; }
     .nav-brand span { color: var(--gold); font-style: italic; }
-    .nav-link {
-      font-family: 'Jost', sans-serif;
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: rgba(244,241,236,0.45);
-      text-decoration: none;
-      padding: 20px 16px;
-      position: relative;
-      transition: color .2s;
-      white-space: nowrap;
-    }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 16px; right: 16px;
-      height: 2px;
-      background: var(--gold);
-      transform: scaleX(0);
-      transition: transform .2s;
-    }
+    .nav-link { font-family: "Jost", sans-serif; font-size: 11px; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; color: rgba(244,241,236,0.45); text-decoration: none; padding: 20px 16px; position: relative; transition: color .2s; white-space: nowrap; }
+    .nav-link::after { content: ""; position: absolute; bottom: 0; left: 16px; right: 16px; height: 2px; background: var(--gold); transform: scaleX(0); transition: transform .2s; }
     .nav-link:hover { color: rgba(244,241,236,0.8); }
     .nav-link.active { color: var(--gold); }
     .nav-link.active::after { transform: scaleX(1); }
-
-    /* ── FILTRES BAR ── */
-    .filters-bar {
-      background: var(--bordeaux);
-      padding: 13px 32px;
-      position: sticky;
-      top: 57px;
-      z-index: 100;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.4);
-    }
-    .filters-inner {
-      max-width: 820px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-    .filter-group {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .filter-label {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: rgba(244,241,236,0.35);
-      margin-right: 2px;
-      white-space: nowrap;
-    }
-    .filter-sep {
-      width: 1px;
-      height: 20px;
-      background: rgba(255,255,255,0.12);
-      flex-shrink: 0;
-    }
-    .filter-btn {
-      font-family: 'Jost', sans-serif;
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: .05em;
-      background: transparent;
-      border: 1px solid rgba(244,241,236,0.2);
-      color: rgba(244,241,236,0.55);
-      padding: 5px 12px;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: all .18s;
-      white-space: nowrap;
-    }
-    .filter-btn:hover {
-      border-color: var(--gold);
-      color: rgba(244,241,236,0.85);
-    }
-    .filter-btn.active {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: var(--bordeaux-dark);
-      font-weight: 500;
-    }
-    .filter-reset {
-      font-family: 'Jost', sans-serif;
-      font-size: 11px;
-      background: none;
-      border: none;
-      color: rgba(244,241,236,0.25);
-      cursor: pointer;
-      padding: 5px 8px;
-      letter-spacing: .06em;
-      transition: color .18s;
-      margin-left: auto;
-    }
+    .filters-bar { background: var(--bordeaux); padding: 13px 32px; position: sticky; top: 57px; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.4); }
+    .filters-inner { max-width: 820px; margin: 0 auto; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .filter-group { display: flex; align-items: center; gap: 6px; }
+    .filter-label { font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: rgba(244,241,236,0.35); margin-right: 2px; white-space: nowrap; }
+    .filter-sep { width: 1px; height: 20px; background: rgba(255,255,255,0.12); flex-shrink: 0; }
+    .filter-btn { font-family: "Jost", sans-serif; font-size: 11px; font-weight: 400; letter-spacing: .05em; background: transparent; border: 1px solid rgba(244,241,236,0.2); color: rgba(244,241,236,0.55); padding: 5px 12px; border-radius: 999px; cursor: pointer; transition: all .18s; white-space: nowrap; }
+    .filter-btn:hover { border-color: var(--gold); color: rgba(244,241,236,0.85); }
+    .filter-btn.active { background: var(--gold); border-color: var(--gold); color: var(--bordeaux-dark); font-weight: 500; }
+    .filter-reset { font-family: "Jost", sans-serif; font-size: 11px; background: none; border: none; color: rgba(244,241,236,0.25); cursor: pointer; padding: 5px 8px; letter-spacing: .06em; transition: color .18s; margin-left: auto; }
     .filter-reset:hover { color: var(--gold); }
-
-    /* ── CONTAINER ── */
-    .container {
-      max-width: 820px;
-      margin: 0 auto;
-      padding: 48px 32px 100px;
-    }
-
-    /* ── HEADER ── */
+    .container { max-width: 820px; margin: 0 auto; padding: 48px 32px 100px; }
     .page-header { margin-bottom: 48px; }
-    .header-eyebrow {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 14px;
-    }
-    h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      font-size: clamp(2.6rem, 6vw, 4rem);
-      line-height: 1.05;
-      letter-spacing: -.02em;
-      color: var(--text);
-    }
+    .header-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+    h1 { font-family: "Cormorant Garamond", serif; font-weight: 300; font-size: clamp(2.6rem, 6vw, 4rem); line-height: 1.05; letter-spacing: -.02em; color: var(--text); }
     h1 em { font-style: italic; color: var(--gold); }
-    .subtitle {
-      margin-top: 14px;
-      color: var(--muted);
-      font-size: .95rem;
-      line-height: 1.7;
-      max-width: 520px;
-    }
-
-    /* ── TABS ── */
-    .tabs {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 36px;
-      border-bottom: 1px solid var(--border);
-    }
-    .tab {
-      font-size: .8rem;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      padding: 10px 20px;
-      border: none;
-      background: transparent;
-      color: var(--hint);
-      cursor: pointer;
-      position: relative;
-      transition: color .2s;
-    }
-    .tab::after {
-      content: '';
-      position: absolute;
-      bottom: -1px; left: 0; right: 0;
-      height: 1px;
-      background: var(--gold);
-      transform: scaleX(0);
-      transition: transform .2s;
-    }
+    .subtitle { margin-top: 14px; color: var(--muted); font-size: .95rem; line-height: 1.7; max-width: 520px; }
+    .tabs { display: flex; gap: 6px; margin-bottom: 36px; border-bottom: 1px solid var(--border); }
+    .tab { font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; padding: 10px 20px; border: none; background: transparent; color: var(--hint); cursor: pointer; position: relative; transition: color .2s; }
+    .tab::after { content: ""; position: absolute; bottom: -1px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transition: transform .2s; }
     .tab.active { color: var(--gold); }
     .tab.active::after { transform: scaleX(1); }
     .tab:hover:not(.active) { color: var(--muted); }
-
-    /* ── PANELS ── */
     .panel { display: none; }
     .panel.active { display: block; }
-
-    /* ── YEAR BLOCK ── */
     .year-block { margin-bottom: 44px; }
-    .year-label {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      font-weight: 400;
-      color: var(--hint);
-      letter-spacing: .1em;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .year-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-    .empty-year {
-      font-size: .85rem;
-      color: var(--hint);
-      font-style: italic;
-      padding: 8px 0;
-    }
-
-    /* ── CARD ── */
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      margin-bottom: 10px;
-      overflow: hidden;
-      transition: border-color .2s;
-    }
+    .year-label { font-family: "Cormorant Garamond", serif; font-size: 1rem; font-weight: 400; color: var(--hint); letter-spacing: .1em; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+    .year-label::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; overflow: hidden; transition: border-color .2s; opacity: 0; transform: translateY(8px); animation: fadeUp .35s forwards; }
     .card:hover { border-color: rgba(201,168,76,0.2); }
     .card.hidden { display: none; }
-
     .card-header { padding: 18px 20px 16px; }
-
-    .card-top-row {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .card-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
-      font-weight: 400;
-      color: var(--text);
-      line-height: 1.3;
-    }
-    .card-date {
-      font-size: .8rem;
-      color: var(--muted);
-      margin-top: 4px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
+    .card-top-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .card-title { font-family: "Cormorant Garamond", serif; font-size: 1.2rem; font-weight: 400; color: var(--text); line-height: 1.3; }
+    .card-date { font-size: .8rem; color: var(--muted); margin-top: 4px; display: flex; align-items: center; gap: 5px; }
     .card-date svg { opacity: .6; }
-
-    /* couleur pill */
-    .pill-couleur {
-      font-size: .68rem;
-      font-weight: 500;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 999px;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .pill-rouge {
-      background: var(--rouge-pill);
-      border: 1px solid var(--rouge-pill-border);
-      color: var(--rouge-pill-text);
-    }
-    .pill-blanc {
-      background: var(--blanc-pill);
-      border: 1px solid var(--blanc-pill-border);
-      color: var(--blanc-pill-text);
-    }
-
-    /* commentaire */
-    .card-comment {
-      font-size: .88rem;
-      color: var(--muted);
-      line-height: 1.65;
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid var(--border);
-      font-style: italic;
-    }
-
-    /* tags */
+    .pill-couleur { font-size: .68rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; flex-shrink: 0; margin-top: 2px; }
+    .pill-rouge { background: var(--rouge-pill); border: 1px solid var(--rouge-pill-border); color: var(--rouge-pill-text); }
+    .pill-blanc { background: var(--blanc-pill); border: 1px solid var(--blanc-pill-border); color: var(--blanc-pill-text); }
+    .card-comment { font-size: .88rem; color: var(--muted); line-height: 1.65; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); font-style: italic; }
     .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
-    .tag {
-      font-size: .72rem;
-      padding: 3px 9px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      letter-spacing: .02em;
-    }
-
-    /* ── ACCORDÉON OUVERTURES ── */
-    .openings-toggle {
-      width: 100%;
-      background: rgba(255,255,255,0.02);
-      border: none;
-      border-top: 1px solid var(--border);
-      padding: 11px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      color: var(--muted);
-      font-family: 'Jost', sans-serif;
-      font-size: .75rem;
-      font-weight: 400;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      transition: background .15s, color .15s;
-    }
+    .tag { font-size: .72rem; padding: 3px 9px; border-radius: 999px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--muted); letter-spacing: .02em; }
+    .openings-toggle { width: 100%; background: rgba(255,255,255,0.02); border: none; border-top: 1px solid var(--border); padding: 11px 20px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; color: var(--muted); font-family: "Jost", sans-serif; font-size: .75rem; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; transition: background .15s, color .15s; }
     .openings-toggle:hover { background: var(--gold-soft); color: var(--gold); }
     .openings-toggle.open { color: var(--gold); }
     .chevron { width: 14px; height: 14px; transition: transform .25s; opacity: .5; }
     .openings-toggle.open .chevron { transform: rotate(180deg); }
     .openings-body { max-height: 0; overflow: hidden; transition: max-height .35s cubic-bezier(.4,0,.2,1); }
     .openings-body.open { max-height: 2000px; }
-
-    /* individual opening */
     .opening { padding: 14px 20px; border-top: 1px solid var(--border); }
     .opening:first-child { border-top: none; }
     .opening-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-    .opening-num {
-      width: 22px; height: 22px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      font-size: .68rem;
-      color: var(--hint);
-      flex-shrink: 0;
-    }
+    .opening-num { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: .68rem; color: var(--hint); flex-shrink: 0; }
     .opening-date { font-size: .8rem; color: var(--muted); }
     .opening-note { font-size: .88rem; color: var(--text); line-height: 1.65; margin-left: 32px; font-style: italic; }
     .opening-note.empty { color: var(--hint); }
     .opening .tags { margin-left: 32px; margin-top: 8px; }
-
-    /* ── BADGES PLANNING ── */
-    .badge {
-      display: inline-flex; align-items: center; gap: 5px;
-      font-size: .72rem; padding: 4px 10px; border-radius: 999px;
-      margin-top: 10px; letter-spacing: .04em;
-    }
+    .badge { display: inline-flex; align-items: center; gap: 5px; font-size: .72rem; padding: 4px 10px; border-radius: 999px; margin-top: 10px; letter-spacing: .04em; }
     .badge.gold { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(201,168,76,0.25); }
     .badge.blue { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(91,143,181,0.25); }
     .badge.green { background: var(--green-dim); color: var(--green); border: 1px solid rgba(106,158,95,0.25); }
-
-    /* ── NO RESULT ── */
-    .no-result {
-      display: none;
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--hint);
-    }
-    .no-result p {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
-      font-weight: 300;
-      font-style: italic;
-    }
-
-    /* ── ANIMATIONS ── */
-    .card {
-      opacity: 0;
-      transform: translateY(8px);
-      animation: fadeUp .35s forwards;
-    }
+    .no-result { display: none; text-align: center; padding: 60px 20px; color: var(--hint); }
+    .no-result p { font-family: "Cormorant Garamond", serif; font-size: 1.2rem; font-weight: 300; font-style: italic; }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-
     @media (max-width: 600px) {
-      .nav { padding: 0 16px; }
-      .filters-bar { padding: 12px 16px; top: 53px; }
-      .container { padding: 32px 16px 80px; }
-      .filters-inner { gap: 10px; }
-      .nav-brand { display: none; }
+      .nav { padding: 0 16px; } .filters-bar { padding: 12px 16px; top: 53px; }
+      .container { padding: 32px 16px 80px; } .filters-inner { gap: 10px; } .nav-brand { display: none; }
     }
   </style>
 </head>
@@ -461,14 +114,14 @@
   <div class="filters-inner">
     <div class="filter-group">
       <span class="filter-label">Couleur</span>
-      <button class="filter-btn active" data-filter="couleur" data-value="tous" onclick="setFilter('couleur', 'tous', this)">Tous</button>
-      <button class="filter-btn" data-filter="couleur" data-value="rouge" onclick="setFilter('couleur', 'rouge', this)">Rouge</button>
-      <button class="filter-btn" data-filter="couleur" data-value="blanc" onclick="setFilter('couleur', 'blanc', this)">Blanc</button>
+      <button class="filter-btn active" data-filter="couleur" data-value="tous" onclick="setFilter('couleur','tous',this)">Tous</button>
+      <button class="filter-btn" data-filter="couleur" data-value="rouge" onclick="setFilter('couleur','rouge',this)">Rouge</button>
+      <button class="filter-btn" data-filter="couleur" data-value="blanc" onclick="setFilter('couleur','blanc',this)">Blanc</button>
     </div>
     <div class="filter-sep"></div>
     <div class="filter-group" id="year-filters">
       <span class="filter-label">Année</span>
-      <button class="filter-btn active" data-filter="annee" data-value="tous" onclick="setFilter('annee', 'tous', this)">Toutes</button>
+      <button class="filter-btn active" data-filter="annee" data-value="tous" onclick="setFilter('annee','tous',this)">Toutes</button>
     </div>
     <button class="filter-reset" onclick="resetFilters()">✕ Réinitialiser</button>
   </div>
@@ -480,55 +133,49 @@
     <h1>Fenêtres de<br><em>dégustation</em></h1>
     <p class="subtitle">Suivi des dégustations passées et planification des ouvertures futures. Une mémoire du vin dans le temps.</p>
   </div>
-
   <div class="tabs">
-    <button class="tab active" onclick="showTab('degust', this)">Dégustations</button>
-    <button class="tab" onclick="showTab('planning', this)">Planification</button>
+    <button class="tab active" onclick="showTab('degust',this)">Dégustations</button>
+    <button class="tab" onclick="showTab('planning',this)">Planification</button>
   </div>
-
   <div id="degust" class="panel active"></div>
   <div id="planning" class="panel"></div>
 </div>
 
 <script>
-/* ════════════════════════════════════════════════════════════
-   DONNÉES — c'est ici que tu gères ta cave.
+// ================================================================
+// DONNEES — tout se passe ici.
+//
+// statut : "degust"        => onglet Degustations
+//          "planification"  => onglet Planification
+//
+// annee_affichage : annee sous laquelle la carte est rangee
+//
+// Pour passer un vin de planification a degust :
+//   1. changer statut: "planification" -> "degust"
+//   2. changer annee_affichage si besoin (annee de degustation)
+//   3. remplacer fenetre par une date dans ouvertures[0].date
+//   4. supprimer badge si present
+//
+// badge.type  : "gold" | "blue" | "green"
+// badge.icone : "info" | "garde" | "check"
+// ================================================================
 
-   statut : "degust"     → apparaît dans l'onglet Dégustations
-            "planification" → apparaît dans l'onglet Planification
+var VINS = [
 
-   annee_affichage : l'année sous laquelle la carte est rangée
-                     (pour les dégustations = année où tu l'as bu,
-                      pour la planification = année d'ouverture prévue)
+  // --- DEGUSTATIONS -------------------------------------------
 
-   couleur : "rouge" | "blanc" | "rose" | ...
-             (sert aussi aux filtres)
-
-   Pour les dégustations, chaque ouverture dans le tableau
-   `ouvertures` génère une ligne dans l'accordéon.
-   Si `note` est vide (""), elle s'affiche en grisé "Notes à remplir".
-
-   Pour la planification, le champ `fenetre` remplace la date,
-   et `badge` ajoute le badge coloré en bas de carte.
-   badge.type : "gold" | "blue" | "green"
-   badge.icone : "info" | "garde" | "check"
-════════════════════════════════════════════════════════════ */
-
-const VINS = [
-
-  /* ── DÉGUSTATIONS ───────────────────────────────────────── */
   {
     statut: "degust",
     annee_affichage: 2025,
     titre: "Ridgeback Cabernet Franc",
     couleur: "rouge",
-    commentaire: "Un Cabernet Franc d'Afrique du Sud élégant, aux arômes de poivron rouge et de fraise. Première rencontre prometteuse avec ce producteur.",
-    tags: ["Repas de noël", "Première ouverture", "Évolutif"],
+    commentaire: "Un Cabernet Franc d'Afrique du Sud elegant, aux aromes de poivron rouge et de fraise. Premiere rencontre prometteuse avec ce producteur.",
+    tags: ["Repas de noel", "Premiere ouverture", "Evolutif"],
     ouvertures: [
       {
-        date: "25 décembre 2025",
-        note: "Robe rubis brillant. Nez ouvert sur la framboise et la violette, légère touche herbacée. Bouche souple, tanins fins, finale courte mais agréable. À revoir dans 2–3 ans.",
-        tags: ["Repas de noël", "Évolutif"]
+        date: "25 decembre 2025",
+        note: "Robe rubis brillant. Nez ouvert sur la framboise et la violette, legere touche herbacee. Bouche souple, tanins fins, finale courte mais agreable. A revoir dans 2-3 ans.",
+        tags: ["Repas de noel", "Evolutif"]
       }
     ]
   },
@@ -538,13 +185,13 @@ const VINS = [
     annee_affichage: 2025,
     titre: "Salvatore M Barbaresco 2021",
     couleur: "rouge",
-    commentaire: "Barbaresco ambitieux d'un millésime solaire. Acheté pour explorer le style de la maison. Nécessite clairement du temps — à revoir autour de 2030.",
-    tags: ["Fin d'année", "Première ouverture", "Trop jeune"],
+    commentaire: "Barbaresco ambitieux d'un millesime solaire. Achete pour explorer le style de la maison. Necessite clairement du temps — a revoir autour de 2030.",
+    tags: ["Fin d'annee", "Premiere ouverture", "Trop jeune"],
     ouvertures: [
       {
-        date: "28 décembre 2025",
-        note: "Nez fermé, tanins serrés et astringents, fruit encore sous bois. Le potentiel est là mais le vin se défend. Carafe 3h minimum si tentative avant 2028.",
-        tags: ["Trop jeune", "Fin d'année"]
+        date: "28 decembre 2025",
+        note: "Nez ferme, tanins serres et astringents, fruit encore sous bois. Le potentiel est la mais le vin se defend. Carafe 3h minimum si tentative avant 2028.",
+        tags: ["Trop jeune", "Fin d'annee"]
       }
     ]
   },
@@ -552,29 +199,30 @@ const VINS = [
   {
     statut: "degust",
     annee_affichage: 2026,
-    titre: "Orpheus & The Raven n°7 Pinotage 2022",
+    titre: "Orpheus & The Raven n7 Pinotage 2022",
     couleur: "rouge",
-    commentaire: "Pinotage sud-africain de caractère. Cépage souvent controversé mais ici travaillé avec soin. Dégustation analytique prévue en contexte BBQ.",
-    tags: ["Dégustation analytique", "Festif", "BBQ"],
+    commentaire: "Pinotage sud-africain de caractere. Cepage souvent controverse mais ici travaille avec soin. Degustation analytique prevue en contexte BBQ.",
+    tags: ["Degustation analytique", "Festif", "BBQ"],
     ouvertures: [
       {
-        date: "Été 2026 — à venir",
+        date: "Ete 2026 — a venir",
         note: "",
         tags: ["BBQ"]
       }
     ]
   },
 
-  /* ── PLANIFICATION ──────────────────────────────────────── */
+  // --- PLANIFICATION ------------------------------------------
+
   {
-    statut: "degust",
+    statut: "planification",
     annee_affichage: 2026,
     titre: "Vouvray AOC 2023",
     couleur: "blanc",
-    fenetre: "Ouverture estimée : 2026 – 2028",
-    commentaire: "Bouteille achetée au salon du vin de Jurbise. 1ère bouteille d'une caisse de 6. Pour se faire une idée. nez de pommes et coing, une attaque en bouche droite, sensation saline et finale en agrumes. Bu en apéro, pas d'évolution dans le verre. Malgré la forte chaleur, verre bien agréable. A réessayer avec accompagnements et témpérature plus basse",
+    fenetre: "Ouverture estimee : 2026 – 2028",
+    commentaire: "Bouteille achetee au salon du vin de Jurbise. 1ere bouteille d'une caisse de 6. Pour se faire une idee.",
     tags: ["Loire", "Garde moyenne"],
-    badge: { type: "gold", icone: "info", texte: "À surveiller" }
+    badge: { type: "gold", icone: "info", texte: "A surveiller" }
   },
 
   {
@@ -582,8 +230,8 @@ const VINS = [
     annee_affichage: 2028,
     titre: "Podere Il Carnasciale – Il Carnasciale 2020",
     couleur: "rouge",
-    fenetre: "Apogée estimée : 2028 – 2030",
-    commentaire: "Cépage rarissime, le Caberlot. Patience nécessaire. Ne pas toucher avant 2028 pour un repas automnale.",
+    fenetre: "Apogee estimee : 2028 – 2030",
+    commentaire: "Cepage rarissime, le Caberlot. Patience necessaire. Ne pas toucher avant 2028 pour un repas automnale.",
     tags: ["Caberlot", "Toscane", "Grande garde"],
     badge: { type: "blue", icone: "garde", texte: "Longue garde" }
   },
@@ -593,8 +241,8 @@ const VINS = [
     annee_affichage: 2028,
     titre: "Fontanafredda Barolo Serralunga d'Alba 2019",
     couleur: "rouge",
-    fenetre: "Ouverture idéale : 2028",
-    commentaire: "Devrait être à son apogée autour de 2028.",
+    fenetre: "Ouverture ideale : 2028",
+    commentaire: "Devrait etre a son apogee autour de 2028.",
     tags: ["Barolo"],
     badge: { type: "green", icone: "check", texte: "Grand Repas" }
   },
@@ -605,188 +253,189 @@ const VINS = [
     titre: "Grands vins de garde",
     couleur: null,
     fenetre: "Horizon long terme",
-    commentaire: "Section réservée aux vins nécessitant une garde exceptionnelle. À compléter au fil des acquisitions.",
+    commentaire: "Section reservee aux vins necessitant une garde exceptionnelle. A completer au fil des acquisitions.",
     tags: [],
     badge: { type: "blue", icone: "garde", texte: "Patience" }
   }
 
 ];
 
-/* ════════════════════════════════════════════════════════════
-   RENDU — ne pas modifier sauf si tu sais ce que tu fais
-════════════════════════════════════════════════════════════ */
+// ================================================================
+// RENDU — ne pas modifier
+// ================================================================
 
-const SVG = {
-  clock: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
-  calendar: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
-  chevron: `<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>`,
-  info: `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
-  garde: `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg>`,
-  check: `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>`
-};
+var SVG_CLOCK    = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+var SVG_CAL      = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
+var SVG_CHEVRON  = '<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>';
+var SVG_INFO     = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+var SVG_GARDE    = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg>';
+var SVG_CHECK    = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+
+var BADGE_ICONS = { info: SVG_INFO, garde: SVG_GARDE, check: SVG_CHECK };
 
 function buildTags(tags) {
-  if (!tags || !tags.length) return '';
-  return `<div class="tags">${tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>`;
+  if (!tags || !tags.length) return "";
+  return '<div class="tags">' + tags.map(function(t) { return '<span class="tag">' + t + "</span>"; }).join("") + "</div>";
 }
 
 function buildPill(couleur) {
-  if (!couleur) return '';
-  const map = { rouge: 'Rouge', blanc: 'Blanc', rose: 'Rosé' };
-  const label = map[couleur] || couleur;
-  return `<span class="pill-couleur pill-${couleur}">${label}</span>`;
+  if (!couleur) return "";
+  var labels = { rouge: "Rouge", blanc: "Blanc", rose: "Rose" };
+  var label = labels[couleur] || couleur;
+  return '<span class="pill-couleur pill-' + couleur + '">' + label + "</span>";
 }
 
 function buildBadge(badge) {
-  if (!badge) return '';
-  return `<span class="badge ${badge.type}">${SVG[badge.icone] || ''}${badge.texte}</span>`;
+  if (!badge) return "";
+  var icon = BADGE_ICONS[badge.icone] || "";
+  return '<span class="badge ' + badge.type + '">' + icon + badge.texte + "</span>";
 }
 
 function buildDegustCard(vin) {
-  const ouverturesHtml = vin.ouvertures.map((o, i) => `
-    <div class="opening">
-      <div class="opening-header">
-        <div class="opening-num">${i + 1}</div>
-        <div class="opening-date">${o.date}</div>
-      </div>
-      <div class="opening-note${o.note ? '' : ' empty'}">${o.note || 'Notes à remplir après dégustation.'}</div>
-      ${buildTags(o.tags)}
-    </div>`).join('');
+  var ouverturesHtml = vin.ouvertures.map(function(o, i) {
+    var emptyClass = o.note ? "" : " empty";
+    var noteText = o.note || "Notes a remplir apres degustation.";
+    return '<div class="opening">'
+      + '<div class="opening-header">'
+      + '<div class="opening-num">' + (i + 1) + "</div>"
+      + '<div class="opening-date">' + o.date + "</div>"
+      + "</div>"
+      + '<div class="opening-note' + emptyClass + '">' + noteText + "</div>"
+      + buildTags(o.tags)
+      + "</div>";
+  }).join("");
 
-  return `
-    <div class="card" data-couleur="${vin.couleur || ''}" data-annee="${vin.annee_affichage}">
-      <div class="card-header">
-        <div class="card-top-row">
-          <div>
-            <div class="card-title">${vin.titre}</div>
-            <div class="card-date">${SVG.calendar} ${vin.ouvertures[0]?.date || ''}</div>
-          </div>
-          ${buildPill(vin.couleur)}
-        </div>
-        <div class="card-comment">${vin.commentaire}</div>
-        ${buildTags(vin.tags)}
-      </div>
-      <button class="openings-toggle" onclick="toggleOpenings(this)">
-        <span>Ouvertures · ${vin.ouvertures.length}</span>
-        ${SVG.chevron}
-      </button>
-      <div class="openings-body">${ouverturesHtml}</div>
-    </div>`;
+  var firstDate = (vin.ouvertures[0] && vin.ouvertures[0].date) ? vin.ouvertures[0].date : "";
+
+  return '<div class="card" data-couleur="' + (vin.couleur || "") + '" data-annee="' + vin.annee_affichage + '">'
+    + '<div class="card-header">'
+    + '<div class="card-top-row"><div>'
+    + '<div class="card-title">' + vin.titre + "</div>"
+    + '<div class="card-date">' + SVG_CAL + " " + firstDate + "</div>"
+    + "</div>" + buildPill(vin.couleur) + "</div>"
+    + '<div class="card-comment">' + vin.commentaire + "</div>"
+    + buildTags(vin.tags)
+    + "</div>"
+    + '<button class="openings-toggle" onclick="toggleOpenings(this)">'
+    + "<span>Ouvertures &middot; " + vin.ouvertures.length + "</span>"
+    + SVG_CHEVRON + "</button>"
+    + '<div class="openings-body">' + ouverturesHtml + "</div>"
+    + "</div>";
 }
 
 function buildPlanningCard(vin) {
-  return `
-    <div class="card" data-couleur="${vin.couleur || ''}" data-annee="${vin.annee_affichage}">
-      <div class="card-header">
-        <div class="card-top-row">
-          <div>
-            <div class="card-title">${vin.titre}</div>
-            <div class="card-date">${SVG.clock} ${vin.fenetre}</div>
-          </div>
-          ${buildPill(vin.couleur)}
-        </div>
-        <div class="card-comment">${vin.commentaire}</div>
-        ${buildTags(vin.tags)}
-        ${buildBadge(vin.badge)}
-      </div>
-    </div>`;
+  return '<div class="card" data-couleur="' + (vin.couleur || "") + '" data-annee="' + vin.annee_affichage + '">'
+    + '<div class="card-header">'
+    + '<div class="card-top-row"><div>'
+    + '<div class="card-title">' + vin.titre + "</div>"
+    + '<div class="card-date">' + SVG_CLOCK + " " + vin.fenetre + "</div>"
+    + "</div>" + buildPill(vin.couleur) + "</div>"
+    + '<div class="card-comment">' + vin.commentaire + "</div>"
+    + buildTags(vin.tags)
+    + buildBadge(vin.badge)
+    + "</div></div>";
 }
 
 function renderPanel(statut, containerId) {
-  const container = document.getElementById(containerId);
-  const vins = VINS.filter(v => v.statut === statut);
+  var container = document.getElementById(containerId);
+  var vins = VINS.filter(function(v) { return v.statut === statut; });
 
-  // Regrouper par année
-  const byYear = {};
-  vins.forEach(v => {
+  var byYear = {};
+  vins.forEach(function(v) {
     if (!byYear[v.annee_affichage]) byYear[v.annee_affichage] = [];
     byYear[v.annee_affichage].push(v);
   });
 
-  let html = '';
-  Object.keys(byYear).sort((a, b) => a - b).forEach(year => {
-    const cards = byYear[year].map(v =>
-      statut === 'degust' ? buildDegustCard(v) : buildPlanningCard(v)
-    ).join('');
-
-    const label = statut === 'planification' && year >= 2030 ? year + ' +' : year;
-    html += `<div class="year-block" data-year="${year}"><div class="year-label">${label}</div>${cards}</div>`;
+  var html = "";
+  Object.keys(byYear).sort(function(a, b) { return a - b; }).forEach(function(year) {
+    var cards = byYear[year].map(function(v) {
+      return statut === "degust" ? buildDegustCard(v) : buildPlanningCard(v);
+    }).join("");
+    var label = (statut === "planification" && parseInt(year) >= 2030) ? year + " +" : year;
+    html += '<div class="year-block" data-year="' + year + '">'
+          + '<div class="year-label">' + label + "</div>"
+          + cards + "</div>";
   });
 
-  html += `<div class="no-result"><p>Aucun vin ne correspond à ces filtres.</p></div>`;
+  html += '<div class="no-result"><p>Aucun vin ne correspond a ces filtres.</p></div>';
   container.innerHTML = html;
 }
 
 function buildYearFilters() {
-  const years = new Set(VINS.map(v => v.annee_affichage));
-  const container = document.getElementById('year-filters');
-  [...years].sort().forEach(y => {
-    const btn = document.createElement('button');
-    btn.className = 'filter-btn';
-    btn.dataset.filter = 'annee';
-    btn.dataset.value = y;
+  var years = [];
+  VINS.forEach(function(v) {
+    if (years.indexOf(v.annee_affichage) === -1) years.push(v.annee_affichage);
+  });
+  years.sort(function(a, b) { return a - b; });
+  var container = document.getElementById("year-filters");
+  years.forEach(function(y) {
+    var btn = document.createElement("button");
+    btn.className = "filter-btn";
+    btn.setAttribute("data-filter", "annee");
+    btn.setAttribute("data-value", y);
     btn.textContent = y;
-    btn.onclick = () => setFilter('annee', y, btn);
+    btn.onclick = function() { setFilter("annee", y, btn); };
     container.appendChild(btn);
   });
 }
 
-/* ── FILTRES & TABS ── */
-const filters = { couleur: 'tous', annee: 'tous' };
+var filters = { couleur: "tous", annee: "tous" };
 
 function setFilter(type, value, btn) {
   filters[type] = value;
-  document.querySelectorAll(`[data-filter="${type}"]`).forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  document.querySelectorAll("[data-filter=" + type + "]").forEach(function(b) { b.classList.remove("active"); });
+  btn.classList.add("active");
   applyFilters();
 }
 
 function applyFilters() {
-  ['degust', 'planning'].forEach(panelId => {
-    const panel = document.getElementById(panelId);
-    let anyVisible = false;
-    panel.querySelectorAll('.card').forEach(card => {
-      const matchCouleur = filters.couleur === 'tous' || card.dataset.couleur === filters.couleur;
-      const matchAnnee = filters.annee === 'tous' || card.dataset.annee === String(filters.annee);
-      const visible = matchCouleur && matchAnnee;
-      card.classList.toggle('hidden', !visible);
+  ["degust", "planning"].forEach(function(panelId) {
+    var panel = document.getElementById(panelId);
+    var anyVisible = false;
+    panel.querySelectorAll(".card").forEach(function(card) {
+      var matchCouleur = filters.couleur === "tous" || card.getAttribute("data-couleur") === filters.couleur;
+      var matchAnnee   = filters.annee   === "tous" || card.getAttribute("data-annee")   === String(filters.annee);
+      var visible = matchCouleur && matchAnnee;
+      card.classList.toggle("hidden", !visible);
       if (visible) anyVisible = true;
     });
-    panel.querySelectorAll('.year-block').forEach(block => {
-      const cards = block.querySelectorAll('.card');
+    panel.querySelectorAll(".year-block").forEach(function(block) {
+      var cards = block.querySelectorAll(".card");
       if (!cards.length) return;
-      block.style.display = [...cards].some(c => !c.classList.contains('hidden')) ? '' : 'none';
+      var hasVisible = false;
+      cards.forEach(function(c) { if (!c.classList.contains("hidden")) hasVisible = true; });
+      block.style.display = hasVisible ? "" : "none";
     });
-    const noResult = panel.querySelector('.no-result');
-    if (noResult) noResult.style.display = anyVisible ? 'none' : 'block';
+    var noResult = panel.querySelector(".no-result");
+    if (noResult) noResult.style.display = anyVisible ? "none" : "block";
   });
 }
 
 function resetFilters() {
-  filters.couleur = 'tous';
-  filters.annee = 'tous';
-  document.querySelectorAll('.filter-btn').forEach(b => {
-    b.classList.toggle('active', b.dataset.value === 'tous');
+  filters.couleur = "tous";
+  filters.annee   = "tous";
+  document.querySelectorAll(".filter-btn").forEach(function(b) {
+    b.classList.toggle("active", b.getAttribute("data-value") === "tous");
   });
   applyFilters();
 }
 
 function showTab(id, btn) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
+  document.querySelectorAll(".panel").forEach(function(p) { p.classList.remove("active"); });
+  document.querySelectorAll(".tab").forEach(function(t) { t.classList.remove("active"); });
+  document.getElementById(id).classList.add("active");
+  btn.classList.add("active");
 }
 
 function toggleOpenings(btn) {
-  const body = btn.nextElementSibling;
-  const open = body.classList.toggle('open');
-  btn.classList.toggle('open', open);
+  var body = btn.nextElementSibling;
+  var open = body.classList.toggle("open");
+  btn.classList.toggle("open", open);
 }
 
-/* ── INIT ── */
-renderPanel('degust', 'degust');
-renderPanel('planification', 'planning');
+// Init
+renderPanel("degust", "degust");
+renderPanel("planification", "planning");
 buildYearFilters();
 applyFilters();
 </script>
