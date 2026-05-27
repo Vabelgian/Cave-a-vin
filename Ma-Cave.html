@@ -1709,7 +1709,130 @@ Des desserts aux fruits exotiques, ou à l’abricot-poire. Le site du domaine s
   let filtreActif = { couleur: 'tous', pays: 'tous', cepage: 'tous', statut: 'tous', tri: 'defaut' };
   // Ordre original des cartes pour le tri "par défaut"
   const cave = document.getElementById('cave');
-  const ordreOriginal = Array.from(cave.querySelectorAll('.vin'));
+  let ordreOriginal = Array.from(cave.querySelectorAll('.vin'));
+
+  // Charge les vins depuis vins.json quand la page est servie par un serveur web.
+  async function chargerVinsDepuisJson() {
+    const reponse = await fetch('vins.json', { cache: 'no-store' });
+    if (!reponse.ok) {
+      throw new Error(`Impossible de charger vins.json (${reponse.status})`);
+    }
+
+    const vins = await reponse.json();
+    if (!Array.isArray(vins)) {
+      throw new Error('Le fichier vins.json doit contenir une liste de vins.');
+    }
+
+    cave.innerHTML = vins.map(creerCarteVin).join('');
+    ordreOriginal = Array.from(cave.querySelectorAll('.vin'));
+  }
+
+  function texte(valeur, defaut = 'A compl&eacute;ter') {
+    if (valeur === undefined || valeur === null || String(valeur).trim() === '') return defaut;
+    return echapperHtml(String(valeur));
+  }
+
+  function echapperHtml(valeur) {
+    return valeur
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#039;');
+  }
+
+  function capitaliser(valeur) {
+    const v = String(valeur || '').trim();
+    return v ? v.charAt(0).toUpperCase() + v.slice(1) : '';
+  }
+
+  function drapeauPays(pays) {
+    const drapeaux = {
+      'Afrique du Sud': '🇿🇦',
+      'Allemagne': '🇩🇪',
+      'Argentine': '🇦🇷',
+      'Australie': '🇦🇺',
+      'Autriche': '🇦🇹',
+      'Belgique': '🇧🇪',
+      'Chili': '🇨🇱',
+      'Espagne': '🇪🇸',
+      'Etats-Unis': '🇺🇸',
+      'France': '🇫🇷',
+      'Italie': '🇮🇹',
+      'Nouvelle-Zelande': '🇳🇿',
+      'Portugal': '🇵🇹'
+    };
+    return drapeaux[pays] || '🍷';
+  }
+
+  function creerCarteVin(vin) {
+    const notes = vin.notes_experts || {};
+    const degustation = vin.degustation || {};
+    const technique = vin.technique || {};
+    const journal = vin.journal || {};
+    const couleur = texte(vin.couleur, '');
+    const pays = texte(vin.pays, '');
+    const region = texte(vin.region, '');
+    const cepage = texte(vin.cepage, '');
+    const statut = texte(vin.statut || 'cave', 'cave');
+    const stockJson = Number.parseInt(vin.stock, 10);
+    const stock = Number.isNaN(stockJson) ? 1 : stockJson;
+
+    return `
+    <div class="vin"
+         data-couleur="${couleur}"
+         data-pays="${pays}"
+         data-cepage="${cepage}"
+         data-region="${region}"
+         data-style="${texte(vin.style, '')}"
+         data-statut="${statut}"
+         data-stock="${stock}">
+      <div class="entete-vin">
+        <div class="zone-photo">
+          <img src="${texte(vin.photo, '')}" alt="${texte(vin.nom, 'Vin')}" class="photo-bouteille">
+        </div>
+        <div class="infos-vin">
+          <div class="tags-vin">
+            <span class="tag tag-${couleur}">${texte(capitaliser(vin.couleur), '')}</span>
+            <span class="tag tag-pays">${drapeauPays(vin.pays)} ${pays}${region ? ' - ' + region : ''}</span>
+            <span class="tag tag-cepage">${cepage}</span>
+          </div>
+          <h2>${texte(vin.nom, 'Vin sans nom')}</h2>
+          <h3>1. Identit&eacute;</h3>
+          <p><strong>Pays / r&eacute;gion :</strong> ${region || pays}</p>
+          <p><strong>C&eacute;page :</strong> ${cepage}</p>
+          <p><strong>Style :</strong> ${texte(vin.style)}</p>
+          <h3>2. Profil</h3>
+          <p>${texte(vin.profil)}</p>
+          <p><strong>Notes experts :</strong> ${texte(notes.wine_advocate, 'N/a')} Wine Advocate - ${texte(notes.jancis_robinson, 'N/a')} Jancis Robinson - ${texte(notes.james_suckling, 'N/a')} James Suckling - ${texte(notes.peak_wines, 'N/a')} Peak Wines</p>
+        </div>
+      </div>
+      <details>
+        <summary>3. D&eacute;gustation</summary>
+        <p><strong>Couleur :</strong> ${texte(degustation.couleur)}</p>
+        <p><strong>Nez :</strong> ${texte(degustation.nez)}</p>
+        <p><strong>Bouche :</strong> ${texte(degustation.bouche)}</p>
+      </details>
+      <details>
+        <summary>4. Infos techniques</summary>
+        <p><strong>Vinification :</strong> ${texte(technique.vinification)}</p>
+        <p><strong>Classification :</strong> ${texte(technique.classification)}</p>
+        <p><strong>Garde :</strong> ${texte(technique.garde)}</p>
+        <p><strong>Carafage :</strong> ${texte(technique.carafage)}</p>
+        <p><strong>Temp&eacute;rature :</strong> ${texte(technique.temperature)}</p>
+        <p><strong>Accords mets :</strong> ${texte(technique.accords)}</p>
+      </details>
+      <details>
+        <summary>5. Journal personnel</summary>
+        <p><strong>Date de d&eacute;gustation :</strong> ${texte(journal.date)}</p>
+        <p><strong>Occasion :</strong> ${texte(journal.occasion)}</p>
+        <p><strong>Avec quoi :</strong> ${texte(journal.avec_quoi)}</p>
+        <p><strong>Ressenti global :</strong> ${texte(journal.ressenti)}</p>
+        <p><strong>&Eacute;volution dans le verre :</strong> ${texte(journal.evolution_verre)}</p>
+        <p><strong>Note personnelle :</strong> ${texte(journal.note_personnelle)}</p>
+      </details>
+    </div>`;
+  }
 
   // ─── CÉPAGE DYNAMIQUE ────────────────────────────────────────────────────
   function genererChipsCepage() {
@@ -1728,6 +1851,11 @@ Des desserts aux fruits exotiques, ou à l’abricot-poire. Le site du domaine s
       container.appendChild(btn);
     });
     bindChips();
+  }
+
+  function viderChipsCepage() {
+    const container = document.getElementById('chips-cepage');
+    container.querySelectorAll('.chip[data-filtre="cepage"]:not([data-valeur="tous"])').forEach(chip => chip.remove());
   }
 
   // ─── BIND CHIPS ──────────────────────────────────────────────────────────
@@ -1896,10 +2024,21 @@ Des desserts aux fruits exotiques, ou à l’abricot-poire. Le site du domaine s
   }
 
   // ─── INIT ─────────────────────────────────────────────────────────────────
-  afficherPhotosManquantes();
-  injecterBadges();
-  genererChipsCepage();
-  appliquerFiltres();
+  async function initialiserCave() {
+    try {
+      await chargerVinsDepuisJson();
+    } catch (erreur) {
+      console.warn('Chargement de vins.json impossible, affichage des cartes HTML existantes.', erreur);
+    }
+
+    afficherPhotosManquantes();
+    injecterBadges();
+    viderChipsCepage();
+    genererChipsCepage();
+    appliquerFiltres();
+  }
+
+  initialiserCave();
 </script>
 </body>
 </html>
