@@ -433,9 +433,9 @@
     "profil": "Expression classique et vibrante du Chenin Blanc, né sur les sols calcaires (tuffeau) et de silex de la Touraine. Ce millésime 2023 offre un profil très pur, axé sur les fruits à chair blanche (poire, pomme granny) et des notes de verveine. Une tension minérale saline très salivante due au terroir de silex.",
     "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
     "degustation": {
-      "couleur": "À compléter",
-      "nez": "À compléter",
-      "bouche": "À compléter"
+      "couleur": "Jaune pâle",
+      "nez": "Pommes et coings",
+      "bouche": "Sensation saline"
     },
     "technique": {
       "vinification": "À compléter",
@@ -445,7 +445,7 @@
       "temperature": "10–12°C",
       "accords": "À compléter"
     },
-    "journal": { "date": "", "occasion": "1ère bouteille", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "Ouvrir une 2e bouteille" }
+    "journal": { "date": "", "occasion": "1ère bouteille", "avec_quoi": "Apéro", "ressenti": "", "evolution_verre": "Non", "note_personnelle": "Ouvrir une 2e bouteille" }
   },
   {
     "id": 17,
