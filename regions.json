@@ -1,0 +1,189 @@
+[
+  {
+    "id": 1,
+    "pays": "France",
+    "nom": "Bourgogne",
+    "image": "https://images.unsplash.com/photo-1625848782606-0db52d93190c?q=80&w=1172&auto=format&fit=crop",
+    "subtitle": "Berceau du Pinot Noir et du Chardonnay, la Bourgogne est le territoire du terroir par excellence — chaque parcelle raconte une histoire unique.",
+    "infos": {
+      "Cépages": "Pinot Noir, Chardonnay",
+      "Style": "Élégant, complexe, fin",
+      "Climat": "Continental tempéré",
+      "Garde": "Longue à très longue"
+    },
+    "focus": "La Bourgogne a élevé la notion de terroir à son paroxysme : un même cépage, cultivé à quelques mètres de distance, peut donner des vins radicalement différents.",
+    "tags": ["Terroir", "Climat", "Pinot Noir", "Élégance"],
+    "lien": "",
+    "lien_label": ""
+  },
+  {
+    "id": 2,
+    "pays": "France",
+    "nom": "Chablis",
+    "image": "https://images.unsplash.com/photo-1506377585622-bedcbb027afc?q=80&w=1400&auto=format&fit=crop",
+    "subtitle": "Focus particulier sur l'une des expressions les plus pures du Chardonnay. Chablis associe fraîcheur, tension et minéralité calcaire.",
+    "infos": {
+      "Cépage": "Chardonnay",
+      "Style": "Tendu, salin, minéral",
+      "Climat": "Continental frais",
+      "Garde": "Moyenne à longue"
+    },
+    "focus": "Les meilleurs Chablis évoluent énormément dans le verre. Ils gagnent en texture et en complexité tout en gardant une fraîcheur remarquable.",
+    "tags": ["Kimméridgien", "Minéralité", "Finesse", "Tension"],
+    "lien": "chablis.html",
+    "lien_label": "Explorer les climats"
+  },
+  {
+    "id": 3,
+    "pays": "France",
+    "nom": "Loire",
+    "image": "https://images.unsplash.com/photo-1650869653858-1c2c0768014f?q=80&w=1332&auto=format&fit=crop",
+    "subtitle": "Région marquée par la fraîcheur, l'énergie et des styles très variés allant des blancs tendus aux rouges délicats.",
+    "infos": {
+      "Cépages": "Sauvignon, Chenin, Cabernet Franc",
+      "Style": "Vif, précis, énergique",
+      "Sous-régions": "Sancerre, Saumur, Vouvray",
+      "Atmosphère": "Fraîcheur & finesse"
+    },
+    "focus": "Les grands vins de Loire gagnent en précision et en profondeur avec le temps. Leur fraîcheur naturelle laisse progressivement place à des arômes plus complexes et salins.",
+    "tags": ["Énergie", "Fraîcheur", "Blancs tendus"],
+    "lien": "loire.html",
+    "lien_label": "Explorer la région"
+  },
+  {
+    "id": 4,
+    "pays": "Italie",
+    "nom": "Piémont",
+    "image": "https://images.unsplash.com/photo-1669667867723-1e5dd1e8fec5?q=80&w=1170&auto=format&fit=crop",
+    "subtitle": "Terre du Nebbiolo, des grands vins de garde et d'une élégance structurée unique.",
+    "infos": {
+      "Cépage": "Nebbiolo",
+      "Style": "Rose, goudron, structure",
+      "Appellations": "Barolo, Barbaresco",
+      "Potentiel": "Très longue garde"
+    },
+    "focus": "Les vins du Piémont évoluent lentement mais de manière spectaculaire. Avec les années, la structure tannique s'assouplit et laisse apparaître une aromatique très fine et nuancée.",
+    "tags": ["Puissant", "Longue Garde", "Précision"],
+    "lien": "piemont-barolo.html",
+    "lien_label": "Explorer les communes"
+  },
+  {
+    "id": 5,
+    "pays": "Italie",
+    "nom": "Toscane",
+    "image": "https://images.unsplash.com/photo-1744909229894-883bb19b552f?q=80&w=1171&auto=format&fit=crop",
+    "subtitle": "Région solaire mêlant gastronomie, sangiovese et équilibre entre richesse et fraîcheur.",
+    "infos": {
+      "Cépages": "Sangiovese, Cabernet Sauvignon",
+      "Style": "Herbes, fruits noirs, soleil",
+      "Appellations": "Chianti, Brunello, Bolgheri",
+      "Atmosphère": "Chaleureuse & gastronomique"
+    },
+    "focus": "Les grands vins toscans trouvent leur équilibre avec le temps. La puissance initiale s'intègre et laisse place à des notes plus soyeuses, terreuses et élégantes.",
+    "tags": ["Puissant", "Gastronomie", "Élégance"],
+    "lien": "toscane.html",
+    "lien_label": "Explorer la région"
+  },
+  {
+    "id": 6,
+    "pays": "Italie",
+    "nom": "Sicile",
+    "image": "https://images.unsplash.com/photo-1672246394248-258c830c9b67?q=80&w=1289&auto=format&fit=crop",
+    "subtitle": "Entre soleil méditerranéen et influence volcanique, la Sicile produit des vins intenses mais souvent étonnamment frais.",
+    "infos": {
+      "Cépages": "Nerello Mascalese, Nero d'Avola",
+      "Style": "Volcanique, salin, solaire",
+      "Zone clé": "Etna",
+      "Atmosphère": "Méditerranée & lave"
+    },
+    "focus": "Les vins siciliens combinent intensité et énergie volcanique. Avec l'âge, ils gagnent en finesse tout en conservant une belle profondeur aromatique et une tension saline.",
+    "tags": ["Puissant", "Solaire", "Terroir"],
+    "lien": "sicile-etna.html",
+    "lien_label": "Explorer la région"
+  },
+  {
+    "id": 7,
+    "pays": "Italie",
+    "nom": "Campanie",
+    "image": "https://www.vineyardswineries.com/images/tag/55_foto.jpg",
+    "subtitle": "Terre volcanique du sud de l'Italie, la Campanie révèle des cépages autochtones d'une rare complexité, façonnés par les sols cendreux du Vésuve.",
+    "infos": {
+      "Cépages": "Aglianico, Fiano, Greco",
+      "Style": "Puissant, minéral, fumé",
+      "Climat": "Méditerranéen montagnard",
+      "Garde": "Longue à très longue"
+    },
+    "focus": "Le Taurasi, surnommé le « Barolo du Sud », est l'un des rouges italiens les plus impressionnants. Issu de l'Aglianico sur sols volcaniques, il allie tanins fermes, acidité vive et une profondeur aromatique évoquant la cerise noire, le goudron et la cendre froide.",
+    "tags": ["Aglianico", "Volcanique", "Taurasi", "Puissance"],
+    "lien": "campanie.html",
+    "lien_label": "Explorer la région"
+  },
+  {
+    "id": 8,
+    "pays": "Italie",
+    "nom": "Alto Adige",
+    "image": "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=80&w=1400&auto=format&fit=crop",
+    "subtitle": "Région alpine réputée pour sa précision, sa pureté aromatique et ses blancs de montagne.",
+    "infos": {
+      "Style": "Pur, précis, cristallin",
+      "Cépages": "Sauvignon, Pinot Blanc",
+      "Climat": "Alpin",
+      "Signature": "Fraîcheur & élégance"
+    },
+    "focus": "Le terroir alpin apporte une pureté aromatique et une tension cristalline unique en Italie.",
+    "tags": ["Alpin", "Précision", "Blanc de montagne"],
+    "lien": "altoadige.html",
+    "lien_label": "Explorer la région"
+  },
+  {
+    "id": 9,
+    "pays": "Italie",
+    "nom": "Frioul",
+    "image": "https://images.unsplash.com/photo-1502786129293-79981df4e689?q=80&w=1400&auto=format&fit=crop",
+    "subtitle": "Région fascinante pour les amateurs de grands blancs texturés et expressifs.",
+    "infos": {
+      "Style": "Texturé, aromatique, complexe",
+      "Cépages": "Friulano, Sauvignon, Ribolla",
+      "Influence": "Alpes & Adriatique",
+      "Atmosphère": "Élégance discrète"
+    },
+    "focus": "Les vins du Frioul sont souvent droits et très expressifs jeunes. Avec le temps, ils développent une texture plus ample et une aromatique plus subtile et méditative.",
+    "tags": ["Blanc de gastronomie", "finesse", "Blanc de montagne"],
+    "lien": "frioul.html",
+    "lien_label": "Explorer la région"
+  },
+  {
+    "id": 10,
+    "pays": "Espagne",
+    "nom": "Rioja",
+    "image": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=1400&auto=format&fit=crop",
+    "subtitle": "La région emblématique d'Espagne, réputée pour ses vieillissements en fût de chêne américain et ses vins chaleureux à base de Tempranillo.",
+    "infos": {
+      "Cépage": "Tempranillo",
+      "Style": "Charnu, boisé, épicé",
+      "Climat": "Continental semi-aride",
+      "Garde": "Moyenne à longue"
+    },
+    "focus": "La Rioja possède un système de classification unique basé sur le vieillissement : Crianza, Reserva et Gran Reserva définissent le temps passé en barrique et en bouteille, offrant une lisibilité rare parmi les grandes régions viticoles du monde.",
+    "tags": ["Tempranillo", "Chêne américain", "Gran Reserva", "Structure"],
+    "lien": "rioja.html",
+    "lien_label": "Explorer la région"
+  },
+  {
+    "id": 11,
+    "pays": "Afrique du Sud",
+    "nom": "Western Cape",
+    "image": "https://plus.unsplash.com/premium_photo-1697730061063-ad499e343f26?q=80&w=1332&auto=format&fit=crop",
+    "subtitle": "Région dynamique combinant soleil, fraîcheur océanique et identité moderne.",
+    "infos": {
+      "Sous-régions": "Stellenbosch, Swartland, Walker Bay",
+      "Style": "Puissance équilibrée",
+      "Atmosphère": "Énergie & modernité",
+      "Signature": "Fraîcheur solaire"
+    },
+    "focus": "Les vins du Western Cape allient fruit et structure avec une vraie personnalité. Ils gagnent en harmonie avec le temps, révélant des nuances plus épicées et complexes.",
+    "tags": ["Stellenbosch", "Swartland", "Modernité", "Équilibre"],
+    "lien": "westerncape.html",
+    "lien_label": "Explorer la région"
+  }
+]
