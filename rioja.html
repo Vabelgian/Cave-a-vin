@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rioja — Régions Viticoles</title>
+
+  <style>
+    :root {
+      --bg: #0d1014;
+      --border: rgba(255,255,255,0.08);
+      --text: #f4f4f4;
+      --muted: #b5bcc8;
+      --gold: #d4af37;
+      /* Zones */
+      --alta: #7a9e7e;
+      --alta-light: rgba(122,158,126,0.12);
+      --alta-border: rgba(122,158,126,0.35);
+      --alavesa: #8aaddb;
+      --alav-light: rgba(138,173,219,0.12);
+      --alav-border: rgba(138,173,219,0.35);
+      --oriental: #c07840;
+      --ori-light: rgba(192,120,64,0.12);
+      --ori-border: rgba(192,120,64,0.35);
+      /* Classification */
+      --joven: #6aae82;
+      --crianza: #8aaddb;
+      --reserva: #c090e0;
+      --gran: #d4af37;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(139,44,44,0.10), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(122,158,126,0.08), transparent 35%),
+        linear-gradient(180deg, #0b0d10 0%, #151a20 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    .top-nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(8,10,12,0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-container {
+      max-width: 1400px; margin: auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 24px;
+    }
+    .nav-logo { text-decoration: none; color: white; font-weight: 700; font-size: 1.15rem; }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      padding: 10px 14px; border-radius: 12px; transition: 0.2s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(255,255,255,0.06); color: white;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      max-width: 1400px; margin: auto; padding: 20px 24px 0;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.88rem; color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { opacity: 0.4; }
+    .breadcrumb .current { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 1400px; margin: auto; padding: 50px 24px 40px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .hero-text h1 { margin: 0; font-size: 3.6rem; letter-spacing: -2px; line-height: 1.05; }
+    .hero-text h1 span { color: var(--gold); }
+    .hero-text .subtitle { margin-top: 20px; color: var(--muted); line-height: 1.8; font-size: 1.05rem; }
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 20px;
+    }
+    .stat-card .label { color: var(--gold); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .stat-card .value { font-size: 1.15rem; font-weight: 600; line-height: 1.4; }
+    .stat-card .value small { font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .tag { padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); font-size: 0.82rem; color: var(--muted); }
+
+    /* ── CONTAINER ── */
+    .container { max-width: 1400px; margin: auto; padding: 0 24px 80px; }
+
+    .section-title {
+      margin: 60px 0 24px; font-size: 1.8rem; letter-spacing: -1px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .section-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(to right, rgba(255,255,255,0.1), transparent); }
+
+    /* ── CARTE ── */
+    .map-wrapper {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px; padding: 24px; margin-bottom: 40px;
+    }
+    .map-wrapper svg { width: 100%; height: auto; display: block; }
+
+    /* ── ZONES ── */
+    .zones-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 48px; }
+    .zone-card {
+      border-radius: 22px; padding: 26px;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative; overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .zone-card:hover { transform: translateY(-4px); }
+    .zone-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 22px 22px 0 0; }
+    .zone-card.alta { background: var(--alta-light); border-color: var(--alta-border); }
+    .zone-card.alta::before { background: linear-gradient(to right, var(--alta), transparent); }
+    .zone-card.alavesa { background: var(--alav-light); border-color: var(--alav-border); }
+    .zone-card.alavesa::before { background: linear-gradient(to right, var(--alavesa), transparent); }
+    .zone-card.oriental { background: var(--ori-light); border-color: var(--ori-border); }
+    .zone-card.oriental::before { background: linear-gradient(to right, var(--oriental), transparent); }
+
+    .zone-badge { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 14px; }
+    .alta .zone-badge { background: rgba(122,158,126,0.15); color: var(--alta); }
+    .alavesa .zone-badge { background: rgba(138,173,219,0.15); color: var(--alavesa); }
+    .oriental .zone-badge { background: rgba(192,120,64,0.15); color: var(--oriental); }
+
+    .zone-card h3 { margin: 0 0 6px; font-size: 1.25rem; }
+    .zone-card .zone-sub { font-size: 0.78rem; margin-bottom: 12px; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.5px; }
+    .zone-card p { margin: 0 0 14px; font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+    .zone-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+    .meta-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 10px; }
+    .meta-box .meta-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 4px; }
+    .meta-box .meta-val { font-size: 0.85rem; line-height: 1.4; }
+    .profil-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 8px; }
+    .profil-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .profil-tag { font-size: 0.78rem; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,0.05); color: var(--muted); }
+
+    /* ── CLASSIFICATION ── */
+    .classif-intro { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 28px; max-width: 860px; }
+
+    .classif-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 48px; }
+    .classif-card {
+      border-radius: 22px; padding: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative; overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .classif-card:hover { transform: translateY(-4px); }
+    .classif-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 22px 22px 0 0; }
+    .classif-card.joven { background: rgba(106,174,130,0.08); border-color: rgba(106,174,130,0.2); }
+    .classif-card.joven::before { background: linear-gradient(to right, var(--joven), transparent); }
+    .classif-card.crianza { background: rgba(138,173,219,0.08); border-color: rgba(138,173,219,0.2); }
+    .classif-card.crianza::before { background: linear-gradient(to right, var(--crianza), transparent); }
+    .classif-card.reserva { background: rgba(192,144,224,0.08); border-color: rgba(192,144,224,0.2); }
+    .classif-card.reserva::before { background: linear-gradient(to right, var(--reserva), transparent); }
+    .classif-card.gran { background: rgba(212,175,55,0.08); border-color: rgba(212,175,55,0.22); }
+    .classif-card.gran::before { background: linear-gradient(to right, var(--gran), transparent); }
+
+    .classif-badge { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 14px; }
+    .joven .classif-badge { background: rgba(106,174,130,0.15); color: var(--joven); }
+    .crianza .classif-badge { background: rgba(138,173,219,0.15); color: var(--crianza); }
+    .reserva .classif-badge { background: rgba(192,144,224,0.15); color: var(--reserva); }
+    .gran .classif-badge { background: rgba(212,175,55,0.15); color: var(--gran); }
+
+    .classif-card h3 { margin: 0 0 14px; font-size: 1.15rem; }
+    .classif-card p { margin: 0 0 16px; font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+
+    /* Élevage visuel */
+    .elevage-bars { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .elevage-row { display: flex; align-items: center; gap: 8px; }
+    .elevage-label { font-size: 0.72rem; color: var(--muted); width: 68px; flex-shrink: 0; text-align: right; }
+    .elevage-bar-bg { flex: 1; height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+    .elevage-bar { height: 100%; border-radius: 3px; }
+    .bar-chene { background: linear-gradient(to right, #9a6820, #c48830); }
+    .bar-bouteille { background: linear-gradient(to right, #4a6898, #6a90c0); }
+    .elevage-val { font-size: 0.72rem; color: var(--muted); width: 50px; }
+
+    .classif-specs { display: flex; flex-wrap: wrap; gap: 6px; }
+    .classif-spec { font-size: 0.76rem; padding: 3px 9px; border-radius: 999px; background: rgba(255,255,255,0.05); color: var(--muted); }
+
+    /* ── CÉPAGES ── */
+    .cepages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 48px; }
+    .cepage-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px; padding: 20px;
+      transition: border-color 0.2s;
+    }
+    .cepage-card:hover { border-color: rgba(212,175,55,0.2); }
+    .cepage-card .cep-role { font-size: 0.72rem; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .cepage-card h4 { margin: 0 0 8px; font-size: 1.05rem; }
+    .cepage-card .cep-aka { font-size: 0.78rem; color: var(--muted); font-style: italic; margin-bottom: 10px; }
+    .cepage-card p { margin: 0; font-size: 0.86rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── FOCUS ── */
+    .focus-box {
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 20px 20px 0;
+      padding: 28px 32px; margin-bottom: 48px;
+    }
+    .focus-box h3 { margin: 0 0 14px; font-size: 1.1rem; color: var(--gold); }
+    .focus-box p { margin: 0 0 12px; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+    .focus-box p:last-child { margin-bottom: 0; }
+
+    /* ── PRODUCTEURS ── */
+    .prod-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 48px; }
+    .prod-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 18px; transition: border-color 0.2s; }
+    .prod-card:hover { border-color: rgba(212,175,55,0.2); }
+    .prod-card .prod-name { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+    .prod-card .prod-zone { font-size: 0.78rem; color: var(--gold); margin-bottom: 8px; }
+    .prod-card .prod-note { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── FOOTER ── */
+    .footer { margin-top: 80px; text-align: center; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+
+    @media (max-width: 1000px) {
+      .zones-grid { grid-template-columns: 1fr; }
+      .classif-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; gap: 32px; }
+      .hero-text h1 { font-size: 2.8rem; }
+    }
+    @media (max-width: 600px) {
+      .nav-container { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .classif-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="Index.html" class="nav-logo">🍷 Ma Cave</a>
+      <div class="nav-links">
+        <a href="Index.html">Accueil</a>
+        <a href="Ma-Cave.html">Ma Cave</a>
+        <a href="millesimes.html">Millésimes</a>
+        <a href="regionsviticoles.html" class="active">Régions</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a href="regionsviticoles.html">Régions viticoles</a>
+    <span class="sep">›</span>
+    <span>Espagne</span>
+    <span class="sep">›</span>
+    <span class="current">Rioja</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>La <span>Rioja</span></h1>
+      <p class="subtitle">
+        Berceau de la grande viticulture espagnole, la Rioja s'étire le long de l'Èbre
+        au nord de l'Espagne. Depuis le redécoupage officiel de 2017 en trois zones géographiques,
+        ses différences de terroir sont enfin clairement cartographiées — de la Rioja Alta fraîche
+        et élégante à la Rioja Oriental chaude et puissante, en passant par la Rioja Alavesa,
+        influencée par l'Atlantique.
+      </p>
+      <div class="tag-list">
+        <div class="tag">Tempranillo</div>
+        <div class="tag">Garnacha</div>
+        <div class="tag">Gran Reserva</div>
+        <div class="tag">Chêne américain</div>
+        <div class="tag">DOCa depuis 1991</div>
+        <div class="tag">3 zones 2017</div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="label">Superficie totale</div>
+        <div class="value">≈ 65 000 ha<br><small>en production</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Classement</div>
+        <div class="value">DOCa<br><small>Denominación de Origen Calificada</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Cépage roi</div>
+        <div class="value">Tempranillo<br><small>aussi : Tinto Fino, Cencibel</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Zones officielles</div>
+        <div class="value">3 zones depuis 2017<br><small>Alta · Alavesa · Oriental</small></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- CARTE -->
+    <h2 class="section-title">Carte des trois zones</h2>
+
+    <div class="map-wrapper">
+      <svg viewBox="0 0 820 380" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">
+        <defs>
+          <pattern id="altaPat" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(30)">
+            <line x1="0" y1="0" x2="8" y2="0" stroke="rgba(122,158,126,0.3)" stroke-width="1.5"/>
+          </pattern>
+          <pattern id="alavPat" patternUnits="userSpaceOnUse" width="7" height="7">
+            <circle cx="3.5" cy="3.5" r="1.2" fill="rgba(138,173,219,0.3)"/>
+          </pattern>
+          <pattern id="oriPat" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(60)">
+            <line x1="0" y1="0" x2="0" y2="8" stroke="rgba(192,120,64,0.28)" stroke-width="2"/>
+          </pattern>
+          <linearGradient id="ebreGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1a3a5c" stop-opacity="0.2"/>
+            <stop offset="30%" stop-color="#1a3a5c" stop-opacity="0.7"/>
+            <stop offset="70%" stop-color="#1a3a5c" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#1a3a5c" stop-opacity="0.2"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="820" height="380" fill="rgba(255,255,255,0.015)" rx="12"/>
+
+        <!-- Relief Sierra Cantabria (nord) -->
+        <path d="M 0 80 Q 80 55 180 62 Q 260 68 320 58 Q 380 48 440 52 Q 480 56 500 68 L 500 115 Q 440 108 380 112 Q 310 116 240 112 Q 170 108 100 115 Q 50 120 0 115 Z"
+              fill="rgba(122,158,126,0.05)" stroke="rgba(122,158,126,0.1)" stroke-width="1"/>
+        <text x="250" y="44" font-size="9" fill="rgba(122,158,126,0.4)" text-anchor="middle">Sierra Cantabria ↑ (influence atlantique)</text>
+
+        <!-- Sierra de la Demanda (sud) -->
+        <path d="M 0 310 Q 80 330 180 325 Q 260 318 320 322 Q 380 326 440 320 L 440 360 L 0 360 Z"
+              fill="rgba(192,120,64,0.04)" stroke="rgba(192,120,64,0.08)" stroke-width="1"/>
+        <text x="220" y="372" font-size="9" fill="rgba(192,120,64,0.35)" text-anchor="middle">Sierra de la Demanda ↓</text>
+
+        <!-- ── L'Èbre ── -->
+        <path d="M 20 195 Q 100 180 200 188 Q 300 196 400 185 Q 500 174 600 180 Q 680 186 790 172"
+              fill="none" stroke="url(#ebreGrad)" stroke-width="14" stroke-linecap="round" opacity="0.8"/>
+        <path d="M 20 195 Q 100 180 200 188 Q 300 196 400 185 Q 500 174 600 180 Q 680 186 790 172"
+              fill="none" stroke="#2a5f9a" stroke-width="2.5" stroke-linecap="round" opacity="0.45"/>
+        <text x="400" y="212" font-size="10" fill="#4a90c4" text-anchor="middle" opacity="0.8">L'Èbre</text>
+
+        <!-- Oja (affluent — donne son nom) -->
+        <path d="M 148 60 Q 152 110 150 158 Q 148 178 152 192"
+              fill="none" stroke="#2a5f9a" stroke-width="5" stroke-linecap="round" opacity="0.4"/>
+        <path d="M 148 60 Q 152 110 150 158 Q 148 178 152 192"
+              fill="none" stroke="#2a5f9a" stroke-width="1.2" stroke-linecap="round" opacity="0.3" stroke-dasharray="3 3"/>
+        <text x="132" y="115" font-size="8" fill="#4a90c4" opacity="0.5"
+              transform="rotate(-85,132,115)">Río Oja</text>
+
+        <!-- ════ RIOJA ALTA (ouest) ════ -->
+        <path d="M 20 115 Q 55 112 110 115 Q 160 118 200 115 Q 235 112 265 115 L 268 288 Q 230 295 175 292 Q 118 288 68 285 Q 35 282 18 278 Z"
+              fill="url(#altaPat)" stroke="rgba(122,158,126,0.45)" stroke-width="1.3"/>
+        <rect x="50" y="178" width="158" height="58" rx="10"
+              fill="rgba(122,158,126,0.1)" stroke="rgba(122,158,126,0.42)" stroke-width="1.1"/>
+        <text x="129" y="199" font-size="12" fill="#7a9e7e" text-anchor="middle" font-weight="700">Rioja Alta</text>
+        <text x="129" y="214" font-size="8.5" fill="rgba(122,158,126,0.7)" text-anchor="middle">300–700 m · Argile-Calcaire</text>
+        <text x="129" y="226" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Tempranillo · Élégant · Garde</text>
+
+        <!-- ════ RIOJA ALAVESA (nord, rive gauche Èbre) ════ -->
+        <path d="M 155 62 Q 230 55 320 58 Q 380 60 440 55 Q 480 52 500 68 L 498 180 Q 450 175 390 178 Q 330 182 270 180 Q 220 178 158 175 Z"
+              fill="url(#alavPat)" stroke="rgba(138,173,219,0.45)" stroke-width="1.3"/>
+        <rect x="266" y="96" width="162" height="58" rx="10"
+              fill="rgba(138,173,219,0.1)" stroke="rgba(138,173,219,0.42)" stroke-width="1.1"/>
+        <text x="347" y="117" font-size="12" fill="#8aaddb" text-anchor="middle" font-weight="700">Rioja Alavesa</text>
+        <text x="347" y="132" font-size="8.5" fill="rgba(138,173,219,0.7)" text-anchor="middle">400–600 m · Argile-Calcaire</text>
+        <text x="347" y="144" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Atlantique · Fin · Frais</text>
+
+        <!-- ════ RIOJA ORIENTAL (est, ex-Baja) ════ -->
+        <path d="M 502 70 Q 580 62 660 68 Q 720 72 780 80 L 785 310 Q 720 318 660 315 Q 590 310 530 305 Q 505 302 500 288 L 502 182 Z"
+              fill="url(#oriPat)" stroke="rgba(192,120,64,0.45)" stroke-width="1.3"/>
+        <rect x="558" y="168" width="168" height="60" rx="10"
+              fill="rgba(192,120,64,0.1)" stroke="rgba(192,120,64,0.42)" stroke-width="1.1"/>
+        <text x="642" y="189" font-size="12" fill="#c07840" text-anchor="middle" font-weight="700">Rioja Oriental</text>
+        <text x="642" y="204" font-size="8.5" fill="rgba(192,120,64,0.7)" text-anchor="middle">200–450 m · Alluvions · Chaud</text>
+        <text x="642" y="216" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Garnacha · Méditerranéen · Puissant</text>
+
+        <!-- Zones (rive gauche Alavesa) -->
+        <path d="M 268 183 L 498 183 L 500 292 Q 445 300 380 296 Q 320 292 268 290 Z"
+              fill="url(#altaPat)" stroke="rgba(122,158,126,0.3)" stroke-width="0.8" stroke-dasharray="3 2"/>
+
+        <!-- Villes principales -->
+        <circle cx="148" cy="220" r="5" fill="rgba(212,175,55,0.5)" stroke="#d4af37" stroke-width="1.2"/>
+        <text x="148" y="240" font-size="9" fill="#d4af37" text-anchor="middle">Haro</text>
+
+        <circle cx="330" cy="215" r="5" fill="rgba(212,175,55,0.5)" stroke="#d4af37" stroke-width="1.2"/>
+        <text x="330" y="235" font-size="9" fill="#d4af37" text-anchor="middle">Logroño</text>
+
+        <circle cx="420" cy="148" r="4" fill="rgba(212,175,55,0.4)" stroke="#d4af37" stroke-width="1"/>
+        <text x="420" y="138" font-size="8.5" fill="#d4af37" text-anchor="middle">Laguardia</text>
+
+        <circle cx="660" cy="238" r="4" fill="rgba(212,175,55,0.4)" stroke="#d4af37" stroke-width="1"/>
+        <text x="660" y="256" font-size="8.5" fill="#d4af37" text-anchor="middle">Calahorra</text>
+
+        <!-- ── LÉGENDE ── -->
+        <rect x="20" y="348" width="12" height="12" rx="2" fill="url(#altaPat)" stroke="rgba(122,158,126,0.5)" stroke-width="1"/>
+        <text x="38" y="358" font-size="9" fill="rgba(255,255,255,0.5)">Rioja Alta</text>
+
+        <rect x="130" y="348" width="12" height="12" rx="2" fill="url(#alavPat)" stroke="rgba(138,173,219,0.5)" stroke-width="1"/>
+        <text x="148" y="358" font-size="9" fill="rgba(255,255,255,0.5)">Rioja Alavesa</text>
+
+        <rect x="270" y="348" width="12" height="12" rx="2" fill="url(#oriPat)" stroke="rgba(192,120,64,0.5)" stroke-width="1"/>
+        <text x="288" y="358" font-size="9" fill="rgba(255,255,255,0.5)">Rioja Oriental</text>
+
+        <!-- Compass -->
+        <text x="792" y="30" font-size="13" fill="rgba(255,255,255,0.28)" text-anchor="middle">N</text>
+        <line x1="792" y1="34" x2="792" y2="52" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+        <polygon points="792,34 787,46 792,43 797,46" fill="rgba(255,255,255,0.25)"/>
+      </svg>
+    </div>
+
+    <!-- FOCUS TEMPRANILLO -->
+    <div class="focus-box">
+      <h3>Le Tempranillo : l'âme de la Rioja</h3>
+      <p>
+        Le Tempranillo est le cépage roi de la Rioja et l'un des grands rouges d'Espagne.
+        Son nom vient de <em>temprano</em> — tôt — car il mûrit plus précocement que les autres
+        cépages espagnols. Il se décline sous de nombreux noms selon les régions : Tinto Fino
+        en Ribera del Duero, Cencibel en La Mancha, Ull de Llebre en Catalogne.
+      </p>
+      <p>
+        En Rioja, il constitue souvent l'essentiel de l'assemblage, complété par la Garnacha
+        (rondeur et alcool), le Graciano (acidité et arômes floraux) et le Mazuelo (tanins et
+        structure). Son profil naturel — cerise, framboise, tabac, cuir avec l'âge — est
+        idéalement mis en valeur par un élevage en chêne, qu'il soit américain (vanille, noix
+        de coco, caractère classique) ou français (plus fin, plus épicé, style moderne).
+      </p>
+    </div>
+
+    <!-- LES TROIS ZONES -->
+    <h2 class="section-title">Les trois zones géographiques</h2>
+
+    <div class="zones-grid">
+
+      <div class="zone-card alta">
+        <span class="zone-badge">Rioja Alta</span>
+        <h3>Rioja Alta</h3>
+        <p class="zone-sub">Ouest · Rive droite de l'Èbre · Haro</p>
+        <p>
+          La zone la plus occidentale et la plus fraîche de la Rioja. L'influence atlantique
+          y est encore perceptible, tempérant la chaleur méditerranéenne. Les sols argilo-calcaires
+          à altitude élevée (jusqu'à 700 m) produisent les vins les plus fins, les plus acides
+          et les plus structurés de l'appellation. C'est le cœur historique de la Rioja — Haro,
+          sa capitale, abrite les plus grandes bodegas centenaires.
+        </p>
+        <div class="zone-meta">
+          <div class="meta-box"><div class="meta-label">Altitude</div><div class="meta-val">300–700 m</div></div>
+          <div class="meta-box"><div class="meta-label">Sol dominant</div><div class="meta-val">Argile-Calcaire · Ferrugineux</div></div>
+          <div class="meta-box"><div class="meta-label">Influence</div><div class="meta-val">Atlantique</div></div>
+          <div class="meta-box"><div class="meta-label">Cépage phare</div><div class="meta-val">Tempranillo</div></div>
+        </div>
+        <div class="profil-label">Profil aromatique</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Cerise fraîche</span>
+          <span class="profil-tag">Tabac</span>
+          <span class="profil-tag">Épices</span>
+          <span class="profil-tag">Élégance</span>
+          <span class="profil-tag">Longue garde</span>
+        </div>
+      </div>
+
+      <div class="zone-card alavesa">
+        <span class="zone-badge">Rioja Alavesa</span>
+        <h3>Rioja Alavesa</h3>
+        <p class="zone-sub">Nord · Pays Basque · Laguardia</p>
+        <p>
+          Enclavée dans la province basque, la Rioja Alavesa est une zone à part — administrativement
+          basque mais viticultement Rioja. Protégée au nord par la Sierra Cantabria, elle bénéficie
+          d'un microclimat unique : hivers froids, étés chauds mais tempérés par les brises atlantiques.
+          Les sols argilo-calcaires blancs (llamados localement <em>bujeos</em>) donnent des Tempranillo
+          d'une finesse et d'une fraîcheur qui en font les plus élégants de la Rioja.
+        </p>
+        <div class="zone-meta">
+          <div class="meta-box"><div class="meta-label">Altitude</div><div class="meta-val">400–600 m</div></div>
+          <div class="meta-box"><div class="meta-label">Sol dominant</div><div class="meta-val">Argile-Calcaire Blanc (Bujeos)</div></div>
+          <div class="meta-box"><div class="meta-label">Influence</div><div class="meta-val">Atlantique dominante</div></div>
+          <div class="meta-box"><div class="meta-label">Cépage phare</div><div class="meta-val">Tempranillo pur</div></div>
+        </div>
+        <div class="profil-label">Profil aromatique</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Fruit rouge frais</span>
+          <span class="profil-tag">Floral</span>
+          <span class="profil-tag">Minéralité</span>
+          <span class="profil-tag">Tension</span>
+          <span class="profil-tag">Finesse</span>
+        </div>
+      </div>
+
+      <div class="zone-card oriental">
+        <span class="zone-badge">Rioja Oriental</span>
+        <h3>Rioja Oriental</h3>
+        <p class="zone-sub">Est · ex-Rioja Baja · Calahorra</p>
+        <p>
+          Anciennement appelée Rioja Baja (basse), renommée Rioja Oriental en 2017 pour valoriser
+          son identité propre. La zone la plus chaude et la plus sèche, soumise à l'influence
+          méditerranéenne. Les sols alluviaux fertiles donnent des rendements plus élevés et des
+          vins plus amples, plus riches en alcool. La Garnacha y est cépage dominant, produisant
+          des vins généreux, fruités et corsés. Moins de prestige que les deux autres zones
+          mais d'excellents rapports qualité-prix, notamment pour les Garnacha purs.
+        </p>
+        <div class="zone-meta">
+          <div class="meta-box"><div class="meta-label">Altitude</div><div class="meta-val">200–450 m</div></div>
+          <div class="meta-box"><div class="meta-label">Sol dominant</div><div class="meta-val">Alluvions · Limons</div></div>
+          <div class="meta-box"><div class="meta-label">Influence</div><div class="meta-val">Méditerranéenne</div></div>
+          <div class="meta-box"><div class="meta-label">Cépage phare</div><div class="meta-val">Garnacha · Tempranillo</div></div>
+        </div>
+        <div class="profil-label">Profil aromatique</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Fruit noir mûr</span>
+          <span class="profil-tag">Épices chaudes</span>
+          <span class="profil-tag">Corps large</span>
+          <span class="profil-tag">Alcool présent</span>
+          <span class="profil-tag">Accessible</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CLASSIFICATION -->
+    <h2 class="section-title">La classification par élevage</h2>
+
+    <p class="classif-intro">
+      En Rioja, le style d'un vin est largement défini par son élevage — la durée et le type
+      de maturation en fût de chêne et en bouteille. C'est l'un des systèmes de classification
+      les plus lisibles du monde du vin : quatre niveaux, des règles claires, un repère immédiat
+      pour le consommateur. Depuis 2019, de nouvelles mentions (Viñedo Singular, Pueblo, Zona)
+      s'y ajoutent pour préciser l'origine géographique.
+    </p>
+
+    <div class="classif-grid">
+
+      <div class="classif-card joven">
+        <span class="classif-badge">Joven</span>
+        <h3>Joven</h3>
+        <p>Vin jeune, sans élevage obligatoire en fût ou élevage très court. Fruit primaire, léger, frais. À boire dans les 1 à 3 ans suivant la vendange.</p>
+        <div class="elevage-bars">
+          <div class="elevage-row">
+            <div class="elevage-label">Chêne</div>
+            <div class="elevage-bar-bg"><div class="elevage-bar bar-chene" style="width:5%"></div></div>
+            <div class="elevage-val">0–6 mois</div>
+          </div>
+          <div class="elevage-row">
+            <div class="elevage-label">Bouteille</div>
+            <div class="elevage-bar-bg"><div class="elevage-bar bar-bouteille" style="width:5%"></div></div>
+            <div class="elevage-val">libre</div>
+          </div>
+        </div>
+        <div class="classif-specs">
+          <span class="classif-spec">Fruit frais</span>
+          <span class="classif-spec">Léger</span>
+          <span class="classif-spec">Quotidien</span>
+        </div>
+      </div>
+
+      <div class="classif-card crianza">
+        <span class="classif-badge">Crianza</span>
+        <h3>Crianza</h3>
+        <p>Premier niveau avec élevage obligatoire. 2 ans minimum dont 1 an en fût de chêne (6 mois pour les blancs). Premier équilibre entre fruit et bois.</p>
+        <div class="elevage-bars">
+          <div class="elevage-row">
+            <div class="elevage-label">Chêne</div>
+            <div class="elevage-bar-bg"><div class="elevage-bar bar-chene" style="width:33%"></div></div>
+            <div class="elevage-val">12 mois min.</div>
+          </div>
+          <div class="elevage-row">
+            <div class="elevage-label">Total</div>
+            <div class="elevage-bar-bg"><div class="elevage-bar bar-bouteille" style="width:40%"></div></div>
+            <div class="elevage-val">24 mois min.</div>
+          </div>
+        </div>
+        <div class="classif-specs">
+          <span class="classif-spec">Fruit & bois équilibrés</span>
+          <span class="classif-spec">3–8 ans</span>
+        </div>
+      </div>
+
+      <div class="classif-card reserva">
+        <span class="classif-badge">Reserva</span>
+        <h3>Reserva</h3>
+        <p>Sélection de meilleures parcelles ou meilleures années. 3 ans minimum dont 1 an en fût. Plus de complexité, de structure et de profondeur aromatique.</p>
+        <div class="elevage-bars">
+          <div class="elevage-row">
+            <div class="elevage-label">Chêne</div>
+            <div class="elevage-bar-bg"><div class="elevage-bar bar-chene" style="width:33%"></div></div>
+            <div class="elevage-val">12 mois min.</div>
+          </div>
+          <div class="elevage-row">
+            <div class="elevage-label">Total</div>
+            <div class="elevage-bar-bg"><div class="elevage-bar bar-bouteille" style="width:60%"></div></div>
+            <div class="elevage-val">36 mois min.</div>
+          </div>
+        </div>
+        <div class="classif-specs">
+          <span class="classif-spec">Complexe</span>
+          <span class="classif-spec">Structuré</span>
+          <span class="classif-spec">5–15 ans</span>
+        </div>
+      </div>
+
+      <div class="classif-card gran">
+        <span class="classif-badge">Gran Reserva</span>
+        <h3>Gran Reserva</h3>
+        <p>Le sommet de la classification. Uniquement les meilleures années. 5 ans minimum dont 2 ans en fût et 2 ans en bouteille. Vins de très longue garde.</p>
+        <div class="elevage-bars">
+          <div class="elevage-row">
+            <div class="elevage-label">Chêne</div>
+            <div class="elevage-bar-bg"><div class="elevage-bar bar-chene" style="width:80%"></div></div>
+            <div class="elevage-val">24 mois min.</div>
+          </div>
+          <div class="elevage-row">
+            <div class="elevage-label">Total</div>
+            <div class="elevage-bar-bg"><div class="elevage-bar bar-bouteille" style="width:100%"></div></div>
+            <div class="elevage-val">60 mois min.</div>
+          </div>
+        </div>
+        <div class="classif-specs">
+          <span class="classif-spec">Prestige</span>
+          <span class="classif-spec">Meilleures années</span>
+          <span class="classif-spec">10–30 ans</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CÉPAGES -->
+    <h2 class="section-title">Les cépages de la Rioja</h2>
+
+    <div class="cepages-grid">
+
+      <div class="cepage-card">
+        <div class="cep-role">Rouge principal</div>
+        <h4>Tempranillo</h4>
+        <p class="cep-aka">Tinto Fino · Cencibel · Ull de Llebre</p>
+        <p>Cépage roi de la Rioja, il représente 75 % des plantations rouges. Maturité précoce, acidité modérée, tanins soyeux. Profil cerise, framboise, cuir et épices. S'exprime mieux en haute altitude (Alta, Alavesa). Excellent support pour l'élevage en chêne.</p>
+      </div>
+
+      <div class="cepage-card">
+        <div class="cep-role">Rouge secondaire</div>
+        <h4>Garnacha</h4>
+        <p class="cep-aka">Grenache en France</p>
+        <p>Dominant en Rioja Oriental. Alcool naturellement élevé, corps ample, fruit rouge et épices chaudes. Apporte rondeur et générosité aux assemblages. En vieilles vignes, produit des Garnacha purs d'une grande complexité. Résiste bien à la chaleur et à la sécheresse.</p>
+      </div>
+
+      <div class="cepage-card">
+        <div class="cep-role">Rouge assemblage</div>
+        <h4>Graciano</h4>
+        <p class="cep-aka">Morrastel en France</p>
+        <p>Cépage rare et difficile à cultiver (rendements très faibles). Apporte acidité vive, arômes floraux intenses (violette, lavande) et potentiel de garde à l'assemblage. Parfois vinifié seul en cuvée parcellaire d'exception. En voie de redécouverte.</p>
+      </div>
+
+      <div class="cepage-card">
+        <div class="cep-role">Rouge assemblage</div>
+        <h4>Mazuelo</h4>
+        <p class="cep-aka">Carignan en France</p>
+        <p>Tanins fermes et acidité élevée — apporte structure et couleur aux assemblages complexes. Peu utilisé seul, surtout en complément du Tempranillo. Donne de la tenue et de la longueur aux cuvées de Reserva et Gran Reserva.</p>
+      </div>
+
+      <div class="cepage-card">
+        <div class="cep-role">Blanc principal</div>
+        <h4>Viura</h4>
+        <p class="cep-aka">Macabeo en Catalogne</p>
+        <p>Cépage blanc dominant de la Rioja. Acidité fraîche, arômes d'agrumes et de fleurs blanches. Utilisé pour les Blancos de la Rioja, qu'ils soient élevés en inox (style frais) ou en chêne (style traditionnel oxydatif, encore unique au monde dans certaines bodegas).</p>
+      </div>
+
+      <div class="cepage-card">
+        <div class="cep-role">Blanc secondaire</div>
+        <h4>Malvasía & Garnacha Blanca</h4>
+        <p class="cep-aka">Cépages blancs d'appoint</p>
+        <p>La Malvasía Riojana apporte des notes florales et une texture riche aux assemblages blancs. La Garnacha Blanca, plantée en Rioja Oriental, donne des blancs amples et corsés. Ces deux cépages connaissent un regain d'intérêt chez les producteurs modernes.</p>
+      </div>
+
+    </div>
+
+    <!-- PRODUCTEURS -->
+    <h2 class="section-title">Producteurs de référence</h2>
+
+    <div class="prod-grid">
+      <div class="prod-card">
+        <div class="prod-name">López de Heredia</div>
+        <div class="prod-zone">Rioja Alta · Haro</div>
+        <div class="prod-note">Le temple du style traditionnel. Viña Tondonia, élevages de 10+ ans. Blancos oxydatifs uniques au monde.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">La Rioja Alta S.A.</div>
+        <div class="prod-zone">Rioja Alta · Haro</div>
+        <div class="prod-note">Grand Reserva 904 et 890, références absolues du style classique Rioja Alta. Fiabilité légendaire.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Muga</div>
+        <div class="prod-zone">Rioja Alta · Haro</div>
+        <div class="prod-note">Dernière bodega à utiliser des foudres en chêne pour la vinification. Prado Enea Gran Reserva, emblématique.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Artadi</div>
+        <div class="prod-zone">Rioja Alavesa · Laguardia</div>
+        <div class="prod-note">Pionnier du style moderne en Alavesa. Viña el Pisón, cuvée parcellaire de référence mondiale.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Remírez de Ganuza</div>
+        <div class="prod-zone">Rioja Alavesa · Samaniego</div>
+        <div class="prod-note">Domaine confidentiel d'excellence. Trasnocho et Fincas de Ganuza, parmi les grands vins d'Espagne.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Roda</div>
+        <div class="prod-zone">Rioja Alta · Haro</div>
+        <div class="prod-note">Style contemporain et précis. Roda I Reserva, l'un des Tempranillo les plus fins de l'appellation.</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Cette page évoluera avec la cave.<br>
+      Chaque nouvelle bouteille peut enrichir la compréhension d'une région, d'un terroir ou d'un style de vin.
+    </div>
+
+  </div>
+</body>
+</html>
