@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bourgogne — Côte d'Or</title>
+
+  <style>
+    :root {
+      --bg: #0d1014;
+      --border: rgba(255,255,255,0.08);
+      --text: #f4f4f4;
+      --muted: #b5bcc8;
+      --gold: #d4af37;
+      --nuits: #7a4a8a;
+      --beaune: #c06840;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(122,74,138,0.10), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(192,104,64,0.08), transparent 35%),
+        linear-gradient(180deg, #0b0d10 0%, #151a20 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .top-nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(8,10,12,0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-container {
+      max-width: 1400px; margin: auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 24px;
+    }
+    .nav-logo { text-decoration: none; color: white; font-weight: 700; font-size: 1.15rem; }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      padding: 10px 14px; border-radius: 12px; transition: 0.2s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(255,255,255,0.06); color: white;
+    }
+
+    .breadcrumb {
+      max-width: 1400px; margin: auto; padding: 20px 24px 0;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.88rem; color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { opacity: 0.4; }
+    .breadcrumb .current { color: var(--text); }
+
+    .hero {
+      max-width: 1200px; margin: auto;
+      padding: 70px 24px 50px; text-align: center;
+    }
+    .hero h1 { margin: 0; font-size: 3.8rem; letter-spacing: -2px; }
+    .hero h1 span { color: var(--gold); }
+    .hero p {
+      max-width: 780px; margin: 22px auto 0;
+      color: var(--muted); line-height: 1.8; font-size: 1.05rem;
+    }
+
+    .container { max-width: 1400px; margin: auto; padding: 0 24px 80px; }
+
+    .section-title {
+      margin: 48px 0 28px; font-size: 1.8rem; letter-spacing: -1px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .section-title::after {
+      content: ""; flex: 1; height: 1px;
+      background: linear-gradient(to right, rgba(255,255,255,0.1), transparent);
+    }
+
+    /* Layout hub : carte + cartes côte à côte */
+    .hub-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* Carte verticale nord-sud */
+    .map-wrapper {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px; padding: 20px;
+      position: sticky; top: 90px;
+    }
+    .map-wrapper svg { width: 100%; height: auto; display: block; }
+
+    /* Cartes sous-régions */
+    .subregions-col { display: flex; flex-direction: column; gap: 28px; }
+
+    .sub-card {
+      border-radius: 28px; overflow: hidden;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+      transition: transform 0.25s ease;
+    }
+    .sub-card:hover { transform: translateY(-4px); }
+
+    .sub-image {
+      height: 180px;
+      background-size: cover; background-position: center;
+      position: relative;
+    }
+    .sub-image::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(12,14,17,0.88) 100%);
+    }
+
+    .sub-content { padding: 28px; }
+    .sub-zone { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .sub-zone.nuits { color: #a070c0; }
+    .sub-zone.beaune { color: #d09060; }
+    .sub-content h2 { margin: 0 0 12px; font-size: 1.8rem; letter-spacing: -0.5px; }
+    .sub-content p { margin: 0; color: var(--muted); line-height: 1.7; font-size: 0.95rem; }
+
+    .sub-info { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+    .info-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px; padding: 14px;
+    }
+    .info-box span { display: block; color: var(--gold); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .info-box strong { font-size: 0.88rem; line-height: 1.5; }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .tag { padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); font-size: 0.8rem; color: var(--muted); }
+
+    .explore-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 22px; padding: 12px 20px; border-radius: 14px;
+      background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.3);
+      color: var(--gold); font-size: 0.9rem; font-weight: 600;
+      text-decoration: none; transition: background 0.2s, border-color 0.2s;
+    }
+    .explore-btn:hover { background: rgba(212,175,55,0.18); border-color: rgba(212,175,55,0.55); }
+    .explore-btn svg { transition: transform 0.2s; }
+    .explore-btn:hover svg { transform: translateX(4px); }
+
+    /* Stats */
+    .global-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 48px; }
+    .stat-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 20px; text-align: center; }
+    .stat-card .label { color: var(--gold); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .stat-card .value { font-size: 1.15rem; font-weight: 600; line-height: 1.4; }
+    .stat-card .value small { font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+
+    /* Focus UNESCO */
+    .focus-box {
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 20px 20px 0;
+      padding: 28px 32px; margin-bottom: 48px;
+    }
+    .focus-box h3 { margin: 0 0 14px; font-size: 1.1rem; color: var(--gold); }
+    .focus-box p { margin: 0 0 12px; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+    .focus-box p:last-child { margin-bottom: 0; }
+
+    /* Hiérarchie */
+    .hier-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 48px; }
+    .hier-card { border-radius: 18px; padding: 20px; border: 1px solid rgba(255,255,255,0.08); text-align: center; }
+    .hier-card.rc { background: rgba(212,175,55,0.1); border-color: rgba(212,175,55,0.3); }
+    .hier-card.gc { background: rgba(212,175,55,0.07); border-color: rgba(212,175,55,0.2); }
+    .hier-card.pc { background: rgba(138,173,219,0.07); border-color: rgba(138,173,219,0.2); }
+    .hier-card.vil { background: rgba(255,255,255,0.03); }
+    .hier-badge { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 10px; }
+    .rc .hier-badge { background: rgba(212,175,55,0.2); color: var(--gold); }
+    .gc .hier-badge { background: rgba(212,175,55,0.15); color: var(--gold); }
+    .pc .hier-badge { background: rgba(138,173,219,0.15); color: #8aaddb; }
+    .vil .hier-badge { background: rgba(255,255,255,0.08); color: var(--muted); }
+    .hier-card h4 { margin: 0 0 6px; font-size: 0.95rem; }
+    .hier-card p { margin: 0; font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+
+    .footer { margin-top: 80px; text-align: center; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+
+    @media (max-width: 900px) {
+      .hub-layout { grid-template-columns: 1fr; }
+      .map-wrapper { position: static; }
+      .hier-grid { grid-template-columns: 1fr 1fr; }
+      .global-stats { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2.8rem; }
+      .nav-container { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .hier-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="Index.html" class="nav-logo">🍷 Ma Cave</a>
+      <div class="nav-links">
+        <a href="Index.html">Accueil</a>
+        <a href="Ma-Cave.html">Ma Cave</a>
+        <a href="millesimes.html">Millésimes</a>
+        <a href="regionsviticoles.html" class="active">Régions</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a href="regionsviticoles.html">Régions viticoles</a>
+    <span class="sep">›</span>
+    <span>France</span>
+    <span class="sep">›</span>
+    <span class="current">Bourgogne — Côte d'Or</span>
+  </div>
+
+  <section class="hero">
+    <h1>Bourgogne — <span>Côte d'Or</span></h1>
+    <p>
+      La Côte d'Or est la colonne vertébrale de la Bourgogne — une bande de vignes de 50 km
+      orientée nord-sud, classée au Patrimoine Mondial de l'UNESCO depuis 2015.
+      Pinot Noir et Chardonnay y atteignent leur expression la plus sublime,
+      parcelle par parcelle, climat par climat.
+    </p>
+  </section>
+
+  <div class="container">
+
+    <h2 class="section-title">En chiffres</h2>
+    <div class="global-stats">
+      <div class="stat-card">
+        <div class="label">Longueur</div>
+        <div class="value">≈ 50 km<br><small>de Dijon à Chagny</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Grands Crus</div>
+        <div class="value">33 Grands Crus<br><small>dont 24 en Côte de Nuits</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Climats UNESCO</div>
+        <div class="value">1 247 climates<br><small>classés depuis 2015</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Cépages</div>
+        <div class="value">Pinot Noir · Chardonnay<br><small>Aligoté · Gamay</small></div>
+      </div>
+    </div>
+
+    <!-- Hiérarchie -->
+    <h2 class="section-title">La hiérarchie bourguignonne</h2>
+    <div class="hier-grid">
+      <div class="hier-card rc">
+        <span class="hier-badge">Monopole</span>
+        <h4>Romanée-Conti</h4>
+        <p>1,8 ha. Un seul propriétaire. Le vin le plus cher du monde. Le sommet absolu de la pyramide.</p>
+      </div>
+      <div class="hier-card gc">
+        <span class="hier-badge">Grand Cru</span>
+        <h4>Grands Crus</h4>
+        <p>33 appellations. 1–2 % de la production totale. La quintessence du terroir bourguignon.</p>
+      </div>
+      <div class="hier-card pc">
+        <span class="hier-badge">1er Cru</span>
+        <h4>Premiers Crus</h4>
+        <p>Plus de 600 lieux-dits. 10 % de la production. Parfois supérieurs à certains Grands Crus.</p>
+      </div>
+      <div class="hier-card vil">
+        <span class="hier-badge">Village</span>
+        <h4>Villages & Régionale</h4>
+        <p>Bourgogne Villages, Bourgogne AOC. La base de la pyramide. 85 % du volume.</p>
+      </div>
+    </div>
+
+    <!-- Focus UNESCO -->
+    <div class="focus-box">
+      <h3>Les Climats de Bourgogne — Patrimoine Mondial de l'UNESCO (2015)</h3>
+      <p>
+        En Bourgogne, un « climat » désigne une parcelle de vigne délimitée, nommée et
+        reconnue depuis des siècles pour son caractère unique. Ce ne sont pas des conditions
+        météorologiques mais des <em>lieux-dits</em> viticoles — 1 247 en tout, dont 33 Grands Crus
+        et plus de 600 Premiers Crus. Chaque climat porte son histoire, ses limites précises,
+        ses sols particuliers et son style de vin.
+      </p>
+      <p>
+        L'inscription UNESCO en 2015 a reconnu non seulement les vignobles eux-mêmes mais
+        l'ensemble du système culturel et humain qui les a créés : les moines cisterciens et
+        clunisiens du Moyen-Âge qui ont délimité les parcelles, les vignerons qui les ont
+        transmises de génération en génération, et les négociants qui ont diffusé les vins dans
+        le monde entier.
+      </p>
+    </div>
+
+    <h2 class="section-title">Choisir une sous-région</h2>
+
+    <div class="hub-layout">
+
+      <!-- CARTE VERTICALE NORD-SUD -->
+      <div class="map-wrapper">
+        <svg viewBox="0 0 220 580" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">
+          <defs>
+            <pattern id="nuitsPat" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+              <line x1="0" y1="0" x2="0" y2="6" stroke="rgba(122,74,138,0.3)" stroke-width="1.5"/>
+            </pattern>
+            <pattern id="beaunePat" patternUnits="userSpaceOnUse" width="6" height="6">
+              <circle cx="3" cy="3" r="1.1" fill="rgba(192,104,64,0.3)"/>
+            </pattern>
+          </defs>
+
+          <rect width="220" height="580" fill="rgba(255,255,255,0.01)" rx="12"/>
+
+          <!-- Route des Grands Crus (RN74) -->
+          <line x1="95" y1="18" x2="95" y2="562" stroke="rgba(212,175,55,0.2)" stroke-width="2" stroke-dasharray="4 3"/>
+          <text x="95" y="12" font-size="7.5" fill="rgba(212,175,55,0.4)" text-anchor="middle">RN74</text>
+
+          <!-- ── DIJON (nord) ── -->
+          <circle cx="95" cy="26" r="4" fill="rgba(212,175,55,0.5)" stroke="#d4af37" stroke-width="1.2"/>
+          <text x="106" y="29" font-size="8.5" fill="#d4af37">Dijon ↑</text>
+
+          <!-- ══ CÔTE DE NUITS ══ -->
+          <text x="15" y="50" font-size="9" fill="rgba(160,112,192,0.7)" font-weight="600" letter-spacing="0.5">CÔTE DE NUITS</text>
+
+          <!-- Marsannay -->
+          <rect x="18" y="55" width="152" height="30" rx="6"
+                fill="url(#nuitsPat)" stroke="rgba(122,74,138,0.3)" stroke-width="0.8"/>
+          <text x="94" y="72" font-size="8.5" fill="#a070c0" text-anchor="middle" font-weight="600">Marsannay</text>
+
+          <!-- Fixin -->
+          <rect x="18" y="88" width="152" height="28" rx="6"
+                fill="url(#nuitsPat)" stroke="rgba(122,74,138,0.3)" stroke-width="0.8"/>
+          <text x="94" y="105" font-size="8.5" fill="#a070c0" text-anchor="middle" font-weight="600">Fixin</text>
+
+          <!-- Gevrey-Chambertin -->
+          <rect x="18" y="119" width="152" height="38" rx="7"
+                fill="rgba(122,74,138,0.12)" stroke="rgba(122,74,138,0.45)" stroke-width="1.2"/>
+          <text x="94" y="135" font-size="9.5" fill="#c090e0" text-anchor="middle" font-weight="700">Gevrey-Chambertin</text>
+          <text x="94" y="148" font-size="7.5" fill="rgba(160,112,192,0.65)" text-anchor="middle">Chambertin · Mazis · Latricières</text>
+
+          <!-- Morey-Saint-Denis -->
+          <rect x="18" y="160" width="152" height="34" rx="6"
+                fill="rgba(122,74,138,0.1)" stroke="rgba(122,74,138,0.38)" stroke-width="1"/>
+          <text x="94" y="174" font-size="9" fill="#b080d0" text-anchor="middle" font-weight="700">Morey-Saint-Denis</text>
+          <text x="94" y="186" font-size="7.5" fill="rgba(160,112,192,0.6)" text-anchor="middle">Clos de la Roche · Clos Saint-Denis</text>
+
+          <!-- Chambolle-Musigny -->
+          <rect x="18" y="197" width="152" height="34" rx="6"
+                fill="rgba(122,74,138,0.12)" stroke="rgba(122,74,138,0.4)" stroke-width="1.1"/>
+          <text x="94" y="211" font-size="9" fill="#c090e0" text-anchor="middle" font-weight="700">Chambolle-Musigny</text>
+          <text x="94" y="223" font-size="7.5" fill="rgba(160,112,192,0.65)" text-anchor="middle">Musigny · Bonnes-Mares</text>
+
+          <!-- Vougeot -->
+          <rect x="18" y="234" width="152" height="28" rx="6"
+                fill="rgba(122,74,138,0.09)" stroke="rgba(122,74,138,0.32)" stroke-width="0.9"/>
+          <text x="94" y="251" font-size="8.5" fill="#a070c0" text-anchor="middle" font-weight="600">Vougeot — Clos de Vougeot</text>
+
+          <!-- Vosne-Romanée -->
+          <rect x="18" y="265" width="152" height="38" rx="7"
+                fill="rgba(212,175,55,0.1)" stroke="rgba(212,175,55,0.4)" stroke-width="1.3"/>
+          <text x="94" y="281" font-size="9.5" fill="#d4af37" text-anchor="middle" font-weight="700">Vosne-Romanée</text>
+          <text x="94" y="294" font-size="7.5" fill="rgba(212,175,55,0.7)" text-anchor="middle">Romanée-Conti · La Tâche · Richebourg</text>
+
+          <!-- Nuits-Saint-Georges -->
+          <rect x="18" y="306" width="152" height="34" rx="6"
+                fill="rgba(122,74,138,0.1)" stroke="rgba(122,74,138,0.35)" stroke-width="1"/>
+          <text x="94" y="320" font-size="9" fill="#b080d0" text-anchor="middle" font-weight="700">Nuits-Saint-Georges</text>
+          <text x="94" y="332" font-size="7.5" fill="rgba(160,112,192,0.6)" text-anchor="middle">1ers Crus · Pas de Grand Cru</text>
+
+          <!-- Séparateur -->
+          <line x1="18" y1="348" x2="190" y2="348" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <text x="94" y="358" font-size="8" fill="rgba(255,255,255,0.2)" text-anchor="middle">· · · · · · · · · · · · · ·</text>
+
+          <!-- ══ CÔTE DE BEAUNE ══ -->
+          <text x="15" y="374" font-size="9" fill="rgba(192,104,64,0.7)" font-weight="600" letter-spacing="0.5">CÔTE DE BEAUNE</text>
+
+          <!-- Aloxe-Corton -->
+          <rect x="18" y="379" width="152" height="30" rx="6"
+                fill="rgba(192,104,64,0.09)" stroke="rgba(192,104,64,0.32)" stroke-width="0.9"/>
+          <text x="94" y="397" font-size="8.5" fill="#d09060" text-anchor="middle" font-weight="600">Aloxe-Corton — Corton GC</text>
+
+          <!-- Beaune -->
+          <rect x="18" y="412" width="152" height="30" rx="6"
+                fill="rgba(192,104,64,0.1)" stroke="rgba(192,104,64,0.35)" stroke-width="1"/>
+          <text x="94" y="429" font-size="9" fill="#d09060" text-anchor="middle" font-weight="600">Beaune · Pommard · Volnay</text>
+
+          <!-- Meursault -->
+          <rect x="18" y="445" width="152" height="30" rx="6"
+                fill="rgba(192,104,64,0.1)" stroke="rgba(192,104,64,0.35)" stroke-width="1"/>
+          <text x="94" y="463" font-size="9" fill="#d09060" text-anchor="middle" font-weight="600">Meursault — Chardonnay</text>
+
+          <!-- Puligny / Chassagne -->
+          <rect x="18" y="478" width="152" height="36" rx="7"
+                fill="rgba(192,104,64,0.12)" stroke="rgba(192,104,64,0.42)" stroke-width="1.2"/>
+          <text x="94" y="493" font-size="9" fill="#e0a070" text-anchor="middle" font-weight="700">Puligny-Montrachet</text>
+          <text x="94" y="505" font-size="7.5" fill="rgba(192,104,64,0.65)" text-anchor="middle">Chassagne · Le Montrachet GC</text>
+
+          <!-- Santenay -->
+          <rect x="18" y="517" width="152" height="28" rx="6"
+                fill="url(#beaunePat)" stroke="rgba(192,104,64,0.28)" stroke-width="0.8"/>
+          <text x="94" y="534" font-size="8.5" fill="#d09060" text-anchor="middle" font-weight="600">Santenay · Maranges</text>
+
+          <!-- ── CHAGNY (sud) ── -->
+          <circle cx="95" cy="556" r="4" fill="rgba(212,175,55,0.4)" stroke="#d4af37" stroke-width="1"/>
+          <text x="106" y="559" font-size="8.5" fill="#d4af37">Chagny ↓</text>
+
+          <!-- Légende -->
+          <rect x="18" y="566" width="10" height="10" rx="2" fill="url(#nuitsPat)" stroke="rgba(122,74,138,0.45)" stroke-width="0.8"/>
+          <text x="34" y="575" font-size="7.5" fill="rgba(255,255,255,0.4)">Côte de Nuits</text>
+          <rect x="110" y="566" width="10" height="10" rx="2" fill="url(#beaunePat)" stroke="rgba(192,104,64,0.45)" stroke-width="0.8"/>
+          <text x="126" y="575" font-size="7.5" fill="rgba(255,255,255,0.4)">Côte de Beaune</text>
+        </svg>
+      </div>
+
+      <!-- CARTES SOUS-RÉGIONS -->
+      <div class="subregions-col">
+
+        <!-- CÔTE DE NUITS -->
+        <div class="sub-card">
+          <div class="sub-image" style="background-image:url('https://images.unsplash.com/photo-1506377585622-bedcbb027afc?q=80&w=1400&auto=format&fit=crop');"></div>
+          <div class="sub-content">
+            <div class="sub-zone nuits">Bourgogne · Nord · Pinot Noir</div>
+            <h2>Côte de Nuits</h2>
+            <p>
+              De Marsannay à Nuits-Saint-Georges, la Côte de Nuits abrite les plus grands
+              Pinot Noir du monde — Chambertin, Musigny, Romanée-Conti. Chaque commune
+              possède ses propres Grands Crus et Premiers Crus, tous distincts par leur terroir,
+              leur exposition et leur style.
+            </p>
+            <div class="sub-info">
+              <div class="info-box">
+                <span>Cépage principal</span>
+                <strong>Pinot Noir (95 %)</strong>
+              </div>
+              <div class="info-box">
+                <span>Grands Crus</span>
+                <strong>24 sur 33 de la Côte d'Or</strong>
+              </div>
+              <div class="info-box">
+                <span>Communes phares</span>
+                <strong>Gevrey · Chambolle · Vosne</strong>
+              </div>
+              <div class="info-box">
+                <span>Sommet absolu</span>
+                <strong>Romanée-Conti · 1,8 ha</strong>
+              </div>
+            </div>
+            <div class="tag-list">
+              <div class="tag">Pinot Noir</div>
+              <div class="tag">Calcaire kimméridgien</div>
+              <div class="tag">Rose & cerise</div>
+              <div class="tag">Longue garde</div>
+            </div>
+            <a href="cote-de-nuits.html" class="explore-btn">
+              Explorer commune par commune
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- CÔTE DE BEAUNE -->
+        <div class="sub-card">
+          <div class="sub-image" style="background-image:url('https://images.unsplash.com/photo-1560493676-04071c5f467b?q=80&w=1400&auto=format&fit=crop');"></div>
+          <div class="sub-content">
+            <div class="sub-zone beaune">Bourgogne · Sud · Pinot Noir & Chardonnay</div>
+            <h2>Côte de Beaune</h2>
+            <p>
+              De Aloxe-Corton à Santenay, la Côte de Beaune est l'empire du Chardonnay —
+              Meursault, Puligny et Chassagne-Montrachet produisent les plus grands blancs
+              secs du monde. Le Pinot Noir y est aussi excellent à Pommard et Volnay.
+            </p>
+            <div class="sub-info">
+              <div class="info-box">
+                <span>Cépages</span>
+                <strong>Chardonnay & Pinot Noir</strong>
+              </div>
+              <div class="info-box">
+                <span>Grands Crus</span>
+                <strong>9 dont Le Montrachet</strong>
+              </div>
+              <div class="info-box">
+                <span>Communes phares</span>
+                <strong>Meursault · Puligny · Pommard</strong>
+              </div>
+              <div class="info-box">
+                <span>Sommet blanc</span>
+                <strong>Le Montrachet · 8 ha</strong>
+              </div>
+            </div>
+            <div class="tag-list">
+              <div class="tag">Chardonnay</div>
+              <div class="tag">Pinot Noir</div>
+              <div class="tag">Marne calcaire</div>
+              <div class="tag">Grands blancs secs</div>
+            </div>
+            <a href="cote-de-beaune.html" class="explore-btn">
+              Explorer commune par commune
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      Cette page évoluera avec la cave.<br>
+      Chaque nouvelle bouteille peut enrichir la compréhension d'une région, d'un terroir ou d'un style de vin.
+    </div>
+
+  </div>
+</body>
+</html>
