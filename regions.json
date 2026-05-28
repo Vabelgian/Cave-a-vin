@@ -13,8 +13,8 @@
     },
     "focus": "La Bourgogne a élevé la notion de terroir à son paroxysme : un même cépage, cultivé à quelques mètres de distance, peut donner des vins radicalement différents.",
     "tags": ["Terroir", "Climat", "Pinot Noir", "Élégance"],
-    "lien": "",
-    "lien_label": ""
+    "lien": "bougogne.html",
+    "lien_label": "Explorer la région"
   },
   {
     "id": 2,
@@ -130,7 +130,7 @@
       "Climat": "Alpin",
       "Signature": "Fraîcheur & élégance"
     },
-    "focus": "Le terroir alpin apporte une pureté aromatique et une tension cristalline unique en Italie.",
+    "focus": "Le terroir alpin apporte une pureté aromatique et une tension cristalline unique en Italie. Construit pour la garde, ils rivalisent dans la gamme des grands blancs d'Europe",
     "tags": ["Alpin", "Précision", "Blanc de montagne"],
     "lien": "altoadige.html",
     "lien_label": "Explorer la région"
