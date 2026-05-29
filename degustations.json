@@ -73,5 +73,25 @@
     "commentaire": "Devrait être à son apogée autour de 2028.",
     "tags": ["Barolo"],
     "badge": { "type": "green", "icone": "check", "texte": "Grand Repas" }
+  },
+  {
+    "statut": "planification",
+    "annee_affichage": 2026,
+    "titre": "St Véran",
+    "couleur": "blanc",
+    "fenetre": "Apogée estimée : 2028 – 2030",
+    "commentaire": "A complèter.",
+    "tags": ["Caberlot", "Toscane", "Grande garde"],
+    "badge": { "type": "blue", "icone": "garde", "texte": "Longue garde" }
+  },
+  {
+    "statut": "planification",
+    "annee_affichage": 2026,
+    "titre": "Pinot gris Alsace",
+    "couleur": "blanc",
+    "fenetre": "Apogée estimée : 2028 – 2030",
+    "commentaire": "Cépage rarissime, le Caberlot. Patience nécessaire. Ne pas toucher avant 2028.",
+    "tags": ["Automne", "Alsace", "vin de gastronomie"],
+    "badge": { "type": "blue", "icone": "garde", "texte": "Longue garde" }
   }
 ]
