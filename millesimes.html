@@ -137,6 +137,35 @@
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
     margin: 28px auto 0;
   }
+  .reading-guide {
+    max-width: 680px;
+    margin: 28px auto 0;
+    text-align: left;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 2px 14px var(--shadow);
+    overflow: hidden;
+  }
+  .reading-guide summary {
+    cursor: pointer;
+    color: var(--bordeaux);
+    font-weight: 700;
+    padding: 16px 20px;
+    list-style-position: inside;
+  }
+  .reading-guide-content {
+    color: var(--text-muted);
+    padding: 0 20px 18px;
+    line-height: 1.65;
+    font-weight: 300;
+  }
+  .reading-guide-content p { margin: 0 0 12px; }
+  .reading-guide-content ul {
+    margin: 0 0 12px 20px;
+    padding: 0;
+  }
+  .reading-guide-content li { margin: 4px 0; }
 
   /* Country groups */
   .countries-grid {
@@ -556,6 +585,22 @@
       <h1 class="hub-title">L'almanach<br>de <em>la cave</em></h1>
       <p class="hub-subtitle">Retrouvez pour chaque région viticole les caractéristiques des millésimes présents dans la cave — style, qualité et conseils de garde.</p>
       <div class="hub-divider"></div>
+      <details class="reading-guide">
+        <summary>Comment lire les millésimes ?</summary>
+        <div class="reading-guide-content">
+          <p>Les évaluations présentées ici donnent une tendance générale par région et par année. Le résultat final peut varier selon plusieurs facteurs :</p>
+          <ul>
+            <li>le cépage (Pinot Noir, Chardonnay, Chenin, Syrah…),</li>
+            <li>le style du vin (rouge, blanc, effervescent, liquoreux),</li>
+            <li>l’appellation,</li>
+            <li>le travail du producteur,</li>
+            <li>le potentiel de garde recherché.</li>
+          </ul>
+          <p>Un millésime considéré “difficile” peut ainsi produire de très grands vins chez certains domaines, tandis qu’un grand millésime peut donner des résultats plus ordinaires chez d’autres producteurs.</p>
+          <p>Ces indications ont pour objectif d’offrir une lecture simple, synthétique et pratique des grandes tendances régionales.</p>
+          <p>Pour des analyses plus approfondies ou des vérifications détaillées, il est conseillé de consulter des références spécialisées.</p>
+        </div>
+      </details>
     </div>
 
     <div class="countries-grid" id="countries-grid">
