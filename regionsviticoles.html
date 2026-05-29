@@ -56,6 +56,33 @@
       color: var(--muted); line-height: 1.8; font-size: 1.1rem;
     }
     .container { max-width: 1400px; margin: auto; padding: 0 24px 80px; }
+    .region-filter-zone {
+      max-width: 760px;
+      margin: 0 auto 35px;
+      padding: 15px;
+      background-color: #f9f6f0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      color: #4a1525;
+    }
+    .region-filter-zone label {
+      font-weight: bold;
+      color: #4a1525;
+      white-space: nowrap;
+    }
+    .region-dropdown {
+      padding: 10px 15px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+      color: #151a20;
+      cursor: pointer;
+      flex-grow: 1;
+      max-width: 300px;
+    }
     .section-title { margin: 60px 0 24px; font-size: 2rem; letter-spacing: -1px; }
     .regions-grid {
       display: grid;
@@ -131,6 +158,19 @@
       .info-grid { grid-template-columns: 1fr; }
       .nav-container { flex-direction: column; align-items: flex-start; gap: 14px; }
     }
+    @media screen and (max-width: 600px) {
+      .region-filter-zone {
+        margin: 0 24px 32px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+      .region-filter-zone label { white-space: normal; }
+      .region-dropdown {
+        max-width: 100%;
+        padding: 12px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -154,6 +194,14 @@
       l'identité de la cave. Chaque région possède son climat, ses cépages et son énergie propre.
     </p>
   </section>
+
+  <!-- Zone de navigation rapide par région -->
+  <div class="region-filter-zone">
+    <label for="region-selector">📍 Choisir une région :</label>
+    <select id="region-selector" class="region-dropdown" onchange="scrollToRegion(this.value)">
+      <option value="" disabled selected>-- Sélectionnez un vignoble --</option>
+    </select>
+  </div>
 
   <div class="container" id="contenu">
     <div class="chargement">Chargement des régions...</div>
@@ -181,9 +229,19 @@
         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
 
+      const selector = document.getElementById('region-selector');
+      const flags = {
+        'France': '🇫🇷',
+        'Italie': '🇮🇹',
+        'Espagne': '🇪🇸',
+        'Afrique du Sud': '🇿🇦'
+      };
+      selector.innerHTML = '<option value="" disabled selected>-- Sélectionnez un vignoble --</option>' +
+        paysOrder.map(pays => `<option value="#${slugifyRegion(pays)}">${flags[pays] || '📍'} ${pays}</option>`).join('');
+
       let html = '';
       paysOrder.forEach(pays => {
-        html += `<h2 class="section-title">${pays}</h2><div class="regions-grid">`;
+        html += `<h2 class="section-title" id="${slugifyRegion(pays)}">${pays}</h2><div class="regions-grid">`;
 
         parPays[pays].forEach(r => {
           const infosHTML = Object.entries(r.infos).map(([k, v]) => `
@@ -224,6 +282,27 @@
       </div>`;
 
       document.getElementById('contenu').innerHTML = html;
+    }
+
+    function slugifyRegion(text) {
+      return text
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+
+    function scrollToRegion(anchorId) {
+      if (anchorId) {
+        const targetElement = document.querySelector(anchorId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }
     }
   </script>
 
