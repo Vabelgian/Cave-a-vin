@@ -2,6 +2,17 @@
   {
     "statut": "degust",
     "annee_degustation": 2025,
+    "titre": "Vinhas de Xisto Tinto Reserva 2022",
+    "couleur": "rouge",
+    "commentaire": "Un vin portugais solaire qui est fougeux.",
+    "tags": ["Repas de Noël", "Première bouteille"],
+    "date_ouverture": "25 juillet 2025",
+    "note_degustation": "A complèter.",
+    "tags_ouverture": ["Noël", "Évolutif"]
+  },
+  {
+    "statut": "degust",
+    "annee_degustation": 2025,
     "titre": "Ridgeback Cabernet Franc",
     "couleur": "rouge",
     "commentaire": "Un Cabernet Franc d'Afrique du Sud élégant, aux arômes de poivron rouge et de fraise. Première rencontre prometteuse avec ce producteur.",
@@ -50,7 +61,18 @@
     "couleur": "blanc",
     "commentaire": "Bouteille achetée au salon du vin de Jurbise. 1ère bouteille d'une caisse de 6.",
     "tags": ["Loire", "Garde moyenne"],
-    "date_ouverture": "15 juin 2026",
+    "date_ouverture": "23 mai 2026",
+    "note_degustation": "Tes notes de dégustation ici.",
+    "tags_ouverture": ["Loire"]
+  },
+  {
+    "statut": "degust",
+    "annee_degustation": 2026,
+    "titre": "Vinhas de Xisto Tinto Reserva 2022",
+    "couleur": "rouge",
+    "commentaire": "Bouteille achetée au salon du vin de Jurbise. 1ère bouteille d'une caisse de 6.",
+    "tags": ["Loire", "Garde moyenne"],
+    "date_ouverture": "29 mai 2026",
     "note_degustation": "Tes notes de dégustation ici.",
     "tags_ouverture": ["Loire"]
   },
