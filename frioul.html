@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frioul — Régions Viticoles</title>
+
+  <style>
+    :root {
+      --bg: #0d1014;
+      --border: rgba(255,255,255,0.08);
+      --text: #f4f4f4;
+      --muted: #b5bcc8;
+      --gold: #d4af37;
+      /* Zones */
+      --collio: #8aaddb;
+      --collio-light: rgba(138,173,219,0.12);
+      --collio-border: rgba(138,173,219,0.35);
+      --colli: #9a7ab0;
+      --colli-light: rgba(154,122,176,0.12);
+      --colli-border: rgba(154,122,176,0.35);
+      --grave: #7a9e7e;
+      --grave-light: rgba(122,158,126,0.12);
+      --grave-border: rgba(122,158,126,0.35);
+      /* Cépages */
+      --friulano: #c8a840;
+      --ribolla: #e8b060;
+      --malvasia: #9abcd0;
+      --pinotgrigio: #b8a890;
+      --schioppettino: #7a2848;
+      --refosco: #5a2038;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(138,173,219,0.10), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(232,176,96,0.08), transparent 35%),
+        linear-gradient(180deg, #0b0d10 0%, #151a20 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    .top-nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(8,10,12,0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-container {
+      max-width: 1400px; margin: auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 24px;
+    }
+    .nav-logo { text-decoration: none; color: white; font-weight: 700; font-size: 1.15rem; }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      padding: 10px 14px; border-radius: 12px; transition: 0.2s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(255,255,255,0.06); color: white;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      max-width: 1400px; margin: auto; padding: 20px 24px 0;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.88rem; color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { opacity: 0.4; }
+    .breadcrumb .current { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 1400px; margin: auto; padding: 50px 24px 40px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .hero-text h1 { margin: 0; font-size: 3.6rem; letter-spacing: -2px; line-height: 1.05; }
+    .hero-text h1 span { color: var(--gold); }
+    .hero-text .subtitle { margin-top: 20px; color: var(--muted); line-height: 1.8; font-size: 1.05rem; }
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 20px;
+    }
+    .stat-card .label { color: var(--gold); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .stat-card .value { font-size: 1.15rem; font-weight: 600; line-height: 1.4; }
+    .stat-card .value small { font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .tag { padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); font-size: 0.82rem; color: var(--muted); }
+
+    /* ── CONTAINER ── */
+    .container { max-width: 1400px; margin: auto; padding: 0 24px 80px; }
+
+    .section-title {
+      margin: 60px 0 24px; font-size: 1.8rem; letter-spacing: -1px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .section-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(to right, rgba(255,255,255,0.1), transparent); }
+
+    /* ── CARTE ── */
+    .map-wrapper {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px; padding: 24px; margin-bottom: 40px;
+    }
+    .map-wrapper svg { width: 100%; height: auto; display: block; }
+
+    /* ── ZONES ── */
+    .zones-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 48px; }
+    .zone-card {
+      border-radius: 22px; padding: 26px;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative; overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .zone-card:hover { transform: translateY(-4px); }
+    .zone-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 22px 22px 0 0; }
+    .zone-card.collio { background: var(--collio-light); border-color: var(--collio-border); }
+    .zone-card.collio::before { background: linear-gradient(to right, var(--collio), transparent); }
+    .zone-card.colli { background: var(--colli-light); border-color: var(--colli-border); }
+    .zone-card.colli::before { background: linear-gradient(to right, var(--colli), transparent); }
+    .zone-card.grave { background: var(--grave-light); border-color: var(--grave-border); }
+    .zone-card.grave::before { background: linear-gradient(to right, var(--grave), transparent); }
+
+    .zone-badge { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 14px; }
+    .collio .zone-badge { background: rgba(138,173,219,0.15); color: var(--collio); }
+    .colli .zone-badge { background: rgba(154,122,176,0.15); color: var(--colli); }
+    .grave .zone-badge { background: rgba(122,158,126,0.15); color: var(--grave); }
+
+    .zone-card h3 { margin: 0 0 8px; font-size: 1.2rem; }
+    .zone-card .zone-sub { font-size: 0.78rem; margin-bottom: 12px; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.5px; }
+    .zone-card p { margin: 0 0 14px; font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+    .zone-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+    .meta-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 10px; }
+    .meta-box .meta-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 4px; }
+    .meta-box .meta-val { font-size: 0.85rem; line-height: 1.4; }
+    .profil-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 8px; }
+    .profil-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .profil-tag { font-size: 0.78rem; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,0.05); color: var(--muted); }
+
+    /* ── FOCUS PONCA ── */
+    .focus-box {
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 20px 20px 0;
+      padding: 28px 32px; margin-bottom: 48px;
+    }
+    .focus-box h3 { margin: 0 0 14px; font-size: 1.1rem; color: var(--gold); }
+    .focus-box p { margin: 0 0 12px; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+    .focus-box p:last-child { margin-bottom: 0; }
+
+    /* ── FOCUS VIN ORANGE ── */
+    .orange-box {
+      border-radius: 22px; padding: 32px;
+      border: 1px solid rgba(232,176,96,0.3);
+      background: rgba(232,176,96,0.07);
+      margin-bottom: 48px;
+      position: relative; overflow: hidden;
+    }
+    .orange-box::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      border-radius: 22px 22px 0 0;
+      background: linear-gradient(to right, #e8b060, #c88040, transparent);
+    }
+    .orange-box h3 { margin: 0 0 16px; font-size: 1.2rem; color: #e8b060; }
+    .orange-box p { margin: 0 0 14px; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+    .orange-box p:last-child { margin-bottom: 0; }
+    .orange-box .orange-producers { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    .orange-prod {
+      background: rgba(232,176,96,0.1); border: 1px solid rgba(232,176,96,0.25);
+      border-radius: 14px; padding: 12px 16px;
+    }
+    .orange-prod .op-name { font-size: 0.92rem; font-weight: 600; margin-bottom: 3px; color: #e8b060; }
+    .orange-prod .op-note { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── CÉPAGES ── */
+    .cepages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 48px; }
+    .cepage-card {
+      border-radius: 20px; padding: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      position: relative; overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .cepage-card:hover { transform: translateY(-3px); }
+    .cepage-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 20px 20px 0 0; }
+    .c-friulano::before { background: linear-gradient(to right, #c8a840, transparent); }
+    .c-ribolla::before { background: linear-gradient(to right, #e8b060, transparent); }
+    .c-malvasia::before { background: linear-gradient(to right, #9abcd0, transparent); }
+    .c-pinotgrigio::before { background: linear-gradient(to right, #b8a890, transparent); }
+    .c-sauvignon::before { background: linear-gradient(to right, #9abe70, transparent); }
+    .c-schioppettino::before { background: linear-gradient(to right, #7a2848, transparent); }
+    .c-refosco::before { background: linear-gradient(to right, #5a2038, transparent); }
+    .c-pignolo::before { background: linear-gradient(to right, #6a3050, transparent); }
+
+    .cepage-role { font-size: 0.72rem; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .cepage-card h4 { margin: 0 0 6px; font-size: 1.05rem; }
+    .cepage-aka { font-size: 0.78rem; color: var(--muted); font-style: italic; margin-bottom: 10px; opacity: 0.7; }
+    .cepage-card p { margin: 0 0 10px; font-size: 0.86rem; color: var(--muted); line-height: 1.65; }
+    .cep-zones { display: flex; flex-wrap: wrap; gap: 5px; }
+    .cep-zone { font-size: 0.74rem; padding: 3px 8px; border-radius: 999px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: var(--muted); }
+
+    /* ── PRODUCTEURS ── */
+    .prod-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 48px; }
+    .prod-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 18px; transition: border-color 0.2s; }
+    .prod-card:hover { border-color: rgba(212,175,55,0.2); }
+    .prod-card .prod-name { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+    .prod-card .prod-appel { font-size: 0.78rem; color: var(--gold); margin-bottom: 8px; }
+    .prod-card .prod-note { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── FOOTER ── */
+    .footer { margin-top: 80px; text-align: center; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+
+    @media (max-width: 1000px) { .zones-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; gap: 32px; }
+      .hero-text h1 { font-size: 2.8rem; }
+    }
+    @media (max-width: 600px) { .nav-container { flex-direction: column; align-items: flex-start; gap: 14px; } }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="Index.html" class="nav-logo">🍷 Ma Cave</a>
+      <div class="nav-links">
+        <a href="Index.html">Accueil</a>
+        <a href="Ma-Cave.html">Ma Cave</a>
+        <a href="millesimes.html">Millésimes</a>
+        <a href="regionsviticoles.html" class="active">Régions</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a href="regionsviticoles.html">Régions viticoles</a>
+    <span class="sep">›</span>
+    <span>Italie</span>
+    <span class="sep">›</span>
+    <span class="current">Frioul</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Le <span>Frioul</span></h1>
+      <p class="subtitle">
+        À l'extrême nord-est de l'Italie, aux confins de la Slovénie et de l'Autriche,
+        le Frioul est la patrie des grands blancs italiens texturés et expressifs.
+        La Ponca — ce flysch de marne et de grès feuilleté — y façonne des vins d'une
+        complexité et d'une minéralité uniques. Et c'est ici qu'est né le mouvement
+        mondial des vins orange.
+      </p>
+      <div class="tag-list">
+        <div class="tag">Friulano</div>
+        <div class="tag">Ribolla Gialla</div>
+        <div class="tag">Malvasia Istriana</div>
+        <div class="tag">Ponca</div>
+        <div class="tag">Collio</div>
+        <div class="tag">Vins Orange</div>
+        <div class="tag">Gravner · Radikon</div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="label">Superficie</div>
+        <div class="value">≈ 20 000 ha<br><small>en production</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Spécialité</div>
+        <div class="value">Blancs texturés<br><small>et vins orange de macération</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Sol emblématique</div>
+        <div class="value">Ponca<br><small>flysch marne-grès feuilleté</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Frontières</div>
+        <div class="value">Slovénie · Autriche<br><small>carrefour de trois cultures</small></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- CARTE -->
+    <h2 class="section-title">Carte des trois zones</h2>
+
+    <div class="map-wrapper">
+      <svg viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">
+        <defs>
+          <pattern id="collioPat" patternUnits="userSpaceOnUse" width="7" height="7">
+            <circle cx="3.5" cy="3.5" r="1.2" fill="rgba(138,173,219,0.3)"/>
+          </pattern>
+          <pattern id="colliOPat" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="8" y2="0" stroke="rgba(154,122,176,0.28)" stroke-width="1.5"/>
+          </pattern>
+          <pattern id="gravePat" patternUnits="userSpaceOnUse" width="9" height="9">
+            <rect x="1.5" y="1.5" width="3" height="3" rx="1" fill="rgba(122,158,126,0.22)"/>
+          </pattern>
+          <linearGradient id="adriaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1a3a5c" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#1a3a5c" stop-opacity="0.2"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="760" height="400" fill="rgba(255,255,255,0.015)" rx="12"/>
+
+        <!-- Alpes (nord) -->
+        <path d="M 0 0 L 760 0 L 760 52 Q 640 42 520 48 Q 400 54 300 46 Q 200 38 100 44 Q 50 47 0 44 Z"
+              fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.05)" stroke-width="0.8"/>
+        <text x="380" y="22" font-size="9" fill="rgba(255,255,255,0.2)" text-anchor="middle">⛰ Alpes Carniques · Alpes Juliennes ↑</text>
+
+        <!-- Mer Adriatique (sud) -->
+        <path d="M 0 340 Q 80 328 160 332 Q 200 334 220 342 L 220 400 L 0 400 Z"
+              fill="url(#adriaGrad)" stroke="none"/>
+        <text x="108" y="375" font-size="9" fill="#4a90c4" text-anchor="middle" opacity="0.7">Adriatique</text>
+
+        <!-- Frontière slovène (est) -->
+        <path d="M 620 50 Q 638 120 645 200 Q 650 280 640 360"
+              fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" stroke-dasharray="5 3"/>
+        <text x="662" y="200" font-size="8.5" fill="rgba(255,255,255,0.2)"
+              transform="rotate(90,662,200)">Slovénie →</text>
+
+        <!-- Isonzo (fleuve) -->
+        <path d="M 560 52 Q 548 120 538 190 Q 528 260 520 330 Q 516 360 512 380"
+              fill="none" stroke="#1a3a5c" stroke-width="8" stroke-linecap="round" opacity="0.55"/>
+        <path d="M 560 52 Q 548 120 538 190 Q 528 260 520 330 Q 516 360 512 380"
+              fill="none" stroke="#2a5f9a" stroke-width="2" stroke-linecap="round" opacity="0.4" stroke-dasharray="4 3"/>
+        <text x="500" y="210" font-size="8.5" fill="#4a90c4" opacity="0.65"
+              transform="rotate(85,500,210)">Isonzo</text>
+
+        <!-- Tagliamento (fleuve ouest) -->
+        <path d="M 215 52 Q 210 120 205 190 Q 200 270 198 340"
+              fill="none" stroke="#1a3a5c" stroke-width="6" stroke-linecap="round" opacity="0.4"/>
+        <path d="M 215 52 Q 210 120 205 190 Q 200 270 198 340"
+              fill="none" stroke="#2a5f9a" stroke-width="1.5" stroke-linecap="round" opacity="0.3" stroke-dasharray="3 3"/>
+        <text x="188" y="190" font-size="8" fill="#4a90c4" opacity="0.5"
+              transform="rotate(85,188,190)">Tagliamento</text>
+
+        <!-- ════ FRIULI GRAVE (ouest · plaine) ════ -->
+        <path d="M 20 52 Q 110 48 215 52 L 200 338 Q 140 345 80 340 Q 40 336 18 325 Z"
+              fill="url(#gravePat)" stroke="rgba(122,158,126,0.42)" stroke-width="1.2"/>
+        <rect x="38" y="158" width="148" height="52" rx="10"
+              fill="rgba(122,158,126,0.09)" stroke="rgba(122,158,126,0.38)" stroke-width="1"/>
+        <text x="112" y="178" font-size="11" fill="#7a9e7e" text-anchor="middle" font-weight="700">Friuli Grave</text>
+        <text x="112" y="194" font-size="8.5" fill="rgba(122,158,126,0.68)" text-anchor="middle">Plaine · Alluvions · Galets</text>
+        <text x="112" y="205" font-size="8" fill="rgba(255,255,255,0.28)" text-anchor="middle">Volume · Accessible · Fruité</text>
+
+        <!-- ════ FRIULI COLLI ORIENTALI (centre) ════ -->
+        <path d="M 215 55 Q 310 48 400 52 Q 445 54 470 62 Q 490 70 490 90 L 485 310 Q 445 320 390 316 Q 340 312 290 305 Q 248 298 215 285 L 200 340 Z"
+              fill="url(#colliOPat)" stroke="rgba(154,122,176,0.45)" stroke-width="1.3"/>
+        <rect x="268" y="158" width="178" height="58" rx="10"
+              fill="rgba(154,122,176,0.1)" stroke="rgba(154,122,176,0.42)" stroke-width="1.1"/>
+        <text x="357" y="178" font-size="11" fill="#b090d0" text-anchor="middle" font-weight="700">Friuli Colli Orientali</text>
+        <text x="357" y="194" font-size="8.5" fill="rgba(154,122,176,0.7)" text-anchor="middle">Ponca · Collines · Structuré</text>
+        <text x="357" y="205" font-size="8" fill="rgba(255,255,255,0.28)" text-anchor="middle">Friulano · Ribolla · Schioppettino</text>
+
+        <!-- ════ COLLIO (est · frontalier) ════ -->
+        <path d="M 490 92 Q 540 68 600 58 Q 628 52 645 55 L 642 305 Q 615 315 575 310 Q 535 305 505 295 Q 488 286 485 312 Z"
+              fill="url(#collioPat)" stroke="rgba(138,173,219,0.48)" stroke-width="1.4"/>
+        <rect x="502" y="152" width="130" height="56" rx="10"
+              fill="rgba(138,173,219,0.1)" stroke="rgba(138,173,219,0.44)" stroke-width="1.2"/>
+        <text x="567" y="172" font-size="11.5" fill="#8aaddb" text-anchor="middle" font-weight="700">Collio</text>
+        <text x="567" y="188" font-size="8.5" fill="rgba(138,173,219,0.7)" text-anchor="middle">Ponca · Frontalier · Fin</text>
+        <text x="567" y="200" font-size="8" fill="rgba(255,255,255,0.28)" text-anchor="middle">Friulano · Malvasia · Orange</text>
+
+        <!-- Oslavia (sous-zone Collio, vins orange) -->
+        <ellipse cx="610" cy="115" rx="28" ry="22"
+                 fill="rgba(232,176,96,0.1)" stroke="rgba(232,176,96,0.35)" stroke-width="1.2" stroke-dasharray="3 2"/>
+        <text x="610" y="112" font-size="8" fill="#e8b060" text-anchor="middle" font-weight="600">Oslavia</text>
+        <text x="610" y="122" font-size="7" fill="rgba(232,176,96,0.65)" text-anchor="middle">Vins orange</text>
+
+        <!-- Villes -->
+        <circle cx="135" cy="275" r="4" fill="rgba(212,175,55,0.4)" stroke="#d4af37" stroke-width="1"/>
+        <text x="135" y="290" font-size="8.5" fill="#d4af37" text-anchor="middle">Udine</text>
+
+        <circle cx="390" cy="295" r="4" fill="rgba(212,175,55,0.4)" stroke="#d4af37" stroke-width="1"/>
+        <text x="390" y="310" font-size="8.5" fill="#d4af37" text-anchor="middle">Cividale</text>
+
+        <circle cx="565" cy="285" r="4" fill="rgba(212,175,55,0.4)" stroke="#d4af37" stroke-width="1"/>
+        <text x="565" y="300" font-size="8.5" fill="#d4af37" text-anchor="middle">Cormons</text>
+
+        <circle cx="610" cy="295" r="4" fill="rgba(212,175,55,0.4)" stroke="#d4af37" stroke-width="1"/>
+        <text x="618" y="309" font-size="8.5" fill="#d4af37">Gorizia</text>
+
+        <!-- ── LÉGENDE ── -->
+        <rect x="20" y="368" width="12" height="12" rx="2" fill="url(#collioPat)" stroke="rgba(138,173,219,0.5)" stroke-width="1"/>
+        <text x="38" y="378" font-size="9" fill="rgba(255,255,255,0.5)">Collio</text>
+
+        <rect x="115" y="368" width="12" height="12" rx="2" fill="url(#colliOPat)" stroke="rgba(154,122,176,0.5)" stroke-width="1"/>
+        <text x="133" y="378" font-size="9" fill="rgba(255,255,255,0.5)">Colli Orientali</text>
+
+        <rect x="265" y="368" width="12" height="12" rx="2" fill="url(#gravePat)" stroke="rgba(122,158,126,0.5)" stroke-width="1"/>
+        <text x="283" y="378" font-size="9" fill="rgba(255,255,255,0.5)">Friuli Grave</text>
+
+        <ellipse cx="396" cy="374" rx="6" ry="5" fill="rgba(232,176,96,0.15)" stroke="rgba(232,176,96,0.4)" stroke-width="1"/>
+        <text x="408" y="378" font-size="9" fill="rgba(255,255,255,0.5)">Oslavia (vins orange)</text>
+
+        <!-- Compass -->
+        <text x="730" y="30" font-size="13" fill="rgba(255,255,255,0.28)" text-anchor="middle">N</text>
+        <line x1="730" y1="34" x2="730" y2="52" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+        <polygon points="730,34 725,46 730,43 735,46" fill="rgba(255,255,255,0.25)"/>
+      </svg>
+    </div>
+
+    <!-- FOCUS PONCA -->
+    <div class="focus-box">
+      <h3>La Ponca — l'âme du Collio et des Colli Orientali</h3>
+      <p>
+        La Ponca est un flysch — une roche sédimentaire alternant des couches de marne argileuse
+        et de grès calcaire feuilleté, déposées au fond de la mer il y a environ 50 millions d'années.
+        Elle est l'équivalent frioulan du Galestro toscan ou du Kimméridgien de Chablis : le sol
+        identitaire qui définit le caractère des vins de la région.
+      </p>
+      <p>
+        Les feuillets de la Ponca se délitent en plaques qui s'accumulent en surface — les racines
+        de la vigne les traversent facilement pour chercher l'eau en profondeur. Ce sol pauvre,
+        bien drainant, communique aux vins une minéralité saline et une texture caractéristiques,
+        ainsi qu'un potentiel de garde remarquable pour des blancs. La Ponca affleure sur les collines
+        du Collio et des Colli Orientali — en plaine, elle disparaît sous les alluvions du Tagliamento.
+      </p>
+    </div>
+
+    <!-- LES TROIS ZONES -->
+    <h2 class="section-title">Les trois zones</h2>
+
+    <div class="zones-grid">
+
+      <div class="zone-card collio">
+        <span class="zone-badge">Collio</span>
+        <h3>Collio</h3>
+        <p class="zone-sub">Colli Goriziani · Frontalier Slovénie</p>
+        <p>
+          Les collines du Collio s'étendent le long de la frontière slovène, à l'est de Gorizia.
+          Sol de Ponca omniprésent, altitude modérée (100–250 m), influence méditerranéenne tempérée
+          par les brises alpines. Les blancs du Collio sont les plus fins et les plus floraux du Frioul —
+          Friulano, Malvasia Istriana et Pinot Grigio y atteignent une élégance et une complexité
+          remarquables. C'est aussi ici, à Oslavia, que Gravner et Radikon ont inventé les vins
+          orange contemporains dans les années 1990.
+        </p>
+        <div class="zone-meta">
+          <div class="meta-box"><div class="meta-label">Sol</div><div class="meta-val">Ponca (flysch)</div></div>
+          <div class="meta-box"><div class="meta-label">Altitude</div><div class="meta-val">100–250 m</div></div>
+          <div class="meta-box"><div class="meta-label">Style</div><div class="meta-val">Fin · Floral · Élégant</div></div>
+          <div class="meta-box"><div class="meta-label">Cépages</div><div class="meta-val">Friulano · Malvasia · Pinot Grigio</div></div>
+        </div>
+        <div class="profil-label">Profil aromatique</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Floral intense</span>
+          <span class="profil-tag">Amande</span>
+          <span class="profil-tag">Salinité</span>
+          <span class="profil-tag">Élégance</span>
+          <span class="profil-tag">Minéralité</span>
+        </div>
+      </div>
+
+      <div class="zone-card colli">
+        <span class="zone-badge">Friuli Colli Orientali</span>
+        <h3>Friuli Colli Orientali</h3>
+        <p class="zone-sub">Collines orientales · Cividale · Structure</p>
+        <p>
+          Les Colli Orientali (collines orientales) s'étendent au nord-ouest du Collio, autour de
+          Cividale del Friuli. Même Ponca que le Collio mais altitude plus élevée (jusqu'à 350 m),
+          températures légèrement plus fraîches, vins légèrement plus structurés et plus longs.
+          C'est la zone des grands rouges autochtones — Schioppettino, Refosco, Pignolo — et des
+          blancs de garde. Zones spécifiques comme Ramandolo (Verduzzo doux) et Cialla (crus réservés).
+        </p>
+        <div class="zone-meta">
+          <div class="meta-box"><div class="meta-label">Sol</div><div class="meta-val">Ponca · Marne bleues</div></div>
+          <div class="meta-box"><div class="meta-label">Altitude</div><div class="meta-val">150–350 m</div></div>
+          <div class="meta-box"><div class="meta-label">Style</div><div class="meta-val">Structuré · Profond · Garde</div></div>
+          <div class="meta-box"><div class="meta-label">Cépages</div><div class="meta-val">Friulano · Schioppettino · Refosco</div></div>
+        </div>
+        <div class="profil-label">Profil aromatique</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Texture</span>
+          <span class="profil-tag">Profondeur</span>
+          <span class="profil-tag">Épices</span>
+          <span class="profil-tag">Longue garde</span>
+        </div>
+      </div>
+
+      <div class="zone-card grave">
+        <span class="zone-badge">Friuli Grave</span>
+        <h3>Friuli Grave</h3>
+        <p class="zone-sub">Plaine alluviale · Udine · Volume</p>
+        <p>
+          La zone la plus étendue du Frioul — une plaine alluviale drainée par le Tagliamento et
+          ses affluents, couverte de galets roulés et de graviers (d'où le nom : <em>grave</em>
+          signifie graviers en frioulan). Sol fertile, vins plus légers et plus accessibles que
+          les deux autres zones. C'est ici que se produit la grande majorité du Pinot Grigio frioulan
+          vendu dans le monde, souvent sans grande personnalité. Mais les meilleurs producteurs
+          de Grave produisent des vins de plaisir fruités et francs, d'excellent rapport qualité-prix.
+        </p>
+        <div class="zone-meta">
+          <div class="meta-box"><div class="meta-label">Sol</div><div class="meta-val">Galets · Alluvions · Graviers</div></div>
+          <div class="meta-box"><div class="meta-label">Altitude</div><div class="meta-val">50–150 m</div></div>
+          <div class="meta-box"><div class="meta-label">Style</div><div class="meta-val">Fruité · Accessible · Volume</div></div>
+          <div class="meta-box"><div class="meta-label">Cépages</div><div class="meta-val">Pinot Grigio · Friulano · Merlot</div></div>
+        </div>
+        <div class="profil-label">Profil aromatique</div>
+        <div class="profil-tags">
+          <span class="profil-tag">Fruit frais</span>
+          <span class="profil-tag">Floral léger</span>
+          <span class="profil-tag">Accessible</span>
+          <span class="profil-tag">Boire jeune</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- VINS ORANGE -->
+    <div class="orange-box">
+      <h3>🍊 Le Frioul, berceau des vins orange contemporains</h3>
+      <p>
+        Les vins orange — blancs vinifiés avec macération prolongée sur peaux — sont une technique
+        ancestrale pratiquée depuis des millénaires en Géorgie (kvevri). Mais leur renaissance
+        contemporaine est née dans un hameau du Collio : <strong>Oslavia</strong>, où Josko Gravner
+        et Stanko Radikon ont, chacun de leur côté à la fin des années 1990, décidé de rompre
+        radicalement avec la vinification moderne.
+      </p>
+      <p>
+        Lassés des vins blancs technologiques — fermentations à basse température, levures
+        sélectionnées, protections antioxydantes — ils ont laissé leurs raisins macérer sur leurs
+        peaux plusieurs semaines voire plusieurs mois, comme on le fait pour les rouges. Résultat :
+        des vins ambrés, texturés, tanniques pour des blancs, d'une complexité aromatique
+        bouleversante — safran, abricot séché, thé, cire, noix. Des vins qui ne ressemblent à rien
+        d'autre et qui peuvent vieillir 15 à 30 ans.
+      </p>
+      <p>
+        Leur exemple a inspiré des centaines de vignerons dans le monde entier. Aujourd'hui,
+        les vins orange sont devenus un mouvement mondial — mais tout a commencé à Oslavia,
+        dans le Collio frioulan.
+      </p>
+      <div class="orange-producers">
+        <div class="orange-prod">
+          <div class="op-name">Josko Gravner</div>
+          <div class="op-note">Le pionnier absolu. Ribolla Gialla en amphore géorgienne. Macération 6 mois, élevage 6 ans. Vins de légende.</div>
+        </div>
+        <div class="orange-prod">
+          <div class="op-name">Radikon</div>
+          <div class="op-note">Stanko puis Sasa Radikon. Style proche de Gravner, Ribolla et Oslavje. Profondeur et complexité incomparables.</div>
+        </div>
+        <div class="orange-prod">
+          <div class="op-name">La Castellada</div>
+          <div class="op-note">Oslavia. Style naturel, macérations longues. Collio Bianco d'une grande pureté.</div>
+        </div>
+        <div class="orange-prod">
+          <div class="op-name">Dario Princic</div>
+          <div class="op-note">Oslavia. Vins naturels sans soufre, macérations longues. Style plus accessible que Gravner ou Radikon.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CÉPAGES -->
+    <h2 class="section-title">Les cépages du Frioul</h2>
+
+    <div class="cepages-grid">
+
+      <div class="cepage-card c-friulano">
+        <div class="cepage-role">Blanc identitaire · Ex-Tocai</div>
+        <h4>Friulano</h4>
+        <p class="cepage-aka">Jusqu'en 2007 : Tocai Friulano</p>
+        <p>
+          Le cépage emblématique du Frioul — longtemps appelé Tocai Friulano jusqu'à ce que
+          l'Union Européenne impose en 2007 l'abandon du nom pour éviter la confusion avec
+          le Tokaji hongrois. Ses vins sont d'une finesse et d'une complexité remarquables :
+          amande fraîche, fenouil, fleurs blanches, texture légèrement huileuse en bouche et
+          une amertume finale typique et élégante. Le vin identitaire du Collio et des Colli Orientali.
+        </p>
+        <div class="cep-zones">
+          <span class="cep-zone">Collio</span>
+          <span class="cep-zone">Colli Orientali</span>
+          <span class="cep-zone">Grave</span>
+        </div>
+      </div>
+
+      <div class="cepage-card c-ribolla">
+        <div class="cepage-role">Blanc · Vins orange · Oslavia</div>
+        <h4>Ribolla Gialla</h4>
+        <p class="cepage-aka">Rebula en Slovénie</p>
+        <p>
+          La Ribolla Gialla est le cépage de prédilection des vins orange du Frioul — sa peau
+          épaisse et sa haute acidité naturelle la rendent idéale pour les macérations longues.
+          Vinifiée en blanc classique, elle donne des vins secs, nerveux, citronnés et légèrement
+          amers. En version macérée (Gravner, Radikon), elle devient un vin ambre intense,
+          complexe, aux notes de safran, d'abricot séché et de cire d'abeille.
+        </p>
+        <div class="cep-zones">
+          <span class="cep-zone">Collio</span>
+          <span class="cep-zone">Oslavia</span>
+          <span class="cep-zone">Colli Orientali</span>
+        </div>
+      </div>
+
+      <div class="cepage-card c-malvasia">
+        <div class="cepage-role">Blanc floral · Collio</div>
+        <h4>Malvasia Istriana</h4>
+        <p class="cepage-aka">Distincte de la Malvasia sicilienne</p>
+        <p>
+          La Malvasia Istriana est une variété originaire d'Istrie (Croatie/Slovénie actuelles),
+          différente des nombreuses autres Malvasia méditerranéennes. Cépage aromatique par
+          excellence — fleurs blanches, pêche, abricot — mais avec une fraîcheur et une tension
+          que l'on ne trouve pas dans ses cousines méridionales. Excellente sur les sols de Ponca
+          du Collio. Souvent le cépage le plus expressif à la dégustation à l'aveugle.
+        </p>
+        <div class="cep-zones">
+          <span class="cep-zone">Collio</span>
+          <span class="cep-zone">Colli Orientali</span>
+        </div>
+      </div>
+
+      <div class="cepage-card c-pinotgrigio">
+        <div class="cepage-role">Blanc · Version sérieuse</div>
+        <h4>Pinot Grigio</h4>
+        <p class="cepage-aka">Version sérieuse — pas le Grigio industriel</p>
+        <p>
+          En Frioul, le Pinot Grigio peut être excellent — loin du vin neutre et industriel vendu
+          sous ce nom dans le monde entier. Sur Ponca, vinifié sérieusement avec un élevage adapté,
+          il produit des vins amples, texturés, avec des notes de poire mûre, de noisette et d'épices.
+          Certains producteurs du Collio proposent des Pinot Grigio de macération (orange) d'une
+          complexité étonnante.
+        </p>
+        <div class="cep-zones">
+          <span class="cep-zone">Collio</span>
+          <span class="cep-zone">Grave</span>
+        </div>
+      </div>
+
+      <div class="cepage-card c-schioppettino">
+        <div class="cepage-role">Rouge autochtone · Colli Orientali</div>
+        <h4>Schioppettino</h4>
+        <p class="cepage-aka">Ribolla Nera · failli disparaître</p>
+        <p>
+          Cépage rouge autochtone des Colli Orientali, il a failli être éradiqué — il était
+          interdit de plantation jusqu'en 1978. Son nom vient du bruit (<em>schioppare</em> —
+          claquer) que font ses baies en mûrissant. Vins d'une grande originalité : poivre noir
+          intense, fruits rouges, violette, réglisse, avec des tanins fins et une acidité fraîche.
+          Un des rouges les plus uniques d'Italie.
+        </p>
+        <div class="cep-zones">
+          <span class="cep-zone">Colli Orientali</span>
+          <span class="cep-zone">Prepotto</span>
+        </div>
+      </div>
+
+      <div class="cepage-card c-refosco">
+        <div class="cepage-role">Rouge · Colli Orientali</div>
+        <h4>Refosco dal Peduncolo Rosso</h4>
+        <p class="cepage-aka">Refosco à pédoncule rouge</p>
+        <p>
+          Le rouge le plus planté du Frioul, reconnaissable à ses pédoncules qui rougissent à
+          maturité. Vin charnu, tannique, avec des notes de mûre, de prune, d'herbes sauvages
+          et de réglisse. Plus rustique que le Schioppettino dans sa jeunesse mais s'affine bien
+          avec l'élevage. Long potentiel de garde (10–15 ans). L'appellation Colli Orientali
+          en fait l'une de ses spécialités rouges.
+        </p>
+        <div class="cep-zones">
+          <span class="cep-zone">Colli Orientali</span>
+          <span class="cep-zone">Grave</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PRODUCTEURS -->
+    <h2 class="section-title">Producteurs de référence</h2>
+
+    <div class="prod-grid">
+      <div class="prod-card">
+        <div class="prod-name">Josko Gravner</div>
+        <div class="prod-appel">Collio · Oslavia</div>
+        <div class="prod-note">Le vigneron le plus influent du Frioul. Ribolla en amphore géorgienne. Vins d'une complexité et d'une longévité absolues.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Radikon</div>
+        <div class="prod-appel">Collio · Oslavia</div>
+        <div class="prod-note">Stanko puis Sasa. Ribolla et Oslavje macérés. La maison de référence des vins orange frioulans depuis les années 1990.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Livio Felluga</div>
+        <div class="prod-appel">Colli Orientali · Rosazzo</div>
+        <div class="prod-note">Le domaine classique de référence. Terre Alte (assemblage blanc), l'un des plus grands blancs d'Italie depuis 30 ans.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Marco Felluga · Russiz Superiore</div>
+        <div class="prod-appel">Collio</div>
+        <div class="prod-note">Deux domaines frères. Collio Bianco et Sauvignon de très haute tenue. La référence du Collio classique.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Schiopetto</div>
+        <div class="prod-appel">Collio</div>
+        <div class="prod-note">Mario Schiopetto, le pionnier de la vinification moderne en Frioul dans les années 1960. Toujours une référence pour la précision aromatique.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Miani</div>
+        <div class="prod-appel">Colli Orientali · Buttrio</div>
+        <div class="prod-note">Enzo Pontoni, le perfectionniste absolu. Productions microscopiques, vins mythiques — Friulano et Merlot parmi les plus grands d'Italie.</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Cette page évoluera avec la cave.<br>
+      Chaque nouvelle bouteille peut enrichir la compréhension d'une région, d'un terroir ou d'un style de vin.
+    </div>
+
+  </div>
+</body>
+</html>

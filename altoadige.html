@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alto Adige — Südtirol</title>
+
+  <style>
+    :root {
+      --bg: #0d1014;
+      --border: rgba(255,255,255,0.08);
+      --text: #f4f4f4;
+      --muted: #b5bcc8;
+      --gold: #d4af37;
+      /* Vallées */
+      --adige: #8aaddb;
+      --adige-light: rgba(138,173,219,0.12);
+      --adige-border: rgba(138,173,219,0.35);
+      --venosta: #9a7ab0;
+      --ven-light: rgba(154,122,176,0.12);
+      --ven-border: rgba(154,122,176,0.35);
+      --isarco: #7a9e7e;
+      --isa-light: rgba(122,158,126,0.12);
+      --isa-border: rgba(122,158,126,0.35);
+      --oltradige: #c07840;
+      --olt-light: rgba(192,120,64,0.12);
+      --olt-border: rgba(192,120,64,0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(138,173,219,0.10), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(154,122,176,0.08), transparent 35%),
+        linear-gradient(180deg, #0b0d10 0%, #151a20 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    .top-nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(8,10,12,0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-container {
+      max-width: 1400px; margin: auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 24px;
+    }
+    .nav-logo { text-decoration: none; color: white; font-weight: 700; font-size: 1.15rem; }
+    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      padding: 10px 14px; border-radius: 12px; transition: 0.2s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(255,255,255,0.06); color: white;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      max-width: 1400px; margin: auto; padding: 20px 24px 0;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.88rem; color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb .sep { opacity: 0.4; }
+    .breadcrumb .current { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 1400px; margin: auto; padding: 50px 24px 40px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .hero-text h1 { margin: 0; font-size: 3.4rem; letter-spacing: -2px; line-height: 1.05; }
+    .hero-text h1 span { color: var(--gold); }
+    .hero-text h1 em { font-style: normal; color: var(--muted); font-size: 2.2rem; }
+    .hero-text .subtitle { margin-top: 20px; color: var(--muted); line-height: 1.8; font-size: 1.05rem; }
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 20px;
+    }
+    .stat-card .label { color: var(--gold); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .stat-card .value { font-size: 1.15rem; font-weight: 600; line-height: 1.4; }
+    .stat-card .value small { font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .tag { padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); font-size: 0.82rem; color: var(--muted); }
+
+    /* ── CONTAINER ── */
+    .container { max-width: 1400px; margin: auto; padding: 0 24px 80px; }
+
+    .section-title {
+      margin: 60px 0 24px; font-size: 1.8rem; letter-spacing: -1px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .section-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(to right, rgba(255,255,255,0.1), transparent); }
+
+    /* ── LAYOUT CARTE + VALLÉES ── */
+    .map-vallees-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 32px;
+      align-items: start;
+      margin-bottom: 48px;
+    }
+    .map-wrapper {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px; padding: 20px;
+      position: sticky; top: 90px;
+    }
+    .map-wrapper svg { width: 100%; height: auto; display: block; }
+
+    /* Vallées colonne droite */
+    .vallees-col { display: flex; flex-direction: column; gap: 18px; }
+    .vallee-card {
+      border-radius: 22px; padding: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative; overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .vallee-card:hover { transform: translateY(-3px); }
+    .vallee-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 22px 22px 0 0; }
+    .vallee-card.adige { background: var(--adige-light); border-color: var(--adige-border); }
+    .vallee-card.adige::before { background: linear-gradient(to right, var(--adige), transparent); }
+    .vallee-card.venosta { background: var(--ven-light); border-color: var(--ven-border); }
+    .vallee-card.venosta::before { background: linear-gradient(to right, var(--venosta), transparent); }
+    .vallee-card.isarco { background: var(--isa-light); border-color: var(--isa-border); }
+    .vallee-card.isarco::before { background: linear-gradient(to right, var(--isarco), transparent); }
+    .vallee-card.oltradige { background: var(--olt-light); border-color: var(--olt-border); }
+    .vallee-card.oltradige::before { background: linear-gradient(to right, var(--oltradige), transparent); }
+
+    .vallee-badge { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 12px; }
+    .adige .vallee-badge { background: rgba(138,173,219,0.15); color: var(--adige); }
+    .venosta .vallee-badge { background: rgba(154,122,176,0.15); color: var(--venosta); }
+    .isarco .vallee-badge { background: rgba(122,158,126,0.15); color: var(--isarco); }
+    .oltradige .vallee-badge { background: rgba(192,120,64,0.15); color: var(--oltradige); }
+
+    .vallee-card .vallee-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+    .vallee-card h3 { margin: 0; font-size: 1.2rem; }
+    .vallee-card .vallee-alt { font-size: 0.78rem; padding: 3px 9px; border-radius: 999px; background: rgba(255,255,255,0.06); color: var(--muted); white-space: nowrap; flex-shrink: 0; }
+    .vallee-card .vallee-sub { font-size: 0.78rem; margin-bottom: 10px; opacity: 0.55; font-style: italic; }
+    .vallee-card p { margin: 0 0 12px; font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+    .profil-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 8px; }
+    .profil-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .profil-tag { font-size: 0.78rem; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,0.05); color: var(--muted); }
+
+    /* ── ALTITUDE SCALE ── */
+    .altitude-intro { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 24px; max-width: 860px; }
+    .altitude-bands { display: flex; flex-direction: column; gap: 10px; margin-bottom: 48px; }
+    .alt-band {
+      display: grid; grid-template-columns: 110px 1fr auto;
+      align-items: center; gap: 16px;
+      padding: 14px 18px; border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .alt-band.a1 { background: rgba(154,122,176,0.09); border-color: rgba(154,122,176,0.2); }
+    .alt-band.a2 { background: rgba(122,158,126,0.08); border-color: rgba(122,158,126,0.18); }
+    .alt-band.a3 { background: rgba(138,173,219,0.07); border-color: rgba(138,173,219,0.18); }
+    .alt-band.a4 { background: rgba(192,120,64,0.07); border-color: rgba(192,120,64,0.18); }
+    .alt-band.a5 { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.07); }
+    .alt-metres { font-size: 1.0rem; font-weight: 600; color: var(--gold); }
+    .alt-desc strong { color: var(--text); display: block; margin-bottom: 3px; font-size: 0.92rem; }
+    .alt-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.5; }
+    .alt-cepages { font-size: 0.78rem; color: var(--muted); text-align: right; font-style: italic; white-space: nowrap; }
+
+    /* ── CÉPAGES ── */
+    .cepages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 48px; }
+    .cepage-card {
+      border-radius: 20px; padding: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      position: relative; overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .cepage-card:hover { transform: translateY(-3px); }
+    .cepage-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 20px 20px 0 0; }
+
+    /* couleurs par cépage */
+    .c-pinot-blanc::before { background: linear-gradient(to right, #b8d0e8, transparent); }
+    .c-gewurz::before { background: linear-gradient(to right, #e8c870, transparent); }
+    .c-sauvignon::before { background: linear-gradient(to right, #9abe70, transparent); }
+    .c-pinot-gris::before { background: linear-gradient(to right, #c8b098, transparent); }
+    .c-riesling::before { background: linear-gradient(to right, #98c8b0, transparent); }
+    .c-gruner::before { background: linear-gradient(to right, #88b888, transparent); }
+    .c-lagrein::before { background: linear-gradient(to right, #7a2848, transparent); }
+    .c-schiava::before { background: linear-gradient(to right, #c87898, transparent); }
+    .c-pinot-noir::before { background: linear-gradient(to right, #583060, transparent); }
+
+    .cepage-role { font-size: 0.72rem; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .cepage-card h4 { margin: 0 0 6px; font-size: 1.05rem; }
+    .cepage-aka { font-size: 0.78rem; color: var(--muted); font-style: italic; margin-bottom: 10px; opacity: 0.7; }
+    .cepage-card p { margin: 0 0 10px; font-size: 0.86rem; color: var(--muted); line-height: 1.65; }
+    .cep-zones { display: flex; flex-wrap: wrap; gap: 5px; }
+    .cep-zone { font-size: 0.74rem; padding: 3px 8px; border-radius: 999px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: var(--muted); }
+
+    /* ── FOCUS ── */
+    .focus-box {
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 20px 20px 0;
+      padding: 28px 32px; margin-bottom: 48px;
+    }
+    .focus-box h3 { margin: 0 0 14px; font-size: 1.1rem; color: var(--gold); }
+    .focus-box p { margin: 0 0 12px; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+    .focus-box p:last-child { margin-bottom: 0; }
+
+    /* ── PRODUCTEURS ── */
+    .prod-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 48px; }
+    .prod-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 18px; transition: border-color 0.2s; }
+    .prod-card:hover { border-color: rgba(212,175,55,0.2); }
+    .prod-card .prod-name { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+    .prod-card .prod-appel { font-size: 0.78rem; color: var(--gold); margin-bottom: 8px; }
+    .prod-card .prod-note { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── FOOTER ── */
+    .footer { margin-top: 80px; text-align: center; color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+
+    @media (max-width: 1000px) {
+      .map-vallees-layout { grid-template-columns: 1fr; }
+      .map-wrapper { position: static; }
+      .alt-band { grid-template-columns: 90px 1fr; }
+      .alt-cepages { display: none; }
+    }
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; gap: 32px; }
+      .hero-text h1 { font-size: 2.6rem; }
+    }
+    @media (max-width: 600px) { .nav-container { flex-direction: column; align-items: flex-start; gap: 14px; } }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="Index.html" class="nav-logo">🍷 Ma Cave</a>
+      <div class="nav-links">
+        <a href="Index.html">Accueil</a>
+        <a href="Ma-Cave.html">Ma Cave</a>
+        <a href="millesimes.html">Millésimes</a>
+        <a href="regionsviticoles.html" class="active">Régions</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a href="regionsviticoles.html">Régions viticoles</a>
+    <span class="sep">›</span>
+    <span>Italie</span>
+    <span class="sep">›</span>
+    <span class="current">Alto Adige — Südtirol</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Alto Adige<br><em>Südtirol</em></h1>
+      <p class="subtitle">
+        Aux confins nord de l'Italie, là où les Alpes plongent vers la plaine du Pô,
+        l'Alto Adige est un paradoxe viticole fascinant : la région la plus alpine d'Italie
+        produit ses vins blancs les plus purs et les plus tendus. Sols de porphyre, de calcaire
+        et de gneiss, altitudes vertigineuses de 200 à 1 000 mètres, cépages alpins d'une
+        précision aromatique incomparable.
+      </p>
+      <div class="tag-list">
+        <div class="tag">Pinot Blanc</div>
+        <div class="tag">Gewürztraminer</div>
+        <div class="tag">Sauvignon</div>
+        <div class="tag">Lagrein</div>
+        <div class="tag">Riesling</div>
+        <div class="tag">200–1000 m</div>
+        <div class="tag">Porphyre</div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="label">Superficie</div>
+        <div class="value">≈ 5 500 ha<br><small>la plus petite grande région d'Italie</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Altitude</div>
+        <div class="value">200–1 000 m<br><small>vignes les plus hautes d'Italie</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Langues</div>
+        <div class="value">Italien & Allemand<br><small>région bilingue autonome</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Production</div>
+        <div class="value">70 % blanc<br><small>exporté à 70 %</small></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- FOCUS BILINGUE -->
+    <div class="focus-box">
+      <h3>Alto Adige / Südtirol — Une région entre deux mondes</h3>
+      <p>
+        L'Alto Adige est une région autonome à statut spécial, bilingue et biculturelle.
+        Italienne depuis 1919 après le rattachement post-Première Guerre mondiale, elle était
+        auparavant autrichienne (Tyrol du Sud). La majorité de la population parle allemand
+        au quotidien. Sur les étiquettes, les deux noms coexistent : Alto Adige DOC en italien,
+        Südtirol DOC en allemand. Les cépages portent souvent leurs noms allemands — Weissburgunder
+        (Pinot Blanc), Grauburgunder (Pinot Gris), Blauburgunder (Pinot Noir).
+      </p>
+      <p>
+        Ce double héritage culturel se ressent dans les vins : la rigueur et la précision
+        germaniques au service d'une matière première méditerranéenne — fruit ensoleillé,
+        acidité alpine, minéralité rocheuse. Une combinaison unique au monde.
+      </p>
+    </div>
+
+    <!-- CARTE + VALLÉES -->
+    <h2 class="section-title">Carte des vallées</h2>
+
+    <div class="map-vallees-layout">
+
+      <!-- CARTE VERTICALE -->
+      <div class="map-wrapper">
+        <svg viewBox="0 0 240 680" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">
+          <defs>
+            <pattern id="adigePat" patternUnits="userSpaceOnUse" width="7" height="7">
+              <circle cx="3.5" cy="3.5" r="1.1" fill="rgba(138,173,219,0.3)"/>
+            </pattern>
+            <pattern id="venostaPat" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(60)">
+              <line x1="0" y1="0" x2="0" y2="8" stroke="rgba(154,122,176,0.3)" stroke-width="2"/>
+            </pattern>
+            <pattern id="isarcoPat" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(30)">
+              <line x1="0" y1="0" x2="8" y2="0" stroke="rgba(122,158,126,0.3)" stroke-width="1.5"/>
+            </pattern>
+            <pattern id="oltPat" patternUnits="userSpaceOnUse" width="7" height="7">
+              <rect x="1" y="1" width="3" height="3" rx="1" fill="rgba(192,120,64,0.22)"/>
+            </pattern>
+          </defs>
+
+          <rect width="240" height="680" fill="rgba(255,255,255,0.01)" rx="12"/>
+
+          <!-- Neige / Alpes (haut) -->
+          <path d="M 0 0 L 240 0 L 240 45 Q 195 38 155 42 Q 120 46 80 40 Q 45 34 0 40 Z"
+                fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="0.8"/>
+          <text x="120" y="18" font-size="8.5" fill="rgba(255,255,255,0.2)" text-anchor="middle">⛰ Alpes · Brenner ↑</text>
+
+          <!-- Trentin (bas) -->
+          <path d="M 0 645 L 240 645 L 240 680 L 0 680 Z"
+                fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="0.8"/>
+          <text x="120" y="663" font-size="8.5" fill="rgba(255,255,255,0.2)" text-anchor="middle">↓ Trentin · Vérone</text>
+
+          <!-- ── Val Venosta (extrême nord-ouest) ── -->
+          <rect x="16" y="48" width="90" height="128" rx="8"
+                fill="url(#venostaPat)" stroke="rgba(154,122,176,0.45)" stroke-width="1.2"/>
+          <rect x="20" y="86" width="82" height="52" rx="7"
+                fill="rgba(154,122,176,0.1)" stroke="rgba(154,122,176,0.4)" stroke-width="1"/>
+          <text x="61" y="107" font-size="9" fill="#b090d0" text-anchor="middle" font-weight="700">Val Venosta</text>
+          <text x="61" y="119" font-size="7.5" fill="rgba(154,122,176,0.7)" text-anchor="middle">Vinschgau</text>
+          <text x="61" y="130" font-size="7" fill="rgba(255,255,255,0.3)" text-anchor="middle">600–1000 m</text>
+
+          <!-- ── Val d'Isarco (nord-est) ── -->
+          <rect x="134" y="48" width="90" height="140" rx="8"
+                fill="url(#isarcoPat)" stroke="rgba(122,158,126,0.45)" stroke-width="1.2"/>
+          <rect x="138" y="88" width="82" height="52" rx="7"
+                fill="rgba(122,158,126,0.1)" stroke="rgba(122,158,126,0.4)" stroke-width="1"/>
+          <text x="179" y="109" font-size="9" fill="#7a9e7e" text-anchor="middle" font-weight="700">Val d'Isarco</text>
+          <text x="179" y="121" font-size="7.5" fill="rgba(122,158,126,0.7)" text-anchor="middle">Eisacktal</text>
+          <text x="179" y="132" font-size="7" fill="rgba(255,255,255,0.3)" text-anchor="middle">500–900 m</text>
+
+          <!-- Séparateur montagneux -->
+          <path d="M 105 48 Q 110 68 108 120 Q 106 170 110 190"
+                fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="2" stroke-dasharray="4 3"/>
+
+          <!-- Bolzano (capitale) -->
+          <circle cx="120" cy="218" r="6" fill="rgba(212,175,55,0.5)" stroke="#d4af37" stroke-width="1.5"/>
+          <text x="120" y="210" font-size="9" fill="#d4af37" text-anchor="middle" font-weight="600">Bolzano</text>
+          <text x="120" y="232" font-size="7.5" fill="rgba(212,175,55,0.5)" text-anchor="middle">Bozen</text>
+
+          <!-- ── Vallée de l'Adige centrale ── -->
+          <rect x="16" y="195" width="208" height="245" rx="8"
+                fill="url(#adigePat)" stroke="rgba(138,173,219,0.4)" stroke-width="1.2"/>
+          <rect x="40" y="268" width="160" height="64" rx="9"
+                fill="rgba(138,173,219,0.1)" stroke="rgba(138,173,219,0.4)" stroke-width="1.1"/>
+          <text x="120" y="290" font-size="11" fill="#8aaddb" text-anchor="middle" font-weight="700">Vallée de l'Adige</text>
+          <text x="120" y="305" font-size="8.5" fill="rgba(138,173,219,0.7)" text-anchor="middle">Etschtal · 200–500 m</text>
+          <text x="120" y="318" font-size="7.5" fill="rgba(255,255,255,0.3)" text-anchor="middle">Pinot Blanc · Chardonnay · Lagrein</text>
+
+          <!-- Rivière Adige (axe central) -->
+          <path d="M 112 42 Q 116 120 118 200 Q 120 300 118 400 Q 116 500 120 580 Q 122 620 120 645"
+                fill="none" stroke="rgba(42,95,154,0.4)" stroke-width="5" stroke-linecap="round"/>
+          <path d="M 112 42 Q 116 120 118 200 Q 120 300 118 400 Q 116 500 120 580 Q 122 620 120 645"
+                fill="none" stroke="#2a5f9a" stroke-width="1.5" stroke-linecap="round" opacity="0.4" stroke-dasharray="4 3"/>
+          <text x="135" y="360" font-size="7.5" fill="#4a90c4" opacity="0.6"
+                transform="rotate(90,135,360)">Adige / Etsch</text>
+
+          <!-- ── Oltradige / Lago di Caldaro (sud) ── -->
+          <rect x="16" y="448" width="208" height="145" rx="8"
+                fill="url(#oltPat)" stroke="rgba(192,120,64,0.4)" stroke-width="1.2"/>
+          <rect x="40" y="492" width="160" height="56" rx="9"
+                fill="rgba(192,120,64,0.09)" stroke="rgba(192,120,64,0.38)" stroke-width="1"/>
+          <text x="120" y="514" font-size="10.5" fill="#c07840" text-anchor="middle" font-weight="700">Oltradige · Lago di Caldaro</text>
+          <text x="120" y="528" font-size="8" fill="rgba(192,120,64,0.7)" text-anchor="middle">Überetsch · 200–350 m</text>
+          <text x="120" y="540" font-size="7.5" fill="rgba(255,255,255,0.3)" text-anchor="middle">Schiava · Gewürztraminer · Pinot Noir</text>
+
+          <!-- Caldaro / Lac -->
+          <ellipse cx="85" cy="578" rx="22" ry="14" fill="rgba(42,95,154,0.25)" stroke="rgba(42,95,154,0.3)" stroke-width="1"/>
+          <text x="85" y="601" font-size="7" fill="#4a90c4" text-anchor="middle">Lago di Caldaro</text>
+
+          <!-- Termeno / Tramin -->
+          <circle cx="165" cy="560" r="4" fill="rgba(212,175,55,0.35)" stroke="#d4af37" stroke-width="1"/>
+          <text x="165" y="574" font-size="7.5" fill="#d4af37" text-anchor="middle">Tramin</text>
+
+          <!-- ── LÉGENDE ── -->
+          <rect x="16" y="648" width="10" height="10" rx="2" fill="url(#venostaPat)" stroke="rgba(154,122,176,0.5)" stroke-width="0.8"/>
+          <text x="30" y="657" font-size="7.5" fill="rgba(255,255,255,0.4)">Val Venosta</text>
+          <rect x="100" y="648" width="10" height="10" rx="2" fill="url(#isarcoPat)" stroke="rgba(122,158,126,0.5)" stroke-width="0.8"/>
+          <text x="114" y="657" font-size="7.5" fill="rgba(255,255,255,0.4)">Val d'Isarco</text>
+          <rect x="16" y="662" width="10" height="10" rx="2" fill="url(#adigePat)" stroke="rgba(138,173,219,0.5)" stroke-width="0.8"/>
+          <text x="30" y="671" font-size="7.5" fill="rgba(255,255,255,0.4)">Vallée Adige</text>
+          <rect x="100" y="662" width="10" height="10" rx="2" fill="url(#oltPat)" stroke="rgba(192,120,64,0.5)" stroke-width="0.8"/>
+          <text x="114" y="671" font-size="7.5" fill="rgba(255,255,255,0.4)">Oltradige</text>
+
+          <!-- Compass -->
+          <text x="215" y="56" font-size="11" fill="rgba(255,255,255,0.25)" text-anchor="middle">N</text>
+          <line x1="215" y1="60" x2="215" y2="74" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+          <polygon points="215,60 211,70 215,67 219,70" fill="rgba(255,255,255,0.22)"/>
+        </svg>
+      </div>
+
+      <!-- VALLÉES COLONNE -->
+      <div class="vallees-col">
+
+        <div class="vallee-card venosta">
+          <span class="vallee-badge">Val Venosta · Vinschgau</span>
+          <div class="vallee-header">
+            <h3>Val Venosta</h3>
+            <span class="vallee-alt">600–1 000 m</span>
+          </div>
+          <p class="vallee-sub">La vallée la plus haute et la plus froide · Extrême nord-ouest</p>
+          <p>
+            La vallée la plus spectaculaire de l'Alto Adige, encaissée entre des parois rocheuses vertigineuses
+            à l'extrême nord-ouest de la région. Sous influence continentale alpine — hivers glacials,
+            étés chauds et secs avec une amplitude thermique jour/nuit pouvant dépasser 20°C. Cette
+            amplitude extrême est la clé : les raisins accumulent les sucres le jour et préservent
+            leur acidité la nuit. Sols de porphyre et de gneiss, drainage parfait. Le Riesling,
+            le Pinot Blanc et le Müller-Thurgau y atteignent une pureté et une tension que l'on ne
+            trouve nulle part ailleurs en Italie — une expression quasi rhénane à latitude méditerranéenne.
+          </p>
+          <div class="profil-label">Cépages & profil</div>
+          <div class="profil-tags">
+            <span class="profil-tag">Riesling</span>
+            <span class="profil-tag">Pinot Blanc</span>
+            <span class="profil-tag">Müller-Thurgau</span>
+            <span class="profil-tag">Tension extrême</span>
+            <span class="profil-tag">Acidité vive</span>
+            <span class="profil-tag">Minéralité rocheuse</span>
+          </div>
+        </div>
+
+        <div class="vallee-card isarco">
+          <span class="vallee-badge">Val d'Isarco · Eisacktal</span>
+          <div class="vallee-header">
+            <h3>Val d'Isarco</h3>
+            <span class="vallee-alt">500–900 m</span>
+          </div>
+          <p class="vallee-sub">Les blancs les plus nordiques d'Italie · Nord-est · Bressanone</p>
+          <p>
+            La vallée de l'Isarco serpente au nord-est de Bolzano vers Bressanone et Vipiteno.
+            Sols calcaires et schisteux, exposition est-ouest sur des versants abrupts. C'est ici
+            que le Grüner Veltliner — le cépage autrichien par excellence — trouve son unique
+            expression italienne. Le Sylvaner, le Kerner et le Pinot Gris y produisent des vins
+            d'une fraîcheur et d'une précision aromatique saisissantes. Abbey de Novacella
+            (Abbazia di Novacella), fondée en 1142, est la cave de référence absolue de la vallée.
+          </p>
+          <div class="profil-label">Cépages & profil</div>
+          <div class="profil-tags">
+            <span class="profil-tag">Grüner Veltliner</span>
+            <span class="profil-tag">Sylvaner</span>
+            <span class="profil-tag">Kerner</span>
+            <span class="profil-tag">Pinot Gris</span>
+            <span class="profil-tag">Fraîcheur alpine</span>
+            <span class="profil-tag">Précision</span>
+          </div>
+        </div>
+
+        <div class="vallee-card adige">
+          <span class="vallee-badge">Vallée de l'Adige · Etschtal</span>
+          <div class="vallee-header">
+            <h3>Vallée de l'Adige</h3>
+            <span class="vallee-alt">200–500 m</span>
+          </div>
+          <p class="vallee-sub">Le cœur de la région · Bolzano · Merano</p>
+          <p>
+            La vallée principale, large et ensoleillée, s'étend de Merano à Bolzano et au-delà.
+            C'est le cœur de production de l'Alto Adige — les coopératives y élaborent la grande
+            majorité du volume. Sols de porphyre rouge volcanique autour de Bolzano, donnant au
+            Lagrein et au Pinot Noir une couleur profonde et des tanins veloutés. Le Lagrein est
+            le cépage rouge autochtone unique à cette vallée — à Bolzano, il atteint sa pleine
+            expression. Le Pinot Blanc et le Chardonnay y sont larges et généreux.
+          </p>
+          <div class="profil-label">Cépages & profil</div>
+          <div class="profil-tags">
+            <span class="profil-tag">Lagrein</span>
+            <span class="profil-tag">Pinot Blanc</span>
+            <span class="profil-tag">Chardonnay</span>
+            <span class="profil-tag">Pinot Noir</span>
+            <span class="profil-tag">Porphyre</span>
+            <span class="profil-tag">Généreux</span>
+          </div>
+        </div>
+
+        <div class="vallee-card oltradige">
+          <span class="vallee-badge">Oltradige · Lago di Caldaro · Überetsch</span>
+          <div class="vallee-header">
+            <h3>Oltradige & Lago di Caldaro</h3>
+            <span class="vallee-alt">200–350 m</span>
+          </div>
+          <p class="vallee-sub">La zone la plus chaude · Gewürztraminer · Schiava · Sud</p>
+          <p>
+            Au sud de Bolzano, les collines de l'Oltradige et les rives du Lago di Caldaro sont
+            la zone la plus chaude et la plus méditerranéenne de l'Alto Adige. C'est ici que naît
+            le Gewürztraminer — le cépage tire son nom du village de Tramin (Termeno) juste à côté.
+            La Schiava, rouge léger et fruité très populaire localement (Lago di Caldaro DOC), y
+            est reine. Le Pinot Noir sur ces coteaux exposés sud atteint une maturité fruitée
+            remarquable tout en gardant une acidité alpine.
+          </p>
+          <div class="profil-label">Cépages & profil</div>
+          <div class="profil-tags">
+            <span class="profil-tag">Gewürztraminer</span>
+            <span class="profil-tag">Schiava</span>
+            <span class="profil-tag">Pinot Noir</span>
+            <span class="profil-tag">Chaleur mérid.</span>
+            <span class="profil-tag">Floral intense</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ALTITUDE COMME TERROIR -->
+    <h2 class="section-title">L'altitude comme terroir</h2>
+
+    <p class="altitude-intro">
+      En Alto Adige, chaque tranche d'altitude définit un style de vin. L'amplitude thermique
+      — différence entre température jour et nuit — augmente avec l'altitude, permettant aux
+      raisins de mûrir leurs sucres le jour tout en préservant leur acidité la nuit.
+      À 1 000 mètres, on produit les blancs les plus tendus d'Italie. À 200 mètres, des rouges
+      mûrs et généreux.
+    </p>
+
+    <div class="altitude-bands">
+      <div class="alt-band a1">
+        <div class="alt-metres">700–1 000 m</div>
+        <div class="alt-desc">
+          <strong>Altitude extrême — Tension maximale</strong>
+          Val Venosta et sommets du Val d'Isarco. Amplitude thermique 20–25°C. Vendanges tardives
+          (octobre–novembre). Les blancs les plus acides et les plus minéraux d'Italie.
+        </div>
+        <div class="alt-cepages">Riesling · Müller-Thurgau · Grüner Veltliner</div>
+      </div>
+      <div class="alt-band a2">
+        <div class="alt-metres">500–700 m</div>
+        <div class="alt-desc">
+          <strong>Haute altitude — Équilibre parfait</strong>
+          Val d'Isarco central, hauts de Val Venosta. Amplitude 15–20°C. La zone idéale pour
+          les grands blancs : Sylvaner, Kerner, Pinot Gris de montagne. Fraîcheur et maturité réunies.
+        </div>
+        <div class="alt-cepages">Sylvaner · Kerner · Pinot Gris · Pinot Blanc</div>
+      </div>
+      <div class="alt-band a3">
+        <div class="alt-metres">300–500 m</div>
+        <div class="alt-desc">
+          <strong>Altitude classique — Diversité maximale</strong>
+          Vallée principale de l'Adige, versants de Merano. La zone la plus productive.
+          Pinot Blanc, Chardonnay, Sauvignon à leur meilleur équilibre fruité-minéral.
+        </div>
+        <div class="alt-cepages">Pinot Blanc · Chardonnay · Sauvignon · Lagrein</div>
+      </div>
+      <div class="alt-band a4">
+        <div class="alt-metres">200–300 m</div>
+        <div class="alt-desc">
+          <strong>Altitude basse — Maturité et rondeur</strong>
+          Fond de vallée, Oltradige, Lago di Caldaro. Plus chaud, plus méditerranéen.
+          Gewürztraminer opulent, Schiava légère et fruitée, Pinot Noir généreux.
+        </div>
+        <div class="alt-cepages">Gewürztraminer · Schiava · Pinot Noir</div>
+      </div>
+      <div class="alt-band a5">
+        <div class="alt-metres">< 200 m</div>
+        <div class="alt-desc">
+          <strong>Plaine — Influence du Trentin</strong>
+          Zone de transition vers le Trentin. Production de volume, vins plus accessibles.
+          Perd progressivement le caractère alpin distinctif.
+        </div>
+        <div class="alt-cepages">Pinot Grigio · Chardonnay courant</div>
+      </div>
+    </div>
+
+    <!-- CÉPAGES -->
+    <h2 class="section-title">Les cépages de l'Alto Adige</h2>
+
+    <div class="cepages-grid">
+
+      <div class="cepage-card c-pinot-blanc">
+        <div class="cepage-role">Blanc — Vallée principale</div>
+        <h4>Pinot Blanc</h4>
+        <p class="cepage-aka">Weissburgunder</p>
+        <p>Le cépage blanc le plus planté de la région. Sur porphyre et calcaire, il produit des vins nets, précis, avec une texture crémeuse et une acidité rafraîchissante. Notes de pomme verte, d'amande et de fleurs blanches. La signature blanche de l'Alto Adige — celle que l'on retrouve dans presque chaque domaine.</p>
+        <div class="cep-zones">
+          <span class="cep-zone">Vallée Adige</span><span class="cep-zone">Val d'Isarco</span>
+        </div>
+      </div>
+
+      <div class="cepage-card c-gewurz">
+        <div class="cepage-role">Blanc — Oltradige · Tramin</div>
+        <h4>Gewürztraminer</h4>
+        <p class="cepage-aka">Traminer Aromatico — né à Tramin/Termeno</p>
+        <p>Le cépage le plus aromatique du monde est né ici, dans le village de Tramin (Termeno). Rose, litchi, épices orientales, pétales de géranium — un profil explosif. En Alto Adige il garde une acidité et une tension qui tempèrent son exubérance naturelle. Elena Walch à Tramin en est la référence mondiale.</p>
+        <div class="cep-zones">
+          <span class="cep-zone">Oltradige</span><span class="cep-zone">Tramin</span>
+        </div>
+      </div>
+
+      <div class="cepage-card c-sauvignon">
+        <div class="cepage-role">Blanc — Altitude moyenne</div>
+        <h4>Sauvignon Blanc</h4>
+        <p class="cepage-aka">Sauvignon — dit « Sauvignon alpin »</p>
+        <p>Le Sauvignon en Alto Adige est d'un style radicalement différent de la Loire ou de la Nouvelle-Zélande — moins herbacé, plus minéral, plus tendu. L'altitude et le porphyre lui confèrent une précision aromatique (agrumes, poivron blanc, pierre à fusil) et une acidité qui en font l'un des grands Sauvignon italiens.</p>
+        <div class="cep-zones">
+          <span class="cep-zone">Terlano</span><span class="cep-zone">Vallée Adige</span>
+        </div>
+      </div>
+
+      <div class="cepage-card c-riesling">
+        <div class="cepage-role">Blanc — Val Venosta</div>
+        <h4>Riesling</h4>
+        <p class="cepage-aka">Riesling Renano · Rheinriesling</p>
+        <p>En Val Venosta à 700–900 mètres, le Riesling atteint une tension et une minéralité quasi mosellanes. Notes de citron, de pétrole discret, de roche mouillée. Acidité mordante qui le destine à une garde de 10 à 20 ans. Produit en quantités très limitées — quelques producteurs seulement s'y consacrent vraiment.</p>
+        <div class="cep-zones">
+          <span class="cep-zone">Val Venosta</span>
+        </div>
+      </div>
+
+      <div class="cepage-card c-gruner">
+        <div class="cepage-role">Blanc — Val d'Isarco</div>
+        <h4>Grüner Veltliner</h4>
+        <p class="cepage-aka">Veltliner Verde — unique en Italie</p>
+        <p>Le cépage national autrichien trouve son unique expression italienne dans le Val d'Isarco. Poivre blanc caractéristique, agrumes, herbes alpines, minéralité calcaire. Un vin qui semble venir d'Autriche mais avec ce fond minéral uniquement altoatesino. Abbazia di Novacella en est le producteur de référence.</p>
+        <div class="cep-zones">
+          <span class="cep-zone">Val d'Isarco uniquement</span>
+        </div>
+      </div>
+
+      <div class="cepage-card c-pinot-gris">
+        <div class="cepage-role">Blanc — Polyvalent</div>
+        <h4>Pinot Gris</h4>
+        <p class="cepage-aka">Grauburgunder · Pinot Grigio en plaine</p>
+        <p>En Alto Adige il est vinifié en style sérieux — rien à voir avec le Pinot Grigio industriel du nord-est. Sur les versants du Val d'Isarco et de l'Oltradige, il produit des vins amples, avec de la texture, des notes de poire mûre, de miel léger et d'épices douces. Garde 5 à 10 ans facilement.</p>
+        <div class="cep-zones">
+          <span class="cep-zone">Val d'Isarco</span><span class="cep-zone">Oltradige</span>
+        </div>
+      </div>
+
+      <div class="cepage-card c-lagrein">
+        <div class="cepage-role">Rouge autochtone — Bolzano</div>
+        <h4>Lagrein</h4>
+        <p class="cepage-aka">Cépage unique à l'Alto Adige</p>
+        <p>Le cépage rouge identitaire de l'Alto Adige, cultivé exclusivement à Bolzano sur les sols de porphyre rouge. Couleur opaque presque noire, tanins veloutés, acidité vive — myrtille, mûre, cacao, violette. Le Lagrein Dunkel (rouge) peut vieillir 10 à 15 ans. Le Lagrein Kretzer (rosé) est léger et très fruité.</p>
+        <div class="cep-zones">
+          <span class="cep-zone">Bolzano uniquement</span><span class="cep-zone">Porphyre</span>
+        </div>
+      </div>
+
+      <div class="cepage-card c-schiava">
+        <div class="cepage-role">Rouge léger — Lago di Caldaro</div>
+        <h4>Schiava</h4>
+        <p class="cepage-aka">Vernatsch — le rouge local</p>
+        <p>Le rouge traditionnel de l'Alto Adige, léger, fruité, peu tannique — une sorte de Beaujolais alpin. Servi frais, il accompagne la cuisine tyrolienne (speck, knödel) avec une aisance remarquable. Le Lago di Caldaro DOC est son appellation phare. Style de plaisir quotidien, à boire jeune.</p>
+        <div class="cep-zones">
+          <span class="cep-zone">Lago di Caldaro</span><span class="cep-zone">Oltradige</span>
+        </div>
+      </div>
+
+      <div class="cepage-card c-pinot-noir">
+        <div class="cepage-role">Rouge — Versants ensoleillés</div>
+        <h4>Pinot Noir</h4>
+        <p class="cepage-aka">Blauburgunder — Pinot Nero</p>
+        <p>L'Alto Adige produit certains des meilleurs Pinot Noir d'Italie — plus fruités que la Bourgogne, mais avec une acidité alpine qui leur donne une fraîcheur remarquable. Les meilleurs viennent des versants sud-ouest entre 350 et 600 mètres. Style entre Bourgogne et Nouveau Monde, très gastronomique.</p>
+        <div class="cep-zones">
+          <span class="cep-zone">Oltradige</span><span class="cep-zone">Mazzon</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PRODUCTEURS -->
+    <h2 class="section-title">Producteurs de référence</h2>
+
+    <div class="prod-grid">
+      <div class="prod-card">
+        <div class="prod-name">Cantina Terlano</div>
+        <div class="prod-appel">Vallée Adige · Terlano</div>
+        <div class="prod-note">Coopérative d'exception. Nova Domus (Pinot Blanc) et Sauvignon Quarz, parmi les plus grands blancs d'Italie. Élevages longs.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Abbazia di Novacella</div>
+        <div class="prod-appel">Val d'Isarco · Varna</div>
+        <div class="prod-note">Abbaye cistercienne fondée en 1142. Praepositus (Grüner Veltliner, Sylvaner), les références du Val d'Isarco.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Elena Walch</div>
+        <div class="prod-appel">Oltradige · Tramin</div>
+        <div class="prod-note">La référence mondiale du Gewürztraminer. Kastelaz, cru mythique de Tramin. Style élégant et précis.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Alois Lageder</div>
+        <div class="prod-appel">Vallée Adige · Magrè</div>
+        <div class="prod-note">Domaine biodynamique pionnier. Löwengang (Chardonnay et Cabernet), cuvées de référence depuis les années 1990.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Cantina Girlan</div>
+        <div class="prod-appel">Oltradige</div>
+        <div class="prod-note">Coopérative de qualité. Meilleure expression de la Schiava et du Pinot Noir de l'Oltradige. Excellent rapport qualité-prix.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-name">Unterortl · Castel Juval</div>
+        <div class="prod-appel">Val Venosta</div>
+        <div class="prod-note">Reinhold Messner (l'alpiniste) possède ce domaine exceptionnel en Val Venosta. Riesling et Pinot Blanc à 700 m.</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Cette page évoluera avec la cave.<br>
+      Chaque nouvelle bouteille peut enrichir la compréhension d'une région, d'un terroir ou d'un style de vin.
+    </div>
+
+  </div>
+</body>
+</html>
