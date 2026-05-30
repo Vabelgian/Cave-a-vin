@@ -502,5 +502,33 @@
       "accords": "Viande rouge, plats italiens typiques (ragù), fromages affinés et puissants"
     },
     "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+  },
+  {
+    "id": 19,
+    "nom": "Vinhas de Xisto Tinto Reserva 2022",
+    "photo": "images/Blueonice.png",
+    "couleur": "rouge",
+    "pays": "Portugal",
+    "region": "Douro",
+    "cepage": "Touriga Nacional, Touriga Franca, Tinta Roriz",
+    "style": "Puissant, solaire, fût de chêne",
+    "statut": "cave",
+    "stock": 4,
+    "profil": "à complèter.",
+    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "degustation": {
+      "couleur": "Rouge rubis",
+      "nez": "Mûre, cassis, prune, épices douces, boisé fondu",
+      "bouche": "attaque souple avec du volume, tannins présents mais assoupli, évolution aromatique importante"
+    },
+    "technique": {
+      "vinification": "élevage en fût de chêne (6 à 12 mois), ce qui ajoute de la complexité",
+      "classification": "A complèter",
+      "garde": "5–10 ans",
+      "carafage": "1h, évolution dans le verre recommandée",
+      "temperature": "16–18°C",
+      "accords": "Viande rouge, plats méditérannéen, fromages affinés et puissants"
+    },
+    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
   }
 ]
