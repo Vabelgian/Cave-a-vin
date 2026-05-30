@@ -122,6 +122,11 @@
       <span class="filter-label">Année</span>
       <button class="filter-btn active" data-filter="annee" data-value="tous" onclick="setFilter('annee','tous',this)">Toutes</button>
     </div>
+    <div class="filter-sep"></div>
+    <div class="filter-group" id="location-filters">
+      <span class="filter-label">Lieu</span>
+      <button class="filter-btn active" data-filter="lieu_achat" data-value="tous" onclick="setFilter('lieu_achat','tous',this)">Tous</button>
+    </div>
     <button class="filter-reset" onclick="resetFilters()">✕ Réinitialiser</button>
   </div>
 </div>
@@ -151,7 +156,7 @@ var SVG_CHECK    = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" 
 
 var BADGE_ICONS = { info: SVG_INFO, garde: SVG_GARDE, check: SVG_CHECK };
 var VINS = []; // Sera rempli par le JSON
-var filters = { couleur: "tous", annee: "tous" };
+var filters = { couleur: "tous", annee: "tous", lieu_achat: "tous" };
 
 function buildTags(tags) {
   if (!tags || !tags.length) return "";
@@ -184,7 +189,7 @@ function buildDegustCard(vin) {
     + buildTags(vin.tags_ouverture)
     + '</div>';
 
-  return '<div class="card" data-couleur="' + (vin.couleur || "") + '" data-annee="' + vin.annee_degustation + '">'
+  return '<div class="card" data-couleur="' + (vin.couleur || "") + '" data-annee="' + vin.annee_degustation + '" data-lieu="' + (vin.lieu_achat || "non_renseigne") + '">'
     + '<div class="card-header">'
     + '<div class="card-top-row"><div>'
     + '<div class="card-title">' + vin.titre + '</div>'
@@ -202,7 +207,7 @@ function buildDegustCard(vin) {
 
 // Génération carte PLANIFICATION
 function buildPlanningCard(vin) {
-  return '<div class="card" data-couleur="' + (vin.couleur || "") + '" data-annee="' + vin.annee_affichage + '">'
+  return '<div class="card" data-couleur="' + (vin.couleur || "") + '" data-annee="' + vin.annee_affichage + '" data-lieu="' + (vin.lieu_achat || "non_renseigne") + '">'
     + '<div class="card-header">'
     + '<div class="card-top-row"><div>'
     + '<div class="card-title">' + vin.titre + '</div>'
@@ -220,7 +225,6 @@ function renderPanel(statut, containerId) {
   var byYear = {};
 
   vins.forEach(function(v) {
-    // Clé de tri : annee_degustation pour le passé, annee_affichage pour le futur
     var anneClé = (statut === "degust") ? v.annee_degustation : v.annee_affichage;
     if (!byYear[anneClé]) byYear[anneClé] = [];
     byYear[anneClé].push(v);
@@ -250,7 +254,6 @@ function buildYearFilters() {
   years.sort(function(a, b) { return a - b; });
   var container = document.getElementById("year-filters");
   
-  // Nettoyer les filtres d'années précédents s'il y en a
   container.innerHTML = '<span class="filter-label">Année</span><button class="filter-btn active" data-filter="annee" data-value="tous" onclick="setFilter(\'annee\',\'tous\',this)">Toutes</button>';
   
   years.forEach(function(y) {
@@ -260,6 +263,31 @@ function buildYearFilters() {
     btn.setAttribute("data-value", y);
     btn.textContent = y;
     btn.onclick = function() { setFilter("annee", y, btn); };
+    container.appendChild(btn);
+  });
+}
+
+// CONFIGURATION DU FILTRE DYNAMIQUE DU LIEU D'ACHAT
+function buildLocationFilters() {
+  var locations = [];
+  VINS.forEach(function(v) {
+    if (v.lieu_achat && locations.indexOf(v.lieu_achat) === -1) {
+      locations.push(v.lieu_achat);
+    }
+  });
+  locations.sort();
+  var container = document.getElementById("location-filters");
+  
+  container.innerHTML = '<span class="filter-label">Lieu</span><button class="filter-btn active" data-filter="lieu_achat" data-value="tous" onclick="setFilter(\'lieu_achat\',\'tous\',this)">Tous</button>';
+  
+  locations.forEach(function(loc) {
+    var btn = document.createElement("button");
+    btn.className = "filter-btn";
+    btn.setAttribute("data-filter", "lieu_achat");
+    btn.setAttribute("data-value", loc);
+    // Première lettre en majuscule pour un joli rendu
+    btn.textContent = loc.charAt(0).toUpperCase() + loc.slice(1);
+    btn.onclick = function() { setFilter("lieu_achat", loc, btn); };
     container.appendChild(btn);
   });
 }
@@ -276,9 +304,11 @@ function applyFilters() {
     var panel = document.getElementById(panelId);
     var anyVisible = false;
     panel.querySelectorAll(".card").forEach(function(card) {
-      var matchCouleur = filters.couleur === "tous" || card.getAttribute("data-couleur") === filters.couleur;
-      var matchAnnee   = filters.annee   === "tous" || card.getAttribute("data-annee")   === String(filters.annee);
-      var visible = matchCouleur && matchAnnee;
+      var matchCouleur  = filters.couleur === "tous" || card.getAttribute("data-couleur") === filters.couleur;
+      var matchAnnee    = filters.annee   === "tous" || card.getAttribute("data-annee")   === String(filters.annee);
+      var matchLocation = filters.lieu_achat === "tous" || card.getAttribute("data-lieu") === filters.lieu_achat;
+      
+      var visible = matchCouleur && matchAnnee && matchLocation;
       card.classList.toggle("hidden", !visible);
       if (visible) anyVisible = true;
     });
@@ -297,6 +327,7 @@ function applyFilters() {
 function resetFilters() {
   filters.couleur = "tous";
   filters.annee   = "tous";
+  filters.lieu_achat = "tous";
   document.querySelectorAll(".filter-btn").forEach(function(b) {
     b.classList.toggle("active", b.getAttribute("data-value") === "tous");
   });
@@ -324,10 +355,10 @@ fetch('degustations.json')
   })
   .then(function(data) {
     VINS = data;
-    // Initialisation du rendu une fois les données reçues
     renderPanel("degust", "degust");
     renderPanel("planification", "planning");
     buildYearFilters();
+    buildLocationFilters(); // Génération dynamique des boutons de lieux
     applyFilters();
   })
   .catch(function(error) {
