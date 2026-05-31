@@ -91,9 +91,71 @@
     .no-result { display: none; text-align: center; padding: 60px 20px; color: var(--hint); }
     .no-result p { font-family: "Cormorant Garamond", serif; font-size: 1.2rem; font-weight: 300; font-style: italic; }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    /* Collapsible filter toggle button (mobile only) */
+    .filters-toggle-btn {
+      display: none;
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 11px 16px;
+      color: rgba(244,241,236,0.75);
+      font-family: "Jost", sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .filters-toggle-btn .toggle-label { display: flex; align-items: center; gap: 8px; }
+    .filters-toggle-btn .active-hint {
+      font-size: 10px; letter-spacing: .06em; color: var(--gold);
+      background: var(--gold-dim); border: 1px solid rgba(201,168,76,0.25);
+      padding: 2px 8px; border-radius: 999px;
+    }
+    .filters-toggle-btn .toggle-chevron { width: 14px; height: 14px; transition: transform .25s; opacity: .5; }
+    .filters-toggle-btn.open .toggle-chevron { transform: rotate(180deg); }
+    .filters-collapsible { transition: max-height .3s cubic-bezier(.4,0,.2,1), opacity .3s; overflow: hidden; }
+
     @media (max-width: 600px) {
-      .nav { padding: 0 16px; } .filters-bar { padding: 12px 16px; top: 53px; }
-      .container { padding: 32px 16px 80px; } .filters-inner { gap: 10px; } .nav-brand { display: none; }
+      .nav { padding: 0 16px; }
+      .nav-brand { display: none; }
+      .container { padding: 32px 16px 80px; }
+
+      /* Sticky bar stays but compact */
+      .filters-bar { padding: 0 0; top: 53px; }
+
+      /* Show toggle button */
+      .filters-toggle-btn { display: flex; }
+
+      /* Collapsible content */
+      .filters-collapsible { max-height: 0; opacity: 0; }
+      .filters-collapsible.open { max-height: 400px; opacity: 1; }
+
+      /* Stack filter groups vertically */
+      .filters-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 16px 14px;
+      }
+
+      /* Each filter group on its own row, buttons wrap */
+      .filter-group {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 5px;
+        width: 100%;
+      }
+
+      /* Hide separators on mobile */
+      .filter-sep { display: none; }
+
+      /* Reset button on its own row */
+      .filter-reset { margin-left: 0; padding: 5px 0; }
     }
   </style>
 </head>
@@ -110,6 +172,15 @@
 </nav>
 
 <div class="filters-bar">
+  <button class="filters-toggle-btn" id="filters-toggle-btn" onclick="toggleFiltersBar(this)" aria-expanded="false">
+    <span class="toggle-label">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+      Filtres
+      <span class="active-hint" id="filters-active-hint" style="display:none">actifs</span>
+    </span>
+    <svg class="toggle-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="filters-collapsible" id="filters-collapsible">
   <div class="filters-inner">
     <div class="filter-group">
       <span class="filter-label">Couleur</span>
@@ -129,6 +200,7 @@
     </div>
     <button class="filter-reset" onclick="resetFilters()">✕ Réinitialiser</button>
   </div>
+  </div><!-- /filters-collapsible -->
 </div>
 
 <div class="container">
@@ -292,10 +364,35 @@ function buildLocationFilters() {
   });
 }
 
+function toggleFiltersBar(btn) {
+  var collapsible = document.getElementById("filters-collapsible");
+  var open = collapsible.classList.toggle("open");
+  btn.classList.toggle("open", open);
+  btn.setAttribute("aria-expanded", open);
+}
+
+function updateFiltersHint() {
+  var hint = document.getElementById("filters-active-hint");
+  if (!hint) return;
+  var active = filters.couleur !== "tous" || filters.annee !== "tous" || filters.lieu_achat !== "tous";
+  hint.style.display = active ? "inline" : "none";
+}
+
+function closeFiltersOnMobile() {
+  if (window.innerWidth <= 600) {
+    var collapsible = document.getElementById("filters-collapsible");
+    var btn = document.getElementById("filters-toggle-btn");
+    if (collapsible) collapsible.classList.remove("open");
+    if (btn) { btn.classList.remove("open"); btn.setAttribute("aria-expanded", false); }
+  }
+}
+
 function setFilter(type, value, btn) {
   filters[type] = value;
   document.querySelectorAll("[data-filter=" + type + "]").forEach(function(b) { b.classList.remove("active"); });
   btn.classList.add("active");
+  updateFiltersHint();
+  closeFiltersOnMobile();
   applyFilters();
 }
 
@@ -331,6 +428,7 @@ function resetFilters() {
   document.querySelectorAll(".filter-btn").forEach(function(b) {
     b.classList.toggle("active", b.getAttribute("data-value") === "tous");
   });
+  updateFiltersHint();
   applyFilters();
 }
 
