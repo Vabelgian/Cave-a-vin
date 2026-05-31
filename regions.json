@@ -14,20 +14,58 @@
       "Garde": "Longue à très longue"
     },
     "focus": "La Bourgogne a élevé la notion de terroir à son paroxysme : un même cépage, cultivé à quelques mètres de distance, peut donner des vins radicalement différents.",
-    "tags": ["Terroir", "Climat", "Pinot Noir", "Élégance"],
+    "tags": [
+      "Terroir",
+      "Climat",
+      "Pinot Noir",
+      "Élégance"
+    ],
     "sous_regions": [
-      { "nom": "Chablis", "description": "Blancs purs et minéraux, calcaire kimméridgien" },
-      { "nom": "Côte de Nuits", "description": "Grands Crus de Pinot Noir, Gevrey, Chambolle, Vosne" },
-      { "nom": "Côte de Beaune", "description": "Meursault, Puligny, Chassagne — grands Chardonnays" },
-      { "nom": "Côte Chalonnaise", "description": "Mercurey, Givry — rapport qualité-prix" },
-      { "nom": "Mâconnais", "description": "Pouilly-Fuissé, blancs accessibles" }
+      {
+        "nom": "Chablis",
+        "description": "Blancs purs et minéraux, calcaire kimméridgien"
+      },
+      {
+        "nom": "Côte de Nuits",
+        "description": "Grands Crus de Pinot Noir, Gevrey, Chambolle, Vosne"
+      },
+      {
+        "nom": "Côte de Beaune",
+        "description": "Meursault, Puligny, Chassagne — grands Chardonnays"
+      },
+      {
+        "nom": "Côte Chalonnaise",
+        "description": "Mercurey, Givry — rapport qualité-prix"
+      },
+      {
+        "nom": "Mâconnais",
+        "description": "Pouilly-Fuissé, blancs accessibles"
+      }
     ],
     "producteurs": [
-      { "nom": "Domaine de la Romanée-Conti", "zone": "Vosne-Romanée", "note": "Le domaine mythique. DRC, La Tâche, Richebourg — sommets absolus du Pinot Noir mondial." },
-      { "nom": "Domaine Leflaive", "zone": "Puligny-Montrachet", "note": "La référence des blancs de Bourgogne. Biodynamie, Chevalier-Montrachet d'anthologie." },
-      { "nom": "Domaine Rousseau", "zone": "Gevrey-Chambolle", "note": "Le grand nom de Gevrey. Chambertin et Clos de Bèze, gardiens du style classique." },
-      { "nom": "Domaine Dujac", "zone": "Morey-Saint-Denis", "note": "Style élégant, pinot délicat. Clos de la Roche exceptionnel." }
-    ]
+      {
+        "nom": "Domaine de la Romanée-Conti",
+        "zone": "Vosne-Romanée",
+        "note": "Le domaine mythique. DRC, La Tâche, Richebourg — sommets absolus du Pinot Noir mondial."
+      },
+      {
+        "nom": "Domaine Leflaive",
+        "zone": "Puligny-Montrachet",
+        "note": "La référence des blancs de Bourgogne. Biodynamie, Chevalier-Montrachet d'anthologie."
+      },
+      {
+        "nom": "Domaine Rousseau",
+        "zone": "Gevrey-Chambolle",
+        "note": "Le grand nom de Gevrey. Chambertin et Clos de Bèze, gardiens du style classique."
+      },
+      {
+        "nom": "Domaine Dujac",
+        "zone": "Morey-Saint-Denis",
+        "note": "Style élégant, pinot délicat. Clos de la Roche exceptionnel."
+      }
+    ],
+    "lien": "bourgogne.html",
+    "lien_label": "Explorer la région"
   },
   {
     "id": 2,
@@ -44,19 +82,54 @@
       "Garde": "Moyenne à longue"
     },
     "focus": "Les meilleurs Chablis évoluent énormément dans le verre. Ils gagnent en texture et en complexité tout en gardant une fraîcheur remarquable.",
-    "tags": ["Kimméridgien", "Minéralité", "Finesse", "Tension"],
+    "tags": [
+      "Kimméridgien",
+      "Minéralité",
+      "Finesse",
+      "Tension"
+    ],
     "sous_regions": [
-      { "nom": "Petit Chablis", "description": "Entrée de gamme, sols kimméridgiens en périphérie" },
-      { "nom": "Chablis", "description": "L'appellation centrale, tension et salinité caractéristiques" },
-      { "nom": "Premier Cru", "description": "Fourchaume, Montée de Tonnerre, Vaillons — 40 lieux-dits" },
-      { "nom": "Grand Cru", "description": "7 Grands Crus sur la rive droite du Serein, meilleure exposition" }
+      {
+        "nom": "Petit Chablis",
+        "description": "Entrée de gamme, sols kimméridgiens en périphérie"
+      },
+      {
+        "nom": "Chablis",
+        "description": "L'appellation centrale, tension et salinité caractéristiques"
+      },
+      {
+        "nom": "Premier Cru",
+        "description": "Fourchaume, Montée de Tonnerre, Vaillons — 40 lieux-dits"
+      },
+      {
+        "nom": "Grand Cru",
+        "description": "7 Grands Crus sur la rive droite du Serein, meilleure exposition"
+      }
     ],
     "producteurs": [
-      { "nom": "Domaine Raveneau", "zone": "Chablis · Grands Crus", "note": "La référence absolue. Montée de Tonnerre et Valmur d'une tension et d'une complexité uniques." },
-      { "nom": "Domaine Dauvissat", "zone": "Chablis · Grands Crus", "note": "Vincent Dauvissat, style classique et profond. Les Clos et Les Preuses, vins de légende." },
-      { "nom": "Domaine du Colombier", "zone": "Fourchaume · Vaillons", "note": "Fourchaume 1er Cru de référence. Excellent rapport qualité-prix sur toute la gamme." },
-      { "nom": "William Fèvre", "zone": "Grands Crus · Premiers Crus", "note": "Domaine de référence pour les Grands Crus. Bougros Côte de Bouguerots, parmi les plus grands." }
-    ]
+      {
+        "nom": "Domaine Raveneau",
+        "zone": "Chablis · Grands Crus",
+        "note": "La référence absolue. Montée de Tonnerre et Valmur d'une tension et d'une complexité uniques."
+      },
+      {
+        "nom": "Domaine Dauvissat",
+        "zone": "Chablis · Grands Crus",
+        "note": "Vincent Dauvissat, style classique et profond. Les Clos et Les Preuses, vins de légende."
+      },
+      {
+        "nom": "Domaine du Colombier",
+        "zone": "Fourchaume · Vaillons",
+        "note": "Fourchaume 1er Cru de référence. Excellent rapport qualité-prix sur toute la gamme."
+      },
+      {
+        "nom": "William Fèvre",
+        "zone": "Grands Crus · Premiers Crus",
+        "note": "Domaine de référence pour les Grands Crus. Bougros Côte de Bouguerots, parmi les plus grands."
+      }
+    ],
+    "lien": "chablis.html",
+    "lien_label": "Explorer les climats"
   },
   {
     "id": 3,
@@ -73,19 +146,53 @@
       "Atmosphère": "Fraîcheur & finesse"
     },
     "focus": "Les grands vins de Loire gagnent en précision et en profondeur avec le temps. Leur fraîcheur naturelle laisse progressivement place à des arômes plus complexes et salins.",
-    "tags": ["Énergie", "Fraîcheur", "Blancs tendus"],
+    "tags": [
+      "Énergie",
+      "Fraîcheur",
+      "Blancs tendus"
+    ],
     "sous_regions": [
-      { "nom": "Pays Nantais", "description": "Muscadet, Melon de Bourgogne sur lies — acidité et iode" },
-      { "nom": "Anjou-Saumur", "description": "Chenin Blanc sec à liquoreux, Cabernet Franc de Saumur" },
-      { "nom": "Touraine", "description": "Chinon, Vouvray, Bourgueil — Cab Franc et Chenin" },
-      { "nom": "Centre-Loire", "description": "Sancerre, Pouilly-Fumé — Sauvignon Blanc de référence" }
+      {
+        "nom": "Pays Nantais",
+        "description": "Muscadet, Melon de Bourgogne sur lies — acidité et iode"
+      },
+      {
+        "nom": "Anjou-Saumur",
+        "description": "Chenin Blanc sec à liquoreux, Cabernet Franc de Saumur"
+      },
+      {
+        "nom": "Touraine",
+        "description": "Chinon, Vouvray, Bourgueil — Cab Franc et Chenin"
+      },
+      {
+        "nom": "Centre-Loire",
+        "description": "Sancerre, Pouilly-Fumé — Sauvignon Blanc de référence"
+      }
     ],
     "producteurs": [
-      { "nom": "Domaine Henri Bourgeois", "zone": "Sancerre", "note": "Cuvées parcellaires sur les trois terroirs de Sancerre. La Bourgeoise, incontournable." },
-      { "nom": "Huet", "zone": "Vouvray", "note": "La maison de référence absolue à Vouvray. Trois clos, trois styles. Vins de légende." },
-      { "nom": "Clos Rougeard", "zone": "Saumur-Champigny", "note": "Le producteur culte de l'appellation. Les Poyeux et Le Bourg, vins iconiques." },
-      { "nom": "Charles Joguet", "zone": "Chinon", "note": "La référence historique de Chinon. Clos de la Dioterie, vin mythique." }
-    ]
+      {
+        "nom": "Domaine Henri Bourgeois",
+        "zone": "Sancerre",
+        "note": "Cuvées parcellaires sur les trois terroirs de Sancerre. La Bourgeoise, incontournable."
+      },
+      {
+        "nom": "Huet",
+        "zone": "Vouvray",
+        "note": "La maison de référence absolue à Vouvray. Trois clos, trois styles. Vins de légende."
+      },
+      {
+        "nom": "Clos Rougeard",
+        "zone": "Saumur-Champigny",
+        "note": "Le producteur culte de l'appellation. Les Poyeux et Le Bourg, vins iconiques."
+      },
+      {
+        "nom": "Charles Joguet",
+        "zone": "Chinon",
+        "note": "La référence historique de Chinon. Clos de la Dioterie, vin mythique."
+      }
+    ],
+    "lien": "loire.html",
+    "lien_label": "Explorer la région"
   },
   {
     "id": 4,
@@ -102,19 +209,53 @@
       "Potentiel": "Très longue garde"
     },
     "focus": "Les vins du Piémont évoluent lentement mais de manière spectaculaire. Avec les années, la structure tannique s'assouplit et laisse apparaître une aromatique très fine et nuancée.",
-    "tags": ["Puissant", "Longue Garde", "Précision"],
+    "tags": [
+      "Puissant",
+      "Longue Garde",
+      "Précision"
+    ],
     "sous_regions": [
-      { "nom": "Barolo", "description": "Le roi du Piémont — 11 communes, Serralunga, La Morra, Castiglione" },
-      { "nom": "Barbaresco", "description": "Style plus féminin — Neive, Treiso, Barbaresco village" },
-      { "nom": "Barbera d'Asti", "description": "Acidité vive, fruit généreux, garde intermédiaire" },
-      { "nom": "Moscato d'Asti", "description": "Effervescent doux délicat, faible alcool" }
+      {
+        "nom": "Barolo",
+        "description": "Le roi du Piémont — 11 communes, Serralunga, La Morra, Castiglione"
+      },
+      {
+        "nom": "Barbaresco",
+        "description": "Style plus féminin — Neive, Treiso, Barbaresco village"
+      },
+      {
+        "nom": "Barbera d'Asti",
+        "description": "Acidité vive, fruit généreux, garde intermédiaire"
+      },
+      {
+        "nom": "Moscato d'Asti",
+        "description": "Effervescent doux délicat, faible alcool"
+      }
     ],
     "producteurs": [
-      { "nom": "Bartolo Mascarello", "zone": "Barolo · Castiglione Falletto", "note": "Gardien du style traditionnel. Barolo d'assemblage, foudres de Slavonie. Vins de 20 à 40 ans." },
-      { "nom": "Bruno Giacosa", "zone": "Barbaresco · Barolo", "note": "L'un des plus grands vinificateurs d'Italie. Barbaresco Santo Stefano, mythique." },
-      { "nom": "Giacomo Conterno", "zone": "Barolo · Serralunga", "note": "Monfortino, l'un des plus grands vins d'Italie. Style austère et d'une longévité fabuleuse." },
-      { "nom": "Fontanafredda", "zone": "Barolo · Serralunga d'Alba", "note": "Domaine historique royal. Serralunga d'Alba, référence de terroir. Accessible et classique." }
-    ]
+      {
+        "nom": "Bartolo Mascarello",
+        "zone": "Barolo · Castiglione Falletto",
+        "note": "Gardien du style traditionnel. Barolo d'assemblage, foudres de Slavonie. Vins de 20 à 40 ans."
+      },
+      {
+        "nom": "Bruno Giacosa",
+        "zone": "Barbaresco · Barolo",
+        "note": "L'un des plus grands vinificateurs d'Italie. Barbaresco Santo Stefano, mythique."
+      },
+      {
+        "nom": "Giacomo Conterno",
+        "zone": "Barolo · Serralunga",
+        "note": "Monfortino, l'un des plus grands vins d'Italie. Style austère et d'une longévité fabuleuse."
+      },
+      {
+        "nom": "Fontanafredda",
+        "zone": "Barolo · Serralunga d'Alba",
+        "note": "Domaine historique royal. Serralunga d'Alba, référence de terroir. Accessible et classique."
+      }
+    ],
+    "lien": "piemont-barolo.html",
+    "lien_label": "Explorer les communes"
   },
   {
     "id": 5,
@@ -131,19 +272,53 @@
       "Atmosphère": "Chaleureuse & gastronomique"
     },
     "focus": "Les grands vins toscans trouvent leur équilibre avec le temps. La puissance initiale s'intègre et laisse place à des notes plus soyeuses, terreuses et élégantes.",
-    "tags": ["Puissant", "Gastronomie", "Élégance"],
+    "tags": [
+      "Puissant",
+      "Gastronomie",
+      "Élégance"
+    ],
     "sous_regions": [
-      { "nom": "Chianti Classico", "description": "Le cœur historique entre Florence et Sienne — Sangiovese pur" },
-      { "nom": "Brunello di Montalcino", "description": "Sangiovese grosso, vins de garde monumentaux" },
-      { "nom": "Bolgheri", "description": "Cabernet et Merlot en style international — Super Toscans" },
-      { "nom": "Montepulciano", "description": "Vino Nobile, élégance à base de Prugnolo Gentile" }
+      {
+        "nom": "Chianti Classico",
+        "description": "Le cœur historique entre Florence et Sienne — Sangiovese pur"
+      },
+      {
+        "nom": "Brunello di Montalcino",
+        "description": "Sangiovese grosso, vins de garde monumentaux"
+      },
+      {
+        "nom": "Bolgheri",
+        "description": "Cabernet et Merlot en style international — Super Toscans"
+      },
+      {
+        "nom": "Montepulciano",
+        "description": "Vino Nobile, élégance à base de Prugnolo Gentile"
+      }
     ],
     "producteurs": [
-      { "nom": "Sassicaia (Tenuta San Guido)", "zone": "Bolgheri", "note": "Le Super Toscan originel. Cabernet Sauvignon de référence mondiale depuis 1972." },
-      { "nom": "Biondi Santi", "zone": "Brunello · Montalcino", "note": "Le domaine fondateur du Brunello. Riserva millésimée, collection de légende depuis 1888." },
-      { "nom": "Fontodi", "zone": "Chianti Classico · Panzano", "note": "Flaccianello della Pieve, l'un des plus grands Sangiovese du monde. Biodynamie depuis 1990." },
-      { "nom": "Antinori", "zone": "Toscane", "note": "Solaia et Tignanello, deux icônes mondiales. 26 générations de viticulture familiale." }
-    ]
+      {
+        "nom": "Sassicaia (Tenuta San Guido)",
+        "zone": "Bolgheri",
+        "note": "Le Super Toscan originel. Cabernet Sauvignon de référence mondiale depuis 1972."
+      },
+      {
+        "nom": "Biondi Santi",
+        "zone": "Brunello · Montalcino",
+        "note": "Le domaine fondateur du Brunello. Riserva millésimée, collection de légende depuis 1888."
+      },
+      {
+        "nom": "Fontodi",
+        "zone": "Chianti Classico · Panzano",
+        "note": "Flaccianello della Pieve, l'un des plus grands Sangiovese du monde. Biodynamie depuis 1990."
+      },
+      {
+        "nom": "Antinori",
+        "zone": "Toscane",
+        "note": "Solaia et Tignanello, deux icônes mondiales. 26 générations de viticulture familiale."
+      }
+    ],
+    "lien": "toscane.html",
+    "lien_label": "Explorer la région"
   },
   {
     "id": 6,
@@ -160,19 +335,53 @@
       "Atmosphère": "Méditerranée & lave"
     },
     "focus": "Les vins siciliens combinent intensité et énergie volcanique. Avec l'âge, ils gagnent en finesse tout en conservant une belle profondeur aromatique et une tension saline.",
-    "tags": ["Puissant", "Solaire", "Terroir"],
+    "tags": [
+      "Puissant",
+      "Solaire",
+      "Terroir"
+    ],
     "sous_regions": [
-      { "nom": "Etna DOC", "description": "Flancs du volcan, vieilles vignes en alberello, Nerello Mascalese" },
-      { "nom": "Noto", "description": "Nero d'Avola dans son expression la plus élégante" },
-      { "nom": "Marsala", "description": "Vins oxydatifs fortifiés, spécialité historique de l'ouest" },
-      { "nom": "Passito di Pantelleria", "description": "Muscat flétri sur l'île volcanique, douceur intense" }
+      {
+        "nom": "Etna DOC",
+        "description": "Flancs du volcan, vieilles vignes en alberello, Nerello Mascalese"
+      },
+      {
+        "nom": "Noto",
+        "description": "Nero d'Avola dans son expression la plus élégante"
+      },
+      {
+        "nom": "Marsala",
+        "description": "Vins oxydatifs fortifiés, spécialité historique de l'ouest"
+      },
+      {
+        "nom": "Passito di Pantelleria",
+        "description": "Muscat flétri sur l'île volcanique, douceur intense"
+      }
     ],
     "producteurs": [
-      { "nom": "Benanti", "zone": "Etna · Flanc Est · Milo", "note": "Le domaine historique de l'Etna moderne. Pietramarina (Carricante blanc), référence absolue." },
-      { "nom": "Cornelissen (Frank)", "zone": "Etna · Flanc Nord", "note": "Vigneron belge devenu icône. Magma et Susucaru, vins naturels d'une tension fascinante." },
-      { "nom": "Passopisciaro (Franchetti)", "zone": "Etna · Flanc Nord", "note": "Cuvées parcellaires par contrade — parmi les plus recherchées de l'Etna." },
-      { "nom": "Terre Nere", "zone": "Etna · Flanc Nord", "note": "Marc de Grazia, pionnier des contrade. Calderara, Santo Spirito — collection complète." }
-    ]
+      {
+        "nom": "Benanti",
+        "zone": "Etna · Flanc Est · Milo",
+        "note": "Le domaine historique de l'Etna moderne. Pietramarina (Carricante blanc), référence absolue."
+      },
+      {
+        "nom": "Cornelissen (Frank)",
+        "zone": "Etna · Flanc Nord",
+        "note": "Vigneron belge devenu icône. Magma et Susucaru, vins naturels d'une tension fascinante."
+      },
+      {
+        "nom": "Passopisciaro (Franchetti)",
+        "zone": "Etna · Flanc Nord",
+        "note": "Cuvées parcellaires par contrade — parmi les plus recherchées de l'Etna."
+      },
+      {
+        "nom": "Terre Nere",
+        "zone": "Etna · Flanc Nord",
+        "note": "Marc de Grazia, pionnier des contrade. Calderara, Santo Spirito — collection complète."
+      }
+    ],
+    "lien": "sicile-etna.html",
+    "lien_label": "Explorer la région"
   },
   {
     "id": 7,
@@ -189,19 +398,54 @@
       "Garde": "Longue à très longue"
     },
     "focus": "Le Taurasi, surnommé le « Barolo du Sud », est l'un des rouges italiens les plus impressionnants. Issu de l'Aglianico sur sols volcaniques, il allie tanins fermes, acidité vive et profondeur aromatique.",
-    "tags": ["Aglianico", "Volcanique", "Taurasi", "Puissance"],
+    "tags": [
+      "Aglianico",
+      "Volcanique",
+      "Taurasi",
+      "Puissance"
+    ],
     "sous_regions": [
-      { "nom": "Taurasi DOCG", "description": "Aglianico d'Irpinia — « Barolo du Sud », garde monumentale" },
-      { "nom": "Fiano di Avellino", "description": "Blanc de haute montagne, noix, miel, tension minérale" },
-      { "nom": "Greco di Tufo", "description": "Blanc minéral sur sol volcanique sulfureux" },
-      { "nom": "Campi Flegrei", "description": "Sur les ponces du cratère — Falanghina d'une iode unique" }
+      {
+        "nom": "Taurasi DOCG",
+        "description": "Aglianico d'Irpinia — « Barolo du Sud », garde monumentale"
+      },
+      {
+        "nom": "Fiano di Avellino",
+        "description": "Blanc de haute montagne, noix, miel, tension minérale"
+      },
+      {
+        "nom": "Greco di Tufo",
+        "description": "Blanc minéral sur sol volcanique sulfureux"
+      },
+      {
+        "nom": "Campi Flegrei",
+        "description": "Sur les ponces du cratère — Falanghina d'une iode unique"
+      }
     ],
     "producteurs": [
-      { "nom": "Mastroberardino", "zone": "Taurasi · Fiano · Greco", "note": "Le pionnier de la renaissance campanienne. Radici Taurasi, référence absolue depuis 1980." },
-      { "nom": "Feudi di San Gregorio", "zone": "Taurasi · Fiano · Greco", "note": "Le domaine le plus moderne. Patrimo (Aglianico pur), Campanaro (Fiano de garde)." },
-      { "nom": "Quintodecimo", "zone": "Fiano · Taurasi", "note": "Luigi Moio, œnologue de renom. Exultet (Fiano) et Vigna Quintodecimo, parmi les plus grands." },
-      { "nom": "Cantine Astroni", "zone": "Campi Flegrei · Falanghina", "note": "Dans le cratère volcanique. Falanghina sur ponces, minéralité saisissante." }
-    ]
+      {
+        "nom": "Mastroberardino",
+        "zone": "Taurasi · Fiano · Greco",
+        "note": "Le pionnier de la renaissance campanienne. Radici Taurasi, référence absolue depuis 1980."
+      },
+      {
+        "nom": "Feudi di San Gregorio",
+        "zone": "Taurasi · Fiano · Greco",
+        "note": "Le domaine le plus moderne. Patrimo (Aglianico pur), Campanaro (Fiano de garde)."
+      },
+      {
+        "nom": "Quintodecimo",
+        "zone": "Fiano · Taurasi",
+        "note": "Luigi Moio, œnologue de renom. Exultet (Fiano) et Vigna Quintodecimo, parmi les plus grands."
+      },
+      {
+        "nom": "Cantine Astroni",
+        "zone": "Campi Flegrei · Falanghina",
+        "note": "Dans le cratère volcanique. Falanghina sur ponces, minéralité saisissante."
+      }
+    ],
+    "lien": "campanie.html",
+    "lien_label": "Explorer la région"
   },
   {
     "id": 8,
@@ -218,19 +462,53 @@
       "Signature": "Fraîcheur & élégance"
     },
     "focus": "Le terroir alpin apporte une pureté aromatique et une tension cristalline unique en Italie. Construits pour la garde, ces vins rivalisent avec les grands blancs d'Europe.",
-    "tags": ["Alpin", "Précision", "Blanc de montagne"],
+    "tags": [
+      "Alpin",
+      "Précision",
+      "Blanc de montagne"
+    ],
     "sous_regions": [
-      { "nom": "Vallée Adige", "description": "300–500m, Pinot Blanc et Sauvignon — la colonne vertébrale" },
-      { "nom": "Val Venosta", "description": "700–900m, Riesling d'une tension quasi-mosellane" },
-      { "nom": "Val d'Isarco", "description": "600–800m, Grüner Veltliner et Kerner, influence autrichienne" },
-      { "nom": "Oltradige", "description": "Bas de la vallée, Gewürztraminer de Tramin — origine du cépage" }
+      {
+        "nom": "Vallée Adige",
+        "description": "300–500m, Pinot Blanc et Sauvignon — la colonne vertébrale"
+      },
+      {
+        "nom": "Val Venosta",
+        "description": "700–900m, Riesling d'une tension quasi-mosellane"
+      },
+      {
+        "nom": "Val d'Isarco",
+        "description": "600–800m, Grüner Veltliner et Kerner, influence autrichienne"
+      },
+      {
+        "nom": "Oltradige",
+        "description": "Bas de la vallée, Gewürztraminer de Tramin — origine du cépage"
+      }
     ],
     "producteurs": [
-      { "nom": "Cantina Terlano", "zone": "Vallée Adige · Terlano", "note": "Coopérative d'exception. Nova Domus (Pinot Blanc) et Sauvignon Quarz, parmi les plus grands blancs d'Italie." },
-      { "nom": "Abbazia di Novacella", "zone": "Val d'Isarco · Varna", "note": "Abbaye cistercienne fondée en 1142. Praepositus (Grüner Veltliner, Sylvaner), les références du Val d'Isarco." },
-      { "nom": "Elena Walch", "zone": "Oltradige · Tramin", "note": "La référence mondiale du Gewürztraminer. Kastelaz, cru mythique de Tramin. Style élégant et précis." },
-      { "nom": "Alois Lageder", "zone": "Vallée Adige · Magrè", "note": "Domaine biodynamique pionnier. Löwengang (Chardonnay et Cabernet), cuvées de référence depuis 1990." }
-    ]
+      {
+        "nom": "Cantina Terlano",
+        "zone": "Vallée Adige · Terlano",
+        "note": "Coopérative d'exception. Nova Domus (Pinot Blanc) et Sauvignon Quarz, parmi les plus grands blancs d'Italie."
+      },
+      {
+        "nom": "Abbazia di Novacella",
+        "zone": "Val d'Isarco · Varna",
+        "note": "Abbaye cistercienne fondée en 1142. Praepositus (Grüner Veltliner, Sylvaner), les références du Val d'Isarco."
+      },
+      {
+        "nom": "Elena Walch",
+        "zone": "Oltradige · Tramin",
+        "note": "La référence mondiale du Gewürztraminer. Kastelaz, cru mythique de Tramin. Style élégant et précis."
+      },
+      {
+        "nom": "Alois Lageder",
+        "zone": "Vallée Adige · Magrè",
+        "note": "Domaine biodynamique pionnier. Löwengang (Chardonnay et Cabernet), cuvées de référence depuis 1990."
+      }
+    ],
+    "lien": "altoadige.html",
+    "lien_label": "Explorer la région"
   },
   {
     "id": 9,
@@ -247,19 +525,53 @@
       "Atmosphère": "Élégance discrète"
     },
     "focus": "Les vins du Frioul sont souvent droits et très expressifs jeunes. Avec le temps, ils développent une texture plus ample et une aromatique plus subtile et méditative.",
-    "tags": ["Blanc de gastronomie", "Finesse", "Blanc de montagne"],
+    "tags": [
+      "Blanc de gastronomie",
+      "Finesse",
+      "Blanc de montagne"
+    ],
     "sous_regions": [
-      { "nom": "Collio", "description": "Marnes et grès de Ponca — blancs aromatiques et précis" },
-      { "nom": "Colli Orientali", "description": "Rosazzo, Ramandolo — blancs et rouges de garde" },
-      { "nom": "Oslavia", "description": "Berceau des vins orange macérés — Gravner, Radikon" },
-      { "nom": "Friuli Isonzo", "description": "Plaine, vins accessibles sur cépages internationaux" }
+      {
+        "nom": "Collio",
+        "description": "Marnes et grès de Ponca — blancs aromatiques et précis"
+      },
+      {
+        "nom": "Colli Orientali",
+        "description": "Rosazzo, Ramandolo — blancs et rouges de garde"
+      },
+      {
+        "nom": "Oslavia",
+        "description": "Berceau des vins orange macérés — Gravner, Radikon"
+      },
+      {
+        "nom": "Friuli Isonzo",
+        "description": "Plaine, vins accessibles sur cépages internationaux"
+      }
     ],
     "producteurs": [
-      { "nom": "Josko Gravner", "zone": "Collio · Oslavia", "note": "Le vigneron le plus influent du Frioul. Ribolla en amphore géorgienne. Vins d'une complexité absolue." },
-      { "nom": "Radikon", "zone": "Collio · Oslavia", "note": "Stanko puis Sasa. Ribolla et Oslavje macérés. La maison de référence des vins orange frioulans." },
-      { "nom": "Livio Felluga", "zone": "Colli Orientali · Rosazzo", "note": "Le domaine classique de référence. Terre Alte (assemblage blanc), l'un des plus grands blancs d'Italie." },
-      { "nom": "Schiopetto", "zone": "Collio", "note": "Mario Schiopetto, le pionnier de la vinification moderne en Frioul dans les années 1960." }
-    ]
+      {
+        "nom": "Josko Gravner",
+        "zone": "Collio · Oslavia",
+        "note": "Le vigneron le plus influent du Frioul. Ribolla en amphore géorgienne. Vins d'une complexité absolue."
+      },
+      {
+        "nom": "Radikon",
+        "zone": "Collio · Oslavia",
+        "note": "Stanko puis Sasa. Ribolla et Oslavje macérés. La maison de référence des vins orange frioulans."
+      },
+      {
+        "nom": "Livio Felluga",
+        "zone": "Colli Orientali · Rosazzo",
+        "note": "Le domaine classique de référence. Terre Alte (assemblage blanc), l'un des plus grands blancs d'Italie."
+      },
+      {
+        "nom": "Schiopetto",
+        "zone": "Collio",
+        "note": "Mario Schiopetto, le pionnier de la vinification moderne en Frioul dans les années 1960."
+      }
+    ],
+    "lien": "frioul.html",
+    "lien_label": "Explorer la région"
   },
   {
     "id": 10,
@@ -276,18 +588,50 @@
       "Garde": "Moyenne à longue"
     },
     "focus": "La Rioja possède un système de classification unique basé sur le vieillissement : Crianza, Reserva et Gran Reserva définissent le temps passé en barrique et en bouteille.",
-    "tags": ["Tempranillo", "Chêne américain", "Gran Reserva", "Structure"],
+    "tags": [
+      "Tempranillo",
+      "Chêne américain",
+      "Gran Reserva",
+      "Structure"
+    ],
     "sous_regions": [
-      { "nom": "Rioja Alta", "description": "Altitude, sols calcaires, style classique élégant — Haro" },
-      { "nom": "Rioja Alavesa", "description": "Argilo-calcaire, vins fins et aromatiques — Laguardia" },
-      { "nom": "Rioja Oriental", "description": "Sols alluviaux, vins plus charnus et alcoolisés" }
+      {
+        "nom": "Rioja Alta",
+        "description": "Altitude, sols calcaires, style classique élégant — Haro"
+      },
+      {
+        "nom": "Rioja Alavesa",
+        "description": "Argilo-calcaire, vins fins et aromatiques — Laguardia"
+      },
+      {
+        "nom": "Rioja Oriental",
+        "description": "Sols alluviaux, vins plus charnus et alcoolisés"
+      }
     ],
     "producteurs": [
-      { "nom": "López de Heredia", "zone": "Rioja Alta · Haro", "note": "Le temple du style traditionnel. Viña Tondonia, élevages de 10+ ans. Blancos oxydatifs uniques au monde." },
-      { "nom": "La Rioja Alta S.A.", "zone": "Rioja Alta · Haro", "note": "Gran Reserva 904 et 890, références absolues du style classique. Fiabilité légendaire." },
-      { "nom": "Muga", "zone": "Rioja Alta · Haro", "note": "Dernière bodega à utiliser des foudres en chêne pour la vinification. Prado Enea Gran Reserva." },
-      { "nom": "Artadi", "zone": "Rioja Alavesa · Laguardia", "note": "Pionnier du style moderne en Alavesa. Viña el Pisón, cuvée parcellaire de référence mondiale." }
-    ]
+      {
+        "nom": "López de Heredia",
+        "zone": "Rioja Alta · Haro",
+        "note": "Le temple du style traditionnel. Viña Tondonia, élevages de 10+ ans. Blancos oxydatifs uniques au monde."
+      },
+      {
+        "nom": "La Rioja Alta S.A.",
+        "zone": "Rioja Alta · Haro",
+        "note": "Gran Reserva 904 et 890, références absolues du style classique. Fiabilité légendaire."
+      },
+      {
+        "nom": "Muga",
+        "zone": "Rioja Alta · Haro",
+        "note": "Dernière bodega à utiliser des foudres en chêne pour la vinification. Prado Enea Gran Reserva."
+      },
+      {
+        "nom": "Artadi",
+        "zone": "Rioja Alavesa · Laguardia",
+        "note": "Pionnier du style moderne en Alavesa. Viña el Pisón, cuvée parcellaire de référence mondiale."
+      }
+    ],
+    "lien": "rioja.html",
+    "lien_label": "Explorer la région"
   },
   {
     "id": 11,
@@ -304,18 +648,53 @@
       "Signature": "Fraîcheur solaire"
     },
     "focus": "Les vins du Western Cape allient fruit et structure avec une vraie personnalité. Ils gagnent en harmonie avec le temps, révélant des nuances plus épicées et complexes.",
-    "tags": ["Stellenbosch", "Swartland", "Modernité", "Équilibre"],
+    "tags": [
+      "Stellenbosch",
+      "Swartland",
+      "Modernité",
+      "Équilibre"
+    ],
     "sous_regions": [
-      { "nom": "Stellenbosch", "description": "Cabernet et Bordeaux blends de référence, granit et argile" },
-      { "nom": "Swartland", "description": "Rhône varieties, Chenin Blanc, vieux grenaches et cinsaults" },
-      { "nom": "Walker Bay", "description": "Pinot Noir et Chardonnay en style borgognon, influence océanique" },
-      { "nom": "Constantia", "description": "Historique — Vin de Constance, muscat de légende depuis 1685" }
+      {
+        "nom": "Stellenbosch",
+        "description": "Cabernet et Bordeaux blends de référence, granit et argile"
+      },
+      {
+        "nom": "Swartland",
+        "description": "Rhône varieties, Chenin Blanc, vieux grenaches et cinsaults"
+      },
+      {
+        "nom": "Walker Bay",
+        "description": "Pinot Noir et Chardonnay en style borgognon, influence océanique"
+      },
+      {
+        "nom": "Constantia",
+        "description": "Historique — Vin de Constance, muscat de légende depuis 1685"
+      }
     ],
     "producteurs": [
-      { "nom": "Kanonkop", "zone": "Stellenbosch · Simonsberg", "note": "Paul Sauer (Bordeaux blend) et Pinotage, les deux références de Stellenbosch depuis 50 ans." },
-      { "nom": "Eben Sadie (Sadie Family)", "zone": "Swartland", "note": "Columella et Palladius, les deux grands vins du Swartland. Redéfinition du terroir sud-africain." },
-      { "nom": "Vilafonté", "zone": "Stellenbosch · Paarl", "note": "Collaboration sud-africano-américaine. Series C et Series M, Bordeaux blends de haute tenue." },
-      { "nom": "Hamilton Russell", "zone": "Walker Bay · Hemel-en-Aarde", "note": "Le Pinot Noir le plus réputé d'Afrique du Sud. Style bourguignon, fraîcheur et élégance." }
-    ]
+      {
+        "nom": "Kanonkop",
+        "zone": "Stellenbosch · Simonsberg",
+        "note": "Paul Sauer (Bordeaux blend) et Pinotage, les deux références de Stellenbosch depuis 50 ans."
+      },
+      {
+        "nom": "Eben Sadie (Sadie Family)",
+        "zone": "Swartland",
+        "note": "Columella et Palladius, les deux grands vins du Swartland. Redéfinition du terroir sud-africain."
+      },
+      {
+        "nom": "Vilafonté",
+        "zone": "Stellenbosch · Paarl",
+        "note": "Collaboration sud-africano-américaine. Series C et Series M, Bordeaux blends de haute tenue."
+      },
+      {
+        "nom": "Hamilton Russell",
+        "zone": "Walker Bay · Hemel-en-Aarde",
+        "note": "Le Pinot Noir le plus réputé d'Afrique du Sud. Style bourguignon, fraîcheur et élégance."
+      }
+    ],
+    "lien": "westerncape.html",
+    "lien_label": "Explorer la région"
   }
 ]
