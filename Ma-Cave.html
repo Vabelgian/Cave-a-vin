@@ -410,10 +410,17 @@
     border-right: 1px solid var(--creme-dark);
   }
   .photo-bouteille {
-    width: 100%;
-    max-height: 200px;
-    object-fit: contain;
-  }
+  /* Au lieu de forcer la largeur, on force la hauteur */
+  height: 100%; 
+  width: auto; /* La largeur s'adaptera proportionnellement sans déformer */
+  
+  /* Sécurité pour ne pas que la bouteille dépasse si l'image est immense */
+  max-height: 100%; 
+  object-fit: contain;
+
+  /* L'astuce magique pour faire disparaître le fond blanc des JPEG de Google */
+  mix-blend-mode: multiply; 
+}
   .photo-a-ajouter {
     width: 100%;
     min-height: 100px;
