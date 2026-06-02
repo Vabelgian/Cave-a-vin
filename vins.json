@@ -506,7 +506,7 @@
   {
     "id": 19,
     "nom": "Vinhas de Xisto Tinto Reserva 2022",
-    "photo": "images/Blueonice.png",
+    "photo": "images/xisto.jpg",
     "couleur": "rouge",
     "pays": "Portugal",
     "region": "Douro",
@@ -514,7 +514,7 @@
     "style": "Puissant, solaire, fût de chêne",
     "statut": "cave",
     "stock": 4,
-    "profil": "à complèter.",
+    "profil": "Issu des vignobles de schiste portugais, ce Reserva exprime un profil solaire et puissant où se mêlent fruits noirs, épices douces et nuances de vanille. Sa structure affirmée et sa belle profondeur en font un vin particulièrement adapté aux viandes grillées et aux plats riches..",
     "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
     "degustation": {
       "couleur": "Rouge rubis",
