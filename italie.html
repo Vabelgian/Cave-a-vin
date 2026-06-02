@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Italie · Régions Viticoles · Ma Cave</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #0b0d10;
+      --surface:   rgba(255,255,255,0.04);
+      --border:    rgba(255,255,255,0.07);
+      --text:      #f0ede8;
+      --muted:     #8a8f9a;
+      --gold:      #d4af37;
+      --nav-h:     60px;
+      --bot-h:     72px;
+
+      /* Couleurs d'accent par région */
+      --c-piemont:    #7a2e2e;
+      --c-toscane:    #8b4513;
+      --c-sicile:     #b5651d;
+      --c-campanie:   #4a6741;
+      --c-frioul:     #3b6b8f;
+      --c-altoadige:  #5a4e7a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      overflow-x: hidden;
+      padding-top: var(--nav-h);
+      padding-bottom: calc(var(--bot-h) + 20px);
+    }
+
+    /* ── Fond ambiant Italie ───────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(ellipse 65% 40% at 50% -5%, rgba(122,46,46,0.13) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 35% at 5%  75%, rgba(139,69,19,0.09) 0%, transparent 55%),
+        radial-gradient(ellipse 45% 30% at 92% 60%, rgba(59,107,143,0.07) 0%, transparent 50%);
+    }
+
+    /* ── Top nav ──────────────────────────────── */
+    .top-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px;
+      background: rgba(8,10,12,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-back {
+      display: flex; align-items: center; gap: 8px;
+      text-decoration: none; color: var(--muted);
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text); }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 400; font-style: italic;
+      color: var(--text); text-decoration: none;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-flag { font-size: 1.3rem; }
+
+    /* ── Hero ─────────────────────────────────── */
+    .hero {
+      position: relative; z-index: 1;
+      padding: 44px 24px 32px;
+      text-align: center;
+    }
+    .hero-breadcrumb {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 18px;
+    }
+    .hero-breadcrumb .sep { opacity: 0.4; }
+    .hero-breadcrumb .current { color: var(--gold); }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 10vw, 5.5rem);
+      font-weight: 300; line-height: 0.95;
+      letter-spacing: -0.02em;
+    }
+    .hero h1 em { font-style: italic; color: var(--gold); display: block; }
+
+    .hero-meta {
+      margin-top: 20px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      flex-wrap: wrap;
+    }
+    .meta-pill {
+      padding: 6px 14px; border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 0.75rem; color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+    .meta-pill strong { color: var(--text); font-weight: 500; }
+
+    .hero-divider {
+      width: 1px; height: 32px;
+      background: linear-gradient(180deg, transparent, var(--gold), transparent);
+      margin: 28px auto 0; opacity: 0.5;
+    }
+
+    /* ── Intro card ───────────────────────────── */
+    .intro-card {
+      position: relative; z-index: 1;
+      margin: 28px 16px 24px;
+      padding: 22px 20px;
+      border-radius: 20px;
+      background: rgba(212,175,55,0.04);
+      border: 1px solid rgba(212,175,55,0.14);
+      max-width: 680px;
+      margin-left: auto; margin-right: auto;
+    }
+    .intro-card p {
+      font-size: 0.87rem; color: var(--muted); line-height: 1.8;
+      text-align: center;
+    }
+    .intro-card strong { color: var(--gold); font-weight: 500; }
+
+    /* ── Section label ────────────────────────── */
+    .section-label {
+      position: relative; z-index: 1;
+      padding: 0 20px;
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .section-label span {
+      font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); white-space: nowrap;
+    }
+    .section-label::after {
+      content: ''; flex: 1; height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Regions list ─────────────────────────── */
+    .regions {
+      position: relative; z-index: 1;
+      padding: 0 16px;
+      display: flex; flex-direction: column;
+      gap: 12px;
+      max-width: 680px; margin: 0 auto;
+    }
+
+    /* ── Region card ──────────────────────────── */
+    .region-card {
+      display: block; text-decoration: none;
+      border-radius: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.28s cubic-bezier(.25,.8,.25,1),
+                  border-color 0.28s ease,
+                  box-shadow 0.28s ease;
+    }
+    .region-card:hover {
+      transform: translateY(-3px) scale(1.005);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.45);
+    }
+    .region-card:active { transform: scale(0.99); }
+
+    /* Barre latérale colorée */
+    .region-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; bottom: 0;
+      width: 3px;
+      background: var(--accent);
+      opacity: 0.7;
+      transition: opacity 0.25s ease, width 0.25s ease;
+    }
+    .region-card:hover::before { opacity: 1; width: 4px; }
+
+    /* Glow de fond */
+    .region-card::after {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 70% 80% at 10% 50%, var(--accent-glow), transparent 65%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    .region-card:hover::after { opacity: 1; }
+
+    .card-piemont   { --accent: var(--c-piemont);   --accent-glow: rgba(122,46,46,0.12); }
+    .card-piemont:hover   { border-color: rgba(122,46,46,0.4); }
+
+    .card-toscane   { --accent: var(--c-toscane);   --accent-glow: rgba(139,69,19,0.12); }
+    .card-toscane:hover   { border-color: rgba(139,69,19,0.4); }
+
+    .card-sicile    { --accent: var(--c-sicile);    --accent-glow: rgba(181,101,29,0.12); }
+    .card-sicile:hover    { border-color: rgba(181,101,29,0.4); }
+
+    .card-campanie  { --accent: var(--c-campanie);  --accent-glow: rgba(74,103,65,0.12); }
+    .card-campanie:hover  { border-color: rgba(74,103,65,0.4); }
+
+    .card-frioul    { --accent: var(--c-frioul);    --accent-glow: rgba(59,107,143,0.12); }
+    .card-frioul:hover    { border-color: rgba(59,107,143,0.4); }
+
+    .card-altoadige { --accent: var(--c-altoadige); --accent-glow: rgba(90,78,122,0.12); }
+    .card-altoadige:hover { border-color: rgba(90,78,122,0.4); }
+
+    .card-body {
+      position: relative; z-index: 1;
+      padding: 22px 22px 22px 26px;
+      display: flex; align-items: flex-start; gap: 18px;
+    }
+
+    .region-icon {
+      flex-shrink: 0;
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      transition: transform 0.25s ease;
+    }
+    .region-card:hover .region-icon { transform: scale(1.08) rotate(-3deg); }
+
+    .region-info { flex: 1; min-width: 0; }
+
+    .region-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.65rem; font-weight: 400; line-height: 1;
+      letter-spacing: -0.01em; color: var(--text);
+    }
+    .region-style {
+      margin-top: 3px;
+      font-size: 0.73rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent); opacity: 0.85;
+    }
+    .region-desc {
+      margin-top: 8px;
+      font-size: 0.83rem; color: var(--muted); line-height: 1.65;
+    }
+    .region-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-top: 12px;
+    }
+    .tag {
+      padding: 4px 10px; border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.07);
+      font-size: 0.72rem; color: var(--muted);
+    }
+
+    .card-arrow {
+      flex-shrink: 0;
+      display: flex; align-items: center;
+      padding-top: 4px;
+      color: var(--muted);
+      transition: color 0.2s, transform 0.25s;
+    }
+    .region-card:hover .card-arrow {
+      color: var(--gold);
+      transform: translateX(4px);
+    }
+
+    /* Strip vins phares */
+    .card-strip {
+      position: relative; z-index: 1;
+      margin: 0 26px 18px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .strip-label {
+      font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold); opacity: 0.8; white-space: nowrap;
+    }
+    .strip-wines {
+      font-size: 0.78rem; color: var(--muted);
+      overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+    }
+
+    /* ── Animations ───────────────────────────── */
+    .hero        { animation: fadeUp 0.45s ease both; }
+    .intro-card  { animation: fadeUp 0.45s 0.10s ease both; }
+    .section-label { animation: fadeUp 0.45s 0.15s ease both; }
+
+    .region-card { animation: slideIn 0.45s cubic-bezier(.25,.8,.25,1) both; }
+    .region-card:nth-child(1) { animation-delay: 0.18s; }
+    .region-card:nth-child(2) { animation-delay: 0.26s; }
+    .region-card:nth-child(3) { animation-delay: 0.34s; }
+    .region-card:nth-child(4) { animation-delay: 0.42s; }
+    .region-card:nth-child(5) { animation-delay: 0.50s; }
+    .region-card:nth-child(6) { animation-delay: 0.58s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-12px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ── Bottom nav ───────────────────────────── */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+      height: var(--bot-h);
+      background: rgba(8,10,12,0.90);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-around;
+      padding: 0 8px;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .bot-item {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      text-decoration: none;
+      padding: 8px 10px; border-radius: 12px;
+      color: var(--muted);
+      font-size: 0.67rem; letter-spacing: 0.04em;
+      transition: color 0.2s ease, background 0.2s ease;
+      flex: 1; max-width: 80px;
+    }
+    .bot-item:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+    .bot-item.active { color: var(--gold); }
+    .bot-icon {
+      width: 24px; height: 24px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .bot-icon svg { width: 21px; height: 21px; }
+
+    /* ── Responsive ───────────────────────────── */
+    @media (max-width: 400px) {
+      .card-body { padding: 18px 16px 18px 20px; gap: 12px; }
+      .region-icon { width: 40px; height: 40px; font-size: 1.25rem; border-radius: 11px; }
+      .region-name { font-size: 1.4rem; }
+    }
+    @media (min-width: 640px) {
+      .card-body { padding: 26px 26px 26px 30px; }
+      .region-icon { width: 54px; height: 54px; font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top nav -->
+  <nav class="top-nav">
+    <a href="regionsviticoles.html" class="nav-back">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Régions
+    </a>
+    <a href="index.html" class="nav-logo">🍷 Ma <span>Cave</span></a>
+    <span class="nav-flag">🇮🇹</span>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-breadcrumb">
+      <span>Régions</span>
+      <span class="sep">›</span>
+      <span class="current">Italie</span>
+    </div>
+    <h1><em>Italie</em></h1>
+    <div class="hero-meta">
+      <div class="meta-pill"><strong>6</strong> régions</div>
+      <div class="meta-pill">Nebbiolo · Sangiovese · Nerello</div>
+      <div class="meta-pill">Cépages autochtones</div>
+    </div>
+    <div class="hero-divider"></div>
+  </header>
+
+  <!-- Intro -->
+  <div class="intro-card">
+    <p>
+      L'Italie compte plus de <strong>350 cépages autochtones</strong> reconnus — un patrimoine viticole
+      sans équivalent. Du brouillard de <strong>Barolo</strong> aux volcans de <strong>Sicile</strong>,
+      chaque région exprime une identité radicalement différente.
+    </p>
+  </div>
+
+  <!-- Section label -->
+  <div class="section-label" style="margin-top: 8px;">
+    <span>Vignobles</span>
+  </div>
+
+  <!-- Regions -->
+  <div class="regions">
+
+    <!-- Piémont -->
+    <a href="piemont.html" class="region-card card-piemont">
+      <div class="card-body">
+        <div class="region-icon">👑</div>
+        <div class="region-info">
+          <div class="region-name">Piémont</div>
+          <div class="region-style">Nebbiolo · Barbera · Dolcetto</div>
+          <div class="region-desc">
+            Patrie du Barolo et du Barbaresco, surnommés « le roi et la reine des vins italiens ». Les collines des Langhe produisent des nébbiolo d'une complexité et d'une longévité exceptionnelles.
+          </div>
+          <div class="region-tags">
+            <span class="tag">Barolo</span>
+            <span class="tag">Barbaresco</span>
+            <span class="tag">Barbera d'Asti</span>
+            <span class="tag">Moscato</span>
+          </div>
+        </div>
+        <div class="card-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+      <div class="card-strip">
+        <span class="strip-label">Vins phares</span>
+        <span class="strip-wines">Barolo Brunate · Barbaresco Asili · Barbera d'Alba · Moscato d'Asti</span>
+      </div>
+    </a>
+
+    <!-- Toscane -->
+    <a href="toscane.html" class="region-card card-toscane">
+      <div class="card-body">
+        <div class="region-icon">🌅</div>
+        <div class="region-info">
+          <div class="region-name">Toscane</div>
+          <div class="region-style">Sangiovese · Cabernet · Merlot</div>
+          <div class="region-desc">
+            De Chianti Classico à Bolgheri, la Toscane conjugue tradition et modernité. Le Sangiovese y trouve ses expressions les plus nobles, renforcé par les Super Toscans révolutionnaires des années 70.
+          </div>
+          <div class="region-tags">
+            <span class="tag">Chianti Classico</span>
+            <span class="tag">Brunello</span>
+            <span class="tag">Bolgheri</span>
+            <span class="tag">Vino Nobile</span>
+          </div>
+        </div>
+        <div class="card-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+      <div class="card-strip">
+        <span class="strip-label">Vins phares</span>
+        <span class="strip-wines">Brunello di Montalcino · Sassicaia · Tignanello · Vino Nobile di Montepulciano</span>
+      </div>
+    </a>
+
+    <!-- Sicile -->
+    <a href="sicile.html" class="region-card card-sicile">
+      <div class="card-body">
+        <div class="region-icon">🌋</div>
+        <div class="region-info">
+          <div class="region-name">Sicile</div>
+          <div class="region-style">Nerello Mascalese · Nero d'Avola · Grillo</div>
+          <div class="region-desc">
+            L'Etna a propulsé la Sicile sur la scène mondiale. À plus de 1 000 m d'altitude, sur des sols volcaniques, le Nerello Mascalese donne des vins d'une finesse et d'une minéralité inattendues.
+          </div>
+          <div class="region-tags">
+            <span class="tag">Etna</span>
+            <span class="tag">Nero d'Avola</span>
+            <span class="tag">Marsala</span>
+            <span class="tag">Pantelleria</span>
+          </div>
+        </div>
+        <div class="card-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+      <div class="card-strip">
+        <span class="strip-label">Vins phares</span>
+        <span class="strip-wines">Etna Rosso · Benanti · Planeta · Passito di Pantelleria</span>
+      </div>
+    </a>
+
+    <!-- Campanie -->
+    <a href="campanie.html" class="region-card card-campanie">
+      <div class="card-body">
+        <div class="region-icon">🏺</div>
+        <div class="region-info">
+          <div class="region-name">Campanie</div>
+          <div class="region-style">Aglianico · Fiano · Greco di Tufo</div>
+          <div class="region-desc">
+            Berceau de la vigne en Italie, la Campanie cultive des cépages parmi les plus anciens du monde. L'Aglianico du Taurasi est l'un des grands rouges de garde de la péninsule.
+          </div>
+          <div class="region-tags">
+            <span class="tag">Taurasi</span>
+            <span class="tag">Fiano di Avellino</span>
+            <span class="tag">Greco di Tufo</span>
+            <span class="tag">Lacryma Christi</span>
+          </div>
+        </div>
+        <div class="card-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+      <div class="card-strip">
+        <span class="strip-label">Vins phares</span>
+        <span class="strip-wines">Taurasi Radici · Fiano di Avellino Pietramura · Greco di Tufo</span>
+      </div>
+    </a>
+
+    <!-- Frioul -->
+    <a href="frioul.html" class="region-card card-frioul">
+      <div class="card-body">
+        <div class="region-icon">🏔️</div>
+        <div class="region-info">
+          <div class="region-name">Frioul</div>
+          <div class="region-style">Friulano · Ribolla Gialla · Pinot Grigio</div>
+          <div class="region-desc">
+            Aux confins de l'Italie, de la Slovénie et de l'Autriche, le Frioul est le temple des grands blancs italiens. Berceau du mouvement des vins orange et d'une viticulture de précision.
+          </div>
+          <div class="region-tags">
+            <span class="tag">Collio</span>
+            <span class="tag">Colli Orientali</span>
+            <span class="tag">Carso</span>
+            <span class="tag">Vins orange</span>
+          </div>
+        </div>
+        <div class="card-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+      <div class="card-strip">
+        <span class="strip-label">Vins phares</span>
+        <span class="strip-wines">Gravner Ribolla · Radikon · Jermann · Livio Felluga Terre Alte</span>
+      </div>
+    </a>
+
+    <!-- Alto Adige -->
+    <a href="alto-adige.html" class="region-card card-altoadige">
+      <div class="card-body">
+        <div class="region-icon">❄️</div>
+        <div class="region-info">
+          <div class="region-name">Alto Adige</div>
+          <div class="region-style">Pinot Noir · Gewurztraminer · Lagrein</div>
+          <div class="region-desc">
+            À la frontière austro-italienne, ce vignoble alpin produit des vins d'une fraîcheur et d'une précision remarquables. Les vignes s'accrochent à des pentes vertigineuses jusqu'à 1 000 m d'altitude.
+          </div>
+          <div class="region-tags">
+            <span class="tag">Santa Maddalena</span>
+            <span class="tag">Gewurztraminer</span>
+            <span class="tag">Lagrein</span>
+            <span class="tag">Pinot Bianco</span>
+          </div>
+        </div>
+        <div class="card-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+      <div class="card-strip">
+        <span class="strip-label">Vins phares</span>
+        <span class="strip-wines">Tramin Gewurztraminer · Lagrein Gries · Pinot Noir Mazon · Elena Walch</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Bottom navigation -->
+  <nav class="bottom-nav">
+    <a href="index.html" class="bot-item">
+      <div class="bot-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </div>
+      <span>Accueil</span>
+    </a>
+    <a href="Ma-Cave.html" class="bot-item">
+      <div class="bot-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 3v4M16 3v4M3 10h18M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"/>
+        </svg>
+      </div>
+      <span>Ma Cave</span>
+    </a>
+    <a href="millesimes.html" class="bot-item">
+      <div class="bot-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M12 6v6l4 2"/>
+        </svg>
+      </div>
+      <span>Millésimes</span>
+    </a>
+    <a href="regionsviticoles.html" class="bot-item active">
+      <div class="bot-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
+        </svg>
+      </div>
+      <span>Régions</span>
+    </a>
+  </nav>
+
+</body>
+</html>

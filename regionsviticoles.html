@@ -3,315 +3,402 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Régions Viticoles</title>
+  <title>Régions Viticoles · Ma Cave</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0d1014;
-      --card: rgba(255,255,255,0.05);
-      --border: rgba(255,255,255,0.08);
-      --text: #f4f4f4;
-      --muted: #b5bcc8;
-      --gold: #d4af37;
-      --shadow: rgba(0,0,0,0.35);
+      --bg:      #0b0d10;
+      --surface: rgba(255,255,255,0.04);
+      --border:  rgba(255,255,255,0.07);
+      --text:    #f0ede8;
+      --muted:   #8a8f9a;
+      --gold:    #d4af37;
+      --gold-dim: rgba(212,175,55,0.18);
+      --nav-h:   64px;   /* top nav height */
+      --bot-h:   72px;   /* bottom nav height */
     }
-    * { box-sizing: border-box; }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      margin: 0;
-      font-family: Inter, Arial, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(212,175,55,0.12), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(90,110,180,0.12), transparent 35%),
-        linear-gradient(180deg, #0b0d10 0%, #151a20 100%);
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
       color: var(--text);
+      min-height: 100dvh;
       overflow-x: hidden;
+      /* room for top and bottom navs */
+      padding-top: var(--nav-h);
+      padding-bottom: calc(var(--bot-h) + 16px);
     }
+
+    /* ── Ambient glow ─────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 15% 0%, rgba(212,175,55,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 35% at 85% 100%, rgba(90,110,180,0.07) 0%, transparent 60%);
+    }
+
+    /* ── Top nav ──────────────────────────────── */
     .top-nav {
-      position: sticky; top: 0; z-index: 1000;
-      background: rgba(8,10,12,0.82);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px;
+      background: rgba(8,10,12,0.80);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
     }
-    .nav-container {
-      max-width: 1400px; margin: auto;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 18px 24px;
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-weight: 400; font-style: italic;
+      color: var(--text); text-decoration: none; letter-spacing: 0.02em;
     }
-    .nav-logo { text-decoration: none; color: white; font-weight: 700; font-size: 1.15rem; }
-    .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
-    .nav-links a {
-      text-decoration: none; color: var(--muted);
-      padding: 10px 14px; border-radius: 12px; transition: 0.2s ease;
+    .nav-logo span { color: var(--gold); }
+
+    /* ── Page header ──────────────────────────── */
+    .page-header {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 52px 24px 36px;
     }
-    .nav-links a:hover, .nav-links a.active {
-      background: rgba(255,255,255,0.06); color: white;
+    .page-header .eyebrow {
+      display: inline-block;
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 14px;
     }
-    .hero {
-      max-width: 1200px; margin: auto;
-      padding: 90px 24px 50px; text-align: center;
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 7vw, 4rem);
+      font-weight: 300; line-height: 1.1;
+      letter-spacing: -0.01em; color: var(--text);
     }
-    .hero h1 { margin: 0; font-size: 4rem; letter-spacing: -2px; }
-    .hero h1 span { color: var(--gold); }
-    .hero p {
-      max-width: 850px; margin: 24px auto 0;
-      color: var(--muted); line-height: 1.8; font-size: 1.1rem;
+    .page-header h1 em { font-style: italic; color: var(--gold); }
+    .page-header p {
+      margin-top: 16px;
+      font-size: 0.92rem; color: var(--muted); line-height: 1.75;
+      max-width: 480px; margin-left: auto; margin-right: auto;
     }
-    .container { max-width: 1400px; margin: auto; padding: 0 24px 80px; }
-    .region-filter-zone {
-      max-width: 760px;
-      margin: 0 auto 35px;
-      padding: 15px;
-      background-color: #f9f6f0;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      color: #4a1525;
+
+    /* ── Gold divider ─────────────────────────── */
+    .divider {
+      width: 40px; height: 1px;
+      background: var(--gold); opacity: 0.5;
+      margin: 28px auto 0;
     }
-    .region-filter-zone label {
-      font-weight: bold;
-      color: #4a1525;
-      white-space: nowrap;
-    }
-    .region-dropdown {
-      padding: 10px 15px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      background-color: #fff;
-      color: #151a20;
-      cursor: pointer;
-      flex-grow: 1;
-      max-width: 300px;
-    }
-    .section-title { margin: 60px 0 24px; font-size: 2rem; letter-spacing: -1px; }
-    .regions-grid {
+
+    /* ── Countries grid ───────────────────────── */
+    .countries {
+      position: relative; z-index: 1;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 28px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      padding: 0 20px;
+      max-width: 1100px; margin: 0 auto;
     }
-    .region-card {
-      position: relative; overflow: hidden; border-radius: 28px;
-      min-height: 500px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 25px 50px rgba(0,0,0,0.35);
-      transition: transform 0.25s ease;
-    }
-    .region-card:hover { transform: translateY(-6px); }
-    .region-image {
-      height: 230px; background-size: cover; background-position: center; position: relative;
-    }
-    .region-image::after {
-      content: ""; position: absolute; inset: 0;
-      background: linear-gradient(180deg, transparent 0%, rgba(12,14,17,0.85) 100%);
-    }
-    .region-content { padding: 28px; }
-    .region-country {
-      color: var(--gold); font-size: 0.85rem;
-      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
-    }
-    .region-card h2 { margin: 0; font-size: 2rem; letter-spacing: -1px; }
-    .region-subtitle { margin-top: 10px; color: var(--muted); line-height: 1.7; }
-    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px; }
-    .info-box {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 18px; padding: 16px;
-    }
-    .info-box span {
-      display: block; color: var(--gold); font-size: 0.78rem;
-      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
-    }
-    .info-box strong { font-size: 0.95rem; line-height: 1.5; }
-    .focus-box {
-      margin-top: 24px; background: rgba(255,255,255,0.04);
-      border-left: 3px solid var(--gold); padding: 18px;
-      border-radius: 0 18px 18px 0;
-    }
-    .focus-box h3 { margin-top: 0; margin-bottom: 12px; font-size: 1rem; }
-    .focus-box p { margin: 0; color: var(--muted); line-height: 1.7; font-size: 0.95rem; }
-    .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
-    .tag {
-      padding: 8px 12px; border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      font-size: 0.82rem; color: var(--muted);
-    }
-    .explore-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      margin-top: 18px; margin-bottom: 8px; padding: 12px 20px; border-radius: 14px;
-      background: rgba(212,175,55,0.1);
-      border: 1px solid rgba(212,175,55,0.3);
-      color: var(--gold); font-size: 0.9rem; font-weight: 600;
-      text-decoration: none; transition: background 0.2s, border-color 0.2s; cursor: pointer;
-      width: fit-content;
-    }
-    .explore-btn:hover { background: rgba(212,175,55,0.18); border-color: rgba(212,175,55,0.55); }
-    .explore-btn svg { transition: transform 0.2s; }
-    .explore-btn:hover svg { transform: translateX(4px); }
-    .footer {
-      margin-top: 80px; text-align: center;
-      color: var(--muted); line-height: 1.8; font-size: 0.95rem;
-    }
-    .chargement { text-align: center; padding: 60px; color: var(--muted); font-size: 1.1rem; }
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2.8rem; }
-      .info-grid { grid-template-columns: 1fr; }
-      .nav-container { flex-direction: column; align-items: flex-start; gap: 14px; }
-    }
-    @media screen and (max-width: 600px) {
-      .region-filter-zone {
-        margin: 0 24px 32px;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
+
+    /* Wide card (first two) */
+    @media (min-width: 640px) {
+      .countries {
+        grid-template-columns: repeat(2, 1fr);
       }
-      .region-filter-zone label { white-space: normal; }
-      .region-dropdown {
-        max-width: 100%;
-        padding: 12px;
+    }
+    @media (min-width: 900px) {
+      .countries {
+        grid-template-columns: repeat(3, 1fr);
       }
-      .explore-btn {
-        width: 100%;
-        justify-content: center;
-        min-height: 46px;
+      .country-card:nth-child(1),
+      .country-card:nth-child(2) {
+        grid-column: span 1;
       }
+    }
+
+    /* ── Country card ─────────────────────────── */
+    .country-card {
+      position: relative;
+      display: block;
+      text-decoration: none;
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      min-height: 200px;
+      transition: transform 0.3s cubic-bezier(.25,.8,.25,1),
+                  box-shadow 0.3s ease,
+                  border-color 0.3s ease;
+      cursor: pointer;
+    }
+    .country-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(212,175,55,0.35);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(212,175,55,0.12);
+    }
+    .country-card:active {
+      transform: translateY(-2px);
+    }
+
+    /* Background pattern unique à chaque pays */
+    .country-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      opacity: 0.12;
+      transition: opacity 0.3s ease;
+    }
+    .country-card:hover::before { opacity: 0.2; }
+
+    .card-france::before    { background: radial-gradient(ellipse at 30% 60%, #3d6b8f 0%, transparent 70%), radial-gradient(ellipse at 80% 20%, #6b8e23 0%, transparent 60%); opacity: 0.25; }
+    .card-italie::before    { background: radial-gradient(ellipse at 40% 70%, #8b4513 0%, transparent 65%), radial-gradient(ellipse at 75% 25%, #dc8c4a 0%, transparent 55%); opacity: 0.22; }
+    .card-espagne::before   { background: radial-gradient(ellipse at 35% 65%, #b22222 0%, transparent 65%), radial-gradient(ellipse at 80% 30%, #d4a017 0%, transparent 55%); opacity: 0.2; }
+    .card-afriquedusud::before { background: radial-gradient(ellipse at 40% 60%, #4a7c59 0%, transparent 65%), radial-gradient(ellipse at 75% 20%, #c68b2f 0%, transparent 55%); opacity: 0.2; }
+    .card-portugal::before  { background: radial-gradient(ellipse at 35% 65%, #7b3f6e 0%, transparent 65%), radial-gradient(ellipse at 78% 25%, #3a6b8a 0%, transparent 55%); opacity: 0.2; }
+
+    .card-inner {
+      position: relative; z-index: 1;
+      padding: 32px 28px 28px;
+      display: flex; flex-direction: column;
+      height: 100%;
+      min-height: 200px;
+    }
+
+    .card-flag {
+      font-size: 2.4rem; line-height: 1;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+    }
+
+    .card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.9rem; font-weight: 400;
+      letter-spacing: -0.01em; line-height: 1;
+      color: var(--text);
+    }
+
+    .card-sub {
+      margin-top: 8px;
+      font-size: 0.8rem; color: var(--muted);
+      letter-spacing: 0.04em;
+      line-height: 1.5;
+    }
+
+    .card-arrow {
+      margin-top: auto;
+      padding-top: 20px;
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold); opacity: 0;
+      transition: opacity 0.25s ease, gap 0.25s ease;
+    }
+    .country-card:hover .card-arrow { opacity: 1; gap: 10px; }
+
+    .card-arrow svg { flex-shrink: 0; }
+
+    /* Accent bar at bottom */
+    .country-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .country-card:hover::after { opacity: 0.6; }
+
+    /* ── Bottom navigation (mobile-first) ──────── */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+      height: var(--bot-h);
+      background: rgba(8,10,12,0.88);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-around;
+      padding: 0 8px;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .bot-item {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      text-decoration: none;
+      padding: 8px 12px; border-radius: 12px;
+      color: var(--muted);
+      font-size: 0.68rem; letter-spacing: 0.04em;
+      transition: color 0.2s ease, background 0.2s ease;
+      flex: 1; max-width: 80px;
+    }
+    .bot-item:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+    .bot-item.active { color: var(--gold); }
+    .bot-item.active .bot-icon svg path,
+    .bot-item.active .bot-icon svg rect,
+    .bot-item.active .bot-icon svg circle { stroke: var(--gold); }
+
+    .bot-icon {
+      width: 24px; height: 24px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .bot-icon svg { width: 22px; height: 22px; }
+    .bot-icon svg path, .bot-icon svg rect, .bot-icon svg circle {
+      stroke: currentColor;
+      transition: stroke 0.2s ease;
+    }
+
+    .bot-label { white-space: nowrap; }
+
+    /* ── Staggered entrance animations ──────────── */
+    .country-card {
+      animation: cardIn 0.5s cubic-bezier(.25,.8,.25,1) both;
+    }
+    .country-card:nth-child(1) { animation-delay: 0.05s; }
+    .country-card:nth-child(2) { animation-delay: 0.12s; }
+    .country-card:nth-child(3) { animation-delay: 0.19s; }
+    .country-card:nth-child(4) { animation-delay: 0.26s; }
+    .country-card:nth-child(5) { animation-delay: 0.33s; }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .page-header {
+      animation: fadeDown 0.5s ease both;
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Responsive tweaks ───────────────────────── */
+    @media (max-width: 479px) {
+      .card-inner { padding: 24px 20px 20px; min-height: 170px; }
+      .card-flag { font-size: 2rem; margin-bottom: 14px; }
+      .card-name { font-size: 1.6rem; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Top nav -->
   <nav class="top-nav">
-    <div class="nav-container">
-      <a href="index.html" class="nav-logo">🍷 Ma Cave</a>
-      <div class="nav-links">
-        <a href="index.html">Accueil</a>
-        <a href="Ma-Cave.html">Ma Cave</a>
-        <a href="millesimes.html">Millésimes</a>
-        <a href="regionsviticoles.html" class="active">Régions</a>
-      </div>
-    </div>
+    <a href="index.html" class="nav-logo">🍷 Ma <span>Cave</span></a>
   </nav>
 
-  <section class="hero">
-    <h1>Régions <span>Viticoles</span></h1>
-    <p>
-      Explorer les terroirs, comprendre les styles de vins et découvrir les régions qui façonnent
-      l'identité de la cave. Chaque région possède son climat, ses cépages et son énergie propre.
-    </p>
-  </section>
+  <!-- Page header -->
+  <header class="page-header">
+    <div class="eyebrow">Terroirs du monde</div>
+    <h1>Régions <em>viticoles</em></h1>
+    <p>Explorez les grands vignobles, comprendre les terroirs et les cépages qui composent la cave.</p>
+    <div class="divider"></div>
+  </header>
 
-  <!-- Zone de navigation rapide par région -->
-  <div class="region-filter-zone">
-    <label for="region-selector">📍 Choisir une région :</label>
-    <select id="region-selector" class="region-dropdown" onchange="scrollToRegion(this.value)">
-      <option value="" disabled selected>-- Sélectionnez un pays --</option>
-    </select>
-  </div>
+  <!-- Country cards -->
+  <main class="countries">
 
-  <div class="container" id="contenu">
-    <div class="chargement">Chargement des régions...</div>
-  </div>
+    <a href="france.html" class="country-card card-france">
+      <div class="card-inner">
+        <div class="card-flag">🇫🇷</div>
+        <div class="card-name">France</div>
+        <div class="card-sub">Bordeaux · Bourgogne · Rhône · Chablis</div>
+        <div class="card-arrow">
+          Explorer
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </a>
 
-  <script>
-    fetch('regions.json')
-      .then(r => r.json())
-      .then(regions => afficher(regions))
-      .catch(() => {
-        document.getElementById('contenu').innerHTML =
-          '<div class="chargement">⚠️ Impossible de charger regions.json</div>';
-      });
+    <a href="italie.html" class="country-card card-italie">
+      <div class="card-inner">
+        <div class="card-flag">🇮🇹</div>
+        <div class="card-name">Italie</div>
+        <div class="card-sub">Piémont · Toscane · Sicile · Veneto</div>
+        <div class="card-arrow">
+          Explorer
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </a>
 
-    function afficher(regions) {
-      // Regrouper par pays en préservant l'ordre d'apparition
-      const paysOrder = [];
-      const parPays = {};
-      regions.forEach(r => {
-        if (!parPays[r.pays]) { parPays[r.pays] = []; paysOrder.push(r.pays); }
-        parPays[r.pays].push(r);
-      });
+    <a href="espagne.html" class="country-card card-espagne">
+      <div class="card-inner">
+        <div class="card-flag">🇪🇸</div>
+        <div class="card-name">Espagne</div>
+        <div class="card-sub">Rioja · Ribera del Duero · Priorat</div>
+        <div class="card-arrow">
+          Explorer
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </a>
 
-      const arrowSVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
+    <a href="afriquedusud.html" class="country-card card-afriquedusud">
+      <div class="card-inner">
+        <div class="card-flag">🇿🇦</div>
+        <div class="card-name">Afrique du Sud</div>
+        <div class="card-sub">Stellenbosch · Swartland · Franschhoek</div>
+        <div class="card-arrow">
+          Explorer
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </a>
 
-      const selector = document.getElementById('region-selector');
-      const flags = {
-        'France': '🇫🇷',
-        'Italie': '🇮🇹',
-        'Espagne': '🇪🇸',
-        'Afrique du Sud': '🇿🇦'
-      };
-      selector.innerHTML = '<option value="" disabled selected>-- Sélectionnez un vignoble --</option>' +
-        paysOrder.map(pays => `<option value="#${slugifyRegion(pays)}">${flags[pays] || '📍'} ${pays}</option>`).join('');
+    <a href="portugal.html" class="country-card card-portugal">
+      <div class="card-inner">
+        <div class="card-flag">🇵🇹</div>
+        <div class="card-name">Portugal</div>
+        <div class="card-sub">Douro · Alentejo · Vinho Verde · Dão</div>
+        <div class="card-arrow">
+          Explorer
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </a>
 
-      let html = '';
-      paysOrder.forEach(pays => {
-        html += `<h2 class="section-title" id="${slugifyRegion(pays)}">${pays}</h2><div class="regions-grid">`;
+  </main>
 
-        parPays[pays].forEach(r => {
-          const infosHTML = Object.entries(r.infos).map(([k, v]) => `
-            <div class="info-box"><span>${k}</span><strong>${v}</strong></div>`).join('');
+  <!-- Bottom navigation -->
+  <nav class="bottom-nav">
 
-          const tagsHTML = r.tags.map(t => `<div class="tag">${t}</div>`).join('');
+    <a href="index.html" class="bot-item">
+      <div class="bot-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </div>
+      <span class="bot-label">Accueil</span>
+    </a>
 
-          const focusHTML = r.focus ? `
-            <div class="focus-box">
-              <h3>Pourquoi cette région est spéciale</h3>
-              <p>${r.focus}</p>
-            </div>` : '';
+    <a href="Ma-Cave.html" class="bot-item">
+      <div class="bot-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 3v4M16 3v4M3 10h18M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"/>
+        </svg>
+      </div>
+      <span class="bot-label">Ma Cave</span>
+    </a>
 
-          const lienLabel = r.lien_label || 'Explorer la région';
-          const lienHTML = r.lien ? `
-            <a href="${r.lien}" class="explore-btn">${lienLabel} ${arrowSVG}</a>` : '';
+    <a href="millesimes.html" class="bot-item">
+      <div class="bot-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M12 6v6l4 2"/>
+        </svg>
+      </div>
+      <span class="bot-label">Millésimes</span>
+    </a>
 
-          html += `
-            <div class="region-card">
-              <div class="region-image" style="background-image:url('${r.image}');"></div>
-              <div class="region-content">
-                <div class="region-country">${r.pays}</div>
-                <h2>${r.nom}</h2>
-                <p class="region-subtitle">${r.subtitle}</p>
-                <div class="info-grid">${infosHTML}</div>
-                ${focusHTML}
-                ${tagsHTML.length ? `<div class="tag-list">${tagsHTML}</div>` : ''}
-                ${lienHTML}
-              </div>
-            </div>`;
-        });
+    <a href="regionsviticoles.html" class="bot-item active">
+      <div class="bot-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
+        </svg>
+      </div>
+      <span class="bot-label">Régions</span>
+    </a>
 
-        html += '</div>';
-      });
-
-      html += `<div class="footer">
-        Cette page évoluera avec la cave.
-        Chaque nouvelle bouteille peut enrichir la compréhension d'une région, d'un terroir ou d'un style de vin.
-      </div>`;
-
-      document.getElementById('contenu').innerHTML = html;
-    }
-
-    function slugifyRegion(text) {
-      return text
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-+|-+$/g, '');
-    }
-
-    function scrollToRegion(anchorId) {
-      if (anchorId) {
-        const targetElement = document.querySelector(anchorId);
-        if (targetElement) {
-          targetElement.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      }
-    }
-  </script>
+  </nav>
 
 </body>
 </html>
