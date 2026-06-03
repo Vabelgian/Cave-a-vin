@@ -24,16 +24,16 @@
     "tags_ouverture": ["Noël", "Évolutif"]
   },
   {
-    "statut": "degust",
-    "annee_degustation": 2026,
+    "statut": "Planificationt",
+    "annee_affichage": 2027,
     "titre": "Ridgeback Cabernet Franc",
     "couleur": "rouge",
     "lieu_achat": "vivino",
     "commentaire": "Deuxième bouteille de ce lot sud-africain.",
     "tags": ["Deuxième bouteille", "Lot"],
-    "date_ouverture": "14 mai 2026",
-    "note_degustation": "Les tanins se sont encore fondus. Le fruit est plus rond qu'en décembre dernier. Très belle évolution.",
-    "tags_ouverture": ["Printemps", "Plus mûr"]
+    "date_ouverture": "",
+    "note_degustation": "",
+    "tags_ouverture": ["Printemps", ""]
   },
   {
     "statut": "degust",
@@ -49,13 +49,13 @@
   },
   {
     "statut": "planification",
-    "annee_degustation": 2026,
+    "annee_affichage": 2026,
     "titre": "Orpheus & The Raven n7 Pinotage 2022",
     "couleur": "rouge",
     "lieu_achat": "vivino",
     "commentaire": "Pinotage sud-africain de caractère. Dégustation analytique prévue en contexte BBQ.",
     "tags": ["Festif", "BBQ"],
-    "date_ouverture": "Été 2026 — à venir",
+    "date_ouverture": "Été 2026",
     "note_degustation": "",
     "tags_ouverture": []
   },
