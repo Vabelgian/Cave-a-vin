@@ -8,7 +8,7 @@
     "commentaire": "Un vin portugais solaire qui est fougeux.",
     "tags": ["Repas de Noël", "Première bouteille"],
     "date_ouverture": "25 juillet 2025",
-    "note_degustation": "A complèter.",
+    "note_degustation": "Arômes de fruits noirs, attaque souple, fruits/bois bien balancés. Evolution dans le verre ressentie. Un vin très bien équilibré, agréable dès aujourd’hui, avec un bon potentiel de plaisir immédiat.",
     "tags_ouverture": ["Noël", "Évolutif"]
   },
   {
@@ -48,7 +48,7 @@
     "tags_ouverture": ["Trop jeune"]
   },
   {
-    "statut": "degust",
+    "statut": "planification",
     "annee_degustation": 2026,
     "titre": "Orpheus & The Raven n7 Pinotage 2022",
     "couleur": "rouge",
@@ -77,11 +77,11 @@
     "titre": "Vinhas de Xisto Tinto Reserva 2022",
     "couleur": "rouge",
     "lieu_achat": "bourse du vin",
-    "commentaire": "Bouteille achetée au salon du vin de Jurbise. 1ère bouteille d'une caisse de 6.",
-    "tags": ["Loire", "Garde moyenne"],
+    "commentaire": "Vin très solaire, moins de carafage donc tannins présents et sensation plus épicée.",
+    "tags": ["Solaire", "Grillades"],
     "date_ouverture": "29 mai 2026",
-    "note_degustation": "Tes notes de dégustation ici.",
-    "tags_ouverture": ["Loire"]
+    "note_degustation": "Vin solaire et structuré, qui prend toute sa dimension à table. L’accord avec la pluma de pata negra révèle fortement les épices et assouplit l’ensemble. Plus gastronomique que contemplatif.",
+    "tags_ouverture": ["BBQ"]
   },
   {
     "statut": "planification",
