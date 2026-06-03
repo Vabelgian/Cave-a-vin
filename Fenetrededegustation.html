@@ -17,19 +17,27 @@
       --rouge-pill: rgba(180,60,60,0.18); --rouge-pill-border: rgba(180,60,60,0.35); --rouge-pill-text: #e07070;
       --blanc-pill: rgba(201,168,76,0.13); --blanc-pill-border: rgba(201,168,76,0.3); --blanc-pill-text: #c9a84c;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── FIX MOBILE SCROLL HORIZONTAL ── */
+    html, body { max-width: 100%; overflow-x: hidden; }
+
     body { background: var(--bg); color: var(--text); font-family: "Jost", sans-serif; font-weight: 300; font-size: 16px; min-height: 100vh; }
-    .nav { background: var(--bordeaux-dark); padding: 0 32px; position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 20px rgba(0,0,0,0.5); }
+
+    /* ── NAV ── */
+    .nav { background: var(--bordeaux-dark); padding: 0 32px; position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 20px rgba(0,0,0,0.5); width: 100%; }
     .nav::before { content: ""; position: absolute; top: -40px; right: -40px; width: 200px; height: 200px; border: 1px solid rgba(201,169,110,0.1); border-radius: 50%; pointer-events: none; }
-    .nav-inner { max-width: 820px; margin: 0 auto; display: flex; align-items: center; }
-    .nav-brand { font-family: "Cormorant Garamond", serif; font-size: 1.05rem; font-weight: 300; color: rgba(244,241,236,0.5); padding: 16px 24px 16px 0; border-right: 1px solid rgba(255,255,255,0.1); margin-right: 4px; white-space: nowrap; letter-spacing: .04em; }
+    .nav-inner { max-width: 820px; margin: 0 auto; display: flex; align-items: center; overflow: hidden; }
+    .nav-brand { font-family: "Cormorant Garamond", serif; font-size: 1.05rem; font-weight: 300; color: rgba(244,241,236,0.5); padding: 16px 24px 16px 0; border-right: 1px solid rgba(255,255,255,0.1); margin-right: 4px; white-space: nowrap; letter-spacing: .04em; flex-shrink: 0; }
     .nav-brand span { color: var(--gold); font-style: italic; }
-    .nav-link { font-family: "Jost", sans-serif; font-size: 11px; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; color: rgba(244,241,236,0.45); text-decoration: none; padding: 20px 16px; position: relative; transition: color .2s; white-space: nowrap; }
+    .nav-link { font-family: "Jost", sans-serif; font-size: 11px; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; color: rgba(244,241,236,0.45); text-decoration: none; padding: 20px 16px; position: relative; transition: color .2s; white-space: nowrap; flex-shrink: 0; }
     .nav-link::after { content: ""; position: absolute; bottom: 0; left: 16px; right: 16px; height: 2px; background: var(--gold); transform: scaleX(0); transition: transform .2s; }
     .nav-link:hover { color: rgba(244,241,236,0.8); }
     .nav-link.active { color: var(--gold); }
     .nav-link.active::after { transform: scaleX(1); }
-    .filters-bar { background: var(--bordeaux); padding: 13px 32px; position: sticky; top: 57px; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.4); }
+
+    /* ── FILTERS BAR ── */
+    .filters-bar { background: var(--bordeaux); padding: 13px 32px; position: sticky; top: 57px; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.4); width: 100%; }
     .filters-inner { max-width: 820px; margin: 0 auto; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
     .filter-group { display: flex; align-items: center; gap: 6px; }
     .filter-label { font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: rgba(244,241,236,0.35); margin-right: 2px; white-space: nowrap; }
@@ -39,12 +47,16 @@
     .filter-btn.active { background: var(--gold); border-color: var(--gold); color: var(--bordeaux-dark); font-weight: 500; }
     .filter-reset { font-family: "Jost", sans-serif; font-size: 11px; background: none; border: none; color: rgba(244,241,236,0.25); cursor: pointer; padding: 5px 8px; letter-spacing: .06em; transition: color .18s; margin-left: auto; }
     .filter-reset:hover { color: var(--gold); }
+
+    /* ── MAIN CONTAINER ── */
     .container { max-width: 820px; margin: 0 auto; padding: 48px 32px 100px; }
     .page-header { margin-bottom: 48px; }
     .header-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
     h1 { font-family: "Cormorant Garamond", serif; font-weight: 300; font-size: clamp(2.6rem, 6vw, 4rem); line-height: 1.05; letter-spacing: -.02em; color: var(--text); }
     h1 em { font-style: italic; color: var(--gold); }
     .subtitle { margin-top: 14px; color: var(--muted); font-size: .95rem; line-height: 1.7; max-width: 520px; }
+
+    /* ── TABS ── */
     .tabs { display: flex; gap: 6px; margin-bottom: 36px; border-bottom: 1px solid var(--border); }
     .tab { font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; padding: 10px 20px; border: none; background: transparent; color: var(--hint); cursor: pointer; position: relative; transition: color .2s; }
     .tab::after { content: ""; position: absolute; bottom: -1px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transition: transform .2s; }
@@ -53,6 +65,8 @@
     .tab:hover:not(.active) { color: var(--muted); }
     .panel { display: none; }
     .panel.active { display: block; }
+
+    /* ── CARDS ── */
     .year-block { margin-bottom: 44px; }
     .year-label { font-family: "Cormorant Garamond", serif; font-size: 3rem; font-weight: 400; color: var(--hint); letter-spacing: .1em; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
     .year-label::after { content: ""; flex: 1; height: 1px; background: var(--border); }
@@ -91,23 +105,150 @@
     .no-result { display: none; text-align: center; padding: 60px 20px; color: var(--hint); }
     .no-result p { font-family: "Cormorant Garamond", serif; font-size: 1.2rem; font-weight: 300; font-style: italic; }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-    /* Collapsible filter toggle button (mobile only) */
+
+    /* ── BOUTON AJOUTER ── */
+    .add-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: "Jost", sans-serif; font-size: 12px; font-weight: 400; letter-spacing: .1em; text-transform: uppercase;
+      background: transparent; border: 1px solid rgba(201,168,76,0.35); color: var(--gold);
+      padding: 9px 18px; border-radius: 999px; cursor: pointer;
+      transition: all .2s; margin-bottom: 40px;
+    }
+    .add-btn:hover { background: var(--gold-dim); border-color: var(--gold); }
+    .add-btn svg { transition: transform .2s; }
+    .add-btn:hover svg { transform: rotate(90deg); }
+
+    /* ── PANNEAU FORMULAIRE ── */
+    .form-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+      z-index: 500; display: flex; align-items: flex-end; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
+    .form-overlay.open { opacity: 1; pointer-events: all; }
+    .form-panel {
+      background: #1a1714; border: 1px solid rgba(201,168,76,0.18); border-bottom: none;
+      border-radius: 20px 20px 0 0; width: 100%; max-width: 640px;
+      max-height: 92vh; overflow-y: auto;
+      transform: translateY(100%); transition: transform .35s cubic-bezier(.4,0,.2,1);
+      padding: 32px 28px 48px;
+    }
+    .form-overlay.open .form-panel { transform: translateY(0); }
+
+    .form-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 28px; }
+    .form-title { font-family: "Cormorant Garamond", serif; font-size: 1.7rem; font-weight: 300; color: var(--text); }
+    .form-title em { font-style: italic; color: var(--gold); }
+    .form-close { background: none; border: none; color: var(--muted); cursor: pointer; padding: 4px; transition: color .2s; flex-shrink: 0; }
+    .form-close:hover { color: var(--text); }
+
+    /* Sections du formulaire */
+    .form-section { margin-bottom: 24px; }
+    .form-section-title {
+      font-size: 9px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 14px; padding-bottom: 8px;
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+    .form-row { display: grid; gap: 12px; margin-bottom: 12px; }
+    .form-row.cols-2 { grid-template-columns: 1fr 1fr; }
+    .form-row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .form-field { display: flex; flex-direction: column; gap: 6px; }
+    .form-label { font-size: 10px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .form-input, .form-select, .form-textarea {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      color: var(--text); font-family: "Jost", sans-serif; font-size: .88rem; font-weight: 300;
+      padding: 10px 13px; border-radius: 8px; transition: border-color .2s, background .2s;
+      outline: none; width: 100%;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: rgba(201,168,76,0.5); background: rgba(201,168,76,0.04);
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--hint); }
+    .form-select { cursor: pointer; }
+    .form-select option { background: #1a1714; }
+    .form-textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+
+    /* Toggle statut */
+    .statut-toggle { display: flex; gap: 8px; }
+    .statut-btn {
+      flex: 1; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--border);
+      background: transparent; color: var(--muted); font-family: "Jost", sans-serif;
+      font-size: .8rem; font-weight: 400; letter-spacing: .06em; cursor: pointer; transition: all .18s;
+      text-align: center;
+    }
+    .statut-btn.active { background: var(--gold-dim); border-color: rgba(201,168,76,0.4); color: var(--gold); }
+
+    /* Couleur toggle */
+    .couleur-toggle { display: flex; gap: 8px; }
+    .couleur-btn {
+      flex: 1; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--border);
+      background: transparent; color: var(--muted); font-family: "Jost", sans-serif;
+      font-size: .8rem; cursor: pointer; transition: all .18s; text-align: center;
+    }
+    .couleur-btn[data-val="rouge"].active { background: var(--rouge-pill); border-color: var(--rouge-pill-border); color: var(--rouge-pill-text); }
+    .couleur-btn[data-val="blanc"].active { background: var(--blanc-pill); border-color: var(--blanc-pill-border); color: var(--blanc-pill-text); }
+
+    /* Champs conditionnels */
+    .fields-degust, .fields-planning { transition: opacity .2s; }
+    .fields-degust.hidden, .fields-planning.hidden { display: none; }
+
+    /* Badge selector */
+    .badge-selector { display: flex; gap: 8px; flex-wrap: wrap; }
+    .badge-opt {
+      padding: 5px 13px; border-radius: 999px; border: 1px solid var(--border);
+      background: transparent; color: var(--muted); font-family: "Jost", sans-serif;
+      font-size: .75rem; cursor: pointer; transition: all .18s;
+    }
+    .badge-opt.active-gold { background: var(--gold-dim); border-color: rgba(201,168,76,0.4); color: var(--gold); }
+    .badge-opt.active-blue { background: var(--blue-dim); border-color: rgba(91,143,181,0.35); color: var(--blue); }
+    .badge-opt.active-green { background: var(--green-dim); border-color: rgba(106,158,95,0.35); color: var(--green); }
+
+    /* Zone de résultat JSON */
+    .json-result-wrap { display: none; margin-top: 20px; }
+    .json-result-wrap.visible { display: block; }
+    .json-result-label {
+      font-size: 9px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 10px;
+    }
+    .json-result-box {
+      background: #0e0c0a; border: 1px solid rgba(201,168,76,0.2); border-radius: 8px;
+      padding: 14px 16px; font-family: "Courier New", monospace; font-size: .78rem;
+      color: #a0d4a0; line-height: 1.7; white-space: pre; overflow-x: auto;
+      max-height: 260px; overflow-y: auto;
+    }
+    .json-actions { display: flex; gap: 10px; margin-top: 12px; }
+    .btn-copy {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--gold); color: var(--bordeaux-dark); border: none;
+      font-family: "Jost", sans-serif; font-size: 12px; font-weight: 500; letter-spacing: .08em;
+      padding: 10px 20px; border-radius: 999px; cursor: pointer; transition: opacity .2s;
+    }
+    .btn-copy:hover { opacity: .85; }
+    .btn-copy.copied { background: var(--green); }
+    .btn-reset-form {
+      background: transparent; border: 1px solid var(--border); color: var(--muted);
+      font-family: "Jost", sans-serif; font-size: 12px; letter-spacing: .08em;
+      padding: 10px 18px; border-radius: 999px; cursor: pointer; transition: all .2s;
+    }
+    .btn-reset-form:hover { border-color: var(--muted); color: var(--text); }
+
+    /* Bouton générer */
+    .btn-generate {
+      width: 100%; padding: 13px; margin-top: 8px;
+      background: linear-gradient(135deg, var(--bordeaux), var(--bordeaux-light));
+      border: 1px solid rgba(201,168,76,0.2); color: var(--gold);
+      font-family: "Jost", sans-serif; font-size: 13px; font-weight: 400; letter-spacing: .12em; text-transform: uppercase;
+      border-radius: 10px; cursor: pointer; transition: all .2s;
+    }
+    .btn-generate:hover { background: linear-gradient(135deg, var(--bordeaux-light), #8a3535); border-color: rgba(201,168,76,0.4); }
+
+    /* Hint sous les tags */
+    .input-hint { font-size: .72rem; color: var(--hint); margin-top: 4px; }
+
+    /* ── MOBILE FILTERS COLLAPSIBLE ── */
     .filters-toggle-btn {
-      display: none;
-      width: 100%;
-      background: none;
-      border: none;
-      padding: 11px 16px;
-      color: rgba(244,241,236,0.75);
-      font-family: "Jost", sans-serif;
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      cursor: pointer;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
+      display: none; width: 100%; background: none; border: none; padding: 11px 16px;
+      color: rgba(244,241,236,0.75); font-family: "Jost", sans-serif; font-size: 12px;
+      font-weight: 400; letter-spacing: .1em; text-transform: uppercase; cursor: pointer;
+      align-items: center; justify-content: space-between; gap: 8px;
     }
     .filters-toggle-btn .toggle-label { display: flex; align-items: center; gap: 8px; }
     .filters-toggle-btn .active-hint {
@@ -119,43 +260,21 @@
     .filters-toggle-btn.open .toggle-chevron { transform: rotate(180deg); }
     .filters-collapsible { transition: max-height .3s cubic-bezier(.4,0,.2,1), opacity .3s; overflow: hidden; }
 
+    /* ── RESPONSIVE MOBILE ── */
     @media (max-width: 600px) {
       .nav { padding: 0 16px; }
       .nav-brand { display: none; }
       .container { padding: 32px 16px 80px; }
-
-      /* Sticky bar stays but compact */
-      .filters-bar { padding: 0 0; top: 53px; }
-
-      /* Show toggle button */
+      .filters-bar { padding: 0; top: 53px; }
       .filters-toggle-btn { display: flex; }
-
-      /* Collapsible content */
       .filters-collapsible { max-height: 0; opacity: 0; }
       .filters-collapsible.open { max-height: 400px; opacity: 1; }
-
-      /* Stack filter groups vertically */
-      .filters-inner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-        padding: 12px 16px 14px;
-      }
-
-      /* Each filter group on its own row, buttons wrap */
-      .filter-group {
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 5px;
-        width: 100%;
-      }
-
-      /* Hide separators on mobile */
+      .filters-inner { flex-direction: column; align-items: flex-start; gap: 10px; padding: 12px 16px 14px; }
+      .filter-group { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 5px; width: 100%; }
       .filter-sep { display: none; }
-
-      /* Reset button on its own row */
       .filter-reset { margin-left: 0; padding: 5px 0; }
+      .form-panel { padding: 24px 18px 48px; }
+      .form-row.cols-2, .form-row.cols-3 { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -180,26 +299,26 @@
     <svg class="toggle-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
   </button>
   <div class="filters-collapsible" id="filters-collapsible">
-  <div class="filters-inner">
-    <div class="filter-group">
-      <span class="filter-label">Couleur</span>
-      <button class="filter-btn active" data-filter="couleur" data-value="tous" onclick="setFilter('couleur','tous',this)">Tous</button>
-      <button class="filter-btn" data-filter="couleur" data-value="rouge" onclick="setFilter('couleur','rouge',this)">Rouge</button>
-      <button class="filter-btn" data-filter="couleur" data-value="blanc" onclick="setFilter('couleur','blanc',this)">Blanc</button>
+    <div class="filters-inner">
+      <div class="filter-group">
+        <span class="filter-label">Couleur</span>
+        <button class="filter-btn active" data-filter="couleur" data-value="tous" onclick="setFilter('couleur','tous',this)">Tous</button>
+        <button class="filter-btn" data-filter="couleur" data-value="rouge" onclick="setFilter('couleur','rouge',this)">Rouge</button>
+        <button class="filter-btn" data-filter="couleur" data-value="blanc" onclick="setFilter('couleur','blanc',this)">Blanc</button>
+      </div>
+      <div class="filter-sep"></div>
+      <div class="filter-group" id="year-filters">
+        <span class="filter-label">Année</span>
+        <button class="filter-btn active" data-filter="annee" data-value="tous" onclick="setFilter('annee','tous',this)">Toutes</button>
+      </div>
+      <div class="filter-sep"></div>
+      <div class="filter-group" id="location-filters">
+        <span class="filter-label">Lieu</span>
+        <button class="filter-btn active" data-filter="lieu_achat" data-value="tous" onclick="setFilter('lieu_achat','tous',this)">Tous</button>
+      </div>
+      <button class="filter-reset" onclick="resetFilters()">✕ Réinitialiser</button>
     </div>
-    <div class="filter-sep"></div>
-    <div class="filter-group" id="year-filters">
-      <span class="filter-label">Année</span>
-      <button class="filter-btn active" data-filter="annee" data-value="tous" onclick="setFilter('annee','tous',this)">Toutes</button>
-    </div>
-    <div class="filter-sep"></div>
-    <div class="filter-group" id="location-filters">
-      <span class="filter-label">Lieu</span>
-      <button class="filter-btn active" data-filter="lieu_achat" data-value="tous" onclick="setFilter('lieu_achat','tous',this)">Tous</button>
-    </div>
-    <button class="filter-reset" onclick="resetFilters()">✕ Réinitialiser</button>
   </div>
-  </div><!-- /filters-collapsible -->
 </div>
 
 <div class="container">
@@ -208,6 +327,13 @@
     <h1>Fenêtres de<br><em>dégustation</em></h1>
     <p class="subtitle">Suivi des dégustations passées et planification des ouvertures futures. Une mémoire du vin dans le temps.</p>
   </div>
+
+  <!-- Bouton Ajouter -->
+  <button class="add-btn" onclick="openForm()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    Ajouter une entrée
+  </button>
+
   <div class="tabs">
     <button class="tab active" onclick="showTab('degust',this)">Dégustations</button>
     <button class="tab" onclick="showTab('planning',this)">Planification</button>
@@ -216,41 +342,188 @@
   <div id="planning" class="panel"></div>
 </div>
 
-<script>
-// SVGs et icônes
-var SVG_CLOCK    = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
-var SVG_CAL      = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
-var SVG_CHEVRON  = '<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>';
-var SVG_INFO     = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
-var SVG_GARDE    = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg>';
-var SVG_CHECK    = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+<!-- ══════════════ PANNEAU FORMULAIRE ══════════════ -->
+<div class="form-overlay" id="form-overlay" onclick="handleOverlayClick(event)">
+  <div class="form-panel" id="form-panel">
 
+    <div class="form-header">
+      <div class="form-title">Nouvelle <em>entrée</em></div>
+      <button class="form-close" onclick="closeForm()" aria-label="Fermer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Section 1 : Identification -->
+    <div class="form-section">
+      <div class="form-section-title">Identification</div>
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label">Titre du vin</label>
+          <input type="text" class="form-input" id="f-titre" placeholder="ex. Barolo Serralunga 2019">
+        </div>
+      </div>
+      <div class="form-row cols-2">
+        <div class="form-field">
+          <label class="form-label">Couleur</label>
+          <div class="couleur-toggle">
+            <button class="couleur-btn active" data-val="rouge" onclick="setCouleur('rouge',this)">🍷 Rouge</button>
+            <button class="couleur-btn" data-val="blanc" onclick="setCouleur('blanc',this)">🥂 Blanc</button>
+          </div>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Lieu d'achat</label>
+          <input type="text" class="form-input" id="f-lieu" placeholder="ex. Vivino, salon…">
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2 : Statut -->
+    <div class="form-section">
+      <div class="form-section-title">Statut</div>
+      <div class="statut-toggle">
+        <button class="statut-btn active" data-val="degust" onclick="setStatut('degust',this)">✓ Dégusté</button>
+        <button class="statut-btn" data-val="planification" onclick="setStatut('planification',this)">◷ Planification</button>
+      </div>
+    </div>
+
+    <!-- Section 3a : Champs DÉGUSTATION -->
+    <div class="fields-degust" id="fields-degust">
+      <div class="form-section">
+        <div class="form-section-title">Dégustation</div>
+        <div class="form-row cols-2">
+          <div class="form-field">
+            <label class="form-label">Année de dégustation</label>
+            <input type="number" class="form-input" id="f-annee-degust" placeholder="2026" min="2000" max="2099">
+          </div>
+          <div class="form-field">
+            <label class="form-label">Date d'ouverture</label>
+            <input type="text" class="form-input" id="f-date-ouverture" placeholder="ex. 3 juin 2026">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Commentaire général</label>
+            <textarea class="form-textarea" id="f-commentaire" placeholder="Contexte, première impression, rapport qualité/prix…"></textarea>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Note de dégustation</label>
+            <textarea class="form-textarea" id="f-note-degust" placeholder="Robe, nez, bouche, finale…" style="min-height:100px"></textarea>
+          </div>
+        </div>
+        <div class="form-row cols-2">
+          <div class="form-field">
+            <label class="form-label">Tags de la bouteille</label>
+            <input type="text" class="form-input" id="f-tags" placeholder="Noël, BBQ, Repas de fête">
+            <span class="input-hint">Séparés par des virgules</span>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Tags d'ouverture</label>
+            <input type="text" class="form-input" id="f-tags-ouverture" placeholder="Évolutif, Trop jeune">
+            <span class="input-hint">Séparés par des virgules</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3b : Champs PLANIFICATION -->
+    <div class="fields-planning hidden" id="fields-planning">
+      <div class="form-section">
+        <div class="form-section-title">Planification</div>
+        <div class="form-row cols-2">
+          <div class="form-field">
+            <label class="form-label">Année d'affichage</label>
+            <input type="number" class="form-input" id="f-annee-planning" placeholder="2028" min="2024" max="2099">
+          </div>
+          <div class="form-field">
+            <label class="form-label">Fenêtre d'ouverture</label>
+            <input type="text" class="form-input" id="f-fenetre" placeholder="Apogée estimée : 2028 – 2030">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Commentaire</label>
+            <textarea class="form-textarea" id="f-commentaire-planning" placeholder="Notes de patience, potentiel…"></textarea>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Tags</label>
+            <input type="text" class="form-input" id="f-tags-planning" placeholder="Barolo, Longue garde, Toscane">
+            <span class="input-hint">Séparés par des virgules</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Badge</label>
+            <div class="badge-selector">
+              <button class="badge-opt" data-type="blue" data-icone="garde" data-texte="Longue garde" onclick="selectBadge(this)">🔵 Longue garde</button>
+              <button class="badge-opt" data-type="green" data-icone="check" data-texte="Grand Repas" onclick="selectBadge(this)">🟢 Grand Repas</button>
+              <button class="badge-opt" data-type="gold" data-icone="info" data-texte="À suivre" onclick="selectBadge(this)">🟡 À suivre</button>
+              <button class="badge-opt" data-type="" data-icone="" data-texte="" onclick="selectBadge(this)">✕ Aucun</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bouton générer -->
+    <button class="btn-generate" onclick="generateJSON()">
+      Générer le JSON
+    </button>
+
+    <!-- Zone résultat -->
+    <div class="json-result-wrap" id="json-result-wrap">
+      <div class="json-result-label">JSON prêt à coller dans degustations.json</div>
+      <div class="json-result-box" id="json-result-box"></div>
+      <div class="json-actions">
+        <button class="btn-copy" id="btn-copy" onclick="copyJSON()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copier le JSON
+        </button>
+        <button class="btn-reset-form" onclick="resetForm()">Nouvelle entrée</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── SVG & icônes ──
+var SVG_CLOCK   = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+var SVG_CAL     = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
+var SVG_CHEVRON = '<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>';
+var SVG_INFO    = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+var SVG_GARDE   = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg>';
+var SVG_CHECK   = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
 var BADGE_ICONS = { info: SVG_INFO, garde: SVG_GARDE, check: SVG_CHECK };
-var VINS = []; // Sera rempli par le JSON
+
+var VINS = [];
 var filters = { couleur: "tous", annee: "tous", lieu_achat: "tous" };
 
+// ── État du formulaire ──
+var formState = { statut: "degust", couleur: "rouge", badge: null };
+
+// ── Helpers render ──
 function buildTags(tags) {
   if (!tags || !tags.length) return "";
   return '<div class="tags">' + tags.map(function(t) { return '<span class="tag">' + t + "</span>"; }).join("") + "</div>";
 }
-
 function buildPill(couleur) {
   if (!couleur) return "";
-  var labels = { rouge: "Rouge", blanc: "Blanc", rose: "Rose" };
+  var labels = { rouge: "Rouge", blanc: "Blanc", rose: "Rosé" };
   return '<span class="pill-couleur pill-' + couleur + '">' + (labels[couleur] || couleur) + '</span>';
 }
-
 function buildBadge(badge) {
   if (!badge) return "";
   var icon = BADGE_ICONS[badge.icone] || "";
   return '<span class="badge ' + badge.type + '">' + icon + badge.texte + "</span>";
 }
 
-// Génération carte DÉGUSTATION (Basée sur l'ouverture unitaire)
 function buildDegustCard(vin) {
   var emptyClass = vin.note_degustation ? "" : " empty";
   var noteText = vin.note_degustation || "Notes à remplir après dégustation.";
-  
   var ouverturesHtml = '<div class="opening">'
     + '<div class="opening-header">'
     + '<div class="opening-num">1</div>'
@@ -276,13 +549,12 @@ function buildDegustCard(vin) {
     + '</div>';
 }
 
-// Génération carte PLANIFICATION
 function buildPlanningCard(vin) {
   return '<div class="card" data-couleur="' + (vin.couleur || "") + '" data-annee="' + vin.annee_affichage + '" data-lieu="' + (vin.lieu_achat || "non_renseigne") + '">'
     + '<div class="card-header">'
     + '<div class="card-top-row"><div>'
     + '<div class="card-title">' + vin.titre + '</div>'
-    + '<div class="card-date">' + SVG_CLOCK + " " + vin.fenetre + '</div>'
+    + '<div class="card-date">' + SVG_CLOCK + " " + (vin.fenetre || "") + '</div>'
     + '</div>' + buildPill(vin.couleur) + '</div>'
     + '<div class="card-comment">' + vin.commentaire + '</div>'
     + buildTags(vin.tags)
@@ -294,13 +566,11 @@ function renderPanel(statut, containerId) {
   var container = document.getElementById(containerId);
   var vins = VINS.filter(function(v) { return v.statut === statut; });
   var byYear = {};
-
   vins.forEach(function(v) {
-    var anneClé = (statut === "degust") ? v.annee_degustation : v.annee_affichage;
-    if (!byYear[anneClé]) byYear[anneClé] = [];
-    byYear[anneClé].push(v);
+    var key = (statut === "degust") ? v.annee_degustation : v.annee_affichage;
+    if (!byYear[key]) byYear[key] = [];
+    byYear[key].push(v);
   });
-
   var html = "";
   Object.keys(byYear).sort(function(a, b) { return a - b; }).forEach(function(year) {
     var cards = byYear[year].map(function(v) {
@@ -311,7 +581,6 @@ function renderPanel(statut, containerId) {
           + '<div class="year-label">' + label + '</div>'
           + cards + '</div>';
   });
-
   html += '<div class="no-result"><p>Aucun vin ne correspond à ces filtres.</p></div>';
   container.innerHTML = html;
 }
@@ -324,9 +593,7 @@ function buildYearFilters() {
   });
   years.sort(function(a, b) { return a - b; });
   var container = document.getElementById("year-filters");
-  
   container.innerHTML = '<span class="filter-label">Année</span><button class="filter-btn active" data-filter="annee" data-value="tous" onclick="setFilter(\'annee\',\'tous\',this)">Toutes</button>';
-  
   years.forEach(function(y) {
     var btn = document.createElement("button");
     btn.className = "filter-btn";
@@ -338,45 +605,38 @@ function buildYearFilters() {
   });
 }
 
-// CONFIGURATION DU FILTRE DYNAMIQUE DU LIEU D'ACHAT
 function buildLocationFilters() {
   var locations = [];
   VINS.forEach(function(v) {
-    if (v.lieu_achat && locations.indexOf(v.lieu_achat) === -1) {
-      locations.push(v.lieu_achat);
-    }
+    if (v.lieu_achat && locations.indexOf(v.lieu_achat) === -1) locations.push(v.lieu_achat);
   });
   locations.sort();
   var container = document.getElementById("location-filters");
-  
   container.innerHTML = '<span class="filter-label">Lieu</span><button class="filter-btn active" data-filter="lieu_achat" data-value="tous" onclick="setFilter(\'lieu_achat\',\'tous\',this)">Tous</button>';
-  
   locations.forEach(function(loc) {
     var btn = document.createElement("button");
     btn.className = "filter-btn";
     btn.setAttribute("data-filter", "lieu_achat");
     btn.setAttribute("data-value", loc);
-    // Première lettre en majuscule pour un joli rendu
     btn.textContent = loc.charAt(0).toUpperCase() + loc.slice(1);
     btn.onclick = function() { setFilter("lieu_achat", loc, btn); };
     container.appendChild(btn);
   });
 }
 
+// ── Filtres ──
 function toggleFiltersBar(btn) {
   var collapsible = document.getElementById("filters-collapsible");
   var open = collapsible.classList.toggle("open");
   btn.classList.toggle("open", open);
   btn.setAttribute("aria-expanded", open);
 }
-
 function updateFiltersHint() {
   var hint = document.getElementById("filters-active-hint");
   if (!hint) return;
   var active = filters.couleur !== "tous" || filters.annee !== "tous" || filters.lieu_achat !== "tous";
   hint.style.display = active ? "inline" : "none";
 }
-
 function closeFiltersOnMobile() {
   if (window.innerWidth <= 600) {
     var collapsible = document.getElementById("filters-collapsible");
@@ -385,7 +645,6 @@ function closeFiltersOnMobile() {
     if (btn) { btn.classList.remove("open"); btn.setAttribute("aria-expanded", false); }
   }
 }
-
 function setFilter(type, value, btn) {
   filters[type] = value;
   document.querySelectorAll("[data-filter=" + type + "]").forEach(function(b) { b.classList.remove("active"); });
@@ -394,16 +653,14 @@ function setFilter(type, value, btn) {
   closeFiltersOnMobile();
   applyFilters();
 }
-
 function applyFilters() {
   ["degust", "planning"].forEach(function(panelId) {
     var panel = document.getElementById(panelId);
     var anyVisible = false;
     panel.querySelectorAll(".card").forEach(function(card) {
       var matchCouleur  = filters.couleur === "tous" || card.getAttribute("data-couleur") === filters.couleur;
-      var matchAnnee    = filters.annee   === "tous" || card.getAttribute("data-annee")   === String(filters.annee);
+      var matchAnnee    = filters.annee   === "tous" || card.getAttribute("data-annee") === String(filters.annee);
       var matchLocation = filters.lieu_achat === "tous" || card.getAttribute("data-lieu") === filters.lieu_achat;
-      
       var visible = matchCouleur && matchAnnee && matchLocation;
       card.classList.toggle("hidden", !visible);
       if (visible) anyVisible = true;
@@ -419,48 +676,169 @@ function applyFilters() {
     if (noResult) noResult.style.display = anyVisible ? "none" : "block";
   });
 }
-
 function resetFilters() {
-  filters.couleur = "tous";
-  filters.annee   = "tous";
-  filters.lieu_achat = "tous";
+  filters.couleur = "tous"; filters.annee = "tous"; filters.lieu_achat = "tous";
   document.querySelectorAll(".filter-btn").forEach(function(b) {
     b.classList.toggle("active", b.getAttribute("data-value") === "tous");
   });
-  updateFiltersHint();
-  applyFilters();
+  updateFiltersHint(); applyFilters();
 }
-
 function showTab(id, btn) {
   document.querySelectorAll(".panel").forEach(function(p) { p.classList.remove("active"); });
   document.querySelectorAll(".tab").forEach(function(t) { t.classList.remove("active"); });
   document.getElementById(id).classList.add("active");
   btn.classList.add("active");
 }
-
 function toggleOpenings(btn) {
   var body = btn.nextElementSibling;
   var open = body.classList.toggle("open");
   btn.classList.toggle("open", open);
 }
 
-// CHARGEMENT DU JSON VIA FETCH
+// ── Formulaire : open / close ──
+function openForm() {
+  document.getElementById("form-overlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeForm() {
+  document.getElementById("form-overlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById("form-overlay")) closeForm();
+}
+
+// ── Formulaire : état ──
+function setStatut(val, btn) {
+  formState.statut = val;
+  document.querySelectorAll(".statut-btn").forEach(function(b) { b.classList.remove("active"); });
+  btn.classList.add("active");
+  document.getElementById("fields-degust").classList.toggle("hidden", val !== "degust");
+  document.getElementById("fields-planning").classList.toggle("hidden", val !== "planification");
+}
+function setCouleur(val, btn) {
+  formState.couleur = val;
+  document.querySelectorAll(".couleur-btn").forEach(function(b) { b.classList.remove("active"); });
+  btn.classList.add("active");
+}
+function selectBadge(btn) {
+  document.querySelectorAll(".badge-opt").forEach(function(b) {
+    b.classList.remove("active-gold", "active-blue", "active-green");
+  });
+  var type = btn.getAttribute("data-type");
+  if (type) {
+    btn.classList.add("active-" + type);
+    formState.badge = {
+      type: type,
+      icone: btn.getAttribute("data-icone"),
+      texte: btn.getAttribute("data-texte")
+    };
+  } else {
+    formState.badge = null;
+  }
+}
+
+// ── Formulaire : lecture des champs ──
+function val(id) {
+  var el = document.getElementById(id);
+  return el ? el.value.trim() : "";
+}
+function parseTags(str) {
+  if (!str) return [];
+  return str.split(",").map(function(t) { return t.trim(); }).filter(function(t) { return t.length > 0; });
+}
+
+// ── Générer le JSON ──
+function generateJSON() {
+  var titre = val("f-titre");
+  if (!titre) { alert("Le titre du vin est obligatoire."); return; }
+
+  var obj = {};
+  obj.statut = formState.statut;
+
+  if (formState.statut === "degust") {
+    var annee = parseInt(val("f-annee-degust")) || new Date().getFullYear();
+    obj.annee_degustation = annee;
+    obj.titre = titre;
+    obj.couleur = formState.couleur;
+    var lieu = val("f-lieu"); if (lieu) obj.lieu_achat = lieu;
+    var commentaire = val("f-commentaire"); if (commentaire) obj.commentaire = commentaire;
+    var tags = parseTags(val("f-tags")); if (tags.length) obj.tags = tags;
+    var dateOuv = val("f-date-ouverture"); if (dateOuv) obj.date_ouverture = dateOuv;
+    var note = val("f-note-degust"); if (note) obj.note_degustation = note;
+    var tagsOuv = parseTags(val("f-tags-ouverture")); if (tagsOuv.length) obj.tags_ouverture = tagsOuv;
+  } else {
+    var anneeAff = parseInt(val("f-annee-planning")) || new Date().getFullYear() + 2;
+    obj.annee_affichage = anneeAff;
+    obj.titre = titre;
+    obj.couleur = formState.couleur;
+    var lieuP = val("f-lieu"); if (lieuP) obj.lieu_achat = lieuP;
+    var fen = val("f-fenetre"); if (fen) obj.fenetre = fen;
+    var commentaireP = val("f-commentaire-planning"); if (commentaireP) obj.commentaire = commentaireP;
+    var tagsP = parseTags(val("f-tags-planning")); if (tagsP.length) obj.tags = tagsP;
+    if (formState.badge) obj.badge = formState.badge;
+  }
+
+  var json = JSON.stringify(obj, null, 2);
+  document.getElementById("json-result-box").textContent = json;
+  document.getElementById("json-result-wrap").classList.add("visible");
+
+  // Scroll vers le résultat
+  setTimeout(function() {
+    document.getElementById("json-result-wrap").scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, 100);
+}
+
+// ── Copier ──
+function copyJSON() {
+  var text = document.getElementById("json-result-box").textContent;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function() { showCopied(); });
+  } else {
+    var ta = document.createElement("textarea");
+    ta.value = text; document.body.appendChild(ta);
+    ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
+    showCopied();
+  }
+}
+function showCopied() {
+  var btn = document.getElementById("btn-copy");
+  btn.textContent = "✓ Copié !";
+  btn.classList.add("copied");
+  setTimeout(function() {
+    btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copier le JSON';
+    btn.classList.remove("copied");
+  }, 2500);
+}
+
+// ── Reset formulaire ──
+function resetForm() {
+  ["f-titre","f-lieu","f-annee-degust","f-date-ouverture","f-commentaire","f-note-degust",
+   "f-tags","f-tags-ouverture","f-annee-planning","f-fenetre","f-commentaire-planning","f-tags-planning"]
+  .forEach(function(id) { var el = document.getElementById(id); if (el) el.value = ""; });
+  formState = { statut: "degust", couleur: "rouge", badge: null };
+  document.querySelectorAll(".statut-btn").forEach(function(b) { b.classList.toggle("active", b.getAttribute("data-val") === "degust"); });
+  document.querySelectorAll(".couleur-btn").forEach(function(b) { b.classList.toggle("active", b.getAttribute("data-val") === "rouge"); });
+  document.querySelectorAll(".badge-opt").forEach(function(b) { b.classList.remove("active-gold","active-blue","active-green"); });
+  document.getElementById("fields-degust").classList.remove("hidden");
+  document.getElementById("fields-planning").classList.add("hidden");
+  document.getElementById("json-result-wrap").classList.remove("visible");
+}
+
+// ── Chargement JSON ──
 fetch('degustations.json')
-  .then(function(response) {
-    if (!response.ok) throw new Error("Erreur lors du chargement du fichier JSON.");
-    return response.json();
-  })
+  .then(function(r) { if (!r.ok) throw new Error("Erreur chargement JSON"); return r.json(); })
   .then(function(data) {
     VINS = data;
     renderPanel("degust", "degust");
     renderPanel("planification", "planning");
     buildYearFilters();
-    buildLocationFilters(); // Génération dynamique des boutons de lieux
+    buildLocationFilters();
     applyFilters();
   })
-  .catch(function(error) {
-    console.error("Erreur:", error);
-    document.getElementById("degust").innerHTML = "<p style='color:red; padding:20px;'>Impossible de charger les données de dégustation. Vérifiez que le fichier 'degustations.json' est présent.</p>";
+  .catch(function(err) {
+    console.error("Erreur:", err);
+    document.getElementById("degust").innerHTML = "<p style='color:red;padding:20px;'>Impossible de charger degustations.json.</p>";
   });
 </script>
 </body>
