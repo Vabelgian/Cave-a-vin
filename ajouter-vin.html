@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Encodage — La Cave & l'Esprit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --encre: #1a1612;
+      --parchemin: #f5f0e8;
+      --or: #c8a96e;
+      --or-pale: #e8d5a3;
+      --bordeaux: #6b2d3e;
+      --gris: #8a8070;
+      --fond-card: #211d18;
+      --fond-input: #2a2520;
+      --bordure: #3d3528;
+      --vert: #4a7c59;
+      --rouge-alerte: #8b3a3a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--encre);
+      color: var(--parchemin);
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse at 20% 0%, rgba(107,45,62,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 100%, rgba(200,169,110,0.08) 0%, transparent 50%);
+    }
+
+    /* HEADER */
+    header {
+      border-bottom: 1px solid var(--bordure);
+      padding: 24px 40px;
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--or);
+      letter-spacing: 0.04em;
+    }
+    header span {
+      font-size: 0.75rem;
+      color: var(--gris);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* LAYOUT */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* WORKFLOW STEPS */
+    .workflow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 48px;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gris);
+    }
+    .workflow-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 2px;
+      transition: color 0.2s;
+    }
+    .workflow-step.active {
+      color: var(--or);
+    }
+    .workflow-step .num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid currentColor;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      flex-shrink: 0;
+    }
+    .workflow-step.done .num {
+      background: var(--vert);
+      border-color: var(--vert);
+      color: white;
+    }
+    .workflow-arrow {
+      color: var(--bordure);
+      font-size: 0.8rem;
+    }
+
+    /* SECTIONS */
+    .section {
+      display: none;
+    }
+    .section.visible {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* SECTION TITRE */
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--or);
+      margin-bottom: 6px;
+    }
+    .section-subtitle {
+      font-size: 0.8rem;
+      color: var(--gris);
+      letter-spacing: 0.06em;
+      margin-bottom: 32px;
+    }
+
+    /* CARDS */
+    .card {
+      background: var(--fond-card);
+      border: 1px solid var(--bordure);
+      border-radius: 4px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+    }
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      color: var(--or-pale);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--bordure);
+    }
+
+    /* LOAD ZONE */
+    .drop-zone {
+      border: 2px dashed var(--bordure);
+      border-radius: 4px;
+      padding: 48px 32px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .drop-zone:hover {
+      border-color: var(--or);
+      background: rgba(200,169,110,0.04);
+    }
+    .drop-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+    .drop-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      color: var(--gris);
+    }
+    .drop-zone p {
+      font-size: 0.85rem;
+      color: var(--gris);
+      line-height: 1.6;
+    }
+    .drop-zone strong {
+      color: var(--or-pale);
+      font-weight: 400;
+    }
+
+    .or-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 20px 0;
+      color: var(--gris);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .or-divider::before,
+    .or-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--bordure);
+    }
+
+    /* FORM GRID */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-grid .full {
+      grid-column: 1 / -1;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .field label {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gris);
+    }
+    .field label .required {
+      color: var(--or);
+      margin-left: 2px;
+    }
+    .field input,
+    .field select,
+    .field textarea {
+      background: var(--fond-input);
+      border: 1px solid var(--bordure);
+      border-radius: 3px;
+      color: var(--parchemin);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--or);
+    }
+    .field input::placeholder {
+      color: #5a5348;
+    }
+    .field select option {
+      background: var(--fond-input);
+    }
+    .field textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    /* FIELDSET GROUP */
+    .fieldset-group {
+      border: 1px solid var(--bordure);
+      border-radius: 3px;
+      padding: 16px 20px 20px;
+      margin-top: 4px;
+    }
+    .fieldset-group legend {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gris);
+      padding: 0 8px;
+    }
+    .fieldset-group .form-grid {
+      margin-top: 0;
+    }
+
+    /* RANGE */
+    .range-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .range-wrapper input[type="range"] {
+      flex: 1;
+      accent-color: var(--or);
+      padding: 0;
+      height: auto;
+    }
+    .range-val {
+      font-size: 0.9rem;
+      color: var(--or);
+      min-width: 32px;
+      text-align: right;
+    }
+
+    /* COULEUR SELECTOR */
+    .couleur-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .couleur-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border: 1px solid var(--bordure);
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+      background: transparent;
+      color: var(--parchemin);
+      font-family: 'Lato', sans-serif;
+    }
+    .couleur-btn:hover {
+      border-color: var(--gris);
+    }
+    .couleur-btn.selected {
+      border-color: var(--or);
+      background: rgba(200,169,110,0.12);
+      color: var(--or);
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-rouge { background: #8b3a3a; }
+    .dot-blanc { background: #d4c47a; }
+    .dot-rose { background: #c07a8a; }
+    .dot-bulles { background: #8ab4c8; }
+    .dot-doux { background: #c8a06e; }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 3px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--or);
+      color: var(--encre);
+      font-weight: 700;
+    }
+    .btn-primary:hover {
+      background: var(--or-pale);
+    }
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--bordure);
+      color: var(--gris);
+    }
+    .btn-secondary:hover {
+      border-color: var(--gris);
+      color: var(--parchemin);
+    }
+    .btn-success {
+      background: var(--vert);
+      color: white;
+      font-weight: 700;
+    }
+    .btn-success:hover {
+      background: #5a9a6a;
+    }
+    .btn-danger {
+      background: transparent;
+      border: 1px solid #5a3030;
+      color: #c08080;
+      font-size: 0.7rem;
+      padding: 6px 12px;
+    }
+    .btn-danger:hover {
+      border-color: var(--rouge-alerte);
+      color: #e09090;
+    }
+    .btn-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    /* WINE LIST */
+    .wine-count {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: var(--gris);
+      margin-bottom: 20px;
+    }
+    .wine-count .badge {
+      background: var(--bordeaux);
+      color: var(--or-pale);
+      border-radius: 10px;
+      padding: 2px 10px;
+      font-size: 0.7rem;
+    }
+    .wine-count .badge.new {
+      background: var(--vert);
+      color: white;
+    }
+
+    .wine-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+    .wine-table th {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gris);
+      text-align: left;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--bordure);
+      font-weight: 400;
+    }
+    .wine-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(61,53,40,0.5);
+      vertical-align: middle;
+    }
+    .wine-table tr:last-child td {
+      border-bottom: none;
+    }
+    .wine-table tr.new-row td {
+      background: rgba(74,124,89,0.08);
+    }
+    .wine-table tr:hover td {
+      background: rgba(200,169,110,0.04);
+    }
+    .dot-table {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+    }
+    .tag-new {
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--vert);
+      color: white;
+      padding: 2px 6px;
+      border-radius: 2px;
+      margin-left: 6px;
+    }
+
+    /* EXPORT SECTION */
+    .export-card {
+      background: linear-gradient(135deg, rgba(200,169,110,0.08), rgba(107,45,62,0.08));
+      border: 1px solid var(--or);
+      border-radius: 4px;
+      padding: 32px;
+      text-align: center;
+    }
+    .export-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+    .export-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--or);
+      margin-bottom: 8px;
+    }
+    .export-card p {
+      font-size: 0.82rem;
+      color: var(--gris);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    /* TOAST */
+    #toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--fond-card);
+      border: 1px solid var(--or);
+      color: var(--parchemin);
+      padding: 12px 24px;
+      border-radius: 3px;
+      font-size: 0.82rem;
+      z-index: 100;
+      transition: transform 0.3s ease;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* JSON PREVIEW */
+    .json-preview {
+      background: #0f0d0b;
+      border: 1px solid var(--bordure);
+      border-radius: 3px;
+      padding: 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.72rem;
+      color: var(--gris);
+      max-height: 200px;
+      overflow-y: auto;
+      margin-top: 16px;
+      line-height: 1.5;
+    }
+    .json-preview .jk { color: #c8a06e; }
+    .json-preview .jv { color: #8ab4c8; }
+    .json-preview .jn { color: #a8d8a8; }
+
+    /* NAV TABS */
+    .nav-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid var(--bordure);
+    }
+    .nav-tab {
+      padding: 10px 20px;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--gris);
+      font-family: 'Lato', sans-serif;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: all 0.2s;
+    }
+    .nav-tab:hover { color: var(--parchemin); }
+    .nav-tab.active {
+      color: var(--or);
+      border-bottom-color: var(--or);
+    }
+
+    /* STATUS BAR */
+    .status-bar {
+      background: var(--fond-card);
+      border: 1px solid var(--bordure);
+      border-radius: 3px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      font-size: 0.78rem;
+    }
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--gris);
+    }
+    .status-item strong {
+      color: var(--parchemin);
+      font-weight: 400;
+    }
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gris);
+    }
+    .status-dot.loaded { background: var(--vert); }
+
+    @media (max-width: 600px) {
+      header { padding: 16px 20px; }
+      .container { padding: 24px 16px 60px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-grid .full { grid-column: 1; }
+      .workflow { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>La Cave &amp; l'Esprit</h1>
+  <span>— Encodage des vins</span>
+</header>
+
+<div class="container">
+
+  <!-- WORKFLOW INDICATOR -->
+  <div class="workflow" id="workflow">
+    <div class="workflow-step" id="wf1">
+      <span class="num">1</span> Charger
+    </div>
+    <span class="workflow-arrow">›</span>
+    <div class="workflow-step active" id="wf2">
+      <span class="num">2</span> Encoder
+    </div>
+    <span class="workflow-arrow">›</span>
+    <div class="workflow-step" id="wf3">
+      <span class="num">3</span> Réviser
+    </div>
+    <span class="workflow-arrow">›</span>
+    <div class="workflow-step" id="wf4">
+      <span class="num">4</span> Exporter
+    </div>
+  </div>
+
+  <!-- NAV TABS -->
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showTab('encode')">Ajouter un vin</button>
+    <button class="nav-tab" onclick="showTab('liste')">Liste <span id="tab-count"></span></button>
+    <button class="nav-tab" onclick="showTab('exporter')">Exporter</button>
+  </div>
+
+  <!-- STATUS BAR -->
+  <div class="status-bar">
+    <div class="status-item">
+      <div class="status-dot" id="statusDot"></div>
+      <span id="statusText">Aucun fichier chargé — encodage depuis zéro</span>
+    </div>
+    <div style="flex:1"></div>
+    <div class="status-item">
+      <strong id="countExistants">0</strong><span>existants</span>
+    </div>
+    <div class="status-item">
+      <strong id="countNouveaux" style="color:var(--vert)">0</strong><span>nouveaux</span>
+    </div>
+    <div class="status-item">
+      <strong id="countTotal">0</strong><span>total</span>
+    </div>
+  </div>
+
+  <!-- TAB : ENCODER -->
+  <div id="tab-encode" class="section visible">
+
+    <!-- LOAD EXISTANT -->
+    <div class="card">
+      <div class="card-title">① Charger le vins.json actuel (recommandé)</div>
+      <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+        <input type="file" id="fileInput" accept=".json" onchange="chargerJSON(event)" onclick="event.stopPropagation()"/>
+        <div class="drop-icon">📂</div>
+        <p><strong>Cliquer pour sélectionner</strong> ou glisser votre vins.json ici<br>
+        <span style="font-size:0.75rem">Cela précharge tous vos vins existants — vous ajoutez seulement les nouveaux</span></p>
+      </div>
+      <div class="or-divider">ou commencer à vide</div>
+      <button class="btn btn-secondary" onclick="demarrerVide()">Créer un nouveau vins.json depuis zéro</button>
+    </div>
+
+    <!-- FORMULAIRE -->
+    <div class="card">
+      <div class="card-title">② Encoder un vin</div>
+
+      <!-- COULEUR -->
+      <div class="field" style="margin-bottom:20px">
+        <label>Couleur <span class="required">*</span></label>
+        <div class="couleur-group" id="couleurGroup">
+          <button class="couleur-btn" onclick="setCouleur('rouge')"><span class="dot dot-rouge"></span>Rouge</button>
+          <button class="couleur-btn" onclick="setCouleur('blanc')"><span class="dot dot-blanc"></span>Blanc</button>
+          <button class="couleur-btn" onclick="setCouleur('rosé')"><span class="dot dot-rose"></span>Rosé</button>
+          <button class="couleur-btn" onclick="setCouleur('bulles')"><span class="dot dot-bulles"></span>Bulles</button>
+          <button class="couleur-btn" onclick="setCouleur('doux')"><span class="dot dot-doux"></span>Doux / Liquoreux</button>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="field full">
+          <label>Nom du vin <span class="required">*</span></label>
+          <input id="nom" placeholder="ex. Barolo Bricco Boschis" />
+        </div>
+
+        <div class="field">
+          <label>Millésime <span class="required">*</span></label>
+          <input id="millesime" placeholder="2021" type="number" min="1900" max="2030"/>
+        </div>
+
+        <div class="field">
+          <label>Stock (bouteilles)</label>
+          <input id="stock" placeholder="1" type="number" min="0" value="1"/>
+        </div>
+
+        <div class="field">
+          <label>Producteur</label>
+          <input id="producteur" placeholder="ex. Cavallotto"/>
+        </div>
+
+        <div class="field">
+          <label>Appellation / AOC</label>
+          <input id="appellation" placeholder="ex. Barolo DOCG"/>
+        </div>
+
+        <div class="field">
+          <label>Région</label>
+          <input id="region" placeholder="ex. Piémont"/>
+        </div>
+
+        <div class="field">
+          <label>Pays</label>
+          <select id="pays">
+            <option value="">— Sélectionner —</option>
+            <option value="Italie">Italie</option>
+            <option value="France">France</option>
+            <option value="Espagne">Espagne</option>
+            <option value="Portugal">Portugal</option>
+            <option value="Afrique du Sud">Afrique du Sud</option>
+            <option value="Allemagne">Allemagne</option>
+            <option value="Autriche">Autriche</option>
+            <option value="Géorgie">Géorgie</option>
+            <option value="États-Unis">États-Unis</option>
+            <option value="Argentine">Argentine</option>
+            <option value="Chili">Chili</option>
+            <option value="Autre">Autre</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Prix payé (€)</label>
+          <input id="prix" placeholder="25" type="number" min="0" step="0.5"/>
+        </div>
+      </div>
+
+      <!-- DÉTAILS OPTIONNELS -->
+      <details style="margin-top:20px">
+        <summary style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gris);cursor:pointer;padding:8px 0;user-select:none;">
+          ＋ Détails avancés (optionnel)
+        </summary>
+        <div class="form-grid" style="margin-top:16px">
+          <div class="field">
+            <label>Cépage(s)</label>
+            <input id="cepages" placeholder="ex. Nebbiolo"/>
+          </div>
+          <div class="field">
+            <label>Élevage</label>
+            <input id="elevage" placeholder="ex. 36 mois fûts de chêne"/>
+          </div>
+
+          <div class="field full">
+            <label>Garde estimée</label>
+            <div class="fieldset-group">
+              <div class="form-grid">
+                <div class="field">
+                  <label>À boire à partir de</label>
+                  <input id="gardeDebut" placeholder="2026" type="number"/>
+                </div>
+                <div class="field">
+                  <label>Apogée estimée</label>
+                  <input id="gardeFin" placeholder="2035" type="number"/>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field full">
+            <label>Notes de dégustation / commentaire</label>
+            <textarea id="notes" placeholder="ex. Tannins puissants, bouquet de cerises noires et de goudron…"></textarea>
+          </div>
+
+          <div class="field">
+            <label>Note perso (sur 20)</label>
+            <div class="range-wrapper">
+              <input type="range" id="note" min="0" max="20" step="0.5" value="0" oninput="document.getElementById('noteVal').textContent = this.value == 0 ? '—' : this.value"/>
+              <span class="range-val" id="noteVal">—</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Statut</label>
+            <select id="statut">
+              <option value="en cave">En cave</option>
+              <option value="à boire">À boire bientôt</option>
+              <option value="garde">En garde</option>
+              <option value="bu">Bu / consommé</option>
+            </select>
+          </div>
+        </div>
+      </details>
+
+      <div class="btn-actions">
+        <button class="btn btn-primary" onclick="ajouterVin()">＋ Ajouter à la liste</button>
+        <button class="btn btn-secondary" onclick="reinitialiserFormulaire()">Effacer le formulaire</button>
+      </div>
+    </div>
+
+  </div><!-- /tab encode -->
+
+  <!-- TAB : LISTE -->
+  <div id="tab-liste" class="section">
+    <div class="section-title">Vins encodés</div>
+    <p class="section-subtitle">Vérifiez avant d'exporter — les nouveaux vins sont mis en évidence</p>
+
+    <div class="wine-count">
+      <span class="badge" id="badgeExist">0 existants</span>
+      <span class="badge new" id="badgeNew">0 nouveaux</span>
+    </div>
+
+    <div class="card" style="padding:0;overflow:hidden">
+      <div id="listeContainer" style="overflow-x:auto">
+        <p style="padding:40px;text-align:center;color:var(--gris);font-size:0.85rem">Aucun vin encore — ajoutez-en depuis l'onglet "Ajouter un vin"</p>
+      </div>
+    </div>
+
+    <div class="btn-actions">
+      <button class="btn btn-primary" onclick="showTab('exporter')">Continuer vers l'export →</button>
+    </div>
+  </div>
+
+  <!-- TAB : EXPORTER -->
+  <div id="tab-exporter" class="section">
+    <div class="section-title">Exporter</div>
+    <p class="section-subtitle">Téléchargez votre vins.json mis à jour et remplacez-le dans GitHub</p>
+
+    <div class="export-card">
+      <div class="export-icon">🍷</div>
+      <h3 id="exportTitle">Prêt à exporter</h3>
+      <p id="exportDesc">Votre fichier contiendra tous vos vins existants + les nouveaux ajoutés.</p>
+      <button class="btn btn-success" onclick="exporterJSON()" style="margin:0 auto;display:inline-flex">
+        ↓ Télécharger vins.json
+      </button>
+    </div>
+
+    <div class="card" style="margin-top:24px">
+      <div class="card-title">Aperçu JSON (5 premiers)</div>
+      <div class="json-preview" id="jsonPreview">—</div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">Étapes suivantes</div>
+      <ol style="font-size:0.82rem;color:var(--gris);line-height:2.2;padding-left:20px">
+        <li>Télécharger le fichier <strong style="color:var(--or-pale)">vins.json</strong></li>
+        <li>Ouvrir votre dépôt GitHub <strong style="color:var(--or-pale)">Vabelgian/Cave-a-vin</strong></li>
+        <li>Naviguer jusqu'au fichier <code style="color:var(--or-pale);font-size:0.8rem">vins.json</code> existant</li>
+        <li>Cliquer sur le crayon ✏️ → "Upload files" ou glisser le nouveau fichier</li>
+        <li>Commit avec un message type <em style="color:var(--gris)">"Ajout 3 vins — juin 2026"</em></li>
+      </ol>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<div id="toast">✓ Vin ajouté</div>
+
+<script>
+  let vinsExistants = [];
+  let vinsNouveaux = [];
+  let couleurSelectionnee = '';
+  let fichierCharge = false;
+
+  // ── TABS ──────────────────────────────────────────────────────────────
+  function showTab(tab) {
+    ['encode','liste','exporter'].forEach(t => {
+      document.getElementById('tab-'+t).classList.remove('visible');
+    });
+    document.querySelectorAll('.nav-tab').forEach((b,i) => b.classList.remove('active'));
+    document.getElementById('tab-'+tab).classList.add('visible');
+    const tabs = ['encode','liste','exporter'];
+    document.querySelectorAll('.nav-tab')[tabs.indexOf(tab)].classList.add('active');
+
+    if (tab === 'liste') renderListe();
+    if (tab === 'exporter') renderExport();
+    updateWorkflow(tab);
+  }
+
+  function updateWorkflow(tab) {
+    const map = {encode: 'wf2', liste: 'wf3', exporter: 'wf4'};
+    document.querySelectorAll('.workflow-step').forEach(s => s.classList.remove('active'));
+    const el = document.getElementById(map[tab]);
+    if (el) el.classList.add('active');
+    if (fichierCharge) document.getElementById('wf1').classList.add('done');
+  }
+
+  // ── COULEUR ───────────────────────────────────────────────────────────
+  function setCouleur(c) {
+    couleurSelectionnee = c;
+    document.querySelectorAll('.couleur-btn').forEach(b => b.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+  }
+
+  // ── LOAD JSON ─────────────────────────────────────────────────────────
+  function demarrerVide() {
+    vinsExistants = [];
+    fichierCharge = true;
+    updateStatus();
+    showToast('Prêt — encodage depuis zéro');
+  }
+
+  function chargerJSON(evt) {
+    const file = evt.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      try {
+        const data = JSON.parse(e.target.result);
+        vinsExistants = Array.isArray(data) ? data : (data.vins || []);
+        fichierCharge = true;
+        updateStatus();
+        showToast(`✓ ${vinsExistants.length} vins chargés depuis ${file.name}`);
+        document.getElementById('statusDot').classList.add('loaded');
+        document.getElementById('wf1').classList.add('done');
+        // update drop zone
+        document.getElementById('dropZone').style.borderColor = 'var(--vert)';
+        document.getElementById('dropZone').querySelector('p').innerHTML =
+          `<strong style="color:var(--vert)">✓ ${file.name}</strong> chargé avec succès<br>
+          <span style="font-size:0.75rem">${vinsExistants.length} vins existants — ajoutez seulement les nouveaux</span>`;
+      } catch(err) {
+        showToast('❌ Erreur de lecture JSON');
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  function updateStatus() {
+    const ex = vinsExistants.length;
+    const nv = vinsNouveaux.length;
+    document.getElementById('countExistants').textContent = ex;
+    document.getElementById('countNouveaux').textContent = nv;
+    document.getElementById('countTotal').textContent = ex + nv;
+    document.getElementById('tab-count').textContent = ex + nv > 0 ? `(${ex+nv})` : '';
+    document.getElementById('badgeExist').textContent = `${ex} existants`;
+    document.getElementById('badgeNew').textContent = `${nv} nouveaux`;
+
+    if (fichierCharge) {
+      document.getElementById('statusDot').classList.add('loaded');
+      document.getElementById('statusText').textContent = fichierCharge
+        ? `vins.json chargé — ${ex} vins existants`
+        : 'Aucun fichier chargé';
+    }
+  }
+
+  // ── AJOUTER VIN ──────────────────────────────────────────────────────
+  function ajouterVin() {
+    const nom = document.getElementById('nom').value.trim();
+    const millesime = document.getElementById('millesime').value.trim();
+
+    if (!nom) { showToast('⚠ Le nom du vin est requis'); return; }
+    if (!millesime) { showToast('⚠ Le millésime est requis'); return; }
+    if (!couleurSelectionnee) { showToast('⚠ Sélectionnez une couleur'); return; }
+
+    const noteVal = parseFloat(document.getElementById('note').value);
+
+    const vin = {
+      nom,
+      millesime: parseInt(millesime),
+      couleur: couleurSelectionnee,
+      stock: parseInt(document.getElementById('stock').value) || 1,
+    };
+
+    const optionals = {
+      producteur: document.getElementById('producteur').value.trim(),
+      appellation: document.getElementById('appellation').value.trim(),
+      region: document.getElementById('region').value.trim(),
+      pays: document.getElementById('pays').value,
+      prix: document.getElementById('prix').value ? parseFloat(document.getElementById('prix').value) : undefined,
+      cepages: document.getElementById('cepages').value.trim(),
+      elevage: document.getElementById('elevage').value.trim(),
+      gardeDebut: document.getElementById('gardeDebut').value ? parseInt(document.getElementById('gardeDebut').value) : undefined,
+      gardeFin: document.getElementById('gardeFin').value ? parseInt(document.getElementById('gardeFin').value) : undefined,
+      notes: document.getElementById('notes').value.trim(),
+      note: noteVal > 0 ? noteVal : undefined,
+      statut: document.getElementById('statut').value,
+    };
+
+    Object.entries(optionals).forEach(([k,v]) => {
+      if (v !== undefined && v !== '') vin[k] = v;
+    });
+
+    vinsNouveaux.push(vin);
+    updateStatus();
+    reinitialiserFormulaire();
+    showToast(`✓ "${nom} ${millesime}" ajouté`);
+  }
+
+  function reinitialiserFormulaire() {
+    ['nom','millesime','producteur','appellation','region','prix','cepages','elevage','gardeDebut','gardeFin','notes'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('stock').value = 1;
+    document.getElementById('statut').value = 'en cave';
+    document.getElementById('pays').value = '';
+    document.getElementById('note').value = 0;
+    document.getElementById('noteVal').textContent = '—';
+    couleurSelectionnee = '';
+    document.querySelectorAll('.couleur-btn').forEach(b => b.classList.remove('selected'));
+  }
+
+  // ── RENDER LISTE ──────────────────────────────────────────────────────
+  function renderListe() {
+    const container = document.getElementById('listeContainer');
+    const tous = [
+      ...vinsExistants.map(v => ({...v, _nouveau: false})),
+      ...vinsNouveaux.map(v => ({...v, _nouveau: true}))
+    ];
+
+    if (tous.length === 0) {
+      container.innerHTML = `<p style="padding:40px;text-align:center;color:var(--gris);font-size:0.85rem">Aucun vin — chargez votre JSON existant ou ajoutez des vins</p>`;
+      return;
+    }
+
+    const dotColor = {rouge:'dot-rouge', blanc:'dot-blanc', rosé:'dot-rose', bulles:'dot-bulles', doux:'dot-doux'};
+
+    let html = `<table class="wine-table">
+      <thead><tr>
+        <th>Vin</th>
+        <th>Millésime</th>
+        <th>Couleur</th>
+        <th>Région</th>
+        <th>Stock</th>
+        <th>Prix</th>
+        <th></th>
+      </tr></thead><tbody>`;
+
+    tous.forEach((v, i) => {
+      const cls = v._nouveau ? 'new-row' : '';
+      const tag = v._nouveau ? '<span class="tag-new">nouveau</span>' : '';
+      const dc = dotColor[v.couleur] || '';
+      const isNewIdx = i - vinsExistants.length; // index in nouveaux array
+      html += `<tr class="${cls}">
+        <td>${v.nom}${tag}</td>
+        <td>${v.millesime || '—'}</td>
+        <td><span class="dot-table ${dc}"></span>${v.couleur || '—'}</td>
+        <td>${v.region || v.appellation || '—'}</td>
+        <td>${v.stock || 1}</td>
+        <td>${v.prix ? v.prix + ' €' : '—'}</td>
+        <td>${v._nouveau ? `<button class="btn btn-danger" onclick="supprimerNouveau(${isNewIdx})">✕</button>` : ''}</td>
+      </tr>`;
+    });
+
+    html += '</tbody></table>';
+    container.innerHTML = html;
+  }
+
+  function supprimerNouveau(idx) {
+    vinsNouveaux.splice(idx, 1);
+    updateStatus();
+    renderListe();
+  }
+
+  // ── RENDER EXPORT ────────────────────────────────────────────────────
+  function renderExport() {
+    const total = vinsExistants.length + vinsNouveaux.length;
+    document.getElementById('exportTitle').textContent = `${total} vins prêts à exporter`;
+    document.getElementById('exportDesc').textContent =
+      `${vinsExistants.length} vins existants + ${vinsNouveaux.length} nouveaux ajoutés.`;
+
+    const tous = [...vinsExistants, ...vinsNouveaux];
+    const sample = tous.slice(0, 3);
+    const preview = document.getElementById('jsonPreview');
+    preview.innerHTML = syntaxHighlight(JSON.stringify(sample, null, 2)) + (tous.length > 3 ? `\n<span style="color:var(--gris)">... (${tous.length - 3} de plus)</span>` : '');
+  }
+
+  function syntaxHighlight(json) {
+    return json
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"([^"]+)":/g, '<span class="jk">"$1"</span>:')
+      .replace(/: "([^"]*)"/g, ': <span class="jv">"$1"</span>')
+      .replace(/: (\d+\.?\d*)/g, ': <span class="jn">$1</span>');
+  }
+
+  // ── EXPORT JSON ──────────────────────────────────────────────────────
+  function exporterJSON() {
+    const tous = [...vinsExistants, ...vinsNouveaux];
+    if (tous.length === 0) { showToast('⚠ Aucun vin à exporter'); return; }
+
+    const contenu = JSON.stringify(tous, null, 2);
+    const blob = new Blob([contenu], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const lien = document.createElement('a');
+    lien.href = url;
+    lien.download = 'vins.json';
+    lien.click();
+    URL.revokeObjectURL(url);
+    showToast(`✓ vins.json téléchargé (${tous.length} vins)`);
+  }
+
+  // ── TOAST ─────────────────────────────────────────────────────────────
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  // ── DRAG & DROP ───────────────────────────────────────────────────────
+  const dz = document.getElementById('dropZone');
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.style.borderColor='var(--or)'; });
+  dz.addEventListener('dragleave', () => { dz.style.borderColor='var(--bordure)'; });
+  dz.addEventListener('drop', e => {
+    e.preventDefault();
+    dz.style.borderColor='var(--bordure)';
+    const file = e.dataTransfer.files[0];
+    if (file && file.name.endsWith('.json')) {
+      chargerJSON({ target: { files: [file] } });
+    } else {
+      showToast('⚠ Glissez un fichier .json');
+    }
+  });
+
+  // Init
+  updateStatus();
+</script>
+</body>
+</html>
