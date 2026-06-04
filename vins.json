@@ -782,5 +782,53 @@
       "temperature": "16°",
       "accords": "Une viande rouge grillée, un magret de canard, ou un plat de pâtes aux champignons/truffeUne viande rouge grillée, un magret de canard, ou un plat de pâtes aux champignons/truffe"
     }
+  },
+  {
+    "nom": "Leirana Albarino 2025",
+    "millesime": 2025,
+    "couleur": "blanc",
+    "stock": 1,
+    "statut": "cave",
+    "region": "Galice",
+    "pays": "Espagne",
+    "cepage": "Albarino",
+    "profil": "L'Albariño pousse ici en Galice, au bord de l'océan Atlantique, sur des sols de granit. Leirana est un modèle de pureté : pas de bois, une tension tranchante comme un rasoir, des notes d'agrumes, de pomme verte et surtout une salinité iodée incroyable en fin de bouche. C’est l’un des plus grands blancs d’Espagne pour les amateurs de minéralité.",
+    "degustation": {
+      "couleur": "Très clair, citron vert pâle",
+      "nez": "Agrumes, fleurs blanches, coté granite",
+      "bouche": "Après le côté vif de l'agrume (citron vert, pomme),  sensation de salinité, presque de craie ou d'eau de mer, très typique du sol de granit et de la proximité de l'océan Atlantique."
+    },
+    "technique": {
+      "vinification": "Vieilles vignes sur sol de granit sur lies, pas de vieillisement en fût",
+      "classification": "D.O. Rías Baixas",
+      "garde": "3-5 ans",
+      "carafage": "Non, laisser respirer 5 minutes",
+      "temperature": "10",
+      "accords": "Des fruits de mer, des huîtres, ou un poisson blanc simplement grillé avec un filet de citron."
+    }
+  },
+  {
+    "nom": "Rosato Toscana — Fuligni",
+    "millesime": 2025,
+    "couleur": "rosé",
+    "stock": 1,
+    "statut": "cave",
+    "region": "Toscane",
+    "pays": "Italie",
+    "cepage": "Sangiovese",
+    "profil": "C'est un rosé de Sangiovese. On oublie les rosés de Provence très pâles et axés sur le pamplemousse. Ici, on cherche de la structure, une belle acidité gastronomique, des notes de cerise groseille et une vraie présence en bouche. C'est un rosé de table, taillé pour la cuisine italienne.",
+    "degustation": {
+      "couleur": "Rose pâle",
+      "nez": "A compléter",
+      "bouche": "C’est un rosé de Sangiovese fait par un grand domaine de rouge. On retrouve la structure tannique (très légère mais présente) et une acidité vibrante. On est sur la cerise fraîche, la grenade et une touche d'herbes séchées. Ce n'est pas un rosé de soif, c'est un rosé de table."
+    },
+    "technique": {
+      "vinification": "Fait au domaine",
+      "classification": "Rosato Toscana IGT",
+      "garde": "1 an",
+      "carafage": "Non",
+      "temperature": "10-12",
+      "accords": "Une belle planche de charcuterie fine italienne (prosciutto, coppa) ou une salade tomate-burrata de qualité avec une bonne huile d'olive."
+    }
   }
 ]

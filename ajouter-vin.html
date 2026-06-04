@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
@@ -741,30 +741,62 @@
             <label>Cépage(s)</label>
             <input id="cepages" placeholder="ex. Nebbiolo"/>
           </div>
-          <div class="field">
-            <label>Élevage</label>
-            <input id="elevage" placeholder="ex. 36 mois fûts de chêne"/>
+
+          <div class="field full">
+            <label>Profil</label>
+            <textarea id="profil" placeholder="ex. Vin structuré, profond, taillé pour la garde..."></textarea>
           </div>
 
           <div class="field full">
-            <label>Garde estimée</label>
+            <label>Dégustation</label>
             <div class="fieldset-group">
               <div class="form-grid">
                 <div class="field">
-                  <label>À boire à partir de</label>
-                  <input id="gardeDebut" placeholder="2026" type="number"/>
+                  <label>Couleur</label>
+                  <input id="degCouleur" placeholder="ex. Rubis profond"/>
                 </div>
                 <div class="field">
-                  <label>Apogée estimée</label>
-                  <input id="gardeFin" placeholder="2035" type="number"/>
+                  <label>Nez</label>
+                  <input id="degNez" placeholder="ex. Cerise noire, rose, épices"/>
+                </div>
+                <div class="field full">
+                  <label>Bouche</label>
+                  <textarea id="degBouche" placeholder="ex. Tannins fins, matière ample, finale longue..."></textarea>
                 </div>
               </div>
             </div>
           </div>
 
           <div class="field full">
-            <label>Notes de dégustation / commentaire</label>
-            <textarea id="notes" placeholder="ex. Tannins puissants, bouquet de cerises noires et de goudron…"></textarea>
+            <label>Infos techniques</label>
+            <div class="fieldset-group">
+              <div class="form-grid">
+                <div class="field">
+                  <label>Vinification</label>
+                  <input id="vinification" placeholder="ex. Fermentation traditionnelle"/>
+                </div>
+                <div class="field">
+                  <label>Classification</label>
+                  <input id="classification" placeholder="ex. DOCG"/>
+                </div>
+                <div class="field">
+                  <label>Garde</label>
+                  <input id="garde" placeholder="ex. 2026-2035"/>
+                </div>
+                <div class="field">
+                  <label>Carafage</label>
+                  <input id="carafage" placeholder="ex. 1 h"/>
+                </div>
+                <div class="field">
+                  <label>Température</label>
+                  <input id="temperature" placeholder="ex. 16-18 °C"/>
+                </div>
+                <div class="field">
+                  <label>Accords</label>
+                  <input id="accords" placeholder="ex. Osso buco, gibier, truffe"/>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="field">
@@ -940,49 +972,73 @@
 
   // ── AJOUTER VIN ──────────────────────────────────────────────────────
   function ajouterVin() {
-    const nom = document.getElementById('nom').value.trim();
-    const millesime = document.getElementById('millesime').value.trim();
+    const clean = id => document.getElementById(id).value.trim();
+    const nom = clean('nom');
+    const millesime = clean('millesime');
 
     if (!nom) { showToast('⚠ Le nom du vin est requis'); return; }
     if (!millesime) { showToast('⚠ Le millésime est requis'); return; }
     if (!couleurSelectionnee) { showToast('⚠ Sélectionnez une couleur'); return; }
 
+    const region = clean('region');
+    const pays = document.getElementById('pays').value;
+    const cepage = clean('cepages');
+    const profil = clean('profil');
     const noteVal = parseFloat(document.getElementById('note').value);
+    const prixVal = clean('prix') ? parseFloat(clean('prix')) : undefined;
+    const statut = document.getElementById('statut').value === 'bu' ? 'bu' : 'cave';
 
     const vin = {
       nom,
       millesime: parseInt(millesime),
       couleur: couleurSelectionnee,
       stock: parseInt(document.getElementById('stock').value) || 1,
+      statut,
     };
 
     const optionals = {
-      producteur: document.getElementById('producteur').value.trim(),
-      appellation: document.getElementById('appellation').value.trim(),
-      region: document.getElementById('region').value.trim(),
-      pays: document.getElementById('pays').value,
-      prix: document.getElementById('prix').value ? parseFloat(document.getElementById('prix').value) : undefined,
-      cepages: document.getElementById('cepages').value.trim(),
-      elevage: document.getElementById('elevage').value.trim(),
-      gardeDebut: document.getElementById('gardeDebut').value ? parseInt(document.getElementById('gardeDebut').value) : undefined,
-      gardeFin: document.getElementById('gardeFin').value ? parseInt(document.getElementById('gardeFin').value) : undefined,
-      notes: document.getElementById('notes').value.trim(),
+      region,
+      pays,
+      cepage,
+      profil,
+      prix: prixVal,
       note: noteVal > 0 ? noteVal : undefined,
-      statut: document.getElementById('statut').value,
     };
 
-    Object.entries(optionals).forEach(([k,v]) => {
+    Object.entries(optionals).forEach(([k, v]) => {
       if (v !== undefined && v !== '') vin[k] = v;
     });
+
+    const degustation = {
+      couleur: clean('degCouleur'),
+      nez: clean('degNez'),
+      bouche: clean('degBouche'),
+    };
+    Object.keys(degustation).forEach(k => {
+      if (!degustation[k]) delete degustation[k];
+    });
+    if (Object.keys(degustation).length) vin.degustation = degustation;
+
+    const technique = {
+      vinification: clean('vinification'),
+      classification: clean('classification'),
+      garde: clean('garde'),
+      carafage: clean('carafage'),
+      temperature: clean('temperature'),
+      accords: clean('accords'),
+    };
+    Object.keys(technique).forEach(k => {
+      if (!technique[k]) delete technique[k];
+    });
+    if (Object.keys(technique).length) vin.technique = technique;
 
     vinsNouveaux.push(vin);
     updateStatus();
     reinitialiserFormulaire();
     showToast(`✓ "${nom} ${millesime}" ajouté`);
   }
-
   function reinitialiserFormulaire() {
-    ['nom','millesime','producteur','appellation','region','prix','cepages','elevage','gardeDebut','gardeFin','notes'].forEach(id => {
+    ['nom','millesime','producteur','appellation','region','prix','cepages','profil','degCouleur','degNez','degBouche','vinification','classification','garde','carafage','temperature','accords'].forEach(id => {
       document.getElementById(id).value = '';
     });
     document.getElementById('stock').value = 1;
@@ -1111,3 +1167,7 @@
 </script>
 </body>
 </html>
+
+
+
+
