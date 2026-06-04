@@ -126,5 +126,44 @@
     "commentaire": "Cépage rarissime, le Caberlot. Patience nécessaire. Ne pas toucher avant 2028.",
     "tags": ["Automne", "Alsace", "vin de gastronomie"],
     "badge": { "type": "blue", "icone": "garde", "texte": "Longue garde" }
-  }
+  },
+  {
+  "statut": "planification",
+  "annee_affichage": 2026,
+  "titre": "Rosato Toscano 2025",
+  "couleur": "rose",
+  "lieu_achat": "Peak Wines",
+  "fenetre": "2026-2027",
+  "commentaire": "Rosé issu de sangiovese. Rosé de table pas de soif. A accompagner de charcuterie italienne.",
+  "tags": [
+    "Toscane",
+    "Eté",
+    "Soleil"]
+},
+ {
+  "statut": "planification",
+  "annee_affichage": 2027,
+  "titre": "Piero Busso - Langhe Nebbiolo 2024",
+  "couleur": "rouge",
+  "lieu_achat": "Peak Wines",
+  "fenetre": "2027-2030",
+  "commentaire": "Attendre au moins 2027, plus accessible qu'un barolo",
+  "tags": [
+    "Nebbiolo",
+    "Automne",
+    "Méditation"]
+},
+  {
+  "statut": "planification",
+  "annee_affichage": 2027,
+  "titre": "Leirana Albariño 2024",
+  "couleur": "blanc",
+  "lieu_achat": "Peak Wines",
+  "fenetre": "2027-2029",
+  "commentaire": "L'Albariño est un cépage qui repose sur l'éclat du fruit et la vivacité. Le millésime 2024 est actuellement dans une phase de jeunesse rayonnante. Il va gagner un peu en complexité et en texture au cours des 18 prochains mois. Au-delà de 2027/2028, il perdra probablement cette \"nervosité\" iodée qui fait tout son charme pour devenir un vin plus plat.",
+  "tags": [
+    "Galice",
+    "Atlantique",
+    "Iode"]
+},
 ]
