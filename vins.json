@@ -760,7 +760,7 @@
     }
   },
   {
-    "nom": "Piero Buso - Langhe Nebbiolo 2024",
+    "nom": "Piero Busso - Langhe Nebbiolo 2024",
     "millesime": 2024,
     "couleur": "rouge",
     "stock": 1,
@@ -768,17 +768,19 @@
     "region": "Piémont",
     "pays": "Italie",
     "cepage": "Nebbiolo",
-    "profil": "A compléter",
+    "profil": "Piero Busso est un producteur d'élite à Barbaresco. Le Langhe Nebbiolo, c’est la porte d'entrée vers les grands vins du Piémont.",
     "degustation": {
       "couleur": "Rouge translucide",
-      "nez": "Aromes floraux",
-      "bouche": "C’est une explosion de caractère. Contraste fou entre la délicatesse des arômes (rose fanée, petits fruits rouges) et la fermeté des tanins en fin de bouche qui tapissent le palais (le côté \"goudron\" et épicé noble du Nebbiolo)"
+      "nez": "Petits fruits rouges, la rose fanée, le goudron fin et l'épice.",
+      "bouche": "C’est une explosion de caractère. Contraste fou entre la délicatesse des arômes (rose fanée, petits fruits rouges) et la fermeté des tanins en fin de bouche qui tapissent le palais (le côté \"goudron\" et épicé noble du Nebbiolo)."
     },
     "technique": {
-      "vinification": "A compléter",
+      "vinification": "a compléter",
       "classification": "Langhe Nebbiolo DOC",
+      "garde": "3-5 ans",
       "carafage": "1h minimum",
-      "accords": "Une viande rouge grillée, un magret de canard, ou un plat de pâtes aux champignons/truffe"
+      "temperature": "16°",
+      "accords": "Une viande rouge grillée, un magret de canard, ou un plat de pâtes aux champignons/truffeUne viande rouge grillée, un magret de canard, ou un plat de pâtes aux champignons/truffe"
     }
   }
 ]
