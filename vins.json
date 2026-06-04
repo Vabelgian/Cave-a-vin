@@ -760,7 +760,7 @@
     }
   },
   {
-    "nom": "Piero Buso - Langue Nebbiolo 2024",
+    "nom": "Piero Buso - Langhe Nebbiolo 2024",
     "millesime": 2024,
     "couleur": "rouge",
     "stock": 1,
@@ -770,12 +770,15 @@
     "cepage": "Nebbiolo",
     "profil": "A compléter",
     "degustation": {
-      "couleur": "Rouge translucide"
+      "couleur": "Rouge translucide",
+      "nez": "Aromes floraux",
+      "bouche": "C’est une explosion de caractère. Contraste fou entre la délicatesse des arômes (rose fanée, petits fruits rouges) et la fermeté des tanins en fin de bouche qui tapissent le palais (le côté \"goudron\" et épicé noble du Nebbiolo)"
     },
     "technique": {
-      "vinification": "A complèter",
-      "classification": "Nebbiolo DOC",
-      "carafage": "1h"
+      "vinification": "A compléter",
+      "classification": "Langhe Nebbiolo DOC",
+      "carafage": "1h minimum",
+      "accords": "Une viande rouge grillée, un magret de canard, ou un plat de pâtes aux champignons/truffe"
     }
   }
 ]
