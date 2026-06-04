@@ -762,6 +762,7 @@
   {
     "nom": "Piero Busso - Langhe Nebbiolo 2024",
     "millesime": 2024,
+    "photo": "images/pierobussolanghe.jpg",
     "couleur": "rouge",
     "stock": 1,
     "statut": "cave",
@@ -786,6 +787,7 @@
   {
     "nom": "Leirana Albarino 2025",
     "millesime": 2025,
+    "photo": "images/leirana.jpg",
     "couleur": "blanc",
     "stock": 1,
     "statut": "cave",
@@ -810,6 +812,7 @@
   {
     "nom": "Rosato Toscana — Fuligni",
     "millesime": 2025,
+    "photo": "images/fulignirosato.jpg",
     "couleur": "rosé",
     "stock": 1,
     "statut": "cave",
