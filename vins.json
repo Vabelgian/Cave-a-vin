@@ -11,7 +11,12 @@
     "statut": "cave",
     "stock": 1,
     "profil": "Podere Il Carnasciale est un domaine toscan culte entièrement dédié au Caberlot, un croisement naturel entre Cabernet Franc et Merlot, cultivé exclusivement sur la propriété. C'est ce qui rend ces vins extrêmement rares et recherchés. Il Carnasciale est l'expression plus accessible du domaine, combinant intensité, structure et une approche déjà très aboutie dans le millésime 2020 : sombre, épicé et sculpté.",
-    "notes_experts": { "wine_advocate": "93/100", "jancis_robinson": "17+/20", "james_suckling": "93/100", "peak_wines": "93/100" },
+    "notes_experts": {
+      "wine_advocate": "93/100",
+      "jancis_robinson": "17+/20",
+      "james_suckling": "93/100",
+      "peak_wines": "93/100"
+    },
     "degustation": {
       "couleur": "Ruby quasiment encre",
       "nez": "Cassis, prune et cerise noire, herbes sauvages, graphite, tabac, pointe de poivre",
@@ -25,7 +30,14 @@
       "temperature": "16–18°C",
       "accords": "Viandes rouges, plats mijotés, cuisine toscane"
     },
-    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
   },
   {
     "id": 2,
@@ -39,7 +51,12 @@
     "statut": "cave",
     "stock": 1,
     "profil": "Ce vin est vraiment l'école Alto Adige : pureté, fraîcheur, précision aromatique, gros travail sur la minéralité. La coopérative Cantina Terlano a été fondée en 1893 et est aujourd'hui l'une des références de l'Alto Adige. Leur philosophie repose sur des vins de grande longévité, grâce à une vinification sur lies prolongée.",
-    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "95/100", "peak_wines": "93/100" },
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "95/100",
+      "peak_wines": "93/100"
+    },
     "degustation": {
       "couleur": "Paille à reflets verts",
       "nez": "Pomme verte et pêche blanche, avec des nuances de mélisse et menthe, puis des notes persistantes de pêche en bouche",
@@ -53,7 +70,14 @@
       "temperature": "9–11°C",
       "accords": "Ceviche, sashimi, asperges vertes, burrata citronnée, sole meunière, risotto aux herbes, fromage de chèvre frais"
     },
-    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
   },
   {
     "id": 3,
@@ -67,7 +91,12 @@
     "statut": "cave",
     "stock": 1,
     "profil": "Le Potentilla joue dans un registre plus sérieux et plus profond. Livio Felluga est une référence absolue du Frioul. Cuvée mono-cépage, mono-parcelle lancée avec le millésime 2018, issue d'une vigne plantée en 1975 sur les collines de Friuli Colli Orientali.",
-    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "94/100", "peak_wines": "93/100" },
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "94/100",
+      "peak_wines": "93/100"
+    },
     "degustation": {
       "couleur": "Jaune paille clair avec des reflets verdâtres",
       "nez": "Fleur de sureau, feuilles d'ortie, fleur de prunier, gardénia blanc, pêche blanche, ananas, mangue et crème au citron",
@@ -81,7 +110,14 @@
       "temperature": "10–12°C",
       "accords": "Volaille à la crème légère, homard, lotte, risotto aux cèpes, turbot, ravioles aux herbes, vieux comté"
     },
-    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
   },
   {
     "id": 4,
@@ -95,7 +131,12 @@
     "statut": "cave",
     "stock": 1,
     "profil": "Cabernet Franc sud-africain élégant et expressif issu de Paarl. Le vin séduit par son équilibre entre fruit rouge mûr, fraîcheur naturelle et notes épicées raffinées. Accessible dès aujourd'hui après aération, il possède néanmoins un potentiel d'évolution intéressant.",
-    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "94/100", "peak_wines": "N/a" },
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "94/100",
+      "peak_wines": "N/a"
+    },
     "degustation": {
       "couleur": "Rubis, rouge profond",
       "nez": "Arômes de fruits rouges mûrs (cerise, baies), complétés par des touches épicées",
@@ -109,7 +150,14 @@
       "temperature": "16–18°C",
       "accords": "Viandes grillées, gibiers, plats corsés, fromages à pâte dure"
     },
-    "journal": { "date": "25 décembre 2025", "occasion": "Repas de Noël", "avec_quoi": "Filet de canard aux fruits rouges", "ressenti": "Bonne expérience, fort fruité et frais, très expressif au niveau du nez. Le côté épicé ressort vraiment bien", "evolution_verre": "30 minutes de carafage et évolution dans le verre", "note_personnelle": "1ère bouteille déjà agréable. Pas encore à son sommet. Attendre fin 2027 pour apogée. Carafer 1h minimum." }
+    "journal": {
+      "date": "25 décembre 2025",
+      "occasion": "Repas de Noël",
+      "avec_quoi": "Filet de canard aux fruits rouges",
+      "ressenti": "Bonne expérience, fort fruité et frais, très expressif au niveau du nez. Le côté épicé ressort vraiment bien",
+      "evolution_verre": "30 minutes de carafage et évolution dans le verre",
+      "note_personnelle": "1ère bouteille déjà agréable. Pas encore à son sommet. Attendre fin 2027 pour apogée. Carafer 1h minimum."
+    }
   },
   {
     "id": 5,
@@ -123,7 +171,12 @@
     "statut": "cave",
     "stock": 2,
     "profil": "Pinotage haut de gamme au style moderne, intense et sophistiqué. Élevé longuement en barriques françaises et américaines, il développe un profil profond mêlant fruits noirs mûrs, violette, cacao, épices douces et nuances toastées. Encore jeune, le vin gagne fortement à être carafé.",
-    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "91/100", "peak_wines": "N/a" },
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "91/100",
+      "peak_wines": "N/a"
+    },
     "degustation": {
       "couleur": "À compléter",
       "nez": "Baies (blueberry, framboise, mulberry), touches florales (violette, lavande), nuances de chocolat noir, amande grillée, pointe de bois toasté",
@@ -137,7 +190,14 @@
       "temperature": "16–18°C",
       "accords": "Viandes rouges, barbecue, côtes d'agneau, plats fumés"
     },
-    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
   },
   {
     "id": 6,
@@ -151,7 +211,12 @@
     "statut": "cave",
     "stock": 2,
     "profil": "Assemblage bordelais premium provenant des célèbres sols anciens du Western Cape. Le vin allie puissance maîtrisée, précision et profondeur. Encore dans sa jeunesse, il devrait gagner en complexité et en texture au fil du temps.",
-    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "91/100", "peak_wines": "N/a" },
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "91/100",
+      "peak_wines": "N/a"
+    },
     "degustation": {
       "couleur": "À compléter",
       "nez": "Cerise noire, prune, épices de boulangerie, vanille, tabac, noisette, touche de réglisse ou de cacao",
@@ -165,7 +230,14 @@
       "temperature": "16–18°C",
       "accords": "Filet de bœuf Wellington, carré d'agneau rôti au thym, civet de cerf, purée truffée"
     },
-    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
   },
   {
     "id": 7,
@@ -179,7 +251,12 @@
     "statut": "cave",
     "stock": 5,
     "profil": "Le Barbaresco 2021 de Salvatore M. est typiquement dans le style classique du Piémont : du nebbiolo assez pur, structuré mais élégant, avec des tanins présents et une belle fraîcheur. Millésime réputé très réussi dans les Langhe. Un vin qui gagnera à vieillir en cave quelques années.",
-    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "N/a",
+      "peak_wines": "N/a"
+    },
     "degustation": {
       "couleur": "Rouge profond",
       "nez": "Fleurs puis fruits rouges. Arômes tertiaires avec le temps",
@@ -193,7 +270,14 @@
       "temperature": "16–18°C",
       "accords": "Viande rouge, plats italiens typiques (ragù), volaille noble, plats piémontais et truffes"
     },
-    "journal": { "date": "28 décembre 2025", "occasion": "Repas de fin d'année", "avec_quoi": "Cuisse de pintade, jus court et champignons", "ressenti": "Vin clairement trop jeune, quelques années de vieillissement en cave feront du bien", "evolution_verre": "Clairement une évolution dans le verre mais limitée", "note_personnelle": "Ouvrir une 2e bouteille en 2028 pas avant" }
+    "journal": {
+      "date": "28 décembre 2025",
+      "occasion": "Repas de fin d'année",
+      "avec_quoi": "Cuisse de pintade, jus court et champignons",
+      "ressenti": "Vin clairement trop jeune, quelques années de vieillissement en cave feront du bien",
+      "evolution_verre": "Clairement une évolution dans le verre mais limitée",
+      "note_personnelle": "Ouvrir une 2e bouteille en 2028 pas avant"
+    }
   },
   {
     "id": 8,
@@ -207,7 +291,12 @@
     "statut": "cave",
     "stock": 1,
     "profil": "Ce vin est issu de la commune de Serralunga connue pour ses vins de garde. Un vin qui allie élégance, puissance et potentiel de garde — parfait pour un moment célébratoire.",
-    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "92/100", "peak_wines": "N/a" },
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "92/100",
+      "peak_wines": "N/a"
+    },
     "degustation": {
       "couleur": "À compléter",
       "nez": "Très expressif, arômes de rose fanée, épices, vanille, sous-bois, cerise, réglisse et cacao",
@@ -221,7 +310,14 @@
       "temperature": "18–20°C",
       "accords": "Viandes rouges grillées ou braisées, gibier, sauces riches, fromages puissants"
     },
-    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
   },
   {
     "id": 9,
@@ -235,7 +331,12 @@
     "statut": "cave",
     "stock": 1,
     "profil": "Le domaine est situé à 4 km de Chablis, dans la commune de Fontenay-Près-Chablis. Fourchaume est l'un des premiers crus les plus réputés de Chablis, avec une exposition favorable au sud et des sols calcaires de haute qualité.",
-    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "92/100", "peak_wines": "N/a" },
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "92/100",
+      "peak_wines": "N/a"
+    },
     "degustation": {
       "couleur": "Jaune caractéristique aux reflets subtils blanc-vert, limpide et vive",
       "nez": "Généreux, presque tropical, fruits mûrs et croquants, citron et pamplemousse",
@@ -249,7 +350,14 @@
       "temperature": "10–12°C",
       "accords": "Noix de Saint-Jacques, poissons en sauce, viandes blanches, huîtres, fruits de mer, fromage de chèvre frais"
     },
-    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
   },
   {
     "id": 10,
@@ -263,7 +371,12 @@
     "statut": "cave",
     "stock": 2,
     "profil": "La cuvée Cœur de Glace fait partie des vins rares du domaine, disponibles en quantités très limitées. Réalisée dans l'esprit d'un vin de glace — une vendange avec raisins concentrés par gelée ou forte altération.",
-    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "N/a",
+      "peak_wines": "N/a"
+    },
     "degustation": {
       "couleur": "Blanc jaunâtre",
       "nez": "Très expressif : litchi, rose, fruits de la passion, mangue mûre, notes miellées, épices douces et touche citronnée. Laisser s'aérer 10-15 min dans le verre",
@@ -277,7 +390,14 @@
       "temperature": "10–12°C",
       "accords": "Foie gras, desserts aux fruits exotiques, tarte à la poire ou à l'abricot, fromage à pâte dure"
     },
-    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
   },
   {
     "id": 11,
@@ -291,7 +411,12 @@
     "statut": "cave",
     "stock": 5,
     "profil": "100% Chardonnay, vinifié en cuve inox avec élevage sur lies fines. Robe paille, nez d'agrumes et notes minérales, joli équilibre et longueur sympa. Domaine Colbois est un vignoble respecté localement, produisant un Chablis franc, minéral, bien fait, dans le style classique.",
-    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "N/a",
+      "peak_wines": "N/a"
+    },
     "degustation": {
       "couleur": "À compléter",
       "nez": "Pomme verte, zeste, citron, pamplemousse, pierre humide",
@@ -305,7 +430,14 @@
       "temperature": "10–11°C",
       "accords": "Fruits de mer et crustacés, fromage frais, tartare de saumon"
     },
-    "journal": { "date": "Automne 2025", "occasion": "Goûter une 1ère bouteille de ce Chablis", "avec_quoi": "Saumon fumé", "ressenti": "Très agréable", "evolution_verre": "", "note_personnelle": "1ère bouteille ouverte" }
+    "journal": {
+      "date": "Automne 2025",
+      "occasion": "Goûter une 1ère bouteille de ce Chablis",
+      "avec_quoi": "Saumon fumé",
+      "ressenti": "Très agréable",
+      "evolution_verre": "",
+      "note_personnelle": "1ère bouteille ouverte"
+    }
   },
   {
     "id": 12,
@@ -319,7 +451,12 @@
     "statut": "cave",
     "stock": 1,
     "profil": "Domaine fondé en 1874 par Luigi Arnulfo, une légende du Barolo. La propriété appartient aujourd'hui à la famille Sartirano et comprend seulement 11 acres de vignes de nebbiolo. Vigna Campo dei Buoi, située dans la zone de Bussia à Monforte d'Alba — nom historique transmis par les habitants locaux.",
-    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "N/a",
+      "peak_wines": "N/a"
+    },
     "degustation": {
       "couleur": "Rouge profond",
       "nez": "Arômes complexes de fruits rouges confits (cerise, griotte), roses fanées, violette, notes tertiaires de cuir, truffe, tabac et épices douces",
@@ -333,7 +470,14 @@
       "temperature": "16–18°C",
       "accords": "À compléter"
     },
-    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
   },
   {
     "id": 13,
@@ -347,7 +491,12 @@
     "statut": "cave",
     "stock": 3,
     "profil": "Ce 100% Nero d'Avola est cultivé principalement sur les collines de la Sicile occidentale entre 300 et 500 mètres d'altitude. Le style moderne cherche à dompter la fougue du cépage pour créer un vin immédiat, soyeux et extrêmement flatteur.",
-    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "N/a",
+      "peak_wines": "N/a"
+    },
     "degustation": {
       "couleur": "Rouge profond",
       "nez": "Explosion de fruits très mûrs : confiture de cerise noire, mûre, pruneau, enveloppés d'arômes boisés et doux (vanille, chocolat noir, cacao, touche de réglisse)",
@@ -361,7 +510,14 @@
       "temperature": "16–18°C",
       "accords": "Viandes grillées, pâtes et sauces riches, fromages affinés et corsés"
     },
-    "journal": { "date": "Fin d'année 2025", "occasion": "Bon repas", "avec_quoi": "À compléter", "ressenti": "À compléter", "evolution_verre": "1h", "note_personnelle": "1ère bouteille déjà agréable." }
+    "journal": {
+      "date": "Fin d'année 2025",
+      "occasion": "Bon repas",
+      "avec_quoi": "À compléter",
+      "ressenti": "À compléter",
+      "evolution_verre": "1h",
+      "note_personnelle": "1ère bouteille déjà agréable."
+    }
   },
   {
     "id": 14,
@@ -375,7 +531,12 @@
     "statut": "cave",
     "stock": 6,
     "profil": "Pinot gris sec mais pas lourd. Encore jeune, il possède pour le moment un profil aromatique. Avec le temps, le côté granit pourra apporter un peu de tension minérale.",
-    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "N/a",
+      "peak_wines": "N/a"
+    },
     "degustation": {
       "couleur": "À compléter",
       "nez": "À compléter",
@@ -389,7 +550,14 @@
       "temperature": "9–12°C",
       "accords": "Plats crémeux, champignons, plats épicés"
     },
-    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
   },
   {
     "id": 15,
@@ -403,7 +571,12 @@
     "statut": "cave",
     "stock": 6,
     "profil": "Produit dans le sud de la Bourgogne (Mâconnais) par une vigneronne de grand talent, cette cuvée est un 100% Chardonnay qui allie la rondeur bourguignonne à une superbe tension. Nez sur des notes de fleurs blanches, d'amande fraîche et une touche de fruits jaunes. La bouche est charnue et enveloppante, soutenue par une belle fraîcheur calcaire.",
-    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "N/a",
+      "peak_wines": "N/a"
+    },
     "degustation": {
       "couleur": "À compléter",
       "nez": "À compléter",
@@ -417,7 +590,14 @@
       "temperature": "10–12°C",
       "accords": "Poisson"
     },
-    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
   },
   {
     "id": 16,
@@ -431,7 +611,12 @@
     "statut": "cave",
     "stock": 5,
     "profil": "Expression classique et vibrante du Chenin Blanc, né sur les sols calcaires (tuffeau) et de silex de la Touraine. Ce millésime 2023 offre un profil très pur, axé sur les fruits à chair blanche (poire, pomme granny) et des notes de verveine. Une tension minérale saline très salivante due au terroir de silex.",
-    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "N/a",
+      "peak_wines": "N/a"
+    },
     "degustation": {
       "couleur": "Jaune léger",
       "nez": "Pommes et coings",
@@ -445,7 +630,14 @@
       "temperature": "10–12°C",
       "accords": "À compléter"
     },
-    "journal": { "date": "23 mai 2026", "occasion": "1ère bouteille", "avec_quoi": "Apéro", "ressenti": "", "evolution_verre": "Non", "note_personnelle": "Ouvrir une 2e bouteille" }
+    "journal": {
+      "date": "23 mai 2026",
+      "occasion": "1ère bouteille",
+      "avec_quoi": "Apéro",
+      "ressenti": "",
+      "evolution_verre": "Non",
+      "note_personnelle": "Ouvrir une 2e bouteille"
+    }
   },
   {
     "id": 17,
@@ -459,7 +651,12 @@
     "statut": "cave",
     "stock": 3,
     "profil": "La grande cuvée emblématique de la maison Nativ. Issu d'une petite parcelle à Taurasi sur des sols volcaniques, où les vignes d'Aglianico ont pour certaines plus de 150 ans — rescapées du phylloxéra. Ces vieilles vignes produisent très peu de grappes, mais le jus obtenu est d'une richesse aromatique incroyable.",
-    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "N/a",
+      "peak_wines": "N/a"
+    },
     "degustation": {
       "couleur": "Presque noire, impénétrable, avec des reflets violacés denses",
       "nez": "Explosion de fruits noirs confiturés (crème de cassis, mûre sauvage, cerise noire) mêlée à des notes gourmandes d'élevage : vanille, chocolat noir, café torréfié, noix de coco et pointe de tabac doux",
@@ -473,7 +670,14 @@
       "temperature": "16–18°C",
       "accords": "Viande rouge, plats italiens typiques (ragù), magret de canard"
     },
-    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
   },
   {
     "id": 18,
@@ -487,7 +691,12 @@
     "statut": "cave",
     "stock": 3,
     "profil": "L'Aglianico est souvent surnommé le « Barolo du Sud » pour sa capacité à donner des vins puissants et bâtis pour la garde. Un vin de caractère, plus complexe, corpulent et boisé, avec du relief en bouche et une structure tannique affirmée.",
-    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "N/a",
+      "peak_wines": "N/a"
+    },
     "degustation": {
       "couleur": "Sombre, presque opaque",
       "nez": "Fruits noirs mûrs (cerise noire, prugna), épices douces (poivre noir, réglisse), cacao et pointe torréfiée apportée par la barrique",
@@ -501,7 +710,14 @@
       "temperature": "16–18°C",
       "accords": "Viande rouge, plats italiens typiques (ragù), fromages affinés et puissants"
     },
-    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
   },
   {
     "id": 19,
@@ -515,7 +731,12 @@
     "statut": "cave",
     "stock": 4,
     "profil": "Issu des vignobles de schiste portugais, ce Reserva exprime un profil solaire et puissant où se mêlent fruits noirs, épices douces et nuances de vanille. Sa structure affirmée et sa belle profondeur en font un vin particulièrement adapté aux viandes grillées et aux plats riches..",
-    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "N/a",
+      "peak_wines": "N/a"
+    },
     "degustation": {
       "couleur": "Rouge rubis",
       "nez": "Mûre, cassis, prune, épices douces, boisé fondu",
@@ -529,6 +750,61 @@
       "temperature": "16–18°C",
       "accords": "Viande rouge, plats méditérannéen, fromages affinés et puissants"
     },
-    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
+  },
+  {
+    "nom": "Piero Busso - Langhe Nebbiolo 2024",
+    "millesime": 2024,
+    "couleur": "rouge",
+    "stock": 1,
+    "producteur": "Piero Busso",
+    "appellation": "Nebbolio DOC",
+    "region": "Piémont",
+    "pays": "Italie",
+    "cepages": "Nebbiolo",
+    "elevage": "Fermentation et macération dans des cuves en acier trempé (28-30°). Vieillissement en grands fûts de chênes.",
+    "gardeDebut": 2026,
+    "gardeFin": 2030,
+    "notes": "Robe claire, tuilée, translucide. Explosion de caractère en bouche (rose, fruits rouges et plus tard épices et goudron",
+    "statut": "en cave"
+  },
+  {
+    "nom": "Leirana 2025",
+    "millesime": 2025,
+    "couleur": "blanc",
+    "stock": 1,
+    "producteur": "Rodrigo Mendez",
+    "appellation": "D.O Rias Baixas",
+    "region": "Galice",
+    "pays": "Espagne",
+    "cepages": "Albarino",
+    "elevage": "Elevé sur sol de granit et proche de l'océan atlantique. Fermenté sur lies et veillissement nul en fût.",
+    "gardeDebut": 2026,
+    "gardeFin": 2031,
+    "notes": "Citron, pamplemousse, pommes verte, fleurs blanche et une salinité presque iodée.",
+    "statut": "en cave"
+  },
+  {
+    "nom": "Rosato Di Toscana 2025",
+    "millesime": 2025,
+    "couleur": "rosé",
+    "stock": 1,
+    "producteur": "Fuligni",
+    "appellation": "Rosato di Toscana IGT",
+    "region": "Toscane",
+    "pays": "Italie",
+    "cepages": "Sangiovese",
+    "elevage": "100% sangiovese élévé au domaine",
+    "gardeDebut": 2026,
+    "gardeFin": 2027,
+    "notes": "Robe rose, rosé de gastronomie",
+    "statut": "en cave"
   }
 ]
