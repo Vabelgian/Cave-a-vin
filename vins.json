@@ -760,7 +760,7 @@
     }
   },
   {
-    "nom": "Piero Busso - Langhe Nebbiolo 2024",
+    "nom": "Piero Buso - Langue Nebbiolo 2024",
     "millesime": 2024,
     "couleur": "rouge",
     "stock": 1,
@@ -769,15 +769,13 @@
     "pays": "Italie",
     "cepage": "Nebbiolo",
     "profil": "A compléter",
-    "notes": "A compléter",
-    "identite": {
-      "region_detail": "Piémont · Nebbiolo DOC",
-      "cepage_detail": "Nebbiolo",
-      "style_detail": "Producteur : Piero Buso"
+    "degustation": {
+      "couleur": "Rouge translucide"
     },
     "technique": {
-      "vinification": "A compléter",
-      "garde": "2026-2030"
+      "vinification": "A complèter",
+      "classification": "Nebbiolo DOC",
+      "carafage": "1h"
     }
   }
 ]
