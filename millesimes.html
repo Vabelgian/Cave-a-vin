@@ -1,620 +1,402 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Millésimes - Cave à vin</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Millésimes — Vinea</title>
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   :root {
-    --cream: #f5efe6;
-    --cream-dark: #ede3d4;
-    --parchment: #e8dcc8;
-    --bordeaux: #6b1f2a;
-    --bordeaux-light: #8b2f3f;
-    --bordeaux-pale: #f0e0e3;
-    --gold: #b8860b;
-    --gold-light: #d4a843;
-    --text: #2c1a10;
-    --text-muted: #7a5c45;
-    --text-light: #a08060;
-    --excellent: #5a7a3a;
-    --good: #2e6b7a;
-    --average: #8c6b2a;
-    --warning: #9b4a1a;
-    --bad: #7a1a1a;
-    --border: #d4c4a8;
-    --shadow: rgba(44, 26, 16, 0.12);
+    --bg:        #0e0905;
+    --surface:   #18110a;
+    --surface2:  #201608;
+    --border:    rgba(255,240,210,0.10);
+    --border-gold: rgba(201,168,76,0.30);
+    --text:      #f5ede0;
+    --muted:     #a8957e;
+    --dim:       #6b5b48;
+    --gold:      #c9a84c;
+    --gold-light:#e6c97a;
+    --serif:     'Cormorant Garamond', Georgia, serif;
+    --sans:      'DM Sans', system-ui, sans-serif;
+
+    /* badges qualité */
+    --excellent-bg:  rgba(90,160,80,0.15);
+    --excellent-col: #8fce7e;
+    --excellent-bdr: rgba(90,160,80,0.35);
+    --good-bg:       rgba(80,140,175,0.15);
+    --good-col:      #7ab8d8;
+    --good-bdr:      rgba(80,140,175,0.35);
+    --average-bg:    rgba(190,155,50,0.15);
+    --average-col:   #d4af5a;
+    --average-bdr:   rgba(190,155,50,0.35);
+    --warning-bg:    rgba(195,110,50,0.15);
+    --warning-col:   #e0905a;
+    --warning-bdr:   rgba(195,110,50,0.35);
+    --bad-bg:        rgba(165,50,50,0.15);
+    --bad-col:       #d07070;
+    --bad-bdr:       rgba(165,50,50,0.35);
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Lato', sans-serif;
-    background: var(--cream);
+    background: var(--bg);
     color: var(--text);
-    min-height: 100vh;
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: 80px;
   }
 
-  /* Texture overlay */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* NAV */
+  /* ── TOP NAV ── */
   .top-nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--bordeaux);
-    border-bottom: 3px solid var(--gold);
-    box-shadow: 0 2px 20px rgba(107,31,42,0.3);
-  }
-  .nav-container {
-    max-width: 1300px;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 24px;
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(14,9,5,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
   }
   .nav-logo {
-    color: var(--cream);
-    text-decoration: none;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.25rem;
-    letter-spacing: 0.5px;
+    font-family: var(--serif); font-size: 1.15rem; font-weight: 600;
+    letter-spacing: 0.06em; color: var(--gold); text-decoration: none;
   }
-  .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
   .nav-links a {
-    text-decoration: none;
-    color: rgba(245,239,230,0.75);
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    letter-spacing: 0.3px;
-    transition: all 0.2s;
+    font-size: 0.75rem; font-weight: 400; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted); text-decoration: none;
+    transition: color 0.2s;
   }
-  .nav-links a:hover { color: var(--cream); background: rgba(255,255,255,0.1); }
-  .nav-links a.active {
-    color: var(--gold-light);
-    background: rgba(184,134,11,0.2);
-    border: 1px solid rgba(184,134,11,0.4);
-  }
+  .nav-links a:hover,
+  .nav-links a.active { color: var(--gold); }
+  @media (max-width: 768px) { .nav-links { display: none; } }
 
-  /* VIEWS */
+  /* ── BOTTOM NAV ── */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+    background: rgba(14,9,5,0.94); backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-around;
+    padding: 10px 0 calc(10px + env(safe-area-inset-bottom));
+  }
+  .nav-item {
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    text-decoration: none; color: var(--muted); transition: color 0.2s; flex: 1;
+  }
+  .nav-item.active, .nav-item:active { color: var(--gold); }
+  .nav-item svg { width: 21px; height: 21px; }
+  .nav-item span { font-size: 0.58rem; letter-spacing: 0.04em; }
+  @media (min-width: 640px) { .bottom-nav { display: none; } }
+
+  /* ── VUES ── */
   .view { display: none; }
   .view.active { display: block; }
 
-  /* ===== HUB VIEW ===== */
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-size: 0.62rem; font-weight: 500; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--gold);
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--gold); opacity: 0.25; }
+
+  /* ═══════════════════════════════════
+     VUE HUB
+  ═══════════════════════════════════ */
   .hub {
-    max-width: 1300px;
-    margin: auto;
-    padding: 60px 24px 80px;
-    position: relative;
-    z-index: 1;
+    max-width: 860px; margin: 0 auto; padding: 5rem 2rem 4rem;
   }
-  .hub-header {
-    text-align: center;
-    margin-bottom: 56px;
-  }
+  .hub-header { text-align: center; margin-bottom: 4rem; }
   .hub-eyebrow {
-    font-size: 0.8rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--bordeaux);
-    font-weight: 700;
-    margin-bottom: 14px;
+    font-size: 0.62rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.2rem;
+    display: flex; align-items: center; justify-content: center; gap: 1rem;
+  }
+  .hub-eyebrow::before, .hub-eyebrow::after {
+    content: ''; display: block; width: 40px; height: 1px; background: var(--gold); opacity: 0.4;
   }
   .hub-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.2rem;
-    font-weight: 700;
-    color: var(--bordeaux);
-    line-height: 1.15;
-    margin-bottom: 20px;
+    font-family: var(--serif); font-size: clamp(2.5rem, 7vw, 4.5rem);
+    font-weight: 300; font-style: italic; line-height: 1.1; margin-bottom: 1.2rem; color: var(--text);
   }
-  .hub-title em {
-    font-style: italic;
-    color: var(--gold);
-  }
+  .hub-title em { font-style: normal; color: var(--gold-light); }
   .hub-subtitle {
-    font-size: 1.05rem;
-    color: var(--text-muted);
-    max-width: 560px;
-    margin: 0 auto;
-    line-height: 1.7;
-    font-weight: 300;
+    font-family: var(--serif); font-size: 1.05rem;
+    color: var(--muted); max-width: 500px; margin: 0 auto; line-height: 1.7;
   }
-  .hub-divider {
-    width: 60px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 28px auto 0;
-  }
+
+  /* Guide lecture */
   .reading-guide {
-    max-width: 680px;
-    margin: 28px auto 0;
-    text-align: left;
-    background: rgba(255,255,255,0.7);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    box-shadow: 0 2px 14px var(--shadow);
-    overflow: hidden;
+    max-width: 620px; margin: 2rem auto 0;
+    border: 1px solid var(--border); background: var(--surface);
   }
   .reading-guide summary {
-    cursor: pointer;
-    color: var(--bordeaux);
-    font-weight: 700;
-    padding: 16px 20px;
-    list-style-position: inside;
+    cursor: pointer; padding: 1rem 1.4rem; list-style: none;
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); display: flex; align-items: center; justify-content: space-between;
+    transition: color 0.2s;
   }
+  .reading-guide summary:hover { color: var(--gold); }
+  .reading-guide summary::after { content: '▼'; font-size: 0.6rem; color: var(--dim); }
+  .reading-guide[open] summary::after { content: '▲'; }
   .reading-guide-content {
-    color: var(--text-muted);
-    padding: 0 20px 18px;
-    line-height: 1.65;
-    font-weight: 300;
+    padding: 0 1.4rem 1.2rem;
+    font-size: 0.83rem; color: var(--muted); line-height: 1.7;
+    border-top: 1px solid var(--border);
   }
-  .reading-guide-content p { margin: 0 0 12px; }
-  .reading-guide-content ul {
-    margin: 0 0 12px 20px;
-    padding: 0;
-  }
-  .reading-guide-content li { margin: 4px 0; }
+  .reading-guide-content p { margin: 0.8rem 0; }
+  .reading-guide-content ul { margin: 0.5rem 0 0.8rem 1.2rem; }
+  .reading-guide-content li { margin: 0.25rem 0; }
 
-  /* Country groups */
-  .countries-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    max-width: 860px;
-    margin: 0 auto;
-  }
-  .country-group {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 2px 16px var(--shadow);
-    transition: box-shadow 0.2s;
-  }
-  .country-group:hover { box-shadow: 0 4px 28px var(--shadow); }
+  /* Grille pays */
+  .countries-grid { display: flex; flex-direction: column; gap: 1px; background: var(--border); margin-top: 3rem; }
+
+  .country-group { background: var(--surface); overflow: hidden; }
 
   .country-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 28px;
-    cursor: pointer;
-    user-select: none;
-    background: white;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 2rem; cursor: pointer; user-select: none;
     transition: background 0.2s;
   }
-  .country-header:hover { background: var(--bordeaux-pale); }
-  .country-header.open { background: var(--bordeaux-pale); border-bottom: 1px solid var(--border); }
+  .country-header:hover { background: var(--surface2); }
 
-  .country-left { display: flex; align-items: center; gap: 16px; }
-  .country-flag { font-size: 1.8rem; }
+  .country-left { display: flex; align-items: center; gap: 1.2rem; }
+  .country-flag { font-size: 1.6rem; line-height: 1; }
   .country-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    color: var(--bordeaux);
-    font-weight: 600;
+    font-family: var(--serif); font-size: 1.3rem; font-weight: 400;
+    font-style: italic; color: var(--text);
   }
-  .country-count {
-    font-size: 0.8rem;
-    color: var(--text-light);
-    font-weight: 400;
-    margin-top: 2px;
-  }
+  .country-count { font-size: 0.7rem; color: var(--dim); margin-top: 0.15rem; letter-spacing: 0.04em; }
   .country-chevron {
-    color: var(--bordeaux);
-    font-size: 1rem;
-    transition: transform 0.3s ease;
+    color: var(--gold); font-size: 0.65rem; opacity: 0.6;
+    transition: transform 0.3s;
   }
   .country-header.open .country-chevron { transform: rotate(180deg); }
 
   .regions-list {
-    display: none;
-    padding: 16px 20px;
-    gap: 12px;
-    flex-wrap: wrap;
+    display: none; padding: 0 1.5rem 1.5rem;
+    gap: 1px; flex-wrap: wrap; background: var(--bg);
   }
   .regions-list.open { display: flex; }
 
   .region-card {
-    flex: 1;
-    min-width: 180px;
-    background: var(--cream);
+    flex: 1; min-width: 200px; background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 18px 20px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-decoration: none;
-    display: block;
+    padding: 1.4rem 1.6rem; cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    text-decoration: none; display: block;
   }
-  .region-card:hover {
-    background: var(--bordeaux);
-    border-color: var(--bordeaux);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(107,31,42,0.2);
-  }
-  .region-card:hover .region-card-name { color: white; }
-  .region-card:hover .region-card-style { color: rgba(245,239,230,0.75); }
-  .region-card:hover .region-card-arrow { color: var(--gold-light); }
-
+  .region-card:hover { background: var(--surface2); border-color: var(--border-gold); }
   .region-card-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.05rem;
-    color: var(--bordeaux);
-    font-weight: 600;
-    margin-bottom: 4px;
-    transition: color 0.2s;
+    font-family: var(--serif); font-size: 1.1rem;
+    font-style: italic; color: var(--text); margin-bottom: 0.3rem;
   }
-  .region-card-style {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    line-height: 1.4;
-    transition: color 0.2s;
-  }
+  .region-card-style { font-size: 0.78rem; color: var(--muted); line-height: 1.45; }
   .region-card-arrow {
-    margin-top: 10px;
-    color: var(--gold);
-    font-size: 0.85rem;
-    transition: color 0.2s;
+    margin-top: 0.9rem; font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold);
   }
 
-  /* ===== REGION VIEW ===== */
+  /* ═══════════════════════════════════
+     VUE RÉGION
+  ═══════════════════════════════════ */
   .region-page {
-    max-width: 1100px;
-    margin: auto;
-    padding: 50px 24px 80px;
-    position: relative;
-    z-index: 1;
+    max-width: 1000px; margin: 0 auto; padding: 3rem 2rem 5rem;
   }
-
   .back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--bordeaux);
-    font-size: 0.9rem;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    cursor: pointer;
-    padding: 8px 16px 8px 10px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: white;
-    margin-bottom: 40px;
-    transition: all 0.2s;
-    text-transform: uppercase;
-    font-size: 0.78rem;
-    letter-spacing: 1.5px;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); background: none; border: none; cursor: pointer;
+    padding: 0; margin-bottom: 2.5rem; transition: color 0.2s;
   }
-  .back-btn:hover { background: var(--bordeaux); color: white; border-color: var(--bordeaux); }
+  .back-btn:hover { color: var(--gold); }
+  .back-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
 
   .region-header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding-bottom: 32px;
-    border-bottom: 2px solid var(--border);
+    display: flex; align-items: flex-end; justify-content: space-between;
+    padding-bottom: 2rem; margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap; gap: 1rem;
   }
-  .region-header-left {}
   .region-breadcrumb {
-    font-size: 0.78rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-light);
-    margin-bottom: 10px;
+    font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--dim); margin-bottom: 0.6rem;
   }
   .region-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.8rem;
-    color: var(--bordeaux);
-    font-weight: 700;
-    line-height: 1.1;
+    font-family: var(--serif); font-size: 2.5rem;
+    font-weight: 300; font-style: italic; color: var(--text); line-height: 1.1;
   }
   .region-style-tag {
-    display: inline-block;
-    margin-top: 12px;
-    background: var(--bordeaux-pale);
-    color: var(--bordeaux);
-    border: 1px solid rgba(107,31,42,0.2);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-style: italic;
-    font-family: 'Playfair Display', serif;
+    display: inline-block; margin-top: 0.8rem;
+    border: 1px solid var(--border-gold); color: var(--gold);
+    font-family: var(--serif); font-size: 0.9rem; font-style: italic;
+    padding: 0.3rem 0.9rem;
   }
-  .region-flag-big { font-size: 3rem; line-height: 1; }
+  .region-flag-big { font-size: 2.5rem; line-height: 1; }
 
   .region-intro {
-    background: white;
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--bordeaux);
-    border-radius: 0 12px 12px 0;
-    padding: 24px 28px;
-    margin-bottom: 40px;
-    font-size: 0.97rem;
-    line-height: 1.75;
-    color: var(--text-muted);
-    font-weight: 300;
+    background: var(--surface); border-left: 2px solid var(--gold);
+    padding: 1.2rem 1.6rem; margin-bottom: 2.5rem;
+    font-size: 0.9rem; color: var(--muted); line-height: 1.75;
   }
 
-  /* Vintage table */
-  .table-wrapper {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 24px var(--shadow);
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  thead {
-    background: var(--bordeaux);
-  }
-  th {
-    padding: 18px 20px;
-    text-align: center;
-    color: var(--cream);
-    font-size: 0.78rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-family: 'Lato', sans-serif;
-  }
-  th.col-year { color: var(--gold-light); }
-  th.col-left { text-align: left; }
-
-  tbody tr {
-    border-bottom: 1px solid var(--parchment);
-    transition: background 0.15s;
-  }
-  tbody tr:last-child { border-bottom: none; }
-  tbody tr:hover { background: var(--cream); }
-
-  td {
-    padding: 20px;
-    text-align: center;
-    vertical-align: middle;
-  }
-  td.col-year {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--bordeaux);
-    text-align: left;
-    width: 90px;
-  }
-  td.col-note { width: 120px; }
-  td.col-desc {
-    text-align: left;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    line-height: 1.5;
-    font-weight: 300;
-  }
-  td.col-garde {
-    width: 150px;
-    font-size: 0.82rem;
-    color: var(--text-light);
-    font-weight: 400;
-    white-space: nowrap;
-  }
-
-  .desc-comment {
-    margin-top: 8px;
-    padding-top: 8px;
-    border-top: 1px dashed var(--border);
-    font-size: 0.82rem;
-    color: var(--text-light);
-    font-style: italic;
-    line-height: 1.5;
-  }
-  .desc-comment::before {
-    content: '📝 ';
-    font-style: normal;
-  }
-
-  .vintage-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 0.82rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
-  }
-  .badge-excellent { background: #eef4e8; color: var(--excellent); border: 1px solid #c8ddb0; }
-  .badge-good      { background: #e6f2f5; color: var(--good);      border: 1px solid #b0d4de; }
-  .badge-average   { background: #faf3e0; color: var(--average);   border: 1px solid #ddc98a; }
-  .badge-warning   { background: #faf0e8; color: var(--warning);   border: 1px solid #e0b898; }
-  .badge-bad       { background: #faeaea; color: var(--bad);       border: 1px solid #dba8a8; }
-
-  .garde-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.78rem;
-    padding: 4px 10px;
-    border-radius: 12px;
-    background: var(--cream-dark);
-    color: var(--text-muted);
-    border: 1px solid var(--border);
-  }
-
-  /* Legend */
+  /* Légende */
   .legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 24px;
+    display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;
   }
   .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.8rem;
-    color: var(--text-muted);
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.72rem; color: var(--muted);
   }
-  .legend-dot {
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* Tableau desktop */
+  .table-wrapper {
+    background: var(--surface); border: 1px solid var(--border); overflow: hidden;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  thead { background: var(--surface2); }
+  th {
+    padding: 1rem 1.2rem; text-align: center;
+    font-size: 0.62rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--dim); font-family: var(--sans);
+  }
+  th.col-left { text-align: left; }
+  th.col-year { color: var(--gold); }
+
+  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--surface2); }
+
+  td { padding: 1.1rem 1.2rem; text-align: center; vertical-align: middle; }
+  td.col-year {
+    font-family: var(--serif); font-size: 1.4rem; font-weight: 400;
+    color: var(--text); text-align: left; width: 90px;
+  }
+  td.col-note { width: 130px; }
+  td.col-desc { text-align: left; color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
+  td.col-garde { width: 160px; font-size: 0.8rem; color: var(--dim); white-space: nowrap; }
+
+  .desc-comment {
+    margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px dashed var(--border);
+    font-size: 0.8rem; color: var(--dim); font-style: italic; line-height: 1.5;
+  }
+  .desc-comment::before { content: '📝  '; font-style: normal; }
+
+  /* Badges qualité */
+  .vintage-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.4rem 0.9rem; font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.03em; white-space: nowrap;
+  }
+  .badge-excellent { background: var(--excellent-bg); color: var(--excellent-col); border: 1px solid var(--excellent-bdr); }
+  .badge-good      { background: var(--good-bg);      color: var(--good-col);      border: 1px solid var(--good-bdr); }
+  .badge-average   { background: var(--average-bg);   color: var(--average-col);   border: 1px solid var(--average-bdr); }
+  .badge-warning   { background: var(--warning-bg);   color: var(--warning-col);   border: 1px solid var(--warning-bdr); }
+  .badge-bad       { background: var(--bad-bg);        color: var(--bad-col);        border: 1px solid var(--bad-bdr); }
+
+  .garde-pill {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.75rem; padding: 0.3rem 0.7rem;
+    background: var(--surface2); border: 1px solid var(--border); color: var(--dim);
   }
 
   .footer-note {
-    margin-top: 28px;
-    font-size: 0.85rem;
-    color: var(--text-light);
-    line-height: 1.6;
-    font-style: italic;
-    text-align: center;
+    margin-top: 2rem; font-family: var(--serif); font-size: 0.9rem;
+    font-style: italic; color: var(--dim); text-align: center;
   }
 
-  /* ===== MOBILE CARD LAYOUT ===== */
+  /* Cartes mobile */
   .millesime-cards { display: none; }
 
-  @media (max-width: 768px) {
-    .hub-title { font-size: 2.2rem; }
-    .hub { padding: 36px 16px 60px; }
-    .region-title { font-size: 2rem; }
-    .region-page { padding: 30px 16px 60px; }
-    .region-header { flex-direction: column; align-items: flex-start; gap: 10px; }
-    .region-flag-big { display: none; }
-    .region-intro { padding: 18px 20px; font-size: 0.92rem; }
-    .nav-container { flex-direction: column; align-items: flex-start; gap: 10px; }
-    .nav-links { width: 100%; justify-content: space-between; }
-    .nav-links a { padding: 8px 10px; font-size: 0.82rem; }
-
-    /* Hide table, show cards */
+  @media (max-width: 720px) {
+    .hub { padding: 3rem 1.2rem 3rem; }
+    .region-page { padding: 2rem 1.2rem 4rem; }
     .table-wrapper { display: none; }
-    .millesime-cards { display: flex; flex-direction: column; gap: 12px; }
+    .millesime-cards { display: flex; flex-direction: column; gap: 10px; }
+    .region-title { font-size: 1.8rem; }
+    .region-flag-big { display: none; }
+    .legend { gap: 0.6rem; }
+    .legend-item { font-size: 0.68rem; }
 
     .mil-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 18px 20px;
-      box-shadow: 0 2px 10px var(--shadow);
+      background: var(--surface); border: 1px solid var(--border); padding: 1.1rem 1.2rem;
     }
     .mil-card-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem;
     }
     .mil-card-year {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--bordeaux);
-      line-height: 1;
+      font-family: var(--serif); font-size: 1.6rem; font-weight: 400; color: var(--text); line-height: 1;
     }
-    .mil-card-desc {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-      font-weight: 300;
-      margin-bottom: 10px;
-    }
+    .mil-card-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.55; margin-bottom: 0.7rem; }
     .mil-card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
-      padding-top: 10px;
-      border-top: 1px solid var(--parchment);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 0.5rem; padding-top: 0.7rem; border-top: 1px solid var(--border);
     }
     .mil-card-comment {
-      margin-top: 10px;
-      padding: 10px 14px;
-      background: var(--cream);
-      border-radius: 8px;
-      border-left: 3px solid var(--gold);
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      font-style: italic;
-      line-height: 1.5;
+      margin-top: 0.7rem; padding: 0.7rem 1rem;
+      background: var(--surface2); border-left: 2px solid var(--gold);
+      font-size: 0.78rem; color: var(--muted); font-style: italic; line-height: 1.5;
     }
-    .mil-card-comment::before {
-      content: '📝 ';
-      font-style: normal;
-    }
-    .legend { gap: 8px; }
-    .legend-item { font-size: 0.75rem; }
+    .mil-card-comment::before { content: '📝  '; font-style: normal; }
   }
 </style>
 </head>
 <body>
 
+<!-- TOP NAV -->
 <nav class="top-nav">
-  <div class="nav-container">
-    <a href="index.html" class="nav-logo">🍷 Ma Cave</a>
-    <div class="nav-links">
-      <a href="index.html">Accueil</a>
-      <a href="Ma-Cave.html">Ma Cave</a>
-      <a href="Fenetrededegustation.html">Dégustations</a>
-      <a href="millesimes.html" class="active">Millésimes</a>
-    </div>
-  </div>
+  <a href="index.html" class="nav-logo">Vinea</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="regionsviticoles.html">Régions</a></li>
+    <li><a href="millesimes.html" class="active">Millésimes</a></li>
+    <li><a href="Ma-Cave.html">Ma Cave</a></li>
+  </ul>
 </nav>
 
-<!-- HUB VIEW -->
+<!-- ═══ VUE HUB ═══ -->
 <div id="view-hub" class="view active">
   <div class="hub">
-    <div class="hub-header">
-      <div class="hub-eyebrow">Guide des millésimes</div>
-      <h1 class="hub-title">L'almanach<br>de <em>la cave</em></h1>
-      <p class="hub-subtitle">Retrouvez pour chaque région viticole les caractéristiques des millésimes présents dans la cave — style, qualité et conseils de garde.</p>
-      <div class="hub-divider"></div>
+    <header class="hub-header">
+      <p class="hub-eyebrow">Guide</p>
+      <h1 class="hub-title">L'almanach<br>des <em>millésimes</em></h1>
+      <p class="hub-subtitle">Caractéristiques des grandes années par région — style, qualité, conseils de garde.</p>
       <details class="reading-guide">
-        <summary>Comment lire les millésimes ?</summary>
+        <summary>Comment lire ces millésimes ?</summary>
         <div class="reading-guide-content">
-          <p>Les évaluations présentées ici donnent une tendance générale par région et par année. Le résultat final peut varier selon plusieurs facteurs :</p>
+          <p>Les évaluations donnent une tendance générale par région et par année. Le résultat final peut varier selon :</p>
           <ul>
-            <li>le cépage (Pinot Noir, Chardonnay, Chenin, Syrah…),</li>
-            <li>le style du vin (rouge, blanc, effervescent, liquoreux),</li>
-            <li>l’appellation,</li>
-            <li>le travail du producteur,</li>
-            <li>le potentiel de garde recherché.</li>
+            <li>le cépage (Pinot Noir, Chardonnay, Chenin, Syrah…)</li>
+            <li>le style du vin (rouge, blanc, effervescent, liquoreux)</li>
+            <li>l'appellation et le travail du producteur</li>
           </ul>
-          <p>Un millésime considéré “difficile” peut ainsi produire de très grands vins chez certains domaines, tandis qu’un grand millésime peut donner des résultats plus ordinaires chez d’autres producteurs.</p>
-          <p>Ces indications ont pour objectif d’offrir une lecture simple, synthétique et pratique des grandes tendances régionales.</p>
-          <p>Pour des analyses plus approfondies ou des vérifications détaillées, il est conseillé de consulter des références spécialisées.</p>
+          <p>Un millésime difficile peut produire de très grands vins chez certains domaines — et inversement. Ces indications offrent une lecture simple et pratique des grandes tendances.</p>
         </div>
       </details>
-    </div>
-
-    <div class="countries-grid" id="countries-grid">
-      <!-- Populated by JS -->
-    </div>
+    </header>
+    <div class="countries-grid" id="countries-grid"></div>
   </div>
 </div>
 
-<!-- REGION VIEW -->
+<!-- ═══ VUE RÉGION ═══ -->
 <div id="view-region" class="view">
   <div class="region-page">
-    <button class="back-btn" onclick="showHub()">← Retour</button>
+    <button class="back-btn" onclick="showHub()">
+      <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Retour
+    </button>
     <div class="region-header">
-      <div class="region-header-left">
+      <div>
         <div class="region-breadcrumb" id="region-breadcrumb"></div>
         <h2 class="region-title" id="region-title"></h2>
         <div class="region-style-tag" id="region-style"></div>
@@ -623,11 +405,11 @@
     </div>
     <div class="region-intro" id="region-intro"></div>
     <div class="legend">
-      <div class="legend-item"><div class="legend-dot" style="background:#7aab4a"></div> Excellent</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#4a9aaa"></div> Très bon</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#c4a43a"></div> Bon / variable</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#c47a3a"></div> Difficile</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#aa3a3a"></div> Prudence</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--excellent-col)"></div>Excellent</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--good-col)"></div>Très bon</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--average-col)"></div>Variable</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--warning-col)"></div>Difficile</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--bad-col)"></div>Prudence</div>
     </div>
     <div class="table-wrapper">
       <table>
@@ -635,220 +417,97 @@
           <tr>
             <th class="col-left col-year">Année</th>
             <th>Note</th>
-            <th class="col-left">Notes de dégustation</th>
-            <th>Fenêtre de garde</th>
+            <th class="col-left">Caractère du millésime</th>
+            <th>Garde</th>
           </tr>
         </thead>
         <tbody id="region-table-body"></tbody>
       </table>
     </div>
-
-    <!-- Mobile cards (hidden on desktop) -->
     <div class="millesime-cards" id="region-cards"></div>
-    <p class="footer-note">Les grandes maisons et domaines peuvent largement surpasser les tendances générales d'un millésime.</p>
+    <p class="footer-note">Les grands domaines peuvent largement surpasser les tendances générales d'un millésime.</p>
   </div>
 </div>
 
+<!-- BOTTOM NAV (mobile) -->
+<nav class="bottom-nav">
+  <a href="index.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+      <polyline points="9 22 9 12 15 12 15 22"/>
+    </svg>
+    <span>Accueil</span>
+  </a>
+  <a href="Ma-Cave.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 22h8M12 11v11M7 11h10l-1-9H8L7 11z"/>
+    </svg>
+    <span>Cave</span>
+  </a>
+  <a href="millesimes.html" class="nav-item active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+    </svg>
+    <span>Millésimes</span>
+  </a>
+  <a href="regionsviticoles.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </svg>
+    <span>Régions</span>
+  </a>
+  <a href="decryptage-oenologique.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+    </svg>
+    <span>Articles</span>
+  </a>
+</nav>
+
 <script>
-// =====================
-// NOTE CONFIG
-// =====================
 const noteConfig = {
-  excellent: { label: "Excellent",  cls: "badge-excellent", icon: "★" },
-  good:      { label: "Très bon",   cls: "badge-good",      icon: "✓" },
-  average:   { label: "Variable",   cls: "badge-average",   icon: "~" },
-  warning:   { label: "Difficile",  cls: "badge-warning",   icon: "!" },
-  bad:       { label: "Prudence",   cls: "badge-bad",       icon: "✕" },
+  excellent: { label: 'Excellent',  cls: 'badge-excellent', icon: '★' },
+  good:      { label: 'Très bon',   cls: 'badge-good',      icon: '✓' },
+  average:   { label: 'Variable',   cls: 'badge-average',   icon: '~' },
+  warning:   { label: 'Difficile',  cls: 'badge-warning',   icon: '!' },
+  bad:       { label: 'Prudence',   cls: 'badge-bad',        icon: '✕' },
 };
 
-// =====================
-// CHARGEMENT JSON
-// =====================
-fetch('millesimes.json')
-  .then(r => r.json())
-  .then(data => { window._millesimesData = data; buildHub(data); })
-  .catch(() => {
-    document.getElementById('countries-grid').innerHTML =
-      '<p style="color:var(--bordeaux);text-align:center;padding:40px">Impossible de charger les données. Vérifiez que millesimes.json est bien présent.</p>';
-  });
+// ── Navigation avec historique du navigateur ──────────────────────────────
+// Quand on clique sur une région, on pousse un état dans l'historique.
+// Le bouton retour du téléphone revient alors au hub, pas à la page précédente.
 
-// =====================
-// DONNÉES INLINE (supprimées — voir millesimes.json)
-// =====================
-const _REMOVED = {
-  pays: [
-    {
-      nom: "France",
-      flag: "🇫🇷",
-      regions: [
-        {
-          id: "bourgogne",
-          nom: "Bourgogne",
-          style: "Finesse, tension, minéralité",
-          intro: "La Bourgogne produit certains des vins les plus fins et les plus recherchés au monde. Chardonnay et Pinot Noir y expriment leur quintessence dans un registre de précision et d'élégance. Les variations climatiques entre millésimes sont particulièrement marquées, rendant leur lecture essentielle.",
-          millesimes: [
-            { annee: 2024, note: "good",     label: "Très bon",   desc: "Fraîcheur retrouvée, acidités vives", garde: "2026–2034" },
-            { annee: 2023, note: "good",     label: "Très bon",   desc: "Charmeur & élégant, accessible", garde: "2025–2032", commentaire: "Mon Gevrey-Chambertin 2023 est déjà très agréable. Le Meursault encore un peu fermé, attendre 2026." },
-            { annee: 2022, note: "excellent",label: "Excellent",  desc: "Pur & précis, grand équilibre", garde: "2026–2040", commentaire: "Pinot Noir : tanins soyeux, fruit rouge intense. Chardonnay : tension minérale superbe, ne pas toucher avant 2027." },
-            { annee: 2021, note: "warning",  label: "Difficile",  desc: "Gel & faibles rendements, hétérogène", garde: "À boire" },
-            { annee: 2020, note: "excellent",label: "Excellent",  desc: "Équilibre remarquable, tension superbe", garde: "2025–2038" },
-            { annee: 2019, note: "good",     label: "Très bon",   desc: "Solaire & concentré, mûr", garde: "2024–2035" },
-            { annee: 2018, note: "good",     label: "Très bon",   desc: "Généreux, fruits éclatants", garde: "2024–2032" },
-            { annee: 2017, note: "average",  label: "Variable",   desc: "Gel printanier, inégal selon domaine", garde: "À boire" },
-            { annee: 2016, note: "excellent",label: "Excellent",  desc: "Classique bourguignon, grande finesse", garde: "2025–2038" },
-            { annee: 2015, note: "excellent",label: "Excellent",  desc: "Richesse & soleil, garde exceptionnelle", garde: "2025–2045" },
-          ]
-        },
-        {
-          id: "loire",
-          nom: "Loire",
-          style: "Fraîcheur, tension, énergie",
-          intro: "Du Muscadet aux Côtes du Rhône en passant par Sancerre et Vouvray, le Val de Loire offre une palette de styles incomparable. Les millésimes frais exaltent la minéralité et la tension qui font la signature de cette région.",
-          millesimes: [
-            { annee: 2024, note: "excellent",label: "Excellent",  desc: "Tension minérale superbe, très équilibré", garde: "2026–2036" },
-            { annee: 2023, note: "good",     label: "Très bon",   desc: "Frais & précis, grands chenins", garde: "2025–2033" },
-            { annee: 2022, note: "good",     label: "Très bon",   desc: "Ample & équilibré, belle maturité", garde: "2024–2032" },
-            { annee: 2021, note: "excellent",label: "Excellent",  desc: "Vif & énergique, acidités parfaites", garde: "2025–2038" },
-            { annee: 2020, note: "average",  label: "Variable",   desc: "Généreux, parfois trop solaire", garde: "À boire" },
-            { annee: 2019, note: "good",     label: "Très bon",   desc: "Mûr & intense, beaux équilibres", garde: "2024–2030" },
-            { annee: 2018, note: "good",     label: "Très bon",   desc: "Riche, fruits mûrs, accessible", garde: "2024–2028" },
-            { annee: 2017, note: "average",  label: "Variable",   desc: "Printemps difficile, variable", garde: "À boire" },
-            { annee: 2016, note: "good",     label: "Très bon",   desc: "Fraîcheur et tension, très classique", garde: "2024–2030" },
-            { annee: 2015, note: "excellent",label: "Excellent",  desc: "Grand soleil, vins de garde somptueux", garde: "2025–2040" },
-          ]
-        },
-        {
-          id: "alsace",
-          nom: "Alsace",
-          style: "Aromatique, précision, pureté",
-          intro: "L'Alsace produit des vins d'une pureté aromatique remarquable grâce à son climat semi-continental et ses sols d'une extraordinaire diversité. Riesling, Gewurztraminer et Pinot Gris atteignent ici des sommets d'expression.",
-          millesimes: [
-            { annee: 2024, note: "good",     label: "Très bon",   desc: "Acidités fines, très aromatique", garde: "2025–2032" },
-            { annee: 2023, note: "good",     label: "Très bon",   desc: "Très aromatique, bonne fraîcheur", garde: "2025–2031" },
-            { annee: 2022, note: "excellent",label: "Excellent",  desc: "Pur & tendu, millésime de référence", garde: "2026–2040" },
-            { annee: 2021, note: "average",  label: "Variable",   desc: "Hétérogène, quelques belles réussites", garde: "À boire" },
-            { annee: 2020, note: "good",     label: "Très bon",   desc: "Riche & ample, très expressif", garde: "2024–2032" },
-            { annee: 2019, note: "excellent",label: "Excellent",  desc: "Acidité superbe, grand potentiel", garde: "2025–2038" },
-            { annee: 2018, note: "good",     label: "Très bon",   desc: "Millésime chaud, vins opulents", garde: "2024–2030" },
-            { annee: 2017, note: "average",  label: "Variable",   desc: "Inégal, favoriser les grands crus", garde: "À boire" },
-            { annee: 2016, note: "good",     label: "Très bon",   desc: "Classique et équilibré", garde: "2024–2030" },
-            { annee: 2015, note: "excellent",label: "Excellent",  desc: "Opulence et fraîcheur, remarquable", garde: "2025–2042" },
-          ]
-        },
-        {
-          id: "rhone",
-          nom: "Vallée du Rhône",
-          style: "Puissance, épices, fruits noirs",
-          intro: "Entre Syrah du Nord et assemblages grenache du Sud, la Vallée du Rhône produit des vins solaires à la personnalité affirmée. Les Côte-Rôtie, Hermitage et Châteauneuf-du-Pape comptent parmi les plus grands vins de garde au monde.",
-          millesimes: [
-            { annee: 2024, note: "good",     label: "Très bon",   desc: "Fruité éclatant, bonne fraîcheur", garde: "2026–2034" },
-            { annee: 2023, note: "excellent",label: "Excellent",  desc: "Soleil maîtrisé, grands équilibres", garde: "2027–2042" },
-            { annee: 2022, note: "excellent",label: "Excellent",  desc: "Puissant & précis, millésime solaire", garde: "2027–2045" },
-            { annee: 2021, note: "good",     label: "Très bon",   desc: "Plus frais, grande élégance au Nord", garde: "2025–2035" },
-            { annee: 2020, note: "good",     label: "Très bon",   desc: "Complet & harmonieux", garde: "2025–2038" },
-            { annee: 2019, note: "excellent",label: "Excellent",  desc: "Concentré & noble, exceptionnel au Sud", garde: "2026–2042" },
-            { annee: 2018, note: "good",     label: "Très bon",   desc: "Riche & généreux, accessible", garde: "2024–2035" },
-            { annee: 2017, note: "good",     label: "Très bon",   desc: "Élégant, Syrahs remarquables", garde: "2024–2032" },
-            { annee: 2016, note: "excellent",label: "Excellent",  desc: "Grand classique, équilibre parfait", garde: "2025–2040" },
-            { annee: 2015, note: "excellent",label: "Excellent",  desc: "Légendaire au Sud, puissance et grâce", garde: "2025–2050" },
-          ]
-        }
-      ]
-    },
-    {
-      nom: "Italie",
-      flag: "🇮🇹",
-      regions: [
-        {
-          id: "piemont",
-          nom: "Piémont",
-          style: "Structure, rose, goudron",
-          intro: "Terre du Nebbiolo roi, le Piémont produit Barolo et Barbaresco, deux des plus grands vins de garde italiens. Leur profil tannique exigeant réclame patience et connaissance des millésimes pour savoir quand les ouvrir.",
-          millesimes: [
-            { annee: 2024, note: "average",  label: "Variable",   desc: "Pluies compliquées, sélectivité requise", garde: "2027–2035" },
-            { annee: 2023, note: "good",     label: "Très bon",   desc: "Fruit éclatant, tanins soyeux", garde: "2027–2038" },
-            { annee: 2022, note: "excellent",label: "Excellent",  desc: "Équilibré & noble, référence récente", garde: "2028–2045" },
-            { annee: 2021, note: "average",  label: "Variable",   desc: "Millésime classique, sans extravagance", garde: "2025–2035" },
-            { annee: 2020, note: "good",     label: "Très bon",   desc: "Mûr & accessible, fruits généreux", garde: "2026–2038" },
-            { annee: 2019, note: "excellent",label: "Excellent",  desc: "Grand potentiel, tanins sublimes", garde: "2027–2050" },
-            { annee: 2018, note: "good",     label: "Très bon",   desc: "Élégant, Barolo accessible assez tôt", garde: "2025–2038" },
-            { annee: 2017, note: "warning",  label: "Difficile",  desc: "Chaleur excessive, surveiller l'évolution", garde: "À boire" },
-            { annee: 2016, note: "excellent",label: "Excellent",  desc: "Titanesque, millésime du siècle annoncé", garde: "2028–2055" },
-            { annee: 2015, note: "excellent",label: "Excellent",  desc: "Puissant & aromatique, garde exceptionnelle", garde: "2027–2050" },
-          ]
-        },
-        {
-          id: "toscane",
-          nom: "Toscane",
-          style: "Fruits noirs, herbes, soleil",
-          intro: "Chianti Classico, Brunello di Montalcino, Bolgheri… La Toscane conjugue tradition et modernité dans des vins solaires à la personnalité affirmée. Le Sangiovese y révèle toute sa complexité aromatique entre cerise, tabac et cuir.",
-          millesimes: [
-            { annee: 2024, note: "good",     label: "Très bon",   desc: "Fruité et accessible, belle fraîcheur", garde: "2026–2034" },
-            { annee: 2023, note: "good",     label: "Très bon",   desc: "Gourmand & charnu, belle réussite", garde: "2025–2033" },
-            { annee: 2022, note: "excellent",label: "Excellent",  desc: "Solaire maîtrisé, très harmonieux", garde: "2026–2042" },
-            { annee: 2021, note: "warning",  label: "Difficile",  desc: "Variable selon zones et domaines", garde: "À boire" },
-            { annee: 2020, note: "excellent",label: "Excellent",  desc: "Très harmonieux, millésime de référence", garde: "2026–2040" },
-            { annee: 2019, note: "good",     label: "Très bon",   desc: "Riche & mûr, Brunello somptueux", garde: "2025–2038" },
-            { annee: 2018, note: "good",     label: "Très bon",   desc: "Élégant, Chianti de grande finesse", garde: "2024–2032" },
-            { annee: 2017, note: "warning",  label: "Difficile",  desc: "Sécheresse prononcée, tanins secs", garde: "À boire" },
-            { annee: 2016, note: "excellent",label: "Excellent",  desc: "Classique toscan, grand équilibre", garde: "2025–2042" },
-            { annee: 2015, note: "excellent",label: "Excellent",  desc: "Généreux & charnu, grandes gardes", garde: "2025–2045" },
-          ]
-        },
-        {
-          id: "sicile",
-          nom: "Sicile",
-          style: "Soleil, salinité, fruits noirs",
-          intro: "La Sicile s'est transformée en l'une des régions les plus excitantes d'Italie. Nero d'Avola, Nerello Mascalese sur les flancs de l'Etna, et les blancs de Grillo et Carricante offrent un rapport qualité-prix souvent imbattable.",
-          millesimes: [
-            { annee: 2024, note: "good",     label: "Très bon",   desc: "Bonne fraîcheur, fruits expressifs", garde: "2025–2030" },
-            { annee: 2023, note: "good",     label: "Très bon",   desc: "Accessible & fruité, facile à approcher", garde: "2024–2029" },
-            { annee: 2022, note: "excellent",label: "Excellent",  desc: "Très belle maturité, Etna superbe", garde: "2026–2038" },
-            { annee: 2021, note: "average",  label: "Variable",   desc: "Plus fin, favoriser les vins de l'Etna", garde: "À boire" },
-            { annee: 2020, note: "good",     label: "Très bon",   desc: "Chaud & généreux, beaux noirs", garde: "2024–2030" },
-            { annee: 2019, note: "excellent",label: "Excellent",  desc: "Intense mais frais, superbe équilibre", garde: "2025–2036" },
-            { annee: 2018, note: "good",     label: "Très bon",   desc: "Très accessible, beaux fruits", garde: "À boire" },
-            { annee: 2017, note: "average",  label: "Variable",   desc: "Chaleur, plus de fraîcheur en altitude", garde: "À boire" },
-            { annee: 2016, note: "good",     label: "Très bon",   desc: "Équilibré, Nero d'Avola réussi", garde: "2024–2030" },
-            { annee: 2015, note: "excellent",label: "Excellent",  desc: "Grand millésime insulaire, garde remarquable", garde: "2025–2038" },
-          ]
-        }
-      ]
-    },
-    {
-      nom: "Afrique du Sud",
-      flag: "🇿🇦",
-      regions: [
-        {
-          id: "western-cape",
-          nom: "Western Cape",
-          style: "Puissance équilibrée, fraîcheur solaire",
-          intro: "Le Western Cape regroupe les appellations les plus prestigieuses d'Afrique du Sud : Stellenbosch, Franschhoek, Hemel-en-Aarde. Les vins combinent la générosité du soleil africain avec une fraîcheur atlantique de plus en plus recherchée par les producteurs.",
-          millesimes: [
-            { annee: 2024, note: "good",     label: "Très bon",   desc: "Frais & précis, très prometteur", garde: "2026–2034" },
-            { annee: 2023, note: "good",     label: "Très bon",   desc: "Accessible & fruité, belle réussite", garde: "2025–2031" },
-            { annee: 2022, note: "good",     label: "Très bon",   desc: "Solaire équilibré, bons Syrah", garde: "2025–2033" },
-            { annee: 2021, note: "average",  label: "Variable",   desc: "Plus frais, style plus européen", garde: "2024–2030" },
-            { annee: 2020, note: "excellent",label: "Excellent",  desc: "Complet & harmonieux, très grand millésime", garde: "2025–2040" },
-            { annee: 2019, note: "good",     label: "Très bon",   desc: "Dense & puissant, belle structure", garde: "2024–2034" },
-            { annee: 2018, note: "good",     label: "Très bon",   desc: "Généreux, Chenin blanc remarquable", garde: "2024–2030" },
-            { annee: 2017, note: "average",  label: "Variable",   desc: "Sécheresse, vins moins équilibrés", garde: "À boire" },
-            { annee: 2016, note: "good",     label: "Très bon",   desc: "Élégant, fruité, très accessible", garde: "2024–2028" },
-            { annee: 2015, note: "excellent",label: "Excellent",  desc: "Équilibre et concentration, grand millésime", garde: "2025–2038" },
-          ]
-        }
-      ]
-    }
-  ]
-};  // fin _REMOVED — données réelles dans millesimes.json
+let _currentPays = null;
+let _currentRegion = null;
 
-// =====================
-// BUILD HUB
-// =====================
+function showRegion(pays, region) {
+  _currentPays = pays;
+  _currentRegion = region;
+  _renderRegion(pays, region);
+  // Pousser dans l'historique pour que le bouton retour fonctionne
+  history.pushState({ view: 'region', paysNom: pays.nom, regionId: region.id }, '', '#' + region.id);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showHub() {
+  document.getElementById('view-region').classList.remove('active');
+  document.getElementById('view-hub').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Intercepter le bouton retour du navigateur / téléphone
+window.addEventListener('popstate', (e) => {
+  if (!e.state || e.state.view !== 'region') {
+    showHub();
+  }
+});
+
+// ── Rendu du hub ─────────────────────────────────────────────────────────
 function buildHub(data) {
   const grid = document.getElementById('countries-grid');
   grid.innerHTML = '';
-  data.pays.forEach((pays, pi) => {
+  data.pays.forEach(pays => {
     const group = document.createElement('div');
     group.className = 'country-group';
 
@@ -862,8 +521,7 @@ function buildHub(data) {
           <div class="country-count">${pays.regions.length} région${pays.regions.length > 1 ? 's' : ''}</div>
         </div>
       </div>
-      <div class="country-chevron">▼</div>
-    `;
+      <div class="country-chevron">▼</div>`;
 
     const list = document.createElement('div');
     list.className = 'regions-list';
@@ -874,21 +532,16 @@ function buildHub(data) {
       card.innerHTML = `
         <div class="region-card-name">${region.nom}</div>
         <div class="region-card-style">${region.style}</div>
-        <div class="region-card-arrow">Voir les millésimes →</div>
-      `;
+        <div class="region-card-arrow">Voir les millésimes →</div>`;
       card.addEventListener('click', () => showRegion(pays, region));
       list.appendChild(card);
     });
 
     header.addEventListener('click', () => {
       const isOpen = header.classList.contains('open');
-      // Close all
       document.querySelectorAll('.country-header').forEach(h => h.classList.remove('open'));
       document.querySelectorAll('.regions-list').forEach(l => l.classList.remove('open'));
-      if (!isOpen) {
-        header.classList.add('open');
-        list.classList.add('open');
-      }
+      if (!isOpen) { header.classList.add('open'); list.classList.add('open'); }
     });
 
     group.appendChild(header);
@@ -897,10 +550,8 @@ function buildHub(data) {
   });
 }
 
-// =====================
-// SHOW REGION
-// =====================
-function showRegion(pays, region) {
+// ── Rendu de la vue région ────────────────────────────────────────────────
+function _renderRegion(pays, region) {
   document.getElementById('region-breadcrumb').textContent = `${pays.flag} ${pays.nom}`;
   document.getElementById('region-title').textContent = region.nom;
   document.getElementById('region-style').textContent = region.style;
@@ -913,25 +564,20 @@ function showRegion(pays, region) {
   cards.innerHTML = '';
 
   region.millesimes.forEach(m => {
-    const cfg = noteConfig[m.note];
+    const cfg = noteConfig[m.note] || noteConfig.average;
     const commentHTML = m.commentaire
-      ? `<div class="desc-comment">${m.commentaire}</div>`
-      : '';
+      ? `<div class="desc-comment">${m.commentaire}</div>` : '';
     const commentCardHTML = m.commentaire
-      ? `<div class="mil-card-comment">${m.commentaire}</div>`
-      : '';
+      ? `<div class="mil-card-comment">${m.commentaire}</div>` : '';
 
-    // Desktop table row
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td class="col-year">${m.annee}</td>
       <td class="col-note"><span class="vintage-badge ${cfg.cls}">${cfg.icon} ${cfg.label}</span></td>
       <td class="col-desc">${m.desc}${commentHTML}</td>
-      <td class="col-garde"><span class="garde-pill">⏳ ${m.garde}</span></td>
-    `;
+      <td class="col-garde"><span class="garde-pill">⏳ ${m.garde}</span></td>`;
     tbody.appendChild(tr);
 
-    // Mobile card
     const card = document.createElement('div');
     card.className = 'mil-card';
     card.innerHTML = `
@@ -941,31 +587,33 @@ function showRegion(pays, region) {
       </div>
       <div class="mil-card-desc">${m.desc}</div>
       ${commentCardHTML}
-      <div class="mil-card-footer">
-        <span class="garde-pill">⏳ ${m.garde}</span>
-      </div>
-    `;
+      <div class="mil-card-footer"><span class="garde-pill">⏳ ${m.garde}</span></div>`;
     cards.appendChild(card);
   });
 
   document.getElementById('view-hub').classList.remove('active');
   document.getElementById('view-region').classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// =====================
-// SHOW HUB
-// =====================
-function showHub() {
-  document.getElementById('view-region').classList.remove('active');
-  document.getElementById('view-hub').classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// =====================
-// INIT — déclenché par fetch() ci-dessus
-// =====================
-
+// ── Init ─────────────────────────────────────────────────────────────────
+fetch('millesimes.json')
+  .then(r => r.json())
+  .then(data => {
+    window._millesimesData = data;
+    buildHub(data);
+    // Si l'URL contient un hash (ex: retour depuis un lien direct), afficher la région
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+      for (const pays of data.pays) {
+        const region = pays.regions.find(r => r.id === hash);
+        if (region) { _renderRegion(pays, region); break; }
+      }
+    }
+  })
+  .catch(() => {
+    document.getElementById('countries-grid').innerHTML =
+      '<p style="color:var(--muted);text-align:center;padding:3rem;font-style:italic;">Impossible de charger millesimes.json.</p>';
+  });
 </script>
 </body>
 </html>
