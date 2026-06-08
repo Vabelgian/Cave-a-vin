@@ -6,15 +6,15 @@
     "couleur": "rouge",
     "lieu_achat": "bourse du vin",
     "commentaire": "Un vin portugais solaire qui est fougeux.",
-    "tags": ["Repas de Noël", "Première bouteille"],
+    "tags": ["Repas d'été", "Première bouteille"],
     "date_ouverture": "25 juillet 2025",
     "note_degustation": "Arômes de fruits noirs, attaque souple, fruits/bois bien balancés. Evolution dans le verre ressentie. Un vin très bien équilibré, agréable dès aujourd’hui, avec un bon potentiel de plaisir immédiat.",
-    "tags_ouverture": ["Noël", "Évolutif"]
+    "tags_ouverture": ["Solaire", "Évolutif"]
   },
   {
     "statut": "degust",
     "annee_degustation": 2025,
-    "titre": "Ridgeback Cabernet Franc",
+    "titre": "Ridgeback Cabernet Franc 2020",
     "couleur": "rouge",
     "lieu_achat": "Vivino",
     "commentaire": "Un Cabernet Franc d'Afrique du Sud élégant, aux arômes de poivron rouge et de fraise. Première rencontre prometteuse avec ce producteur.",
@@ -26,7 +26,7 @@
   {
     "statut": "Planificationt",
     "annee_affichage": 2027,
-    "titre": "Ridgeback Cabernet Franc",
+    "titre": "Ridgeback Cabernet Franc 2020",
     "couleur": "rouge",
     "lieu_achat": "vivino",
     "commentaire": "Deuxième bouteille de ce lot sud-africain.",
@@ -68,7 +68,7 @@
     "commentaire": "Bouteille achetée au salon du vin de Jurbise. 1ère bouteille d'une caisse de 6.",
     "tags": ["Loire", "Garde moyenne"],
     "date_ouverture": "23 mai 2026",
-    "note_degustation": "Tes notes de dégustation ici.",
+    "note_degustation": "Un nez qui sent fort la pomme, le vin était frais. En apéro, chenin blanc expressif. Pas d'évolution dans le verre, agréable mais a réessayer avec des températures plus clémentes et un accompagnement",
     "tags_ouverture": ["Loire"]
   },
   {
@@ -108,22 +108,22 @@
   {
     "statut": "planification",
     "annee_affichage": 2026,
-    "titre": "St Véran",
+    "titre": "Saint Véran par Stéphanie Saumaize",
     "couleur": "blanc",
     "lieu_achat": "salon",
     "fenetre": "Apogée estimée : 2028 – 2030",
-    "commentaire": "A complèter.",
-    "tags": ["Caberlot", "Toscane", "Grande garde"],
+    "commentaire": "Acheté à Jurbise, 1ére bouteille d'un lot de 6.",
+    "tags": ["Maconnais", "Chardonnay", "Calcaire"],
     "badge": { "type": "blue", "icone": "garde", "texte": "Longue garde" }
   },
   {
     "statut": "planification",
     "annee_affichage": 2026,
-    "titre": "Pinot gris Alsace",
+    "titre": "Domaine de l'envol Pinot gris 2024",
     "couleur": "blanc",
     "lieu_achat": "salon",
     "fenetre": "Apogée estimée : 2028 – 2030",
-    "commentaire": "Cépage rarissime, le Caberlot. Patience nécessaire. Ne pas toucher avant 2028.",
+    "commentaire": "Acheté à Jurbise, 1ére bouteille d'un lot de 6.",
     "tags": ["Automne", "Alsace", "vin de gastronomie"],
     "badge": { "type": "blue", "icone": "garde", "texte": "Longue garde" }
   },
@@ -165,5 +165,33 @@
     "Galice",
     "Atlantique",
     "Iode"]
+},
+  {
+  "statut": "planification",
+  "annee_affichage": 2027,
+  "titre": "Andrius Alto Adige 2023",
+  "couleur": "blanc",
+  "lieu_achat": "Peak wines",
+  "fenetre": "2028-2030",
+  "commentaire": "C'est un Sauvignon Blanc d'une précision chirurgicale, très \"alpin\". Le 2023 est encore tout jeune et plein d'énergie. On peut le déboucher maintenant sur sa jeunesse éclatante (l'idéal avec des asperges, un risotto aux herbes ou des fruits de mer), mais il a une structure calcaire qui lui permettra de s'affiner magnifiquement en cave pendant 5 à 7 ans.",
+  "tags": [
+    "Alpes",
+    "Précision",
+    "Printemps"
+  ]
+},
+  {
+  "statut": "planification",
+  "annee_affichage": 2026,
+  "titre": "Livio Felluga \"Potentilla\" 2020",
+  "couleur": "blanc",
+  "lieu_achat": "Peak Wines",
+  "fenetre": "2026-2028",
+  "commentaire": "On oublie les Sauvignons légers et variétaux. Ici, c'est de la haute gastronomie. Après une macération pelliculaire, le vin a fait sa fermentation malolactique et a été élevé pendant 9 mois dans de grands foudres de chêne de 15 hectolitres. Le résultat ? Un vin complexe, mûr et crémeux.",
+  "tags": [
+    "Automne",
+    "Poissons",
+    "Grand repas"
+  ]
 }
 ]
