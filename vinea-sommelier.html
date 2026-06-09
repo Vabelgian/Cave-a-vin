@@ -443,7 +443,8 @@ async function sendMessage() {
 
   try {
     // L'URL pointe maintenant vers ta fonction Netlify (pas besoin de mettre l'URL entière, le chemin relatif suffit)
-    const url = '/.netlify/functions/gemini';
+    const url = 'https://lucky-dieffenbachia-163762.netlify.app/.netlify/functions/gemini'
+';
 
     const response = await fetch(url, {
       method: 'POST',
