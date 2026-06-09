@@ -1,8 +1,8 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // Vinea — Service Worker
-// Version : changer ce numéro à chaque déploiement pour forcer la mise à jour
+// Version : cave-v4 (Forçage de la mise à jour globale)
 // ─────────────────────────────────────────────────────────────────────────────
-const VERSION = 'cave-v3';
+const VERSION = 'cave-v4';
 
 // Pages HTML à mettre en cache immédiatement à l'installation
 const PAGES = [
@@ -51,8 +51,6 @@ const DATA_FILES = [
 ];
 
 // ── INSTALLATION ─────────────────────────────────────────────────────────────
-// On prend le contrôle immédiatement (skipWaiting) et on met en cache
-// toutes les pages + données d'un coup.
 self.addEventListener('install', event => {
   self.skipWaiting();
   event.waitUntil(
@@ -63,8 +61,6 @@ self.addEventListener('install', event => {
 });
 
 // ── ACTIVATION ───────────────────────────────────────────────────────────────
-// On supprime tous les anciens caches (cave-v1, cave-v2…) pour libérer
-// de l'espace et éviter de servir de vieilles versions.
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys()
@@ -76,20 +72,17 @@ self.addEventListener('activate', event => {
 });
 
 // ── STRATÉGIE DE FETCH ───────────────────────────────────────────────────────
-// Deux comportements selon le type de ressource :
-//
-// • Données JSON / articles.js → "Cache d'abord, réseau en arrière-plan"
-//   On sert immédiatement ce qu'on a (rapide, fonctionne hors ligne),
-//   puis on rafraîchit silencieusement le cache pour la prochaine visite.
-//
-// • Tout le reste (pages HTML, images…) → "Réseau d'abord, cache en secours"
-//   On essaie le réseau pour avoir la version la plus récente.
-//   Si le réseau est absent, on sert le cache.
-
 self.addEventListener('fetch', event => {
   const url = event.request.url;
 
-  // Ignorer les requêtes non-GET et les ressources externes (fonts Google, etc.)
+  // 1. SÉCURITÉ EN LIGNE DIRECTE POUR L'API NETLIFY
+  // Si la requête s'en va vers Netlify, on la laisse filer sur internet immédiatement 
+  // sans que le Service Worker ne bloque ou n'intercepte quoi que ce soit.
+  if (url.includes('netlify.app')) {
+    return; 
+  }
+
+  // Ignorer les requêtes non-GET et les ressources externes
   if (event.request.method !== 'GET') return;
   if (!url.includes('/Cave-a-vin/') && !url.endsWith('/Cave-a-vin/')) return;
 
@@ -100,13 +93,11 @@ self.addEventListener('fetch', event => {
     event.respondWith(
       caches.open(VERSION).then(cache =>
         cache.match(event.request).then(cached => {
-          // Lancer la requête réseau en parallèle pour mettre le cache à jour
           const networkFetch = fetch(event.request).then(response => {
             if (response.ok) cache.put(event.request, response.clone());
             return response;
           }).catch(() => null);
 
-          // Servir le cache immédiatement s'il existe, sinon attendre le réseau
           return cached || networkFetch;
         })
       )
@@ -116,7 +107,6 @@ self.addEventListener('fetch', event => {
     event.respondWith(
       fetch(event.request)
         .then(response => {
-          // Mettre en cache la réponse fraîche
           if (response.ok) {
             caches.open(VERSION).then(cache =>
               cache.put(event.request, response.clone())
