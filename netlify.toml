@@ -1,12 +1,9 @@
 [build]
   functions = "netlify/functions"
 
-[functions]
-  node_compatibility = "v20"
-
 [[headers]]
   for = "/.netlify/functions/*"
   [headers.values]
-    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Origin = "https://vabelgian.github.io"
     Access-Control-Allow-Headers = "Content-Type, Authorization, Accept"
     Access-Control-Allow-Methods = "POST, OPTIONS"
