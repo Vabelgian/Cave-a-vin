@@ -355,6 +355,91 @@
     @media (min-width: 900px) {
       .cards-grid { grid-template-columns: repeat(4, 1fr); }
     }
+
+    /* ── Bandeau Sommelier IA ── */
+    .sommelier-bar {
+      position: fixed;
+      bottom: calc(70px + env(safe-area-inset-bottom));
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 150;
+      animation: floatIn 0.5s 0.8s cubic-bezier(.34,1.56,.64,1) both;
+    }
+
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(16px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    .sommelier-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(14,9,5,0.88);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(201,168,76,0.40);
+      border-radius: 999px;
+      padding: 10px 20px 10px 14px;
+      text-decoration: none;
+      color: var(--text);
+      font-family: var(--sans, 'DM Sans', sans-serif);
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.45), 0 0 0 1px rgba(201,168,76,0.10);
+    }
+
+    .sommelier-btn:hover {
+      border-color: rgba(201,168,76,0.75);
+      background: rgba(20,13,7,0.96);
+      transform: translateY(-2px);
+    }
+
+    .sommelier-btn:active { transform: translateY(0); }
+
+    .sommelier-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(201,168,76,0.22) 0%, rgba(201,168,76,0.08) 100%);
+      border: 1px solid rgba(201,168,76,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.88rem;
+    }
+
+    .sommelier-label { color: var(--text); }
+    .sommelier-label strong { color: var(--gold); font-weight: 500; }
+
+    .sommelier-arrow {
+      color: var(--gold);
+      font-size: 0.75rem;
+      opacity: 0.7;
+      margin-left: 2px;
+      transition: transform 0.2s;
+    }
+    .sommelier-btn:hover .sommelier-arrow { transform: translateX(3px); opacity: 1; }
+
+    /* Desktop : ancrer en bas à droite plutôt que centré */
+    @media (min-width: 640px) {
+      .sommelier-bar {
+        bottom: 28px;
+        left: auto;
+        right: 32px;
+        transform: none;
+        animation-name: floatInDesktop;
+      }
+      @keyframes floatInDesktop {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      .sommelier-btn:hover { transform: translateY(-2px); }
+    }
   </style>
 </head>
 <body>
@@ -487,6 +572,16 @@
     <span>Fenêtres</span>
   </a>
 </nav>
+
+
+<!-- Bandeau Sommelier IA -->
+<div class="sommelier-bar">
+  <a href="vinea-sommelier.html" class="sommelier-btn">
+    <div class="sommelier-dot">🍷</div>
+    <span class="sommelier-label">Demander au <strong>Sommelier IA</strong></span>
+    <span class="sommelier-arrow">→</span>
+  </a>
+</div>
 
 </body>
 </html>
