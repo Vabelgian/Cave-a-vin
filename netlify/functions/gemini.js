@@ -27,12 +27,17 @@ exports.handler = async function(event, context) {
 
     const data = await response.json();
 
-    // 4. On renvoie le résultat de Google à ton application Vinea
-    return {
-      statusCode: 200,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    };
+    // 4. On renvoie le résultat de Google avec les autorisations de sécurité (CORS)
+return {
+  statusCode: 200,
+  headers: {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*", // Indispensable pour que ta PWA ait le droit de parler à Netlify
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "POST, OPTIONS"
+  },
+  body: JSON.stringify(data)
+};
 
   } catch (error) {
     return {
