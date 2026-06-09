@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vinea — Sommelier IA</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:     #0e0905;
+    --surf:   #18110a;
+    --surf2:  #1e1510;
+    --border: rgba(255,240,210,0.09);
+    --bordg:  rgba(201,168,76,0.28);
+    --text:   #f5ede0;
+    --muted:  #a8957e;
+    --dim:    #6b5b48;
+    --gold:   #c9a84c;
+    --glight: #e6c97a;
+    --serif:  'Cormorant Garamond', Georgia, serif;
+    --sans:   'DM Sans', system-ui, sans-serif;
+  }
+
+  html, body { height: 100%; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 1.8rem;
+    height: 54px;
+    background: rgba(14,9,5,0.95);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .header-brand {
+    font-family: var(--serif); font-size: 1.05rem; font-weight: 600;
+    letter-spacing: 0.06em; color: var(--gold);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .header-badge {
+    font-size: 0.55rem; font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--bg);
+    background: var(--gold); padding: 0.2rem 0.55rem;
+  }
+  .cave-count {
+    font-size: 0.68rem; color: var(--dim); letter-spacing: 0.04em;
+  }
+  .cave-count span { color: var(--gold); }
+
+  /* ── SUGGESTIONS ── */
+  .suggestions-wrap {
+    flex-shrink: 0;
+    padding: 1rem 1.4rem 0.8rem;
+    background: var(--surf);
+    border-bottom: 1px solid var(--border);
+  }
+  .suggestions-label {
+    font-size: 0.57rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--dim); margin-bottom: 0.6rem;
+  }
+  .suggestions {
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
+  }
+  .suggestion-chip {
+    font-family: var(--sans); font-size: 0.76rem; font-weight: 300;
+    color: var(--muted); background: transparent;
+    border: 1px solid var(--border); padding: 0.38rem 0.85rem;
+    cursor: pointer; transition: all 0.18s; letter-spacing: 0.02em;
+    border-radius: 999px;
+  }
+  .suggestion-chip:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.05); }
+
+  /* ── CHAT ── */
+  .chat {
+    flex: 1; overflow-y: auto;
+    padding: 1.5rem 1.4rem;
+    display: flex; flex-direction: column; gap: 1.2rem;
+    scroll-behavior: smooth;
+  }
+  .chat::-webkit-scrollbar { width: 4px; }
+  .chat::-webkit-scrollbar-track { background: transparent; }
+  .chat::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  /* Messages */
+  .msg { display: flex; gap: 0.8rem; max-width: 100%; animation: slideUp 0.25s ease; }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .msg-avatar {
+    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; margin-top: 2px;
+  }
+  .msg-avatar.ai { background: var(--surf2); border: 1px solid var(--bordg); color: var(--gold); font-family: var(--serif); font-style: italic; }
+  .msg-avatar.user { background: var(--surf2); border: 1px solid var(--border); color: var(--muted); font-size: 0.65rem; }
+
+  .msg-body { flex: 1; min-width: 0; }
+  .msg-name { font-size: 0.6rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); margin-bottom: 0.35rem; }
+
+  .msg-bubble {
+    font-size: 0.88rem; line-height: 1.7; color: var(--text);
+  }
+  .msg.user .msg-bubble {
+    font-size: 0.88rem; color: var(--muted); font-style: italic;
+  }
+
+  /* Recommandations IA */
+  .reco-cards { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 0.8rem; }
+  .reco-card {
+    background: var(--surf);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--gold);
+    padding: 0.9rem 1.1rem;
+    transition: border-color 0.2s;
+  }
+  .reco-card:hover { border-color: var(--bordg); }
+  .reco-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.35rem; }
+  .reco-name { font-family: var(--serif); font-size: 1rem; font-style: italic; color: var(--text); line-height: 1.25; }
+  .reco-pill {
+    font-size: 0.58rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.18rem 0.6rem; flex-shrink: 0; margin-top: 3px;
+    border-radius: 999px;
+  }
+  .pill-rouge { background: rgba(180,60,60,0.15); border: 1px solid rgba(180,60,60,0.3); color: #e07070; }
+  .pill-blanc { background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.28); color: #c9a84c; }
+  .pill-rosé  { background: rgba(218,104,135,0.12); border: 1px solid rgba(218,104,135,0.28); color: #e486a0; }
+  .reco-why { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+  .reco-meta { display: flex; gap: 1rem; margin-top: 0.5rem; }
+  .reco-meta-item { font-size: 0.7rem; color: var(--dim); }
+  .reco-meta-item strong { color: var(--muted); font-weight: 500; }
+
+  /* Typing */
+  .typing-bubble {
+    display: flex; gap: 4px; align-items: center; padding: 0.5rem 0;
+  }
+  .typing-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--dim);
+    animation: blink 1.2s infinite;
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink { 0%,60%,100% { opacity: 0.3; } 30% { opacity: 1; } }
+
+  /* ── INPUT ── */
+  .input-area {
+    flex-shrink: 0;
+    padding: 0.9rem 1.4rem calc(0.9rem + env(safe-area-inset-bottom));
+    background: rgba(14,9,5,0.96);
+    border-top: 1px solid var(--border);
+    display: flex; gap: 0.7rem; align-items: flex-end;
+  }
+  .input-wrap { flex: 1; position: relative; }
+  textarea {
+    width: 100%;
+    background: var(--surf);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--sans); font-size: 0.88rem; font-weight: 300;
+    padding: 0.75rem 1rem;
+    resize: none; min-height: 44px; max-height: 120px; overflow-y: auto;
+    outline: none; line-height: 1.5; border-radius: 0;
+    transition: border-color 0.2s;
+  }
+  textarea::placeholder { color: var(--dim); }
+  textarea:focus { border-color: var(--bordg); }
+
+  .send-btn {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: var(--gold); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 0.2s; color: var(--bg);
+  }
+  .send-btn:hover { opacity: 0.85; }
+  .send-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .send-btn svg { width: 16px; height: 16px; }
+
+  /* Intro message spécial */
+  .intro-text { font-family: var(--serif); font-size: 1rem; font-style: italic; color: var(--muted); line-height: 1.7; }
+  .intro-text em { font-style: normal; color: var(--gold); }
+
+  /* Séparateur de section dans la réponse */
+  .ai-section-title {
+    font-size: 0.6rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin: 0.9rem 0 0.5rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .ai-section-title::after { content: ''; flex: 1; height: 1px; background: var(--gold); opacity: 0.2; }
+
+  .ai-text { font-size: 0.88rem; color: var(--text); line-height: 1.75; }
+  .ai-text + .ai-text { margin-top: 0.6rem; }
+
+  /* Erreur */
+  .error-note { font-size: 0.8rem; color: #e07070; font-style: italic; padding: 0.5rem 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-brand">
+    V I N E A
+    <span class="header-badge">Sommelier IA</span>
+  </div>
+  <div class="cave-count">Cave : <span id="cave-count">—</span> bouteilles</div>
+</header>
+
+<div class="suggestions-wrap">
+  <div class="suggestions-label">Essayez</div>
+  <div class="suggestions">
+    <button class="suggestion-chip" onclick="useSuggestion(this)">Des amis arrivent dans 30 min, qu'est-ce que j'ouvre ?</button>
+    <button class="suggestion-chip" onclick="useSuggestion(this)">Ce weekend je fais un magret de canard, tu me proposes quoi ?</button>
+    <button class="suggestion-chip" onclick="useSuggestion(this)">Quel vin de ma cave est prêt à boire maintenant ?</button>
+    <button class="suggestion-chip" onclick="useSuggestion(this)">On est en été, il fait chaud, quel blanc ou rosé ?</button>
+    <button class="suggestion-chip" onclick="useSuggestion(this)">Mon meilleur vin de cave pour un anniversaire ?</button>
+  </div>
+</div>
+
+<div class="chat" id="chat">
+  <div class="msg">
+    <div class="msg-avatar ai">V</div>
+    <div class="msg-body">
+      <div class="msg-name">Sommelier Vinea</div>
+      <div class="msg-bubble">
+        <div class="intro-text">
+          Bonjour ! Je connais <em>chaque bouteille</em> de votre cave — les cépages, les millésimes, les fenêtres de dégustation et vos propres notes. Posez-moi une question en langage naturel : une occasion, un plat, une envie du moment. Je vous guide.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="input-area">
+  <div class="input-wrap">
+    <textarea id="input" placeholder="Une occasion, un plat, une envie…" rows="1"
+      onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+  </div>
+  <button class="send-btn" id="send-btn" onclick="sendMessage()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+// ── Données de la cave ─────────────────────────────────────────────────────
+const CAVE = [{"id":1,"nom":"Podere Il Carnasciale – Il Carnasciale 2020","couleur":"rouge","pays":"Italie","region":"Toscane","cepage":"Caberlot","style":"Élégant, complexe, tanins fins, vin de dégustation avec belle évolution","stock":1,"profil":"Domaine toscan culte, Caberlot = croisement Cabernet Franc & Merlot. Sombre, épicé, sculpté.","technique":{"garde":"10–15 ans","carafage":"Au moins 1h","temperature":"16–18°C","accords":"Viandes rouges, plats mijotés, cuisine toscane"},"journal":{"note_personnelle":""}},{"id":2,"nom":"Andrius Sauvignon Blanc Alto Adige DOC","couleur":"blanc","pays":"Italie","region":"Alto Adige","cepage":"60% Pinot Bianco, 30% Chardonnay, 10% Sauvignon Blanc","style":"Tendu, cristallin, aromatique","stock":1,"profil":"Cantina Terlano, référence Alto Adige. Pureté, fraîcheur, minéralité. Longévité remarquable.","technique":{"garde":"5–8 ans","carafage":"Non","temperature":"9–11°C","accords":"Ceviche, sashimi, asperges, burrata, sole meunière, risotto aux herbes"},"journal":{"note_personnelle":""}},{"id":3,"nom":"Livio Felluga \"Potentilla\" Sauvignon Blanc","couleur":"blanc","pays":"Italie","region":"Friuli Colli Orientali","cepage":"Sauvignon Blanc","style":"Large, profond, gastronomique","stock":1,"profil":"Mono-parcelle vigne de 1975. James Suckling 94/100. Gastronomique.","technique":{"garde":"10–15 ans","carafage":"30 minutes","temperature":"10–12°C","accords":"Volaille à la crème, homard, lotte, risotto aux cèpes, turbot"},"journal":{"note_personnelle":""}},{"id":4,"nom":"Ridgeback Cabernet Franc 2020","couleur":"rouge","pays":"Afrique du Sud","region":"Paarl","cepage":"Cabernet Franc","style":"Élégant, expressif","stock":1,"profil":"James Suckling 94/100. Déjà agréable, apogée fin 2027.","technique":{"garde":"3–7 ans","carafage":"1h minimum","temperature":"16–18°C","accords":"Viandes grillées, gibiers, fromages"},"journal":{"note_personnelle":"1ère bouteille déjà agréable. Pas encore à son sommet. Attendre fin 2027. Carafer 1h min."}},{"id":5,"nom":"Orpheus & Raven n°7 Pinotage 2022","couleur":"rouge","pays":"Afrique du Sud","region":"Simonsberg","cepage":"Pinotage","style":"Nerveux, festif","stock":2,"profil":"Pinotage moderne, intense. Encore jeune, belle garde. JS 91/100.","technique":{"garde":"10–15 ans","carafage":"1h","temperature":"16–18°C","accords":"Viandes rouges, barbecue, côtes d'agneau, plats fumés"},"journal":{"note_personnelle":""}},{"id":6,"nom":"Vilafonté Seriously Old Dirt 2020","couleur":"rouge","pays":"Afrique du Sud","region":"Western Cape","cepage":"86% Cabernet Sauvignon, 8% Merlot, 4% Malbec, 2% Cabernet Franc","style":"Élégant, grand Bordeaux","stock":2,"profil":"Assemblage bordelais premium. JS 91/100. Encore jeune, gagnera en complexité.","technique":{"garde":"10–15 ans","carafage":"2–3h","temperature":"16–18°C","accords":"Filet de bœuf Wellington, carré d'agneau, civet de cerf"},"journal":{"note_personnelle":""}},{"id":7,"nom":"Salvatore M Barbaresco 2021","couleur":"rouge","pays":"Italie","region":"Piémont","cepage":"Nebbiolo","style":"Structuré, floral, gastronomique","stock":5,"profil":"Classique Piémont. Millésime très réussi dans les Langhe. Trop jeune, attendre.","technique":{"garde":"10–15 ans","carafage":"2h+","temperature":"16–18°C","accords":"Viande rouge, ragù, volaille noble, truffes"},"journal":{"note_personnelle":"Ouvrir en 2028 pas avant"}},{"id":8,"nom":"Fontanafredda Barolo Serralunga d'Alba 2019","couleur":"rouge","pays":"Italie","region":"Piémont – Serralunga d'Alba","cepage":"Nebbiolo","style":"Puissant, raffiné, gastronomique","stock":1,"profil":"Serralunga, vins de garde. JS 92/100. Vin célébratoire.","technique":{"garde":"10–15 ans","carafage":"2h+","temperature":"18–20°C","accords":"Viandes rouges grillées, gibier, sauces riches, fromages puissants"},"journal":{"note_personnelle":""}},{"id":9,"nom":"Domaine du Colombier Chablis 1er Cru \"Fourchaume\" 2022","couleur":"blanc","pays":"France","region":"Chablis, Bourgogne","cepage":"Chardonnay","style":"Minéral, fruité, tendu","stock":1,"profil":"Fourchaume = 1er cru réputé. JS 92/100. Minéralité classique.","technique":{"garde":"6–8 ans","carafage":"Non","temperature":"10–12°C","accords":"Saint-Jacques, poissons en sauce, huîtres, fruits de mer"},"journal":{"note_personnelle":""}},{"id":10,"nom":"Domaine Wach Gewurztraminer \"Cœur de Glace\"","couleur":"blanc","pays":"France","region":"Alsace","cepage":"Gewurztraminer","style":"Élégant, frais, aromatique","stock":2,"profil":"Vendange concentrée par gelée. Rare. Litchi, rose, exotique.","technique":{"garde":"4–6 ans","carafage":"Non","temperature":"10–12°C","accords":"Foie gras, desserts exotiques, fromage à pâte dure"},"journal":{"note_personnelle":""}},{"id":11,"nom":"Domaine Colbois Chablis 2023","couleur":"blanc","pays":"France","region":"Chablis, Bourgogne","cepage":"Chardonnay","style":"Minéral, pierre à fusil, aromatique","stock":5,"profil":"100% Chardonnay inox. Franc, minéral, classique.","technique":{"garde":"2–5 ans","carafage":"Non","temperature":"10–11°C","accords":"Fruits de mer, crustacés, tartare de saumon"},"journal":{"note_personnelle":"1ère bouteille ouverte, très agréable"}},{"id":12,"nom":"Costa di Bussia – Campo di Bui Barolo 2016","couleur":"rouge","pays":"Italie","region":"Piémont – Monforte d'Alba","cepage":"Nebbiolo","style":"Large, profond, gastronomique","stock":1,"profil":"Domaine fondé 1874. Bussia, Monforte. 30 mois fûts slavon. Commence à se fondre.","technique":{"garde":"10–15 ans","carafage":"2h+","temperature":"16–18°C","accords":"À compléter"},"journal":{"note_personnelle":""}},{"id":13,"nom":"Tosone Nero d'Avola 2021","couleur":"rouge","pays":"Italie","region":"Sicile","cepage":"Nero d'Avola","style":"Solaire, puissant, généreux","stock":3,"profil":"300–500m altitude. Style moderne soyeux. 1ère bouteille déjà agréable.","technique":{"garde":"3–7 ans","carafage":"1h minimum","temperature":"16–18°C","accords":"Viandes grillées, pâtes et sauces riches"},"journal":{"note_personnelle":"1ère bouteille déjà agréable."}},{"id":14,"nom":"Domaine de l'Envol Pinot Gris 2024","couleur":"blanc","pays":"France","region":"Alsace","cepage":"Pinot Gris","style":"Aromatique, frais","stock":6,"profil":"Sec, jeune, aromatique. Minéralité granite à venir.","technique":{"garde":"6–10 ans","carafage":"Non","temperature":"9–12°C","accords":"Plats crémeux, champignons, plats épicés"},"journal":{"note_personnelle":""}},{"id":15,"nom":"Saint Véran par Stéphanie Saumaize","couleur":"blanc","pays":"France","region":"Sud Mâconnais, Bourgogne","cepage":"Chardonnay","style":"Soyeux, pur, équilibré","stock":6,"profil":"Vigneronne de talent. Rondeur bourguignonne + tension calcaire. Fleurs blanches, amande.","technique":{"garde":"8–10 ans","carafage":"Non","temperature":"10–12°C","accords":"Poisson"},"journal":{"note_personnelle":""}},{"id":16,"nom":"Domaine de la Robinière – Vouvray Chenin 2023","couleur":"blanc","pays":"France","region":"Loire","cepage":"Chenin Blanc","style":"Fraîcheur, minéralité, fruité","stock":5,"profil":"Tuffeau + silex. Poire, pomme granny, verveine, tension saline. 1ère bouteille ouverte en mai 2026.","technique":{"garde":"5–10 ans","carafage":"Non","temperature":"10–12°C","accords":"À compléter"},"journal":{"note_personnelle":"Ouvrir une 2e bouteille"}},{"id":17,"nom":"Nativ Eremo San Quirico Taurasi 2019","couleur":"rouge","pays":"Italie","region":"Campanie – Taurasi","cepage":"Aglianico","style":"Vieilles vignes, maturité, opulence","stock":3,"profil":"Vignes jusqu'à 150 ans, sols volcaniques. Exceptionnel. Dense, puissant.","technique":{"garde":"8–10 ans","carafage":"2h+","temperature":"16–18°C","accords":"Viande rouge, ragù, magret de canard"},"journal":{"note_personnelle":""}},{"id":18,"nom":"Nativ Blue Onice Aglianico 2020","couleur":"rouge","pays":"Italie","region":"Campanie","cepage":"Aglianico","style":"Puissant, structuré, boisé et minéral","stock":3,"profil":"Le Barolo du Sud. Structure tannique affirmée, minéralité volcanique.","technique":{"garde":"5–10 ans","carafage":"1h","temperature":"16–18°C","accords":"Viande rouge, ragù, fromages puissants"},"journal":{"note_personnelle":""}},{"id":19,"nom":"Vinhas de Xisto Tinto Reserva 2022","couleur":"rouge","pays":"Portugal","region":"Douro","cepage":"Touriga Nacional, Touriga Franca, Tinta Roriz","style":"Puissant, solaire, fût de chêne","stock":4,"profil":"Vignobles de schiste. Fruits noirs, épices, vanille. Structure affirmée.","technique":{"garde":"5–10 ans","carafage":"1h","temperature":"16–18°C","accords":"Viandes grillées, plats méditerranéens"},"journal":{"note_personnelle":""}},{"nom":"Piero Busso Langhe Nebbiolo 2024","couleur":"rouge","pays":"Italie","region":"Piémont","cepage":"Nebbiolo","style":"Délicat, floral, tanins fermes","stock":1,"profil":"Producteur d'élite à Barbaresco. Porte d'entrée des grands Piémonts.","technique":{"garde":"3–5 ans","carafage":"1h minimum","temperature":"16°C","accords":"Viande rouge grillée, magret, pâtes champignons/truffe"},"journal":{"note_personnelle":""}},{"nom":"Leirana Albarino 2025","couleur":"blanc","pays":"Espagne","region":"Galice","cepage":"Albarino","style":"Tendu, iodé, minéral","stock":1,"profil":"Granit, Atlantique. Tension tranchante, salinité iodée. Un des plus grands blancs d'Espagne.","technique":{"garde":"3–5 ans","carafage":"Non","temperature":"10°C","accords":"Fruits de mer, huîtres, poisson blanc grillé"},"journal":{"note_personnelle":""}},{"nom":"Rosato Toscana – Fuligni","couleur":"rosé","pays":"Italie","region":"Toscane","cepage":"Sangiovese","style":"Structuré, gastronomique","stock":1,"profil":"Rosé de table de Sangiovese. Structure, acidité vibrante. Pas un rosé de soif.","technique":{"garde":"1 an","carafage":"Non","temperature":"10–12°C","accords":"Charcuterie italienne, tomate-burrata"},"journal":{"note_personnelle":""}}];
+
+// Compteur
+document.getElementById('cave-count').textContent =
+  CAVE.reduce((s, v) => s + (v.stock || 0), 0);
+
+// ── UI helpers ─────────────────────────────────────────────────────────────
+const chat = document.getElementById('chat');
+const input = document.getElementById('input');
+const sendBtn = document.getElementById('send-btn');
+
+function scrollBottom() {
+  setTimeout(() => chat.scrollTo({ top: chat.scrollHeight, behavior: 'smooth' }), 50);
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+}
+
+function useSuggestion(btn) {
+  input.value = btn.textContent;
+  autoResize(input);
+  sendMessage();
+}
+
+function addUserMsg(text) {
+  const div = document.createElement('div');
+  div.className = 'msg user';
+  div.innerHTML = `
+    <div class="msg-avatar user">Moi</div>
+    <div class="msg-body">
+      <div class="msg-name">Vous</div>
+      <div class="msg-bubble">${text}</div>
+    </div>`;
+  chat.appendChild(div);
+  scrollBottom();
+}
+
+function addTyping() {
+  const div = document.createElement('div');
+  div.className = 'msg'; div.id = 'typing-msg';
+  div.innerHTML = `
+    <div class="msg-avatar ai">V</div>
+    <div class="msg-body">
+      <div class="msg-name">Sommelier Vinea</div>
+      <div class="msg-bubble"><div class="typing-bubble">
+        <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+      </div></div>
+    </div>`;
+  chat.appendChild(div);
+  scrollBottom();
+  return div;
+}
+
+function removeTyping() {
+  const t = document.getElementById('typing-msg');
+  if (t) t.remove();
+}
+
+function addAIMsg(html) {
+  const div = document.createElement('div');
+  div.className = 'msg';
+  div.innerHTML = `
+    <div class="msg-avatar ai">V</div>
+    <div class="msg-body">
+      <div class="msg-name">Sommelier Vinea</div>
+      <div class="msg-bubble">${html}</div>
+    </div>`;
+  chat.appendChild(div);
+  scrollBottom();
+}
+
+// ── Prompt ────────────────────────────────────────────────────────────────
+function buildPrompt(question) {
+  const caveJSON = JSON.stringify(CAVE, null, 0);
+  return `Tu es le sommelier personnel de l'utilisateur intégré dans son app Vinea. Tu as accès à sa cave complète ci-dessous.
+
+CAVE DE L'UTILISATEUR (JSON) :
+${caveJSON}
+
+RÈGLES IMPORTANTES :
+- Recommande UNIQUEMENT des vins présents dans la cave avec stock > 0
+- Sois précis sur les noms (nom exact du JSON)
+- Mentionne le carafage si nécessaire et important (surtout si urgence)
+- Tiens compte des notes personnelles (journal.note_personnelle) s'il y en a
+- Si la question implique une urgence (30 min, maintenant, ce soir) : priorise les vins qui n'ont pas besoin de longue garde ou carafage, ou précise clairement
+- Réponds en français, ton naturel et direct — tu es un ami sommelier, pas un guide Michelin
+- Structure ta réponse ainsi :
+  1. Une phrase d'intro courte (contexte/occasion)
+  2. Tes recommandations : pour chaque vin, donne : NOM EXACT | POURQUOI (1-2 phrases max, pratique et précis) | CONSEIL PRATIQUE (carafage, température)
+  3. Une phrase de conclusion
+
+FORMAT pour chaque recommandation (utilise exactement ces balises) :
+<RECO>
+NOM: [nom exact du vin]
+POURQUOI: [raison courte et concrète]
+CONSEIL: [carafage, température, accord spécifique si pertinent]
+</RECO>
+
+Question de l'utilisateur : ${question}`;
+}
+
+// ── Parse réponse ─────────────────────────────────────────────────────────
+function parseResponse(text) {
+  const recos = [];
+  const recoRegex = /<RECO>([\s\S]*?)<\/RECO>/g;
+  let match;
+  while ((match = recoRegex.exec(text)) !== null) {
+    const block = match[1];
+    const nom     = (block.match(/NOM:\s*(.+)/) || [])[1]?.trim();
+    const pourquoi= (block.match(/POURQUOI:\s*(.+)/) || [])[1]?.trim();
+    const conseil = (block.match(/CONSEIL:\s*(.+)/) || [])[1]?.trim();
+    if (nom) recos.push({ nom, pourquoi, conseil });
+  }
+
+  // Texte hors balises
+  const cleanText = text.replace(/<RECO>[\s\S]*?<\/RECO>/g, '').trim();
+  const lines = cleanText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+  const intro = lines[0] || '';
+  const conclusion = lines[lines.length - 1] !== intro ? lines[lines.length - 1] : '';
+
+  return { intro, recos, conclusion };
+}
+
+function findVinInCave(nom) {
+  const n = nom.toLowerCase();
+  return CAVE.find(v => v.nom.toLowerCase().includes(n.split(' ').slice(0, 3).join(' ')) ||
+                        n.includes(v.nom.toLowerCase().split(' ').slice(0, 3).join(' ')));
+}
+
+function buildResponseHTML(parsed) {
+  let html = '';
+
+  if (parsed.intro) {
+    html += `<div class="ai-text">${parsed.intro}</div>`;
+  }
+
+  if (parsed.recos.length > 0) {
+    html += `<div class="ai-section-title">Mes recommandations</div>`;
+    html += `<div class="reco-cards">`;
+    parsed.recos.forEach(r => {
+      const vin = findVinInCave(r.nom);
+      const couleur = vin?.couleur || 'rouge';
+      const region = vin?.region || '';
+      const stock = vin?.stock || '';
+      html += `
+        <div class="reco-card">
+          <div class="reco-header">
+            <div class="reco-name">${r.nom}</div>
+            <span class="reco-pill pill-${couleur}">${couleur}</span>
+          </div>
+          <div class="reco-why">${r.pourquoi || ''}</div>
+          ${r.conseil ? `<div class="reco-meta">
+            <div class="reco-meta-item">⏱ <strong>Pratique</strong> ${r.conseil}</div>
+            ${stock ? `<div class="reco-meta-item">🍾 <strong>Stock</strong> ${stock} bouteille${stock > 1 ? 's' : ''}</div>` : ''}
+          </div>` : ''}
+        </div>`;
+    });
+    html += `</div>`;
+  }
+
+  if (parsed.conclusion && parsed.conclusion !== parsed.intro) {
+    html += `<div class="ai-text" style="margin-top:0.8rem;color:var(--muted);font-style:italic;">${parsed.conclusion}</div>`;
+  }
+
+  return html || `<div class="ai-text">${parsed.intro || 'Désolé, je n\'ai pas pu formuler une réponse.'}</div>`;
+}
+
+// ── Main send ─────────────────────────────────────────────────────────────
+let isLoading = false;
+
+async function sendMessage() {
+  const text = input.value.trim();
+  if (!text || isLoading) return;
+
+  isLoading = true;
+  sendBtn.disabled = true;
+  input.value = ''; input.style.height = 'auto';
+
+  addUserMsg(text);
+  const typingEl = addTyping();
+
+  try {
+    // L'URL pointe maintenant vers ta fonction Netlify (pas besoin de mettre l'URL entière, le chemin relatif suffit)
+    const url = '/.netlify/functions/gemini';
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: buildPrompt(text) }) // On envoie juste le prompt
+    });
+
+    const data = await response.json();
+    removeTyping();
+
+    // On gère l'erreur si Netlify ou Google a un problème
+    if (data.error) {
+      addAIMsg(`<div class="error-note">Erreur : ${data.error.message || data.error}</div>`);
+      return;
+    }
+
+    // Si tout va bien, on extrait le texte et ton système de cartes prend le relais !
+    if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+      const aiTextResponse = data.candidates[0].content.parts[0].text;
+      const parsed = parseResponse(aiTextResponse);
+      addAIMsg(buildResponseHTML(parsed));
+    } else {
+      addAIMsg('<div class="error-note">Réponse inattendue de l\'IA. Impossible de générer les recommandations.</div>');
+    }
+  } catch (err) {
+    removeTyping();
+    addAIMsg('<div class="error-note">Erreur de connexion avec le serveur Netlify.</div>');
+  } finally {
+    isLoading = false;
+    sendBtn.disabled = false;
+    input.focus();
+  }
+
+}
+</script>
+</body>
+</html>
