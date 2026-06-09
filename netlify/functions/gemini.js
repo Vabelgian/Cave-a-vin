@@ -1,20 +1,30 @@
-exports.handler = async function(event, context) {
-  // Sécurité : On accepte uniquement les requêtes POST
-  if (event.httpMethod !== "POST") {
-    return { statusCode: 405, body: "Method Not Allowed" };
+export default async (request, context) => {
+  // 1. On prépare les en-têtes CORS ultra-permissifs
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization, Accept",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Content-Type": "application/json"
+  };
+
+  // 2. Si le navigateur fait sa pré-vérification (OPTIONS), on répond direct un statut 200 (OK) avec les headers
+  if (request.method === "OPTIONS") {
+    return new Response(null, { status: 200, headers });
+  }
+
+  // 3. On n'accepte que le POST pour le traitement
+  if (request.method !== "POST") {
+    return new Response(JSON.stringify({ error: "Méthode non autorisée" }), { status: 405, headers });
   }
 
   try {
-    // 1. On récupère la clé API cachée dans les paramètres de Netlify
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return { statusCode: 500, body: JSON.stringify({ error: "Clé API manquante sur Netlify." }) };
+      return new Response(JSON.stringify({ error: "Clé API manquante dans Netlify." }), { status: 500, headers });
     }
 
-    // 2. On récupère le prompt envoyé par ton fichier HTML
-    const { prompt } = JSON.parse(event.body);
+    const { prompt } = await request.json();
 
-    // 3. On appelle Google avec Gemini 1.5 Flash-Lite
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`;
     
     const response = await fetch(url, {
@@ -27,22 +37,9 @@ exports.handler = async function(event, context) {
 
     const data = await response.json();
 
-    // 4. On renvoie le résultat de Google avec les autorisations de sécurité (CORS)
-return {
-  statusCode: 200,
-  headers: {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*", // Indispensable pour que ta PWA ait le droit de parler à Netlify
-    "Access-Control-Allow-Headers": "Content-Type",
-    "Access-Control-Allow-Methods": "POST, OPTIONS"
-  },
-  body: JSON.stringify(data)
-};
+    return new Response(JSON.stringify(data), { status: 200, headers });
 
   } catch (error) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: error.message })
-    };
+    return new Response(JSON.stringify({ error: error.message }), { status: 500, headers });
   }
 };
