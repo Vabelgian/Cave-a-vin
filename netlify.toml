@@ -1,0 +1,6 @@
+[build]
+  # On dit explicitement à Netlify où se trouvent tes fonctions
+  functions = "netlify/functions"
+
+[functions]
+  node_compatibility = "v20"
