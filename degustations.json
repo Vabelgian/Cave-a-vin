@@ -108,17 +108,6 @@
   {
     "statut": "planification",
     "annee_affichage": 2026,
-    "titre": "Saint Véran par Stéphanie Saumaize",
-    "couleur": "blanc",
-    "lieu_achat": "salon",
-    "fenetre": "Apogée estimée : 2028 – 2030",
-    "commentaire": "Acheté à Jurbise, 1ére bouteille d'un lot de 6.",
-    "tags": ["Maconnais", "Chardonnay", "Calcaire"],
-    "badge": { "type": "blue", "icone": "garde", "texte": "Longue garde" }
-  },
-  {
-    "statut": "planification",
-    "annee_affichage": 2026,
     "titre": "Domaine de l'envol Pinot gris 2024",
     "couleur": "blanc",
     "lieu_achat": "salon",
@@ -192,6 +181,25 @@
     "Automne",
     "Poissons",
     "Grand repas"
+  ]
+},
+  {
+  "statut": "degust",
+  "annee_degustation": 2026,
+  "titre": "Saint-Véran par Stéphanie Saumaize",
+  "couleur": "blanc",
+  "lieu_achat": "Salon",
+  "commentaire": "Un Chardonnay tout en retenue, davantage axé sur la texture et l'équilibre que sur la démonstration aromatique. La bouche, douce et enveloppante, conserve une belle fraîcheur et s'achève sur des notes de craie et de pierre humide. Un vin harmonieux et facile à apprécier, même si son expression reste discrète.",
+  "tags": [
+    "Ete",
+    "Salon",
+    "Maconnais"
+  ],
+  "date_ouverture": "10 juin 2026",
+  "note_degustation": "Vin bien fait, frais, plus de corps avec le poisson. Notes de fleurs notamment.",
+  "tags_ouverture": [
+    "Chardonnay",
+    "Agréable"
   ]
 }
 ]
