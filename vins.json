@@ -762,7 +762,6 @@
   {
     "nom": "Piero Busso - Langhe Nebbiolo 2024",
     "millesime": 2024,
-    "photo": "images/pierobussolanghe.jpg",
     "couleur": "rouge",
     "stock": 1,
     "statut": "cave",
@@ -787,7 +786,6 @@
   {
     "nom": "Leirana Albarino 2025",
     "millesime": 2025,
-    "photo": "images/leirana.jpg",
     "couleur": "blanc",
     "stock": 1,
     "statut": "cave",
@@ -812,7 +810,6 @@
   {
     "nom": "Rosato Toscana — Fuligni",
     "millesime": 2025,
-    "photo": "images/Fulignirosato.jpg",
     "couleur": "rosé",
     "stock": 1,
     "statut": "cave",
@@ -832,6 +829,54 @@
       "carafage": "Non",
       "temperature": "10-12",
       "accords": "Une belle planche de charcuterie fine italienne (prosciutto, coppa) ou une salade tomate-burrata de qualité avec une bonne huile d'olive."
+    }
+  },
+  {
+    "nom": "Massolino Barolo “Parussi” 2020",
+    "millesime": 2020,
+    "couleur": "rouge",
+    "stock": 1,
+    "statut": "cave",
+    "region": "Piémont",
+    "pays": "Italie",
+    "cepage": "Nebbiolo",
+    "profil": "Issu du MGA Parussi, à Castiglione Falletto, ce Barolo exprime une facette plus aérienne et florale du Nebbiolo tout en conservant la rigueur et la profondeur qui font la réputation de Massolino. Les premières années mettent en avant la rose, la cerise et les épices délicates, soutenues par une trame tannique affirmée. Avec le temps, le vin gagne en complexité et dévoile des notes de cuir, de tabac blond, de thé noir et d'herbes séchées. Un Barolo d'une grande élégance, dont l'évolution progressive dans le verre fait partie intégrante de l'expérience.",
+    "degustation": {
+      "couleur": "Grenat vif, une touche plus pâle au niveau du bord que les vins de Serralunga",
+      "nez": "Cerise rouge, framboise, rose, écorce d’agrumes, épice subtile.",
+      "bouche": "Élégant, corps moyen-plus, tanins fins, précis et très long."
+    },
+    "technique": {
+      "vinification": "Ferment traditionnel avec macération prolongée ; élevage d’environ 30 mois dans de grands botti/tonneaux en chêne.",
+      "classification": "Barolo DOCG",
+      "garde": "2030-2035",
+      "carafage": "2-3h",
+      "temperature": "16-18°",
+      "accords": "Plats piémontais, Risotto aux cêpes"
+    }
+  },
+  {
+    "nom": "Au bon climat Chardonnay Bien Nacido Vineyard 2021",
+    "millesime": 2021,
+    "couleur": "blanc",
+    "stock": 1,
+    "statut": "cave",
+    "region": "Californie",
+    "pays": "États-Unis",
+    "cepage": "Chardonnay",
+    "profil": "Élaboré à partir des vignes emblématiques de Bien Nacido Vineyard, dans la fraîche vallée de Santa Maria en Californie, ce Chardonnay s'inspire davantage de la finesse bourguignonne que du style californien opulent. Il conjugue une belle tension, des arômes de pomme, de poire et d'agrumes à des nuances de fleurs blanches, de noisette et de brioche qui se développeront avec le vieillissement. Un vin précis, équilibré et gastronomique, qui illustre avec élégance le potentiel des grands terroirs de Californie.",
+    "degustation": {
+      "couleur": "Citron moyen avec une légère teinte dorée",
+      "nez": "Zeste de citron, poire et pêche blanche avec amande grillée, silex frappé et brioche.",
+      "bouche": "Tendu et en couches, avec des agrumes et des fruits à noyau, une acidité vive et une finale longue, caillouteuse et savoureuse."
+    },
+    "technique": {
+      "vinification": "Grappe entière pressée, fermentée en fûts et vieillie pendant une période prolongée (environ 15–18 mois) dans du chêne français, une proportion neuve, avec contact et fermentation partielle molactique",
+      "classification": "Santa Maria Valley AVA",
+      "garde": "2026-2030",
+      "carafage": "1h",
+      "temperature": "10-12°",
+      "accords": "Poissons noble, crustacés"
     }
   }
 ]
