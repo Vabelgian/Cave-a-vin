@@ -201,5 +201,19 @@
     "Chardonnay",
     "Agréable"
   ]
+},
+  {
+  "statut": "planification",
+  "annee_affichage": 2030,
+  "titre": "Massolino Parussi 2020",
+  "couleur": "rouge",
+  "lieu_achat": "Peak Wines",
+  "fenetre": "2028-2035",
+  "commentaire": "Acheté pour célébrer mes 40 ans en janvier 2030. Une bouteille choisie autant pour son évolution au fil de la soirée que pour le moment qu'elle accompagnera.",
+  "tags": [
+    "Barolo",
+    "Longue garde",
+    "Vin d'exception"
+  ]
 }
 ]
