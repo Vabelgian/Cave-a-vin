@@ -1,4 +1,5 @@
 {
+  "derniere_verification": "2026-07",
   "pays": [
     {
       "nom": "France",
@@ -10,16 +11,68 @@
           "style": "Finesse, tension, minéralité",
           "intro": "La Bourgogne produit certains des vins les plus fins et les plus recherchés au monde. Chardonnay et Pinot Noir y expriment leur quintessence dans un registre de précision et d'élégance. Les variations climatiques entre millésimes sont particulièrement marquées, rendant leur lecture essentielle.",
           "millesimes": [
-            { "annee": 2024, "note": "good",      "desc": "Millésime frais et tendu, encore en évaluation",   "garde": "2026–2034" },
-            { "annee": 2023, "note": "good",      "desc": "Charmeur & élégant, accessible",                   "garde": "2025–2032", "commentaire": "Mon Gevrey-Chambertin 2023 est déjà très agréable. Le Meursault encore un peu fermé, attendre 2026." },
-            { "annee": 2022, "note": "excellent", "desc": "Pur & précis, grand équilibre",                    "garde": "2026–2040", "commentaire": "Pinot Noir : tanins soyeux, fruit rouge intense. Chardonnay : tension minérale superbe, ne pas toucher avant 2027." },
-            { "annee": 2021, "note": "warning",   "desc": "Gel & faibles rendements, hétérogène",             "garde": "À boire" },
-            { "annee": 2020, "note": "excellent", "desc": "Concentré mais équilibré, grande intensité",       "garde": "2025–2038" },
-            { "annee": 2019, "note": "good",      "desc": "Solaire & concentré, mûr",                        "garde": "2024–2035" },
-            { "annee": 2018, "note": "good",      "desc": "Généreux, fruits éclatants",                      "garde": "2024–2032" },
-            { "annee": 2017, "note": "good",      "desc": "Gel printanier, inégal selon domaine",             "garde": "À boire" },
-            { "annee": 2016, "note": "excellent", "desc": "Classique bourguignon, grande finesse",           "garde": "2025–2038" },
-            { "annee": 2015, "note": "excellent", "desc": "Richesse & soleil, garde exceptionnelle",         "garde": "2025–2045" }
+            {
+              "annee": 2024,
+              "note": "good",
+              "desc": "Millésime frais et tendu, encore en évaluation",
+              "garde": "2026–2034"
+            },
+            {
+              "annee": 2023,
+              "note": "good",
+              "desc": "Charmeur & élégant, accessible",
+              "garde": "2025–2032",
+              "commentaire": "Mon Gevrey-Chambertin 2023 est déjà très agréable. Le Meursault encore un peu fermé, attendre 2026."
+            },
+            {
+              "annee": 2022,
+              "note": "excellent",
+              "desc": "Pur & précis, grand équilibre",
+              "garde": "2026–2040",
+              "commentaire": "Pinot Noir : tanins soyeux, fruit rouge intense. Chardonnay : tension minérale superbe, ne pas toucher avant 2027."
+            },
+            {
+              "annee": 2021,
+              "note": "warning",
+              "desc": "Gel & faibles rendements, hétérogène",
+              "garde": "À boire"
+            },
+            {
+              "annee": 2020,
+              "note": "excellent",
+              "desc": "Concentré mais équilibré, grande intensité",
+              "garde": "2025–2038"
+            },
+            {
+              "annee": 2019,
+              "note": "good",
+              "desc": "Solaire & concentré, mûr",
+              "garde": "2024–2035"
+            },
+            {
+              "annee": 2018,
+              "note": "good",
+              "desc": "Généreux, fruits éclatants",
+              "garde": "2024–2032"
+            },
+            {
+              "annee": 2017,
+              "note": "good",
+              "desc": "Gel printanier, inégal selon domaine",
+              "garde": "À boire"
+            },
+            {
+              "annee": 2016,
+              "note": "excellent",
+              "desc": "Classique bourguignon, grande finesse",
+              "garde": "2025–2038"
+            },
+            {
+              "annee": 2015,
+              "note": "excellent",
+              "desc": "Richesse & soleil, garde exceptionnelle",
+              "garde": "2025–2045"
+            }
           ]
         },
         {
@@ -28,16 +81,66 @@
           "style": "Fraîcheur, tension, énergie",
           "intro": "Du Muscadet aux Côtes du Rhône en passant par Sancerre et Vouvray, le Val de Loire offre une palette de styles incomparable. Les millésimes frais exaltent la minéralité et la tension qui font la signature de cette région.",
           "millesimes": [
-            { "annee": 2024, "note": "good", "desc": "Tension minérale superbe, très équilibré",             "garde": "2026–2036" },
-            { "annee": 2023, "note": "good",      "desc": "Frais & précis, grands chenins",                  "garde": "2025–2033" },
-            { "annee": 2022, "note": "good",      "desc": "Ample & équilibré, belle maturité",               "garde": "2024–2032" },
-            { "annee": 2021, "note": "good",      "desc": "Très frais et énergique, faibles rendements",     "garde": "2025–2038" },
-            { "annee": 2020, "note": "average",   "desc": "Généreux, parfois trop solaire",                  "garde": "À boire" },
-            { "annee": 2019, "note": "good",      "desc": "Mûr & intense, beaux équilibres",                 "garde": "2024–2030" },
-            { "annee": 2018, "note": "good",      "desc": "Riche, fruits mûrs, accessible",                  "garde": "2024–2028" },
-            { "annee": 2017, "note": "average",   "desc": "Printemps difficile, variable",                   "garde": "À boire" },
-            { "annee": 2016, "note": "good",      "desc": "Fraîcheur et tension, très classique",            "garde": "2024–2030" },
-            { "annee": 2015, "note": "excellent", "desc": "Riche et concentré, très beaux Cab Francs",       "garde": "2025–2040" }
+            {
+              "annee": 2024,
+              "note": "good",
+              "desc": "Tension minérale superbe, très équilibré",
+              "garde": "2026–2036"
+            },
+            {
+              "annee": 2023,
+              "note": "good",
+              "desc": "Frais & précis, grands chenins",
+              "garde": "2025–2033"
+            },
+            {
+              "annee": 2022,
+              "note": "good",
+              "desc": "Ample & équilibré, belle maturité",
+              "garde": "2024–2032"
+            },
+            {
+              "annee": 2021,
+              "note": "good",
+              "desc": "Très frais et énergique, faibles rendements",
+              "garde": "2025–2038"
+            },
+            {
+              "annee": 2020,
+              "note": "average",
+              "desc": "Généreux, parfois trop solaire",
+              "garde": "À boire"
+            },
+            {
+              "annee": 2019,
+              "note": "good",
+              "desc": "Mûr & intense, beaux équilibres",
+              "garde": "2024–2030"
+            },
+            {
+              "annee": 2018,
+              "note": "good",
+              "desc": "Riche, fruits mûrs, accessible",
+              "garde": "2024–2028"
+            },
+            {
+              "annee": 2017,
+              "note": "average",
+              "desc": "Printemps difficile, variable",
+              "garde": "À boire"
+            },
+            {
+              "annee": 2016,
+              "note": "good",
+              "desc": "Fraîcheur et tension, très classique",
+              "garde": "2024–2030"
+            },
+            {
+              "annee": 2015,
+              "note": "excellent",
+              "desc": "Riche et concentré, très beaux Cab Francs",
+              "garde": "2025–2040"
+            }
           ]
         },
         {
@@ -46,16 +149,66 @@
           "style": "Aromatique, précision, pureté",
           "intro": "L'Alsace produit des vins d'une pureté aromatique remarquable grâce à son climat semi-continental et ses sols d'une extraordinaire diversité. Riesling, Gewurztraminer et Pinot Gris atteignent ici des sommets d'expression.",
           "millesimes": [
-            { "annee": 2024, "note": "good",      "desc": "Acidités fines, alcools modérés, très aromatique", "garde": "2025–2032" },
-            { "annee": 2023, "note": "good",      "desc": "Très aromatique, bonne fraîcheur",                "garde": "2025–2031" },
-            { "annee": 2022, "note": "excellent", "desc": "Riche & solaire (proche 2003), grande maturité",  "garde": "2025–2037" },
-            { "annee": 2021, "note": "good",      "desc": "Frais & tendu, acidités vives, beaux Rieslings",  "garde": "2025–2034" },
-            { "annee": 2020, "note": "good",      "desc": "Riche & ample, très expressif",                   "garde": "2024–2032" },
-            { "annee": 2019, "note": "excellent", "desc": "Acidité superbe, grand potentiel",                "garde": "2025–2038" },
-            { "annee": 2018, "note": "good",      "desc": "Millésime chaud, vins opulents",                  "garde": "2024–2030" },
-            { "annee": 2017, "note": "average",   "desc": "Inégal, favoriser les grands crus",               "garde": "À boire" },
-            { "annee": 2016, "note": "good",      "desc": "Classique et équilibré",                          "garde": "2024–2030" },
-            { "annee": 2015, "note": "excellent", "desc": "Opulence et fraîcheur, remarquable",              "garde": "2025–2042" }
+            {
+              "annee": 2024,
+              "note": "good",
+              "desc": "Acidités fines, alcools modérés, très aromatique",
+              "garde": "2025–2032"
+            },
+            {
+              "annee": 2023,
+              "note": "good",
+              "desc": "Très aromatique, bonne fraîcheur",
+              "garde": "2025–2031"
+            },
+            {
+              "annee": 2022,
+              "note": "excellent",
+              "desc": "Riche & solaire (proche 2003), grande maturité",
+              "garde": "2025–2037"
+            },
+            {
+              "annee": 2021,
+              "note": "good",
+              "desc": "Frais & tendu, acidités vives, beaux Rieslings",
+              "garde": "2025–2034"
+            },
+            {
+              "annee": 2020,
+              "note": "good",
+              "desc": "Riche & ample, très expressif",
+              "garde": "2024–2032"
+            },
+            {
+              "annee": 2019,
+              "note": "excellent",
+              "desc": "Acidité superbe, grand potentiel",
+              "garde": "2025–2038"
+            },
+            {
+              "annee": 2018,
+              "note": "good",
+              "desc": "Millésime chaud, vins opulents",
+              "garde": "2024–2030"
+            },
+            {
+              "annee": 2017,
+              "note": "average",
+              "desc": "Inégal, favoriser les grands crus",
+              "garde": "À boire"
+            },
+            {
+              "annee": 2016,
+              "note": "good",
+              "desc": "Classique et équilibré",
+              "garde": "2024–2030"
+            },
+            {
+              "annee": 2015,
+              "note": "excellent",
+              "desc": "Opulence et fraîcheur, remarquable",
+              "garde": "2025–2042"
+            }
           ]
         },
         {
@@ -64,16 +217,66 @@
           "style": "Puissance, épices, fruits noirs",
           "intro": "Entre Syrah du Nord et assemblages grenache du Sud, la Vallée du Rhône produit des vins solaires à la personnalité affirmée. Les Côte-Rôtie, Hermitage et Châteauneuf-du-Pape comptent parmi les plus grands vins de garde au monde.",
           "millesimes": [
-            { "annee": 2024, "note": "good",      "desc": "Léger & frais, rouges à boire jeunes, blancs superbes", "garde": "2025–2031" },
-            { "annee": 2023, "note": "good",      "desc": "Charmeur & frais, rouges succulents, Côte-Rôtie brille", "garde": "2026–2038" },
-            { "annee": 2022, "note": "excellent", "desc": "Puissant & précis, millésime solaire",            "garde": "2027–2045" },
-            { "annee": 2021, "note": "good",      "desc": "Plus frais, grande élégance au Nord",             "garde": "2025–2035" },
-            { "annee": 2020, "note": "good",      "desc": "Complet & harmonieux",                            "garde": "2025–2038" },
-            { "annee": 2019, "note": "excellent", "desc": "Concentré & noble, exceptionnel au Sud",          "garde": "2026–2042" },
-            { "annee": 2018, "note": "good",      "desc": "Riche & généreux, accessible",                    "garde": "2024–2035" },
-            { "annee": 2017, "note": "good",      "desc": "Élégant, Syrahs remarquables",                    "garde": "2024–2032" },
-            { "annee": 2016, "note": "excellent", "desc": "Grand classique, équilibre parfait",              "garde": "2025–2040" },
-            { "annee": 2015, "note": "excellent", "desc": "Légendaire au Sud, puissance et grâce",           "garde": "2025–2050" }
+            {
+              "annee": 2024,
+              "note": "good",
+              "desc": "Léger & frais, rouges à boire jeunes, blancs superbes",
+              "garde": "2025–2031"
+            },
+            {
+              "annee": 2023,
+              "note": "good",
+              "desc": "Charmeur & frais, rouges succulents, Côte-Rôtie brille",
+              "garde": "2026–2038"
+            },
+            {
+              "annee": 2022,
+              "note": "excellent",
+              "desc": "Puissant & précis, millésime solaire",
+              "garde": "2027–2045"
+            },
+            {
+              "annee": 2021,
+              "note": "good",
+              "desc": "Plus frais, grande élégance au Nord",
+              "garde": "2025–2035"
+            },
+            {
+              "annee": 2020,
+              "note": "good",
+              "desc": "Complet & harmonieux",
+              "garde": "2025–2038"
+            },
+            {
+              "annee": 2019,
+              "note": "excellent",
+              "desc": "Concentré & noble, exceptionnel au Sud",
+              "garde": "2026–2042"
+            },
+            {
+              "annee": 2018,
+              "note": "good",
+              "desc": "Riche & généreux, accessible",
+              "garde": "2024–2035"
+            },
+            {
+              "annee": 2017,
+              "note": "good",
+              "desc": "Élégant, Syrahs remarquables",
+              "garde": "2024–2032"
+            },
+            {
+              "annee": 2016,
+              "note": "excellent",
+              "desc": "Grand classique, équilibre parfait",
+              "garde": "2025–2040"
+            },
+            {
+              "annee": 2015,
+              "note": "excellent",
+              "desc": "Légendaire au Sud, puissance et grâce",
+              "garde": "2025–2050"
+            }
           ]
         }
       ]
@@ -88,16 +291,66 @@
           "style": "Structure, rose, goudron",
           "intro": "Terre du Nebbiolo roi, le Piémont produit Barolo et Barbaresco, deux des plus grands vins de garde italiens. Leur profil tannique exigeant réclame patience et connaissance des millésimes pour savoir quand les ouvrir.",
           "millesimes": [
-            { "annee": 2024, "note": "good",      "desc": "Nuits fraîches favorables au Nebbiolo, sélectivité", "garde": "2028–2040" },
-            { "annee": 2023, "note": "good",      "desc": "Fruit éclatant, tanins soyeux, plutôt accessible", "garde": "2027–2038" },
-            { "annee": 2022, "note": "good",      "desc": "Chaud & mûr, profils larges, hétérogène (sélection)", "garde": "2027–2040" },
-            { "annee": 2021, "note": "excellent", "desc": "Classique & élégant, tanins fermes, grand potentiel", "garde": "2027–2048" },
-            { "annee": 2020, "note": "good",      "desc": "Mûr & accessible, fruits généreux",               "garde": "2026–2038" },
-            { "annee": 2019, "note": "excellent", "desc": "Grand potentiel, tanins sublimes",                "garde": "2027–2050" },
-            { "annee": 2018, "note": "good",      "desc": "Élégant, Barolo accessible assez tôt",            "garde": "2025–2038" },
-            { "annee": 2017, "note": "warning",   "desc": "Chaleur excessive, surveiller l'évolution",       "garde": "À boire" },
-            { "annee": 2016, "note": "excellent", "desc": "Titanesque, millésime du siècle annoncé",         "garde": "2028–2055" },
-            { "annee": 2015, "note": "excellent", "desc": "Puissant & aromatique, garde exceptionnelle",     "garde": "2027–2050" }
+            {
+              "annee": 2024,
+              "note": "good",
+              "desc": "Nuits fraîches favorables au Nebbiolo, sélectivité",
+              "garde": "2028–2040"
+            },
+            {
+              "annee": 2023,
+              "note": "good",
+              "desc": "Fruit éclatant, tanins soyeux, plutôt accessible",
+              "garde": "2027–2038"
+            },
+            {
+              "annee": 2022,
+              "note": "good",
+              "desc": "Chaud & mûr, profils larges, hétérogène (sélection)",
+              "garde": "2027–2040"
+            },
+            {
+              "annee": 2021,
+              "note": "excellent",
+              "desc": "Classique & élégant, tanins fermes, grand potentiel",
+              "garde": "2027–2048"
+            },
+            {
+              "annee": 2020,
+              "note": "good",
+              "desc": "Mûr & accessible, fruits généreux",
+              "garde": "2026–2038"
+            },
+            {
+              "annee": 2019,
+              "note": "excellent",
+              "desc": "Grand potentiel, tanins sublimes",
+              "garde": "2027–2050"
+            },
+            {
+              "annee": 2018,
+              "note": "good",
+              "desc": "Élégant, Barolo accessible assez tôt",
+              "garde": "2025–2038"
+            },
+            {
+              "annee": 2017,
+              "note": "warning",
+              "desc": "Chaleur excessive, surveiller l'évolution",
+              "garde": "À boire"
+            },
+            {
+              "annee": 2016,
+              "note": "excellent",
+              "desc": "Titanesque, millésime du siècle annoncé",
+              "garde": "2028–2055"
+            },
+            {
+              "annee": 2015,
+              "note": "excellent",
+              "desc": "Puissant & aromatique, garde exceptionnelle",
+              "garde": "2027–2050"
+            }
           ]
         },
         {
@@ -106,16 +359,66 @@
           "style": "Fruits noirs, herbes, soleil",
           "intro": "Chianti Classico, Brunello di Montalcino, Bolgheri… La Toscane conjugue tradition et modernité dans des vins solaires à la personnalité affirmée. Le Sangiovese y révèle toute sa complexité aromatique entre cerise, tabac et cuir.",
           "millesimes": [
-            { "annee": 2024, "note": "good",      "desc": "Millésime pluvieux, vins plus délicats, frais",   "garde": "2026–2033" },
-            { "annee": 2023, "note": "average",   "desc": "Hétérogène (mildiou, grêle), plus délicat, sélection", "garde": "2025–2030" },
-            { "annee": 2022, "note": "good",      "desc": "Sécheresse marquée sauvée par les pluies; Chianti Classico brillant", "garde": "2026–2038" },
-            { "annee": 2021, "note": "excellent", "desc": "Classique & racé, référence de la décennie, Brunello superbe", "garde": "2027–2048" },
-            { "annee": 2020, "note": "good",      "desc": "Chaud & accessible, élégant (moins dense que 2021)", "garde": "2025–2036" },
-            { "annee": 2019, "note": "good",      "desc": "Riche & mûr, Brunello somptueux",                 "garde": "2025–2038" },
-            { "annee": 2018, "note": "good",      "desc": "Élégant, Chianti de grande finesse",              "garde": "2024–2032" },
-            { "annee": 2017, "note": "warning",   "desc": "Sécheresse prononcée, tanins secs",               "garde": "À boire" },
-            { "annee": 2016, "note": "excellent", "desc": "Classique toscan, grand équilibre",               "garde": "2025–2042" },
-            { "annee": 2015, "note": "excellent", "desc": "Généreux & charnu, grandes gardes",               "garde": "2025–2045" }
+            {
+              "annee": 2024,
+              "note": "good",
+              "desc": "Millésime pluvieux, vins plus délicats, frais",
+              "garde": "2026–2033"
+            },
+            {
+              "annee": 2023,
+              "note": "average",
+              "desc": "Hétérogène (mildiou, grêle), plus délicat, sélection",
+              "garde": "2025–2030"
+            },
+            {
+              "annee": 2022,
+              "note": "good",
+              "desc": "Sécheresse marquée sauvée par les pluies; Chianti Classico brillant",
+              "garde": "2026–2038"
+            },
+            {
+              "annee": 2021,
+              "note": "excellent",
+              "desc": "Classique & racé, référence de la décennie, Brunello superbe",
+              "garde": "2027–2048"
+            },
+            {
+              "annee": 2020,
+              "note": "good",
+              "desc": "Chaud & accessible, élégant (moins dense que 2021)",
+              "garde": "2025–2036"
+            },
+            {
+              "annee": 2019,
+              "note": "good",
+              "desc": "Riche & mûr, Brunello somptueux",
+              "garde": "2025–2038"
+            },
+            {
+              "annee": 2018,
+              "note": "good",
+              "desc": "Élégant, Chianti de grande finesse",
+              "garde": "2024–2032"
+            },
+            {
+              "annee": 2017,
+              "note": "warning",
+              "desc": "Sécheresse prononcée, tanins secs",
+              "garde": "À boire"
+            },
+            {
+              "annee": 2016,
+              "note": "excellent",
+              "desc": "Classique toscan, grand équilibre",
+              "garde": "2025–2042"
+            },
+            {
+              "annee": 2015,
+              "note": "excellent",
+              "desc": "Généreux & charnu, grandes gardes",
+              "garde": "2025–2045"
+            }
           ]
         },
         {
@@ -124,16 +427,554 @@
           "style": "Soleil, salinité, fruits noirs",
           "intro": "La Sicile s'est transformée en l'une des régions les plus excitantes d'Italie. Nero d'Avola, Nerello Mascalese sur les flancs de l'Etna, et les blancs de Grillo et Carricante offrent un rapport qualité-prix souvent imbattable.",
           "millesimes": [
-            { "annee": 2024, "note": "good",      "desc": "Bonne fraîcheur, fruits expressifs",              "garde": "2025–2030" },
-            { "annee": 2023, "note": "good",      "desc": "Plus léger (mildiou), accessible & fruité",       "garde": "2024–2029" },
-            { "annee": 2022, "note": "good",      "desc": "Sécheresse; beaux Nero d'Avola & blancs salins, Etna solide", "garde": "2025–2035" },
-            { "annee": 2021, "note": "good",      "desc": "Chaud mais sauvé (pluies de sept.), Etna aromatique & de garde", "garde": "2025–2034" },
-            { "annee": 2020, "note": "good",      "desc": "Chaud & généreux; Etna élégant et frais, très réussi", "garde": "2024–2032" },
-            { "annee": 2019, "note": "excellent", "desc": "Intense mais frais, superbe équilibre",           "garde": "2025–2036" },
-            { "annee": 2018, "note": "good",      "desc": "Très accessible, beaux fruits",                   "garde": "À boire" },
-            { "annee": 2017, "note": "average",   "desc": "Chaleur, plus de fraîcheur en altitude",          "garde": "À boire" },
-            { "annee": 2016, "note": "good",      "desc": "Équilibré, Nero d'Avola réussi",                  "garde": "2024–2030" },
-            { "annee": 2015, "note": "excellent", "desc": "Grand millésime insulaire, garde remarquable",    "garde": "2025–2038" }
+            {
+              "annee": 2024,
+              "note": "good",
+              "desc": "Bonne fraîcheur, fruits expressifs",
+              "garde": "2025–2030"
+            },
+            {
+              "annee": 2023,
+              "note": "good",
+              "desc": "Plus léger (mildiou), accessible & fruité",
+              "garde": "2024–2029"
+            },
+            {
+              "annee": 2022,
+              "note": "good",
+              "desc": "Sécheresse; beaux Nero d'Avola & blancs salins, Etna solide",
+              "garde": "2025–2035"
+            },
+            {
+              "annee": 2021,
+              "note": "good",
+              "desc": "Chaud mais sauvé (pluies de sept.), Etna aromatique & de garde",
+              "garde": "2025–2034"
+            },
+            {
+              "annee": 2020,
+              "note": "good",
+              "desc": "Chaud & généreux; Etna élégant et frais, très réussi",
+              "garde": "2024–2032"
+            },
+            {
+              "annee": 2019,
+              "note": "excellent",
+              "desc": "Intense mais frais, superbe équilibre",
+              "garde": "2025–2036"
+            },
+            {
+              "annee": 2018,
+              "note": "good",
+              "desc": "Très accessible, beaux fruits",
+              "garde": "À boire"
+            },
+            {
+              "annee": 2017,
+              "note": "average",
+              "desc": "Chaleur, plus de fraîcheur en altitude",
+              "garde": "À boire"
+            },
+            {
+              "annee": 2016,
+              "note": "good",
+              "desc": "Équilibré, Nero d'Avola réussi",
+              "garde": "2024–2030"
+            },
+            {
+              "annee": 2015,
+              "note": "excellent",
+              "desc": "Grand millésime insulaire, garde remarquable",
+              "garde": "2025–2038"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nom": "Espagne",
+      "flag": "🇪🇸",
+      "regions": [
+        {
+          "id": "rioja",
+          "nom": "Rioja",
+          "style": "Tempranillo, élevage, élégance",
+          "intro": "Référence historique de l'Espagne, la Rioja marie le Tempranillo à un élevage soigné en barrique. Des Crianza accessibles aux Gran Reserva de très longue garde, elle décline finesse, fruit et notes balsamiques.",
+          "millesimes": [
+            {
+              "annee": 2024,
+              "note": "average",
+              "desc": "Frais mais très compliqué (pluies), petits rendements, hétérogène",
+              "garde": "2026–2032"
+            },
+            {
+              "annee": 2023,
+              "note": "good",
+              "desc": "Chaud & précoce, fruit rouge, millésime hétérogène (sélection)",
+              "garde": "2026–2033"
+            },
+            {
+              "annee": 2022,
+              "note": "good",
+              "desc": "Année chaude record, rouges concentrés, tanins fermes",
+              "garde": "2026–2038"
+            },
+            {
+              "annee": 2021,
+              "note": "excellent",
+              "desc": "Frais & équilibré, tanins élégants, grande garde (réf. 2001/2010)",
+              "garde": "2027–2045"
+            },
+            {
+              "annee": 2020,
+              "note": "good",
+              "desc": "Frais; gel & mildiou, rendements réduits, vins accessibles",
+              "garde": "2025–2035"
+            },
+            {
+              "annee": 2019,
+              "note": "excellent",
+              "desc": "Grande année, mûr & équilibré, superbe garde",
+              "garde": "2026–2042"
+            },
+            {
+              "annee": 2018,
+              "note": "average",
+              "desc": "Frais, humide & exigeant; style élégant, moins structuré",
+              "garde": "2025–2031"
+            },
+            {
+              "annee": 2017,
+              "note": "average",
+              "desc": "Gel de printemps, petit millésime chaud, variable",
+              "garde": "2024–2029"
+            },
+            {
+              "annee": 2016,
+              "note": "good",
+              "desc": "Classique & équilibré, qualité au rendez-vous",
+              "garde": "2025–2036"
+            },
+            {
+              "annee": 2015,
+              "note": "good",
+              "desc": "Chaud & mûr, rouges généreux & souples",
+              "garde": "2025–2035"
+            }
+          ]
+        },
+        {
+          "id": "ribera-del-duero",
+          "nom": "Ribera del Duero",
+          "style": "Puissance, altitude, fruits noirs",
+          "intro": "Sur les hauts plateaux castillans, le Tempranillo (Tinto Fino) donne des vins puissants et concentrés, portés par de fortes amplitudes thermiques. Structure, profondeur et grand potentiel de garde signent l'appellation.",
+          "millesimes": [
+            {
+              "annee": 2024,
+              "note": "average",
+              "desc": "Plus frais, en évaluation (récolte compliquée)",
+              "garde": "2027–2035"
+            },
+            {
+              "annee": 2023,
+              "note": "good",
+              "desc": "Deux vendanges; seconde récolte concentrée, fruit rouge frais",
+              "garde": "2026–2037"
+            },
+            {
+              "annee": 2022,
+              "note": "good",
+              "desc": "Frais & vibrant, fruit rouge net, tanins soyeux",
+              "garde": "2026–2038"
+            },
+            {
+              "annee": 2021,
+              "note": "excellent",
+              "desc": "Équilibré & racé, grande garde (gel Filomena, faibles pluies)",
+              "garde": "2027–2045"
+            },
+            {
+              "annee": 2020,
+              "note": "excellent",
+              "desc": "Frais, rond & expressif, tanins mûrs (vendange longue)",
+              "garde": "2026–2042"
+            },
+            {
+              "annee": 2019,
+              "note": "excellent",
+              "desc": "Grande année, mûr & structuré, superbe garde",
+              "garde": "2027–2045"
+            },
+            {
+              "annee": 2018,
+              "note": "good",
+              "desc": "Plus frais & atlantique, style élégant & subtil",
+              "garde": "2025–2036"
+            },
+            {
+              "annee": 2017,
+              "note": "good",
+              "desc": "Gel & sécheresse; concentré, tanins fermes, hétérogène",
+              "garde": "2025–2036"
+            },
+            {
+              "annee": 2016,
+              "note": "good",
+              "desc": "Presque parfait, grande harmonie fruit/acidité/tanins",
+              "garde": "2026–2040"
+            },
+            {
+              "annee": 2015,
+              "note": "excellent",
+              "desc": "Chaud & mûr, fruit rouge intense, tanins polis",
+              "garde": "2025–2040"
+            }
+          ]
+        },
+        {
+          "id": "priorat",
+          "nom": "Priorat",
+          "style": "Llicorella, concentration, minéralité",
+          "intro": "Niché dans des coteaux vertigineux de schiste (llicorella), le Priorat produit à partir de Grenache et Carignan des rouges denses, minéraux et profondément marqués par leur terroir aride.",
+          "millesimes": [
+            {
+              "annee": 2024,
+              "note": "average",
+              "desc": "Retour des pluies après la sécheresse, en évaluation",
+              "garde": "2026–2034"
+            },
+            {
+              "annee": 2023,
+              "note": "average",
+              "desc": "Sécheresse marquée, vendange très précoce, vins variables",
+              "garde": "2025–2032"
+            },
+            {
+              "annee": 2022,
+              "note": "good",
+              "desc": "Chaud & sec (canicules), vins puissants tamponnés par la llicorella",
+              "garde": "2025–2036"
+            },
+            {
+              "annee": 2021,
+              "note": "good",
+              "desc": "Plus frais & élégant, belle définition",
+              "garde": "2025–2036"
+            },
+            {
+              "annee": 2020,
+              "note": "warning",
+              "desc": "Mildiou dévastateur (~70 % perdus), très hétérogène",
+              "garde": "À boire"
+            },
+            {
+              "annee": 2019,
+              "note": "excellent",
+              "desc": "Grande année, équilibre & fraîcheur, référence",
+              "garde": "2026–2042"
+            },
+            {
+              "annee": 2018,
+              "note": "good",
+              "desc": "Équilibré, mûrissement lent, alcools plus modérés",
+              "garde": "2025–2034"
+            },
+            {
+              "annee": 2017,
+              "note": "good",
+              "desc": "Gel & sécheresse (-17 %), vins concentrés",
+              "garde": "2025–2034"
+            },
+            {
+              "annee": 2016,
+              "note": "good",
+              "desc": "Plus léger & frais, vigilance sur la pourriture",
+              "garde": "2024–2032"
+            },
+            {
+              "annee": 2015,
+              "note": "excellent",
+              "desc": "Superbe, sans pluies de vendange, l'un des grands récents",
+              "garde": "2025–2040"
+            }
+          ]
+        },
+        {
+          "id": "galice",
+          "nom": "Galice",
+          "style": "Albariño, atlantique, salinité",
+          "intro": "Façade atlantique et verdoyante de l'Espagne, la Galice brille par ses blancs d'Albariño (Rías Baixas), vifs et salins, et par ses rouges de Mencía (Ribeira Sacra, Valdeorras), frais et parfumés.",
+          "millesimes": [
+            {
+              "annee": 2024,
+              "note": "good",
+              "desc": "Équilibré & frais, acidité ciselée, blancs minéraux",
+              "garde": "2025–2030"
+            },
+            {
+              "annee": 2023,
+              "note": "good",
+              "desc": "Frais & équilibré (entre 2021 et 2022); pluies de sept., tri",
+              "garde": "2025–2030"
+            },
+            {
+              "annee": 2022,
+              "note": "good",
+              "desc": "Plus chaud, blancs concentrés mais frais, alcool un peu plus élevé",
+              "garde": "2024–2029"
+            },
+            {
+              "annee": 2021,
+              "note": "excellent",
+              "desc": "Millésime classique, acidité tranchante, Albariño de référence",
+              "garde": "2025–2032"
+            },
+            {
+              "annee": 2020,
+              "note": "good",
+              "desc": "Chaud, blancs mûrs & salins; vigilance mildiou",
+              "garde": "2024–2028"
+            },
+            {
+              "annee": 2019,
+              "note": "good",
+              "desc": "Chaud, style plus riche & mûr, bel équilibre",
+              "garde": "2024–2027"
+            },
+            {
+              "annee": 2018,
+              "note": "good",
+              "desc": "Atlantique & frais, classique, belle acidité",
+              "garde": "À boire"
+            },
+            {
+              "annee": 2017,
+              "note": "good",
+              "desc": "Réussi, mûr & équilibré, l'un des bons récents",
+              "garde": "À boire"
+            },
+            {
+              "annee": 2016,
+              "note": "good",
+              "desc": "Très bon millésime atlantique, frais & précis",
+              "garde": "À boire"
+            },
+            {
+              "annee": 2015,
+              "note": "good",
+              "desc": "Solaire mais équilibré, jolis blancs",
+              "garde": "À boire"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nom": "Portugal",
+      "flag": "🇵🇹",
+      "regions": [
+        {
+          "id": "douro",
+          "nom": "Douro",
+          "style": "Schiste, puissance, altitude",
+          "intro": "Berceau du Porto, la vallée du Douro produit aussi de grands vins secs à partir de cépages autochtones (Touriga Nacional, Touriga Franca…). Coteaux de schiste et fortes amplitudes donnent des rouges puissants et racés.",
+          "millesimes": [
+            {
+              "annee": 2024,
+              "note": "good",
+              "desc": "Été doux, maturités équilibrées; incendies & pluies tardives",
+              "garde": "2026–2034"
+            },
+            {
+              "annee": 2023,
+              "note": "good",
+              "desc": "Millésime positif, volumes en hausse, équilibré & frais",
+              "garde": "2026–2035"
+            },
+            {
+              "annee": 2022,
+              "note": "good",
+              "desc": "Très chaud & sec (record); rouges denses, les meilleurs restent frais",
+              "garde": "2026–2036"
+            },
+            {
+              "annee": 2021,
+              "note": "good",
+              "desc": "Frais & vif, moins concentré, alcools plus bas (élégance)",
+              "garde": "2025–2033"
+            },
+            {
+              "annee": 2020,
+              "note": "good",
+              "desc": "Chaud, petits rendements, fruit intense & concentré",
+              "garde": "2025–2035"
+            },
+            {
+              "annee": 2019,
+              "note": "good",
+              "desc": "Été plus frais, vins purs, élégants & structurés",
+              "garde": "2025–2034"
+            },
+            {
+              "annee": 2018,
+              "note": "good",
+              "desc": "Chaud & sec, faibles rendements, rouges profonds & parfumés",
+              "garde": "2025–2035"
+            },
+            {
+              "annee": 2017,
+              "note": "excellent",
+              "desc": "Millésime Porto déclaré, chaleur sèche; grands rouges de référence",
+              "garde": "2026–2040"
+            },
+            {
+              "annee": 2016,
+              "note": "excellent",
+              "desc": "Millésime Porto déclaré, riche & complexe, grande garde",
+              "garde": "2026–2040"
+            },
+            {
+              "annee": 2015,
+              "note": "good",
+              "desc": "Chaud & mûr, maturité impressionnante, acidités plus basses",
+              "garde": "2024–2033"
+            }
+          ]
+        },
+        {
+          "id": "alentejo",
+          "nom": "Alentejo",
+          "style": "Soleil, rondeur, générosité",
+          "intro": "Vastes plaines ensoleillées du sud du Portugal, l'Alentejo signe des rouges généreux, mûrs et souples ainsi que des blancs amples. Un style solaire et accessible, souvent d'un excellent rapport qualité-prix.",
+          "millesimes": [
+            {
+              "annee": 2024,
+              "note": "good",
+              "desc": "Été doux, maturités équilibrées, bons blancs & rouges",
+              "garde": "2025–2032"
+            },
+            {
+              "annee": 2023,
+              "note": "good",
+              "desc": "Positif, volumes corrects, rouges généreux",
+              "garde": "2025–2032"
+            },
+            {
+              "annee": 2022,
+              "note": "good",
+              "desc": "Très chaud & sec (record), vins mûrs & puissants",
+              "garde": "2025–2032"
+            },
+            {
+              "annee": 2021,
+              "note": "excellent",
+              "desc": "Année quasi brillante: élégant, acidité & équilibre remarquables",
+              "garde": "2025–2033"
+            },
+            {
+              "annee": 2020,
+              "note": "good",
+              "desc": "Contrasté (pluies, mildiou, coups de chaud), rouges mûrs",
+              "garde": "2024–2030"
+            },
+            {
+              "annee": 2019,
+              "note": "excellent",
+              "desc": "Meilleur millésime en près de 10 ans, rouges remarquables",
+              "garde": "2025–2033"
+            },
+            {
+              "annee": 2018,
+              "note": "good",
+              "desc": "Chaud & généreux, vins ronds & mûrs",
+              "garde": "2024–2030"
+            },
+            {
+              "annee": 2017,
+              "note": "good",
+              "desc": "Sécheresse & feux (Portalegre); vins concentrés & généreux",
+              "garde": "2024–2030"
+            },
+            {
+              "annee": 2016,
+              "note": "good",
+              "desc": "Équilibré, rouges charnus & accessibles",
+              "garde": "2024–2030"
+            },
+            {
+              "annee": 2015,
+              "note": "good",
+              "desc": "Mûr & généreux, style solaire",
+              "garde": "2024–2030"
+            }
+          ]
+        },
+        {
+          "id": "dao",
+          "nom": "Dão",
+          "style": "Granit, fraîcheur, Touriga Nacional",
+          "intro": "Protégé par les montagnes et planté sur granit, le Dão livre des rouges élégants et frais, dominés par la Touriga Nacional, à la structure fine et au beau potentiel de garde.",
+          "millesimes": [
+            {
+              "annee": 2024,
+              "note": "good",
+              "desc": "Frais & équilibré, maturités lentes; quelques pluies tardives",
+              "garde": "2026–2034"
+            },
+            {
+              "annee": 2023,
+              "note": "good",
+              "desc": "Positif & frais, bons volumes, élégant",
+              "garde": "2026–2034"
+            },
+            {
+              "annee": 2022,
+              "note": "good",
+              "desc": "Chaud & sec; vieilles vignes résilientes, vins structurés",
+              "garde": "2026–2035"
+            },
+            {
+              "annee": 2021,
+              "note": "good",
+              "desc": "Année typique du Dão: frais, délicat & élégant",
+              "garde": "2025–2034"
+            },
+            {
+              "annee": 2020,
+              "note": "good",
+              "desc": "Contrasté (pluies puis chaleur); rouges concentrés",
+              "garde": "2025–2034"
+            },
+            {
+              "annee": 2019,
+              "note": "good",
+              "desc": "Plus frais, pureté de fruit, élégance & structure",
+              "garde": "2025–2034"
+            },
+            {
+              "annee": 2018,
+              "note": "good",
+              "desc": "Chaud, faibles rendements, rouges profonds",
+              "garde": "2024–2033"
+            },
+            {
+              "annee": 2017,
+              "note": "good",
+              "desc": "Chaleur sèche & incendies; petits volumes, vins concentrés",
+              "garde": "2024–2032"
+            },
+            {
+              "annee": 2016,
+              "note": "good",
+              "desc": "Classique & équilibré, belle fraîcheur granitique",
+              "garde": "2025–2035"
+            },
+            {
+              "annee": 2015,
+              "note": "good",
+              "desc": "Mûr & structuré, beaux rouges de garde",
+              "garde": "2024–2033"
+            }
           ]
         }
       ]
@@ -148,16 +989,140 @@
           "style": "Puissance équilibrée, fraîcheur solaire",
           "intro": "Le Western Cape regroupe les appellations les plus prestigieuses d'Afrique du Sud : Stellenbosch, Franschhoek, Hemel-en-Aarde. Les vins combinent la générosité du soleil africain avec une fraîcheur atlantique de plus en plus recherchée par les producteurs.",
           "millesimes": [
-            { "annee": 2024, "note": "good",      "desc": "Frais & précis, très prometteur",                 "garde": "2026–2034" },
-            { "annee": 2023, "note": "good",      "desc": "Blancs exceptionnels (Chenin/Chardonnay), rouges prometteurs", "garde": "2025–2032" },
-            { "annee": 2022, "note": "excellent", "desc": "Chaud; Swartland Syrah au sommet, Stellenbosch solide", "garde": "2026–2036" },
-            { "annee": 2021, "note": "good",      "desc": "Frais & tendu; blancs superbes, meilleurs rouges de garde", "garde": "2026–2034" },
-            { "annee": 2020, "note": "excellent", "desc": "Complet & harmonieux, très grand millésime",      "garde": "2025–2040" },
-            { "annee": 2019, "note": "good",      "desc": "Dense & puissant, belle structure",               "garde": "2024–2034" },
-            { "annee": 2018, "note": "good",      "desc": "Généreux, Chenin blanc remarquable",              "garde": "2024–2030" },
-            { "annee": 2017, "note": "excellent", "desc": "Sécheresse; rouges concentrés & structurés, grande garde", "garde": "2025–2035" },
-            { "annee": 2016, "note": "good",      "desc": "Élégant, fruité, très accessible",                "garde": "2024–2028" },
-            { "annee": 2015, "note": "excellent", "desc": "Équilibre et concentration, grand millésime",     "garde": "2025–2038" }
+            {
+              "annee": 2024,
+              "note": "good",
+              "desc": "Frais & précis, très prometteur",
+              "garde": "2026–2034"
+            },
+            {
+              "annee": 2023,
+              "note": "good",
+              "desc": "Blancs exceptionnels (Chenin/Chardonnay), rouges prometteurs",
+              "garde": "2025–2032"
+            },
+            {
+              "annee": 2022,
+              "note": "excellent",
+              "desc": "Chaud; Swartland Syrah au sommet, Stellenbosch solide",
+              "garde": "2026–2036"
+            },
+            {
+              "annee": 2021,
+              "note": "good",
+              "desc": "Frais & tendu; blancs superbes, meilleurs rouges de garde",
+              "garde": "2026–2034"
+            },
+            {
+              "annee": 2020,
+              "note": "excellent",
+              "desc": "Complet & harmonieux, très grand millésime",
+              "garde": "2025–2040"
+            },
+            {
+              "annee": 2019,
+              "note": "good",
+              "desc": "Dense & puissant, belle structure",
+              "garde": "2024–2034"
+            },
+            {
+              "annee": 2018,
+              "note": "good",
+              "desc": "Généreux, Chenin blanc remarquable",
+              "garde": "2024–2030"
+            },
+            {
+              "annee": 2017,
+              "note": "excellent",
+              "desc": "Sécheresse; rouges concentrés & structurés, grande garde",
+              "garde": "2025–2035"
+            },
+            {
+              "annee": 2016,
+              "note": "good",
+              "desc": "Élégant, fruité, très accessible",
+              "garde": "2024–2028"
+            },
+            {
+              "annee": 2015,
+              "note": "excellent",
+              "desc": "Équilibre et concentration, grand millésime",
+              "garde": "2025–2038"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nom": "États-Unis",
+      "flag": "🇺🇸",
+      "regions": [
+        {
+          "id": "napa-valley",
+          "nom": "Napa Valley",
+          "style": "Cabernet, opulence, soleil",
+          "intro": "Vitrine du vin californien, la Napa Valley est le royaume du Cabernet Sauvignon : des vins opulents, mûrs et généreusement boisés, capables d'une grande garde, portés par un climat chaud tempéré par les brumes du Pacifique.",
+          "millesimes": [
+            {
+              "annee": 2024,
+              "note": "good",
+              "desc": "Saison « textbook » (pluies d'hiver), chaleur gérée; vigilance fumée",
+              "garde": "2027–2044"
+            },
+            {
+              "annee": 2023,
+              "note": "excellent",
+              "desc": "Frais, long & tardif; fraîcheur, pureté & élégance, grande garde",
+              "garde": "2027–2048"
+            },
+            {
+              "annee": 2022,
+              "note": "good",
+              "desc": "Canicule de Labor Day (jusqu'à 47 °C); gourmand, à boire plus tôt",
+              "garde": "2026–2038"
+            },
+            {
+              "annee": 2021,
+              "note": "excellent",
+              "desc": "Sécheresse, petits rendements; concentré & racé, superbe garde",
+              "garde": "2027–2048"
+            },
+            {
+              "annee": 2020,
+              "note": "warning",
+              "desc": "Incendies & fumée: très peu de rouges produits; blancs épargnés",
+              "garde": "À boire"
+            },
+            {
+              "annee": 2019,
+              "note": "excellent",
+              "desc": "Grand classique, mûr & équilibré, grande garde",
+              "garde": "2026–2046"
+            },
+            {
+              "annee": 2018,
+              "note": "excellent",
+              "desc": "Saison longue & régulière, millésime de référence, grande garde",
+              "garde": "2026–2046"
+            },
+            {
+              "annee": 2017,
+              "note": "good",
+              "desc": "Coup de chaleur de sept. puis incendies d'oct.; précoces réussis",
+              "garde": "2025–2038"
+            },
+            {
+              "annee": 2016,
+              "note": "excellent",
+              "desc": "Classique & équilibré, grande garde",
+              "garde": "2025–2044"
+            },
+            {
+              "annee": 2015,
+              "note": "good",
+              "desc": "Sécheresse, petite récolte, vins concentrés & puissants",
+              "garde": "2025–2040"
+            }
           ]
         }
       ]

@@ -315,6 +315,24 @@
     font-style: italic; color: var(--dim); text-align: center;
   }
 
+  /* ── PIED DE PAGE SITE ── */
+  .site-footer {
+    max-width: 860px; margin: 0 auto;
+    padding: 2.2rem 2rem 1rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .site-footer .last-check {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    font-size: 0.68rem; font-weight: 400; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--dim);
+  }
+  .site-footer .last-check::before {
+    content: ''; display: inline-block; width: 5px; height: 5px;
+    border-radius: 50%; background: var(--gold); opacity: 0.55;
+  }
+  @media (max-width: 640px) { .site-footer { margin-bottom: 1.5rem; } }
+
   /* Cartes mobile */
   .millesime-cards { display: none; }
 
@@ -428,6 +446,11 @@
     <p class="footer-note">Les grands domaines peuvent largement surpasser les tendances générales d'un millésime.</p>
   </div>
 </div>
+
+<!-- PIED DE PAGE -->
+<footer class="site-footer">
+  <span class="last-check" id="last-check">Dernière vérification · 07/2026</span>
+</footer>
 
 <!-- BOTTOM NAV (mobile) -->
 <nav class="bottom-nav">
@@ -595,21 +618,35 @@ function _renderRegion(pays, region) {
   document.getElementById('view-region').classList.add('active');
 }
 
+// ── Pied de page : date de dernière vérification ──────────────────────────
+// Lue depuis le JSON (champ "derniere_verification" au format "AAAA-MM"),
+// avec repli sur la valeur affichée en dur si le champ est absent.
+function updateLastCheck(data) {
+  const el = document.getElementById('last-check');
+  if (!el || !data || !data.derniere_verification) return;
+  const parts = String(data.derniere_verification).split('-');
+  const y = parts[0], m = parts[1];
+  el.textContent = 'Dernière vérification · ' + (m ? m + '/' : '') + y;
+}
+
 // ── Init ─────────────────────────────────────────────────────────────────
+function initApp(data) {
+  window._millesimesData = data;
+  buildHub(data);
+  updateLastCheck(data);
+  // Si l'URL contient un hash (ex: retour depuis un lien direct), afficher la région
+  const hash = window.location.hash.replace('#', '');
+  if (hash) {
+    for (const pays of data.pays) {
+      const region = pays.regions.find(r => r.id === hash);
+      if (region) { _renderRegion(pays, region); break; }
+    }
+  }
+}
+
 fetch('millesimes.json')
   .then(r => r.json())
-  .then(data => {
-    window._millesimesData = data;
-    buildHub(data);
-    // Si l'URL contient un hash (ex: retour depuis un lien direct), afficher la région
-    const hash = window.location.hash.replace('#', '');
-    if (hash) {
-      for (const pays of data.pays) {
-        const region = pays.regions.find(r => r.id === hash);
-        if (region) { _renderRegion(pays, region); break; }
-      }
-    }
-  })
+  .then(initApp)
   .catch(() => {
     document.getElementById('countries-grid').innerHTML =
       '<p style="color:var(--muted);text-align:center;padding:3rem;font-style:italic;">Impossible de charger millesimes.json.</p>';
