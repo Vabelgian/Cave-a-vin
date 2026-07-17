@@ -409,7 +409,7 @@
     "cepage": "Chardonnay",
     "style": "Minéral, pierre à fusil, aromatique",
     "statut": "cave",
-    "stock": 5,
+    "stock": 4,
     "profil": "100% Chardonnay, vinifié en cuve inox avec élevage sur lies fines. Robe paille, nez d'agrumes et notes minérales, joli équilibre et longueur sympa. Domaine Colbois est un vignoble respecté localement, produisant un Chablis franc, minéral, bien fait, dans le style classique.",
     "notes_experts": {
       "wine_advocate": "N/a",
@@ -569,7 +569,7 @@
     "cepage": "Chardonnay",
     "style": "Soyeux, pur, équilibré",
     "statut": "cave",
-    "stock": 6,
+    "stock": 5,
     "profil": "Produit dans le sud de la Bourgogne (Mâconnais) par une vigneronne de grand talent, cette cuvée est un 100% Chardonnay qui allie la rondeur bourguignonne à une superbe tension. Nez sur des notes de fleurs blanches, d'amande fraîche et une touche de fruits jaunes. La bouche est charnue et enveloppante, soutenue par une belle fraîcheur calcaire.",
     "notes_experts": {
       "wine_advocate": "N/a",
@@ -813,7 +813,7 @@
     "nom": "Rosato Toscana — Fuligni",
     "photo": "images/Fulignirosato.jpg",
     "millesime": 2025,
-    "couleur": "rosé",
+    "couleur": "rose",
     "stock": 1,
     "statut": "cave",
     "region": "Toscane",
