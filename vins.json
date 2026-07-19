@@ -883,5 +883,348 @@
       "temperature": "10-12°",
       "accords": "Poissons noble, crustacés"
     }
-  }
+  },
+    {
+    "nom": "Artisan Wines Grüner Veltliner « Pure » 2024",
+    "photo": "images/artisan-wines-pure-gruner.jpg",
+    "millesime": 2024,
+    "couleur": "blanc",
+    "pays": "Autriche",
+    "region": "Burgenland – Halbturn (Neusiedlersee)",
+    "cepage": "Grüner Veltliner",
+    "style": "Frais, vif, léger, apéritif",
+    "statut": "cave",
+    "stock": 1,
+    "profil": "Cuvée « Pure » du domaine Artisan Wines (DI Franz Schneider) à Halbturn, dans le Burgenland. Issue de la Riede Kaiserberg, dont le sol lourd argilo-limoneux marque le profil aromatique — le vignoble, planté en 1959, est le plus ancien de Halbturn. Vendange manuelle avec sélection à la vigne, pressurage doux, fermentation en cuves thermorégulées, courte maturation sur lies fines, sans fermentation malolactique. Léger (11,5%) et digeste. Producteur à confirmer sur l'étiquette.",
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "N/a",
+      "peak_wines": "N/a"
+    },
+    "degustation": {
+      "couleur": "À compléter",
+      "nez": "À compléter (typique du cépage : poire, agrumes, poivre blanc)",
+      "bouche": "À compléter"
+    },
+    "technique": {
+      "vinification": "Vendange manuelle, pressurage doux, cuves inox thermorégulées, élevage court sur lies fines, pas de malo",
+      "classification": "Qualitätswein (Burgenland)",
+      "garde": "2–4 ans",
+      "carafage": "Non",
+      "temperature": "8–10°C",
+      "accords": "Apéritif, Wiener Schnitzel, asperges, antipasti, fruits de mer"
+    },
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
+  },
+  {
+    "nom": "Olarra Clásico Rioja Gran Reserva 2018",
+    "photo": "images/olarra-clasico-gran-reserva-2018.jpg",
+    "millesime": 2018,
+    "couleur": "rouge",
+    "pays": "Espagne",
+    "region": "Rioja",
+    "cepage": "Tempranillo, Garnacha, Mazuelo, Graciano",
+    "style": "Classique, épicé, élevage traditionnel",
+    "statut": "cave",
+    "stock": 1,
+    "profil": "Bodegas Olarra, surnommée la « cathédrale de la Rioja » pour son bâtiment iconique en trois ailes coiffé de 111 dômes hexagonaux (conçus pour stabiliser la température du chai), est une référence du style classique de la région. Vins signés par l'œnologue Javier Martínez de Salinas, nommé au titre de IWC Red Winemaker of the Year. Le Gran Reserva suit l'école traditionnelle riojane : long élevage en fûts de chêne américain puis affinage prolongé en bouteille — la bodega vieillit le vin pour toi. Prêt à boire dès maintenant.",
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "N/a",
+      "peak_wines": "N/a"
+    },
+    "degustation": {
+      "couleur": "Grenat sombre",
+      "nez": "Cerise noire, thym, touche de cuir, épices douces, vanille (chêne américain)",
+      "bouche": "Acidité vive et éclatante, grenade, framboise, chocolat noir, tanins vigoureux, note mentholée en finale"
+    },
+    "technique": {
+      "vinification": "Élevage traditionnel Gran Reserva en fûts de chêne américain puis long affinage en bouteille",
+      "classification": "Rioja DOCa Gran Reserva",
+      "garde": "Apogée maintenant – 2030",
+      "carafage": "30 min – 1h",
+      "temperature": "16–18°C",
+      "accords": "Agneau rôti, viandes grillées, gibier à plume, charcuterie ibérique, fromages affinés (Manchego)"
+    },
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
+  },
+  {
+    "nom": "Nativ « Rue dell'Inchiostro » Aglianico",
+    "photo": "images/nativ-rue-dellinchiostro.jpg",
+    "millesime": null,
+    "couleur": "rouge",
+    "pays": "Italie",
+    "region": "Campanie – Paternopoli (Irpinia)",
+    "cepage": "Aglianico",
+    "style": "Fruité, franc, sans bois",
+    "statut": "cave",
+    "stock": 1,
+    "profil": "Troisième Aglianico de la maison Nativ en cave, mais dans un registre opposé aux deux autres : ici, pas de barrique. Raisins de la zone volcanique de Paternopoli (sols argilo-calcaires riches en minéraux, ~500 m d'altitude), vendangés début novembre, macération d'une dizaine de jours, puis élevage uniquement en inox avec un court passage en bouteille. Le nom vient de « Rue », terme hérité de la domination française pour désigner les ruelles de Paternopoli, et « inchiostro » (encre), pour la couleur pourpre profonde du vin. L'expression pure et fruitée de l'Aglianico, sans maquillage boisé. Millésime à vérifier sur l'étiquette.",
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "N/a",
+      "peak_wines": "N/a"
+    },
+    "degustation": {
+      "couleur": "Rouge pourpre profond, semblable à de l'encre",
+      "nez": "Fruits des bois intenses et parfumés (mûre, cassis), notes épicées, touche de poivre noir",
+      "bouche": "Sec, agréablement tannique, grand équilibre et souplesse, finale franche"
+    },
+    "technique": {
+      "vinification": "Macération ~10 jours, levures sélectionnées, fermentation malolactique, élevage en inox puis court affinage en bouteille",
+      "classification": "Campania Aglianico IGT",
+      "garde": "3–6 ans",
+      "carafage": "30 min – 1h",
+      "temperature": "16–18°C",
+      "accords": "Pâtes au ragù, viandes rouges, gibier, fromages affinés"
+    },
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
+  },
+  {
+    "nom": "Massimo Firelli Susumaniello « Prestige »",
+    "photo": "images/massimo-firelli-susumaniello-prestige.jpg",
+    "millesime": null,
+    "couleur": "rouge",
+    "pays": "Italie",
+    "region": "Pouilles – Salento",
+    "cepage": "Susumaniello",
+    "style": "Opulent, gourmand, sucrosité marquée",
+    "statut": "cave",
+    "stock": 1,
+    "profil": "Cuvée prestige élaborée au cœur du Salento à partir du Susumaniello, un des cépages les plus rares et anciens des Pouilles, quasiment disparu avant sa redécouverte récente. Son nom dérive de « somarello » (petit âne), l'animal qui transportait autrefois la vendange. Style résolument moderne et gourmand : puissant (14,5%), avec un sucre résiduel notable (~10 g/l) qui le classe en demi-sec — à savoir avant de le servir. Millésime à vérifier sur l'étiquette (le 2020 a été médaillé d'or au Berlin Wine Trophy et au Concours Mondial de Bruxelles).",
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "N/a",
+      "peak_wines": "N/a"
+    },
+    "degustation": {
+      "couleur": "Pourpre sombre, larmes lentes",
+      "nez": "Cassis, fruits noirs confiturés, cacao, touche de vanille",
+      "bouche": "Puissant, souple et crémeux, cerise et baies noires, sucrosité enveloppante, tanins fondus"
+    },
+    "technique": {
+      "vinification": "À compléter",
+      "classification": "Salento IGT",
+      "garde": "2–5 ans",
+      "carafage": "30 min – 1h",
+      "temperature": "16–18°C",
+      "accords": "Viandes grillées, plats mijotés, barbecue, pâtes riches, fromages à pâte dure, plats sucrés-salés"
+    },
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
+  },
+  {
+    "nom": "Château Cassemichère Muscadet Sèvre et Maine sur Lie",
+    "photo": "images/cassemichere-muscadet.jpg",
+    "millesime": null,
+    "couleur": "blanc",
+    "pays": "France",
+    "region": "Loire – Pays Nantais",
+    "cepage": "Melon de Bourgogne",
+    "style": "Sec, frais, salin, apéritif",
+    "statut": "cave",
+    "stock": 1,
+    "profil": "Château historique de La Chapelle-Heulin, entouré d'un vignoble de 45 hectares regroupé sur un terroir sableux homogène, avec des vignes de 35 ans d'âge moyen travaillées avec soin (taille guyot, ébourgeonnage manuel). L'élevage sur lies fines (~8 mois) apporte rondeur et ce léger perlant caractéristique du Muscadet « sur lie ». L'archétype du vin d'huîtres et de fruits de mer, à boire jeune et frais. Millésime à vérifier sur l'étiquette.",
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "N/a",
+      "peak_wines": "N/a"
+    },
+    "degustation": {
+      "couleur": "Jaune pâle brillant à reflets argentés",
+      "nez": "Fleurs blanches (aubépine), agrumes (pamplemousse, citron), fruits frais",
+      "bouche": "Attaque souple, matière charnue et harmonieuse, arômes de poire et citron, finale délicatement saline, croquante et longue"
+    },
+    "technique": {
+      "vinification": "Élevage ~8 mois sur lies fines",
+      "classification": "Muscadet Sèvre et Maine sur Lie AOP",
+      "garde": "2–4 ans",
+      "carafage": "Non",
+      "temperature": "8–10°C",
+      "accords": "Huîtres, fruits de mer, crustacés, poissons, viandes blanches, apéritif"
+    },
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
+  },
+    {
+    "nom": "Montedidio Blanchè Compagnia Siciliana Grillo 2023",
+    "photo": "images/montedidio-blanche-grillo.jpg",
+    "millesime": 2023,
+    "couleur": "blanc",
+    "pays": "Italie",
+    "region": "Sicile",
+    "cepage": "Grillo",
+    "style": "Aromatique, floral, solaire",
+    "statut": "cave",
+    "stock": 1,
+    "profil": "Issu de la gamme « Compagnia Siciliana 1921 » de Montedidio, maison fondée par l'œnologue Mario Ercolino (passé par Feudi di San Gregorio). Le Grillo est le cépage blanc emblématique de la Sicile, historiquement lié au Marsala. Vignobles situés vers 600 m d'altitude. La bouteille habillée de dentelle sicilienne rend hommage aux étoffes des femmes siciliennes du début du XXe siècle.",
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "N/a",
+      "peak_wines": "N/a"
+    },
+    "degustation": {
+      "couleur": "Jaune paille brillant",
+      "nez": "Fleur d'oranger (zagara), pêche blanche, fruits tropicaux (mangue, papaye)",
+      "bouche": "Frais, harmonieux, floral et équilibré, acidité délicate, finale minérale"
+    },
+    "technique": {
+      "vinification": "À compléter",
+      "classification": "Sicilia Grillo DOC",
+      "garde": "2–4 ans",
+      "carafage": "Non",
+      "temperature": "10–12°C",
+      "accords": "Apéritif, fruits de mer, friture de poisson, risotto, cuisine sicilienne, viandes blanches"
+    },
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
+  },
+  {
+    "nom": "Schmitges Alte Reben Riesling 2024",
+    "photo": "images/schmitges-alte-reben-riesling.jpg",
+    "millesime": 2024,
+    "couleur": "blanc",
+    "pays": "Allemagne",
+    "region": "Moselle – Erden",
+    "cepage": "Riesling",
+    "style": "Tendu, minéral, salin, fruité",
+    "statut": "cave",
+    "stock": 1,
+    "profil": "Le domaine familial Schmitges (6e génération, mentionné dès 1744) est installé à Erden, sur les pentes de schiste les plus escarpées de la Moselle — devise du domaine : « Flach können viele, wir lieben es steil ». Cette cuvée Alte Reben provient de vignes d'environ 50 ans, en partie franches de pied, donnant un vin concentré, profond et fruité. Vérifier sur l'étiquette s'il s'agit de la version trocken (sec) ou feinherb (sec tendre).",
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "N/a",
+      "peak_wines": "N/a"
+    },
+    "degustation": {
+      "couleur": "Jaune clair brillant",
+      "nez": "Fruits à noyau et à pépins croquants (pomme, pêche), touche d'ananas",
+      "bouche": "Fin et équilibré, acidité vive intégrée, vivacité minérale et salinité typique de la Moselle, finale longue"
+    },
+    "technique": {
+      "vinification": "Vieilles vignes ~50 ans sur schiste, rendements maîtrisés",
+      "classification": "Mosel Qualitätswein",
+      "garde": "5–10 ans",
+      "carafage": "Non",
+      "temperature": "9–11°C",
+      "accords": "Poissons, cuisine asiatique légèrement épicée, volaille, fromage de chèvre, apéritif"
+    },
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
+  },
+  {
+    "nom": "Jeff Carrel Morillon Blanc 2024",
+    "photo": "images/jeff-carrel-morillon-blanc.jpg",
+    "millesime": 2024,
+    "couleur": "blanc",
+    "pays": "France",
+    "region": "Languedoc – Leuc (entre Carcassonne et Limoux)",
+    "cepage": "Chardonnay",
+    "style": "Ample, rond, atypique (botrytis vinifié sec)",
+    "statut": "cave",
+    "stock": 1,
+    "profil": "Cuvée signature du vigneron éclectique Jeff Carrel. « Morillon Blanc » est le nom médiéval du Chardonnay. Vin atypique : les raisins sont vendangés lorsque ~80% des baies sont colonisées par le botrytis (pourriture noble), mais avant concentration, puis vinifiés en sec tendre (10–20 g/l de sucre selon millésime). Élevage sur lies en barriques ~11 mois jusqu'à obtenir le goût « Morillon », légèrement oxydatif. Avec l'âge, l'expression des raisins rôtis par le botrytis s'intensifie.",
+    "notes_experts": {
+      "wine_advocate": "N/a",
+      "jancis_robinson": "N/a",
+      "james_suckling": "N/a",
+      "peak_wines": "N/a"
+    },
+    "degustation": {
+      "couleur": "Jaune paille",
+      "nez": "Mûr et expressif : poire, pêche, ananas, notes beurrées et grillées en arrière-plan",
+      "bouche": "Ronde, ample, matière mûre et dense, presque grasse, acidité qui équilibre et rafraîchit. Finale sur le fruit mûr, pain grillé, beurre et pointe de vanille"
+    },
+    "technique": {
+      "vinification": "Raisins botrytisés (~80% des baies), vendange avant concentration, égrappage puis pressurage, élevage sur lies en barriques ~11 mois",
+      "classification": "Vin de France",
+      "garde": "10 ans et plus",
+      "carafage": "Non",
+      "temperature": "10–12°C",
+      "accords": "Foie gras mi-cuit, jambon cru et melon, pintade aux champignons, fromages affinés, tarte aux pommes, plats sucrés-salés"
+    },
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
+  },
+  {
+  "nom": "Montedidio Privè Nerello Mascalese",
+  "photo": "images/montedidio-prive-nerello.jpg",
+  "millesime": null,
+  "couleur": "rouge",
+  "pays": "Italie",
+  "region": "Sicile",
+  "cepage": "Nerello Mascalese",
+  "style": "Solaire, généreux, fruité",
+  "statut": "cave",
+  "stock": 1,
+  "profil": "Nerello Mascalese en appellation Sicilia, produit par Montedidio (maison du Salento). Contrairement aux Etna Rosso d'altitude au profil pâle et tendu, ce Privè exprime une facette plus méridionale et charnue du cépage : fruits rouges mûrs, épices, chaleur maîtrisée (~14,5%). Millésime à vérifier sur la bouteille.",
+  "degustation": { "couleur": "À compléter", "nez": "À compléter", "bouche": "À compléter" },
+  "technique": {
+    "vinification": "À compléter",
+    "classification": "Sicilia DOC (à vérifier sur l'étiquette)",
+    "garde": "3–5 ans",
+    "carafage": "30 min – 1h",
+    "temperature": "16–18°C",
+    "accords": "Bœuf, agneau, pâtes en sauce"
+  },
+  "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+}
 ]
