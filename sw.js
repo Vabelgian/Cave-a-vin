@@ -2,7 +2,7 @@
 // Vinea — Service Worker
 // Version : cave-v4 (Forçage de la mise à jour globale)
 // ─────────────────────────────────────────────────────────────────────────────
-const VERSION = 'cave-v4';
+const VERSION = 'cave-v5';
 
 // Pages HTML à mettre en cache immédiatement à l'installation
 const PAGES = [
