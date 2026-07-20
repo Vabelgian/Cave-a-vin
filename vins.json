@@ -885,17 +885,17 @@
     }
   },
     {
-    "nom": "Artisan Wines Grüner Veltliner « Pure » 2024",
-    "photo": "images/artisan-wines-pure-gruner.jpg",
+    "nom": "Grüner Veltliner « Pure » 2024",
+    "photo": "images/pure-gruner.png",
     "millesime": 2024,
     "couleur": "blanc",
     "pays": "Autriche",
-    "region": "Burgenland – Halbturn (Neusiedlersee)",
+    "region": "Weinhof Waldschütz (Kamptal, Niederösterreich)",
     "cepage": "Grüner Veltliner",
     "style": "Frais, vif, léger, apéritif",
     "statut": "cave",
     "stock": 1,
-    "profil": "Cuvée « Pure » du domaine Artisan Wines (DI Franz Schneider) à Halbturn, dans le Burgenland. Issue de la Riede Kaiserberg, dont le sol lourd argilo-limoneux marque le profil aromatique — le vignoble, planté en 1959, est le plus ancien de Halbturn. Vendange manuelle avec sélection à la vigne, pressurage doux, fermentation en cuves thermorégulées, courte maturation sur lies fines, sans fermentation malolactique. Léger (11,5%) et digeste. Producteur à confirmer sur l'étiquette.",
+    "profil": "Le domaine Waldschütz est niché dans le Kamptal, l'une des vallées phares de Basse-Autriche pour ce cépage, et cette cuvée en donne une version directe et désaltérante : agrumes, pomme verte, une pointe d'herbes fraîches et ce soupçon de poivre blanc qui signe le Grüner. Vinifié sans bois, tout en fraîcheur et en tension, à 12°. Pas un vin de méditation ni de garde — c'est un blanc de plaisir immédiat, à ouvrir à l'apéritif ou sur une escalope viennoise au citron, des asperges ou de la charcuterie. Le genre de bouteille sans prétention qui fait bien son travail sans vider le portefeuille.",
     "notes_experts": {
       "wine_advocate": "N/a",
       "jancis_robinson": "N/a",
@@ -904,12 +904,12 @@
     },
     "degustation": {
       "couleur": "À compléter",
-      "nez": "À compléter (typique du cépage : poire, agrumes, poivre blanc)",
+      "nez": "poire, agrumes, poivre blanc",
       "bouche": "À compléter"
     },
     "technique": {
-      "vinification": "Vendange manuelle, pressurage doux, cuves inox thermorégulées, élevage court sur lies fines, pas de malo",
-      "classification": "Qualitätswein (Burgenland)",
+      "vinification": "Grüner Veltliner de Basse-Autriche, style vif et fruité, sans bois",
+      "classification": "QW Niederösterreich",
       "garde": "2–4 ans",
       "carafage": "Non",
       "temperature": "8–10°C",
@@ -926,7 +926,7 @@
   },
   {
     "nom": "Olarra Clásico Rioja Gran Reserva 2018",
-    "photo": "images/olarra-clasico-gran-reserva-2018.jpg",
+    "photo": "images/olarra-clasico-gran-reserva-2018.png",
     "millesime": 2018,
     "couleur": "rouge",
     "pays": "Espagne",
@@ -966,8 +966,8 @@
   },
   {
     "nom": "Nativ « Rue dell'Inchiostro » Aglianico",
-    "photo": "images/nativ-rue-dellinchiostro.jpg",
-    "millesime": null,
+    "photo": "images/nativ-rue-dellinchiostro.webp",
+    "millesime": 2021,
     "couleur": "rouge",
     "pays": "Italie",
     "region": "Campanie – Paternopoli (Irpinia)",
@@ -1006,8 +1006,8 @@
   },
   {
     "nom": "Massimo Firelli Susumaniello « Prestige »",
-    "photo": "images/massimo-firelli-susumaniello-prestige.jpg",
-    "millesime": null,
+    "photo": "images/massimo-firelli-susumaniello-prestige.webp",
+    "millesime": 2024,
     "couleur": "rouge",
     "pays": "Italie",
     "region": "Pouilles – Salento",
@@ -1206,8 +1206,8 @@
   },
   {
   "nom": "Montedidio Privè Nerello Mascalese",
-  "photo": "images/montedidio-prive-nerello.jpg",
-  "millesime": null,
+  "photo": "images/montedidio-prive-nerello.webp",
+  "millesime": 2025,
   "couleur": "rouge",
   "pays": "Italie",
   "region": "Sicile",
@@ -1219,7 +1219,7 @@
   "degustation": { "couleur": "À compléter", "nez": "À compléter", "bouche": "À compléter" },
   "technique": {
     "vinification": "À compléter",
-    "classification": "Sicilia DOC (à vérifier sur l'étiquette)",
+    "classification": "IGT Terre Siciliane",
     "garde": "3–5 ans",
     "carafage": "30 min – 1h",
     "temperature": "16–18°C",
