@@ -29,7 +29,7 @@
               "note": "excellent",
               "desc": "Pur & précis, grand équilibre",
               "garde": "2026–2040",
-              "commentaire": "Pinot Noir : tanins soyeux, fruit rouge intense. Chardonnay : tension minérale superbe, ne pas toucher avant 2027."
+              "commentaire": "Pinot Noir : tanins soyeux, fruit rouge intense. Chardonnay : tension minérale superbe, ne pas toucher avant 2027. Le Chablis 1er Cru Fourchaume est réservé aux 70 ans de papa (2027)."
             },
             {
               "annee": 2021,
@@ -313,19 +313,22 @@
               "annee": 2021,
               "note": "excellent",
               "desc": "Classique & élégant, tanins fermes, grand potentiel",
-              "garde": "2027–2048"
+              "garde": "2027–2048",
+              "commentaire": "Barbaresco goûté encore très jeune, ce qui confirme le grand potentiel. Ne pas ouvrir la 2ᵉ bouteille avant 2028 au minimum."
             },
             {
               "annee": 2020,
               "note": "good",
               "desc": "Mûr & accessible, fruits généreux",
-              "garde": "2026–2038"
+              "garde": "2026–2038",
+              "commentaire": "Massolino Parussi 2020 : pièce maîtresse du dîner de janvier 2030 — à ne pas toucher."
             },
             {
               "annee": 2019,
               "note": "excellent",
               "desc": "Grand potentiel, tanins sublimes",
-              "garde": "2027–2050"
+              "garde": "2027–2050",
+              "commentaire": "Fontanafredda réservé aux 70 ans de papa (2027) — il sera alors au début de sa fenêtre d'apogée."
             },
             {
               "annee": 2018,
@@ -343,7 +346,8 @@
               "annee": 2016,
               "note": "excellent",
               "desc": "Titanesque, millésime du siècle annoncé",
-              "garde": "2028–2055"
+              "garde": "2028–2055",
+              "commentaire": "Costa di Bussia bluffant : ma toute première dégustation de Barolo, avec une évolution spectaculaire dans le verre sur plus de 2 h. La 2ᵉ bouteille attend un moment marquant."
             },
             {
               "annee": 2015,
@@ -387,7 +391,8 @@
               "annee": 2020,
               "note": "good",
               "desc": "Chaud & accessible, élégant (moins dense que 2021)",
-              "garde": "2025–2036"
+              "garde": "2025–2036",
+              "commentaire": "Podere réservé pour 2028 au minimum. Surveiller des occasions sur les millésimes proches pour comparer."
             },
             {
               "annee": 2019,
@@ -1005,7 +1010,8 @@
               "annee": 2022,
               "note": "excellent",
               "desc": "Chaud; Swartland Syrah au sommet, Stellenbosch solide",
-              "garde": "2026–2036"
+              "garde": "2026–2036",
+              "commentaire": "Patience de mise pour en récolter les fruits (Orpheus & The Raven N°7)."
             },
             {
               "annee": 2021,
@@ -1017,7 +1023,8 @@
               "annee": 2020,
               "note": "excellent",
               "desc": "Complet & harmonieux, très grand millésime",
-              "garde": "2025–2040"
+              "garde": "2025–2040",
+              "commentaire": "Le Ridgeback et le Vilafonté profitent d'une année exceptionnelle pour la garde. Ouvrir potentiellement un Vilafonté en 2027."
             },
             {
               "annee": 2019,
@@ -1122,6 +1129,75 @@
               "note": "good",
               "desc": "Sécheresse, petite récolte, vins concentrés & puissants",
               "garde": "2025–2040"
+            }
+          ]
+        },
+        {
+          "id": "santa-barbara",
+          "nom": "Santa Barbara",
+          "style": "Climat frais, Pinot Noir & Chardonnay, salinité",
+          "intro": "À l'extrémité sud de la Central Coast, Santa Barbara profite de vallées transversales qui canalisent les brumes fraîches du Pacifique. Terre d'élection du Pinot Noir et du Chardonnay de style bourguignon (Sta. Rita Hills, Santa Maria Valley), elle produit aussi de belles Syrah (Ballard Canyon).",
+          "millesimes": [
+            {
+              "annee": 2024,
+              "note": "good",
+              "desc": "Millésime prometteur, en évaluation",
+              "garde": "2026–2032"
+            },
+            {
+              "annee": 2023,
+              "note": "excellent",
+              "desc": "Frais, long & lent (pluies d'hiver); grands Pinots, superbe fraîcheur",
+              "garde": "2026–2035"
+            },
+            {
+              "annee": 2022,
+              "note": "good",
+              "desc": "Canicule de Labor Day; réussites chez les meilleurs, fruit mûr & charme",
+              "garde": "2025–2031"
+            },
+            {
+              "annee": 2021,
+              "note": "excellent",
+              "desc": "Sécheresse, petits rendements concentrés; énergique & racé",
+              "garde": "2026–2034",
+              "commentaire": "Au Bon Climat Chardonnay Bien Nacido (blanc, 96/100 RP) : à ouvrir sur sa fenêtre 2026-2031, carafé 1 h, servi à 10-12 °C, sur une belle volaille ou un poisson."
+            },
+            {
+              "annee": 2020,
+              "note": "good",
+              "desc": "Incendies au nord; Santa Barbara peu touchée, blancs frais",
+              "garde": "2024–2030"
+            },
+            {
+              "annee": 2019,
+              "note": "good",
+              "desc": "Frais & équilibré (pluies d'hiver), élégance",
+              "garde": "2024–2030"
+            },
+            {
+              "annee": 2018,
+              "note": "excellent",
+              "desc": "Saison longue & régulière, millésime de référence",
+              "garde": "2025–2033"
+            },
+            {
+              "annee": 2017,
+              "note": "good",
+              "desc": "Fin de sécheresse, plus tardif; mûr, à boire assez tôt",
+              "garde": "2024–2029"
+            },
+            {
+              "annee": 2016,
+              "note": "good",
+              "desc": "Sécheresse, chaud & précoce, vins mûrs & équilibrés",
+              "garde": "2024–2028"
+            },
+            {
+              "annee": 2015,
+              "note": "good",
+              "desc": "Sécheresse, petite récolte; concentré & puissant, belle acidité",
+              "garde": "2024–2029"
             }
           ]
         }
