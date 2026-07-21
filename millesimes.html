@@ -157,6 +157,26 @@
   .reading-guide-content ul { margin: 0.5rem 0 0.8rem 1.2rem; }
   .reading-guide-content li { margin: 0.25rem 0; }
 
+  /* Lien vers le calendrier des sorties */
+  .calendar-link {
+    display: flex; align-items: center; gap: 1rem;
+    max-width: 620px; margin: 1rem auto 0;
+    padding: 1.1rem 1.4rem; text-decoration: none;
+    background: linear-gradient(160deg, rgba(201,168,76,0.10), rgba(201,168,76,0.02));
+    border: 1px solid var(--border-gold);
+    transition: border-color 0.2s, background 0.2s; text-align: left;
+  }
+  .calendar-link:hover { background: rgba(201,168,76,0.12); border-color: var(--gold); }
+  .calendar-link .cal-ic { font-size: 1.5rem; line-height: 1; flex-shrink: 0; }
+  .calendar-link .cal-txt { flex: 1; }
+  .calendar-link .cal-txt b {
+    display: block; font-family: var(--serif); font-style: italic;
+    font-size: 1.05rem; color: var(--gold-light); font-weight: 500;
+  }
+  .calendar-link .cal-txt span { font-size: 0.78rem; color: var(--muted); }
+  .calendar-link .cal-arrow { color: var(--gold); font-size: 1rem; flex-shrink: 0; transition: transform 0.2s; }
+  .calendar-link:hover .cal-arrow { transform: translateX(3px); }
+
   /* Grille pays */
   .countries-grid { display: flex; flex-direction: column; gap: 1px; background: var(--border); margin-top: 3rem; }
 
@@ -401,6 +421,14 @@
           <p>Un millésime difficile peut produire de très grands vins chez certains domaines — et inversement. Ces indications offrent une lecture simple et pratique des grandes tendances.</p>
         </div>
       </details>
+      <a class="calendar-link" href="calendrier-millesimes.html">
+        <span class="cal-ic">🗓️</span>
+        <span class="cal-txt">
+          <b>Quand ces notes sont-elles réévaluées&nbsp;?</b>
+          <span>Le calendrier des sorties d'avis, région par région</span>
+        </span>
+        <span class="cal-arrow">→</span>
+      </a>
     </header>
     <div class="countries-grid" id="countries-grid"></div>
   </div>

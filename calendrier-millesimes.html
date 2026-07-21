@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendrier des millésimes — Vinea</title>
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #0e0905;
+    --surface:   #18110a;
+    --surface2:  #201608;
+    --border:    rgba(255,240,210,0.10);
+    --border-gold: rgba(201,168,76,0.30);
+    --text:      #f5ede0;
+    --muted:     #a8957e;
+    --dim:       #6b5b48;
+    --gold:      #c9a84c;
+    --gold-light:#e6c97a;
+    --serif:     'Cormorant Garamond', Georgia, serif;
+    --sans:      'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background:
+      radial-gradient(1000px 560px at 84% -10%, rgba(201,168,76,0.08), transparent 60%),
+      var(--bg);
+    color: var(--text); font-family: var(--sans); font-size: 15px;
+    line-height: 1.6; -webkit-font-smoothing: antialiased; padding-bottom: 80px;
+  }
+
+  /* ── TOP NAV (identique à millesimes.html) ── */
+  .top-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(14,9,5,0.92); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2.5rem; display: flex; align-items: center; justify-content: space-between; height: 56px;
+  }
+  .nav-logo { font-family: var(--serif); font-size: 1.15rem; font-weight: 600; letter-spacing: 0.06em; color: var(--gold); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.75rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+  @media (max-width: 768px) { .nav-links { display: none; } }
+
+  /* ── BOTTOM NAV (identique) ── */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+    background: rgba(14,9,5,0.94); backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-around; padding: 10px 0 calc(10px + env(safe-area-inset-bottom));
+  }
+  .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; color: var(--muted); transition: color 0.2s; flex: 1; }
+  .nav-item.active, .nav-item:active { color: var(--gold); }
+  .nav-item svg { width: 21px; height: 21px; }
+  .nav-item span { font-size: 0.58rem; letter-spacing: 0.04em; }
+  @media (min-width: 640px) { .bottom-nav { display: none; } }
+
+  /* ── WRAP ── */
+  .wrap { max-width: 860px; margin: 0 auto; padding: 1.6rem 2rem 4rem; }
+
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: none; border: none; color: var(--muted); cursor: pointer;
+    font-family: var(--sans); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; padding: 1rem 0; transition: color 0.2s;
+  }
+  .back-btn:hover { color: var(--gold); }
+  .back-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+
+  /* ── HERO ── */
+  .hero { padding: 1.5rem 0 2.4rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; }
+  .eyebrow {
+    font-size: 0.62rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.3rem; display: flex; align-items: center; gap: 0.8rem;
+  }
+  .eyebrow::before { content: ''; width: 30px; height: 1px; background: var(--gold); opacity: 0.5; }
+  h1 {
+    font-family: var(--serif); font-weight: 300; font-style: italic;
+    font-size: clamp(2.4rem, 6.5vw, 4rem); line-height: 1.06; color: var(--text);
+  }
+  h1 em { font-style: normal; color: var(--gold-light); }
+  .lede { font-family: var(--serif); font-size: clamp(1.1rem, 2.2vw, 1.4rem); color: var(--muted); margin-top: 1.2rem; max-width: 42ch; }
+  .principle { margin-top: 1.6rem; max-width: 64ch; color: var(--muted); font-size: 0.92rem; }
+  .principle strong { color: var(--text); font-weight: 500; }
+
+  /* ── SECTIONS ── */
+  section { padding: 2.8rem 0 0.2rem; }
+  .sec-head { display: flex; align-items: baseline; gap: 0.9rem; margin-bottom: 0.5rem; }
+  .sec-num { font-family: var(--serif); font-style: italic; font-size: 1rem; color: var(--dim); min-width: 1.6ch; }
+  h2 { font-family: var(--serif); font-weight: 400; font-style: italic; font-size: clamp(1.6rem, 3.4vw, 2.2rem); color: var(--text); }
+  .sec-sub { color: var(--dim); font-size: 0.86rem; margin: 0.2rem 0 1.5rem 2.5ch; max-width: 62ch; }
+
+  /* ── PILIERS ── */
+  .pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .pillar { background: linear-gradient(160deg, rgba(201,168,76,0.09), rgba(201,168,76,0.02)); border: 1px solid var(--border); border-left: 2px solid var(--gold); padding: 1.3rem 1.4rem; }
+  .pillar .mo { font-family: var(--serif); font-style: italic; font-size: 1.5rem; color: var(--gold-light); }
+  .pillar p { font-size: 0.88rem; color: var(--muted); margin-top: 0.4rem; }
+  .pillar p b { color: var(--text); font-weight: 500; }
+
+  /* ── CALENDRIER ── */
+  .cal { position: relative; padding-left: 2rem; }
+  .cal::before { content: ''; position: absolute; left: 5px; top: 0.6rem; bottom: 0.6rem; width: 1px; background: linear-gradient(var(--gold), var(--border)); opacity: 0.5; }
+  .month { position: relative; padding: 1.1rem 0; border-bottom: 1px solid var(--border); }
+  .month:last-child { border-bottom: none; }
+  .month::before { content: ''; position: absolute; left: -2rem; top: 1.5rem; width: 11px; height: 11px; border-radius: 50%; background: var(--bg); border: 2px solid var(--gold); transform: translateX(-4.5px); }
+  .month.key::before { background: var(--gold); box-shadow: 0 0 0 4px rgba(201,168,76,0.14); }
+  .m-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 0.7rem; }
+  .m-label span { color: var(--dim); letter-spacing: 0.02em; text-transform: none; font-style: italic; font-family: var(--serif); font-size: 0.95rem; }
+  .ev { display: flex; gap: 0.7rem; padding: 0.4rem 0; align-items: flex-start; }
+  .ev .flag { font-size: 1rem; line-height: 1.5; flex-shrink: 0; }
+  .ev .body { font-size: 0.9rem; }
+  .ev .body b { color: var(--text); font-weight: 500; }
+  .ev .body .tag { font-family: var(--serif); font-style: italic; color: var(--gold-light); }
+  .ev .body .note { color: var(--muted); }
+
+  /* ── DÉCALAGE ── */
+  .lag { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.5rem; }
+  .lag-item { background: var(--surface); border: 1px solid var(--border); padding: 0.85rem 1rem; }
+  .lag-item .r { font-size: 0.82rem; color: var(--text); font-weight: 500; margin-bottom: 0.25rem; }
+  .lag-item .r .fl { margin-right: 0.35rem; }
+  .lag-item .d { font-size: 0.82rem; color: var(--muted); }
+  .lag-item .d b { color: var(--gold-light); font-weight: 500; font-family: var(--serif); font-style: italic; font-size: 0.95rem; }
+
+  /* ── SOURCES ── */
+  .srcs { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 0.8rem; }
+  .src { background: var(--surface); border: 1px solid var(--border); padding: 1.1rem 1.2rem; }
+  .src h3 { font-family: var(--serif); font-weight: 400; font-style: italic; font-size: 1.25rem; color: var(--gold-light); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+  .src ul { list-style: none; font-size: 0.84rem; color: var(--muted); }
+  .src li { padding: 0.16rem 0; padding-left: 0.9rem; position: relative; }
+  .src li::before { content: '·'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+  .src li b { color: var(--text); font-weight: 500; }
+
+  /* ── FOOTER ── */
+  .site-footer { max-width: 860px; margin: 3rem auto 0; padding: 1.8rem 2rem 0; border-top: 1px solid var(--border); }
+  .site-footer .sig { font-family: var(--serif); font-style: italic; color: var(--muted); font-size: 1rem; margin-bottom: 0.7rem; }
+  .site-footer p { color: var(--dim); font-size: 0.8rem; margin-bottom: 0.5rem; }
+  .site-footer code { color: var(--gold); font-family: var(--sans); font-size: 0.76rem; }
+  .site-footer .stamp { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.6rem; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
+  .site-footer .stamp::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); opacity: 0.55; }
+
+  @media (max-width: 640px) { .pillars { grid-template-columns: 1fr; } .wrap { padding: 1.2rem 1.2rem 3rem; } }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <a href="index.html" class="nav-logo">Vinea</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="regionsviticoles.html">Régions</a></li>
+    <li><a href="millesimes.html" class="active">Millésimes</a></li>
+    <li><a href="Ma-Cave.html">Ma Cave</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+
+  <a href="millesimes.html" class="back-btn">
+    <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Retour aux millésimes
+  </a>
+
+  <header class="hero">
+    <div class="eyebrow">Guide · Calendrier</div>
+    <h1>Le calendrier<br>des <em>millésimes</em></h1>
+    <p class="lede">Quand, dans l'année, chaque région livre son verdict.</p>
+    <p class="principle">
+      Une note de millésime ne se fige pas à la vendange : elle se stabilise quand les vins
+      <strong>sortent en marché</strong> et que la critique peut les goûter. Ce décalage — d'un an
+      pour un blanc atlantique, de quatre à six ans pour un Barolo Riserva ou un Brunello — dicte
+      quand il vaut la peine de revérifier. Ci-dessous, le cycle annuel des grands rendez-vous,
+      le décalage récolte → sortie région par région, et les sources à suivre.
+    </p>
+  </header>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">I</span><h2>Les deux temps forts</h2></div>
+    <p class="sec-sub">Si tu ne devais caler que deux passes de vérification dans l'année, ce sont celles-ci.</p>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="mo">Février</div>
+        <p><b>L'Europe des grands rouges.</b> Le Piémont (fin janvier) et la Toscane (mi-février)
+        dévoilent leurs nouvelles annates ; les charts de Bourgogne, du Rhône et d'Espagne se
+        rafraîchissent dans la foulée. La passe la plus rentable de l'année.</p>
+      </div>
+      <div class="pillar">
+        <div class="mo">Septembre</div>
+        <p><b>L'hémisphère sud.</b> Le rapport Tim Atkin sur l'Afrique du Sud paraît début septembre —
+        le rendez-vous de référence pour le Western Cape (millésimes, classement, top wines).</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">II</span><h2>Le cycle de l'année</h2></div>
+    <p class="sec-sub">Rendez-vous récurrents. Les dates exactes bougent d'une année sur l'autre — ce sont les fenêtres typiques.</p>
+    <div class="cal">
+
+      <div class="month key">
+        <div class="m-label">Janvier</div>
+        <div class="ev"><span class="flag">🇮🇹</span><div class="body"><b>Piémont — Grandi Langhe</b> <span class="tag">(Turin, fin janv.)</span><br><span class="note">Nouvelles annates : Barolo (récolte N−4), Barbaresco (N−3), Roero, Langhe Nebbiolo. Le moment où le millésime piémontais se fige.</span></div></div>
+        <div class="ev"><span class="flag">🇺🇸</span><div class="body"><b>Santa Barbara — rapport annuel James Suckling</b><br><span class="note">Panorama Pinot Noir & Chardonnay de la Central Coast.</span></div></div>
+      </div>
+
+      <div class="month key">
+        <div class="m-label">Février</div>
+        <div class="ev"><span class="flag">🇮🇹</span><div class="body"><b>Toscane — Semaine des Anteprime</b> <span class="tag">(mi-févr.)</span><br><span class="note">Chianti Classico Collection (Annata, Riserva, Gran Selezione), Anteprima Vino Nobile, L'Altra Toscana.</span></div></div>
+        <div class="ev"><span class="flag">🇵🇹</span><div class="body"><b>Douro — Essência do Vinho</b> <span class="tag">(Porto)</span><br><span class="note">Grande dégustation : Portos et vins secs du Douro.</span></div></div>
+        <div class="ev"><span class="flag">🇫🇷</span><div class="body"><b>Loire — Salon des Vins de Loire</b> <span class="tag">(Angers)</span><br><span class="note">Présentation du dernier millésime ligérien.</span></div></div>
+        <div class="ev"><span class="flag">🇺🇸</span><div class="body"><b>Napa — Premiere Napa Valley</b> <span class="tag">(barrique / trade)</span><br><span class="note">Premier aperçu du millésime en cours d'élevage.</span></div></div>
+      </div>
+
+      <div class="month">
+        <div class="m-label">Mars</div>
+        <div class="ev"><span class="flag">🇫🇷</span><div class="body"><b>Bourgogne — Grands Jours de Bourgogne</b> <span class="tag">(années paires)</span><br><span class="note">Panorama des nouvelles annates ; rapports en bouteille des critiques (Jancis, Vinous).</span></div></div>
+        <div class="ev"><span class="flag">🇺🇸</span><div class="body"><b>Santa Barbara — World of Pinot Noir</b><br><span class="note">Dégustations larges de la région, en début de mois.</span></div></div>
+      </div>
+
+      <div class="month">
+        <div class="m-label">Avril – Mai</div>
+        <div class="ev"><span class="flag">🇮🇹</span><div class="body"><b>Sicile — Sicilia en Primeur</b> <span class="tag">(Assovini Sicilia)</span><br><span class="note">Nouvelles annates, avec un fort focus sur l'Etna.</span></div></div>
+        <div class="ev"><span class="flag">🇪🇸</span><div class="body"><b>Rioja & Ribera del Duero — calificación officielle</b><br><span class="note">Les Consejos Reguladores publient la note de l'añada (récolte N−1) au printemps.</span></div></div>
+      </div>
+
+      <div class="month">
+        <div class="m-label">Juin <span>— et été</span></div>
+        <div class="ev"><span class="flag">🇪🇸</span><div class="body"><b>Rioja — rapport Tim Atkin</b><br><span class="note">Lecture détaillée producteur par producteur, en complément de la note officielle.</span></div></div>
+        <div class="ev"><span class="flag">🇿🇦</span><div class="body"><b>Western Cape — dégustations Tim Atkin au Cap</b><br><span class="note">Mars, juin, juillet : la matière du rapport de septembre se constitue.</span></div></div>
+      </div>
+
+      <div class="month key">
+        <div class="m-label">Septembre</div>
+        <div class="ev"><span class="flag">🇿🇦</span><div class="body"><b>Western Cape — Tim Atkin South Africa Special Report</b> <span class="tag">(~2 sept.)</span><br><span class="note">Le rendez-vous sud-africain : millésimes, classification des domaines, meilleurs vins.</span></div></div>
+        <div class="ev"><span class="flag">🇫🇷</span><div class="body"><b>Rhône — rapports en primeur</b> <span class="tag">(automne)</span><br><span class="note">Decanter (Matt Walls) et Vinous couvrent le dernier millésime, Nord et Sud.</span></div></div>
+      </div>
+
+      <div class="month">
+        <div class="m-label">Novembre</div>
+        <div class="ev"><span class="flag">🇮🇹</span><div class="body"><b>Toscane — Benvenuto Brunello</b> <span class="tag">(Montalcino, fin nov.)</span><br><span class="note">Nouveau Brunello (récolte N−5) et Riserva (N−6). À combiner avec la passe de février.</span></div></div>
+        <div class="ev"><span class="flag">🇿🇦</span><div class="body"><b>Western Cape — Platter's Guide</b><br><span class="note">Le guide sud-africain de référence, en complément d'Atkin.</span></div></div>
+      </div>
+
+      <div class="month">
+        <div class="m-label">Au fil de l'eau</div>
+        <div class="ev"><span class="flag">🇵🇹</span><div class="body"><b>Douro — déclaration des Vintage Ports</b> <span class="tag">(printemps de l'année N+2)</span><br><span class="note">Une année « déclarée » signale un grand millésime — utile aussi pour lire la qualité des rouges secs.</span></div></div>
+        <div class="ev"><span class="flag">🇺🇸</span><div class="body"><b>Napa — rapports Vinous & presse US</b><br><span class="note">Les Cabernet se figent ~3 ans après la récolte ; couverture étalée sur l'automne-hiver.</span></div></div>
+        <div class="ev"><span class="flag">🇮🇹</span><div class="body"><b>Sicile / Etna — Vinous</b><br><span class="note">Rapports Etna publiés en cours d'année, hors calendrier fixe.</span></div></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">III</span><h2>Décalage récolte → sortie</h2></div>
+    <p class="sec-sub">Le délai avant que la note se stabilise. Tout ce qui a plus de 5–6 ans est quasiment figé : inutile d'y revenir.</p>
+    <div class="lag">
+      <div class="lag-item"><div class="r"><span class="fl">🇫🇷</span>Bourgogne</div><div class="d"><b>~2 ans</b> · grands crus plus tard</div></div>
+      <div class="lag-item"><div class="r"><span class="fl">🇫🇷</span>Loire</div><div class="d"><b>1–2 ans</b> · se stabilise vite</div></div>
+      <div class="lag-item"><div class="r"><span class="fl">🇫🇷</span>Alsace</div><div class="d"><b>1–2 ans</b> · se stabilise vite</div></div>
+      <div class="lag-item"><div class="r"><span class="fl">🇫🇷</span>Vallée du Rhône</div><div class="d"><b>~2 ans</b> · primeurs à l'automne</div></div>
+      <div class="lag-item"><div class="r"><span class="fl">🇮🇹</span>Piémont</div><div class="d">Barbaresco <b>3 ans</b>, Barolo <b>4</b>, Riserva <b>5–6</b></div></div>
+      <div class="lag-item"><div class="r"><span class="fl">🇮🇹</span>Toscane</div><div class="d">Chianti Classico <b>1–2 ans</b>, Brunello <b>5</b> (Riserva 6)</div></div>
+      <div class="lag-item"><div class="r"><span class="fl">🇮🇹</span>Sicile</div><div class="d">Etna <b>2–3 ans</b></div></div>
+      <div class="lag-item"><div class="r"><span class="fl">🇪🇸</span>Rioja</div><div class="d">Crianza <b>2</b>, Reserva <b>3</b>, Gran Reserva <b>5+</b></div></div>
+      <div class="lag-item"><div class="r"><span class="fl">🇪🇸</span>Ribera del Duero</div><div class="d">idem Rioja · calificación dès <b>N+1</b></div></div>
+      <div class="lag-item"><div class="r"><span class="fl">🇪🇸</span>Priorat</div><div class="d"><b>2–3 ans</b></div></div>
+      <div class="lag-item"><div class="r"><span class="fl">🇪🇸</span>Galice</div><div class="d"><b>~6–9 mois</b> · l'Albariño sort jeune</div></div>
+      <div class="lag-item"><div class="r"><span class="fl">🇵🇹</span>Douro</div><div class="d">secs <b>~2 ans</b> · Vintage Port au printemps <b>N+2</b></div></div>
+      <div class="lag-item"><div class="r"><span class="fl">🇵🇹</span>Alentejo / Dão</div><div class="d"><b>1–2 ans</b></div></div>
+      <div class="lag-item"><div class="r"><span class="fl">🇿🇦</span>Western Cape</div><div class="d">blancs <b>~1 an</b>, rouges <b>2–3</b> · Atkin en sept.</div></div>
+      <div class="lag-item"><div class="r"><span class="fl">🇺🇸</span>Napa Valley</div><div class="d">Cabernet <b>2–3 ans</b></div></div>
+      <div class="lag-item"><div class="r"><span class="fl">🇺🇸</span>Santa Barbara</div><div class="d">Pinot / Chardonnay <b>~1,5–2 ans</b></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">IV</span><h2>Les sources à suivre</h2></div>
+    <p class="sec-sub">Organisme officiel (quand il existe) et critiques de référence, par région.</p>
+    <div class="srcs">
+      <div class="src"><h3><span>🇫🇷</span>France</h3><ul>
+        <li><b>Bourgogne</b> — Jancis Robinson, Vinous (Neal Martin), Decanter ; Grands Jours (mars)</li>
+        <li><b>Loire</b> — Decanter, Jancis ; Salon des Vins de Loire (févr.)</li>
+        <li><b>Alsace</b> — Decanter, Jancis</li>
+        <li><b>Rhône</b> — Decanter (Matt Walls, primeurs automne), Vinous, Jancis</li>
+      </ul></div>
+      <div class="src"><h3><span>🇮🇹</span>Italie</h3><ul>
+        <li><b>Piémont</b> — Grandi Langhe / Nebbiolo Prima (janv.), Vinous (Galloni), Gambero Rosso</li>
+        <li><b>Toscane</b> — Anteprime (févr. + Benvenuto Brunello nov.), James Suckling, Vinous</li>
+        <li><b>Sicile</b> — Sicilia en Primeur (avr.–mai), Vinous (Etna), Jancis</li>
+      </ul></div>
+      <div class="src"><h3><span>🇪🇸</span>Espagne</h3><ul>
+        <li><b>Rioja</b> — Consejo Regulador (calificación officielle), Tim Atkin (~juin), Vinous</li>
+        <li><b>Ribera del Duero</b> — Consejo Regulador (calificación), Vinous, Decanter</li>
+        <li><b>Priorat</b> — Vinous, Jancis (pas de note étoilée officielle)</li>
+        <li><b>Galice</b> — Vinous, Jancis, James Suckling</li>
+      </ul></div>
+      <div class="src"><h3><span>🇵🇹</span>Portugal</h3><ul>
+        <li><b>Douro</b> — IVDP (déclaration Vintage Port), Essência do Vinho (févr.), Suckling</li>
+        <li><b>Alentejo / Dão</b> — James Suckling (rapport Portugal), Decanter</li>
+      </ul></div>
+      <div class="src"><h3><span>🇿🇦</span>Afrique du Sud</h3><ul>
+        <li><b>Western Cape</b> — Tim Atkin SA Special Report (sept.), Platter's Guide (nov.), Jancis</li>
+      </ul></div>
+      <div class="src"><h3><span>🇺🇸</span>États-Unis</h3><ul>
+        <li><b>Napa Valley</b> — Vinous (Galloni), Wine Enthusiast, Wine Spectator ; Premiere NV (févr.)</li>
+        <li><b>Santa Barbara</b> — James Suckling (rapport annuel, janv.), Vinous</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p class="sig">« Revérifier au bon moment, c'est ne pas revérifier trop souvent. »</p>
+    <p>Après chaque rendez-vous, mets à jour les millésimes concernés dans <code>millesimes.json</code>, puis remonte le champ <code>derniere_verification</code>. Les dates indiquées sont des fenêtres typiques, susceptibles de bouger d'une année à l'autre.</p>
+    <span class="stamp">Calendrier mis à jour · 07/2026</span>
+  </footer>
+
+</div>
+
+<!-- BOTTOM NAV (mobile) -->
+<nav class="bottom-nav">
+  <a href="index.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+    </svg>
+    <span>Accueil</span>
+  </a>
+  <a href="Ma-Cave.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 22h8M12 11v11M7 11h10l-1-9H8L7 11z"/>
+    </svg>
+    <span>Cave</span>
+  </a>
+  <a href="millesimes.html" class="nav-item active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+    </svg>
+    <span>Millésimes</span>
+  </a>
+  <a href="regionsviticoles.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </svg>
+    <span>Régions</span>
+  </a>
+  <a href="decryptage-oenologique.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+    </svg>
+    <span>Articles</span>
+  </a>
+</nav>
+
+</body>
+</html>
