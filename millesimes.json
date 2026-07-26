@@ -985,6 +985,80 @@
       ]
     },
     {
+      "nom": "Allemagne",
+      "flag": "🇩🇪",
+      "regions": [
+        {
+          "id": "moselle",
+          "nom": "Moselle",
+          "style": "Riesling, ardoise, tension, finesse",
+          "intro": "La vallée de la Moselle (Mosel) est le sanctuaire du Riesling. Sur des coteaux vertigineux d'ardoise bleue et grise, le cépage donne des vins d'une pureté et d'une tension incomparables — du Kabinett délicat et légèrement doux au Grosses Gewächs sec, jusqu'aux nectars botrytisés —, portés par une acidité cristalline et un potentiel de garde exceptionnel.",
+          "millesimes": [
+            {
+              "annee": 2024,
+              "note": "good",
+              "desc": "Élégant, racé & filigrané, style classique (peu touché par le gel)",
+              "garde": "2026–2040"
+            },
+            {
+              "annee": 2023,
+              "note": "good",
+              "desc": "Contrasté (pression sanitaire); sélection payante, GG & vins doux superbes",
+              "garde": "2026–2042"
+            },
+            {
+              "annee": 2022,
+              "note": "good",
+              "desc": "Chaud & mûr, style opulent mais structuré, bonne garde",
+              "garde": "2025–2040"
+            },
+            {
+              "annee": 2021,
+              "note": "excellent",
+              "desc": "Frais & classique, acidité électrique; Kabinett/Spätlese d'exception",
+              "garde": "2026–2050"
+            },
+            {
+              "annee": 2020,
+              "note": "good",
+              "desc": "Récolte précoce, frais & équilibré, solide (bon rapport qualité-prix)",
+              "garde": "2025–2036"
+            },
+            {
+              "annee": 2019,
+              "note": "excellent",
+              "desc": "Concentré avec superbe acidité, remarquable en sec comme en doux",
+              "garde": "2025–2048"
+            },
+            {
+              "annee": 2018,
+              "note": "good",
+              "desc": "Chaud & sec, riche & généreux, acidités plus basses (à boire plus tôt)",
+              "garde": "2024–2034"
+            },
+            {
+              "annee": 2017,
+              "note": "good",
+              "desc": "Gel de printemps (petits rendements), survivants concentrés & équilibrés",
+              "garde": "2025–2040"
+            },
+            {
+              "annee": 2016,
+              "note": "good",
+              "desc": "Classique & tendu, haute acidité, plus frais que 2015",
+              "garde": "2024–2040"
+            },
+            {
+              "annee": 2015,
+              "note": "excellent",
+              "desc": "Grande année, mûr & zesté, superbe dans tous les styles",
+              "garde": "2025–2045"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "nom": "Afrique du Sud",
       "flag": "🇿🇦",
       "regions": [
