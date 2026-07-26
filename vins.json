@@ -46,8 +46,11 @@
     "couleur": "blanc",
     "pays": "Italie",
     "region": "Alto Adige",
-    "cepage": "60% Pinot Bianco, 30% Chardonnay, 10% Sauvignon Blanc",
+    "cepage": "Assemblage",
     "style": "Tendu, cristallin, aromatique",
+    "identite": {
+      "cepage_detail": "Pinot Bianco, Chardonnay, Sauvignon Blanc"
+    },
     "statut": "cave",
     "stock": 1,
     "profil": "Ce vin est vraiment l'école Alto Adige : pureté, fraîcheur, précision aromatique, gros travail sur la minéralité. La coopérative Cantina Terlano a été fondée en 1893 et est aujourd'hui l'une des références de l'Alto Adige. Leur philosophie repose sur des vins de grande longévité, grâce à une vinification sur lies prolongée.",
@@ -206,8 +209,11 @@
     "couleur": "rouge",
     "pays": "Afrique du Sud",
     "region": "Western Cape",
-    "cepage": "86% Cabernet Sauvignon, 8% Merlot, 4% Malbec, 2% Cabernet Franc",
+    "cepage": "Assemblage",
     "style": "Élégant, grand Bordeaux",
+    "identite": {
+      "cepage_detail": "Cabernet Sauvignon, Merlot, Malbec, Cabernet Franc"
+    },
     "statut": "cave",
     "stock": 2,
     "profil": "Assemblage bordelais premium provenant des célèbres sols anciens du Western Cape. Le vin allie puissance maîtrisée, précision et profondeur. Encore dans sa jeunesse, il devrait gagner en complexité et en texture au fil du temps.",
@@ -884,7 +890,7 @@
       "accords": "Poissons noble, crustacés"
     }
   },
-    {
+  {
     "nom": "Grüner Veltliner « Pure » 2024",
     "photo": "images/pure-gruner.png",
     "millesime": 2024,
@@ -1084,7 +1090,7 @@
       "note_personnelle": ""
     }
   },
-    {
+  {
     "nom": "Montedidio Blanchè Compagnia Siciliana Grillo 2023",
     "photo": "images/montedidio-blanche-grillo.jpg",
     "millesime": 2023,
@@ -1205,26 +1211,37 @@
     }
   },
   {
-  "nom": "Montedidio Privè Nerello Mascalese",
-  "photo": "images/montedidio-prive-nerello.webp",
-  "millesime": 2025,
-  "couleur": "rouge",
-  "pays": "Italie",
-  "region": "Sicile",
-  "cepage": "Nerello Mascalese",
-  "style": "Solaire, généreux, fruité",
-  "statut": "cave",
-  "stock": 1,
-  "profil": "Nerello Mascalese en appellation Sicilia, produit par Montedidio (maison du Salento). Contrairement aux Etna Rosso d'altitude au profil pâle et tendu, ce Privè exprime une facette plus méridionale et charnue du cépage : fruits rouges mûrs, épices, chaleur maîtrisée (~14,5%). Millésime à vérifier sur la bouteille.",
-  "degustation": { "couleur": "À compléter", "nez": "À compléter", "bouche": "À compléter" },
-  "technique": {
-    "vinification": "À compléter",
-    "classification": "IGT Terre Siciliane",
-    "garde": "3–5 ans",
-    "carafage": "30 min – 1h",
-    "temperature": "16–18°C",
-    "accords": "Bœuf, agneau, pâtes en sauce"
-  },
-  "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
-}
+    "nom": "Montedidio Privè Nerello Mascalese",
+    "photo": "images/montedidio-prive-nerello.webp",
+    "millesime": 2025,
+    "couleur": "rouge",
+    "pays": "Italie",
+    "region": "Sicile",
+    "cepage": "Nerello Mascalese",
+    "style": "Solaire, généreux, fruité",
+    "statut": "cave",
+    "stock": 1,
+    "profil": "Nerello Mascalese en appellation Sicilia, produit par Montedidio (maison du Salento). Contrairement aux Etna Rosso d'altitude au profil pâle et tendu, ce Privè exprime une facette plus méridionale et charnue du cépage : fruits rouges mûrs, épices, chaleur maîtrisée (~14,5%). Millésime à vérifier sur la bouteille.",
+    "degustation": {
+      "couleur": "À compléter",
+      "nez": "À compléter",
+      "bouche": "À compléter"
+    },
+    "technique": {
+      "vinification": "À compléter",
+      "classification": "IGT Terre Siciliane",
+      "garde": "3–5 ans",
+      "carafage": "30 min – 1h",
+      "temperature": "16–18°C",
+      "accords": "Bœuf, agneau, pâtes en sauce"
+    },
+    "journal": {
+      "date": "",
+      "occasion": "",
+      "avec_quoi": "",
+      "ressenti": "",
+      "evolution_verre": "",
+      "note_personnelle": ""
+    }
+  }
 ]
