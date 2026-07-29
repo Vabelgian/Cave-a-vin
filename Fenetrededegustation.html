@@ -679,6 +679,17 @@ function buildPlanningCard(vin) {
     + '</div></div>';
 }
 
+var MOIS = {janvier:1,'février':2,fevrier:2,mars:3,avril:4,mai:5,juin:6,
+  juillet:7,'août':8,aout:8,septembre:9,octobre:10,novembre:11,
+  'décembre':12,decembre:12};
+
+function dateKey(v){
+  var s = (v.date_ouverture||'').toLowerCase().trim();
+  var m = s.match(/(\d{1,2})\s+([a-zàâäéèêëîïôöûüç]+)\s+(\d{4})/);
+  if(!m) return 0;
+  return parseInt(m[3],10)*10000 + (MOIS[m[2]]||0)*100 + parseInt(m[1],10);
+}
+
 function renderPanel(statut, containerId) {
   var container = document.getElementById(containerId);
   var vins = VINS.filter(v => v.statut === statut);
@@ -690,7 +701,11 @@ function renderPanel(statut, containerId) {
   });
   var html = '';
   Object.keys(byYear).sort((a,b) => a-b).forEach(year => {
-    var cards = byYear[year].map(v => statut === 'degust' ? buildDegustCard(v) : buildPlanningCard(v)).join('');
+    var bucket = byYear[year];
+    if (statut === 'degust') {
+      bucket = bucket.slice().sort((a,b) => dateKey(a) - dateKey(b));
+    }
+    var cards = bucket.map(v => statut === 'degust' ? buildDegustCard(v) : buildPlanningCard(v)).join('');
     html += '<div class="year-block" data-year="' + year + '"><div class="year-label">' + year + '</div>' + cards + '</div>';
   });
   html += '<div class="no-result"><p>Aucun vin ne correspond à ces filtres.</p></div>';
