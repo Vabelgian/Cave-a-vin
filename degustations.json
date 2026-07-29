@@ -116,18 +116,25 @@
     "tags": ["Automne", "Alsace", "vin de gastronomie"],
     "badge": { "type": "blue", "icone": "garde", "texte": "Longue garde" }
   },
-  {
-  "statut": "planification",
-  "annee_affichage": 2026,
-  "titre": "Rosato Toscano 2025",
+ {
+  "statut": "degust",
+  "annee_degustation": 2026,
+  "titre": "Fuligni Rosato Toscana 2024",
   "couleur": "rose",
   "lieu_achat": "Peak Wines",
-  "fenetre": "2026-2027",
-  "commentaire": "Rosé issu de sangiovese. Rosé de table pas de soif. A accompagner de charcuterie italienne.",
+  "commentaire": "Rosato de gastronomie qui se démarque clairement d'un rosé de grande distribution. Loin d'un profil gourmand ou démonstratif, il privilégie l'élégance, la fraîcheur et la précision. Sa texture, sa tension et sa finale saline lui confèrent une véritable personnalité et en font un vin pensé pour accompagner un repas plutôt que pour une simple consommation estivale. Un rosé raffiné, dont l'équilibre donne immédiatement envie de reprendre une gorgée.\n\nDès la première dégustation, j'ai senti qu'il ne s'agissait pas d'un rosé \"ordinaire\". La différence se joue moins sur les arômes que sur la texture, la fraîcheur et la longueur en bouche. Un vin qui donne envie de réfléchir autant que de boire.",
   "tags": [
+    "Rosé",
     "Toscane",
-    "Eté",
-    "Soleil"]
+    "Gastronomie italienne"
+  ],
+  "date_ouverture": "28 juillet 2026",
+  "note_degustation": "Robe\nRose pâle aux reflets saumonés, limpide et brillante.\n\nNez\nPremier nez discret qui gagne nettement en intensité après aération. Dominante de framboise fraîche, accompagnée d'un registre floral expressif (rose, fleurs délicates). Ensemble fin, élégant et sans exubérance.\n\nBouche\nAttaque vive et fraîche. Le vin présente une texture plus structurée qu'un rosé classique, avec une belle matière sans aucune lourdeur. Les fruits rouges restent sur la framboise, soutenus par une acidité précise qui apporte beaucoup de tension.\n\nFinale\nLongue, saline et minérale, laissant une sensation de fraîcheur persistante et une salivation marquée, signe d'un excellent équilibre.",
+  "tags_ouverture": [
+    "Evolutif",
+    "Elegance",
+    "Gourmand"
+  ]
 },
  {
   "statut": "planification",
