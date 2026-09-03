@@ -821,7 +821,7 @@
     "millesime": 2025,
     "couleur": "rose",
     "stock": 1,
-    "statut": "bu",
+    "statut": "cave",
     "region": "Toscane",
     "pays": "Italie",
     "cepage": "Sangiovese",
@@ -1092,7 +1092,7 @@
   },
   {
     "nom": "Montedidio Blanchè Compagnia Siciliana Grillo 2023",
-    "photo": "images/blanche.png",
+    "photo": "images/montedidio-blanche-grillo.jpg",
     "millesime": 2023,
     "couleur": "blanc",
     "pays": "Italie",
@@ -1242,6 +1242,150 @@
       "ressenti": "",
       "evolution_verre": "",
       "note_personnelle": ""
+    }
+  },
+  {
+    "nom": "Dolcetto d’Alba 2024",
+    "millesime": 2024,
+    "couleur": "rouge",
+    "stock": 1,
+    "statut": "cave",
+    "region": "Piémont",
+    "pays": "Italie",
+    "cepage": "Dolcetto",
+    "profil": "Massolino est une référence de Serralunga d'Alba, surtout connue pour ses Barolo, et son Dolcetto est un classique bien fait : robe pourpre dense, nez de cerise noire, mûre et prune, avec la petite amertume d'amande typique du cépage. Acidité modérée, tanins souples.",
+    "degustation": {
+      "couleur": "Rubis intense",
+      "nez": "Myrtilles, violette, épices subtiles",
+      "bouche": "Tannins souples, très buvable"
+    },
+    "technique": {
+      "vinification": "Fermenté à environ 30 °C avec une macération de 7–9 jours dans l’acier inoxydable, suivie d’une fermentation malolactique et de quelques mois dans l’acier/le ciment.",
+      "classification": "Dolcetto d’Alba DOC",
+      "garde": "2026-2029",
+      "carafage": "Aucun",
+      "temperature": "14-16°",
+      "accords": "cuisine italienne du quotidien — pâtes à la tomate, pizza, charcuterie/salumi, risotto, volaille rôtie, fromages à pâte pressée jeunes, plats de champignons."
+    }
+  },
+  {
+    "nom": "Palladino Barbera d'Alba 2024",
+    "millesime": 2024,
+    "couleur": "rouge",
+    "stock": 1,
+    "statut": "cave",
+    "region": "Piémont",
+    "pays": "Italie",
+    "cepage": "Barbera",
+    "profil": "Autre maison de Serralunga d'Alba. La Barbera se distingue du Dolcetto par son acidité vive et ses tanins faibles à modérés : couleur profonde, cerise rouge et noire, prune, parfois une note épicée. C'est un vin très gastronomique, dont la fraîcheur tranche dans le gras.",
+    "degustation": {
+      "couleur": "Rouge rubis profond",
+      "nez": "Cerise Amarena, peau de prune, muscade et une pointe de violette",
+      "bouche": "Des fruits rouges mi-corsés et juteux, des tanins doux et une acidité vive et purifiante."
+    },
+    "technique": {
+      "vinification": "Fermenté en cuves inox thermorégulées, puis vieilli en fûts de chêne (barrique/grand fût) avant un court repos en cuve et en bouteille.",
+      "classification": "Barbera d’Alba DOC",
+      "garde": "2026-2030",
+      "carafage": "30 minutes",
+      "temperature": "15-17°",
+      "accords": "sauces tomate riches, lasagnes, viandes grillées, saucisse, salami, risotto consistant, fromages un peu affinés. Son acidité en fait un excellent compagnon des plats gras ou en sauce."
+    }
+  },
+  {
+    "nom": "Crissante Dolcetto d’Alba “Pian delle Masche” 2024",
+    "millesime": 2024,
+    "couleur": "rouge",
+    "stock": 1,
+    "statut": "cave",
+    "region": "Piémont",
+    "pays": "Italie",
+    "cepage": "Dolcetto",
+    "profil": "Petit domaine familial de La Morra. « Pian delle Masche » est un cru parcellaire, donc un Dolcetto plus concentré et structuré qu'un Dolcetto d'entrée de gamme — plus de matière, une trame un peu plus sérieuse tout en gardant le fruit croquant.",
+    "degustation": {
+      "couleur": "Rubis brillant",
+      "nez": "Baies rouges, cerise, légères notes florales et épicées.",
+      "bouche": "Doux, fruité et souple, avec une finale juteuse."
+    },
+    "technique": {
+      "vinification": "Récolté à la main, puis fermenté pendant environ 7 jours sur des peaux dans des cuves en acier inoxydable avec de fréquents pompages ; malolactique également dans l’acier à température contrôlée, sans vieillissement du chêne.",
+      "classification": "Dolcetto d’Alba DOC",
+      "garde": "2026-2029",
+      "carafage": "Aucun",
+      "temperature": "15-16°",
+      "accords": "il encaisse des plats un peu plus riches que le Massolino — agnolotti ou tajarin au ragù, viandes braisées, risotto aux champignons, fromages de moyenne affinité."
+    }
+  },
+  {
+    "nom": "Occhipinti Il Frappato 2024",
+    "millesime": 2024,
+    "couleur": "rouge",
+    "stock": 1,
+    "statut": "cave",
+    "region": "Sicile",
+    "pays": "Italie",
+    "cepage": "Frappato",
+    "profil": "Arianna Occhipinti, nièce de Giusto Occhipinti (COS), une des figures du vin nature italien. Frappato de Vittoria, sur sables et calcaire : c'est le cépage sicilien le plus « aérien »",
+    "degustation": {
+      "couleur": "robe claire",
+      "nez": "Fraise, grenade, fleurs",
+      "bouche": "Tanin fin, bouche digeste"
+    },
+    "technique": {
+      "vinification": "A compléter",
+      "classification": "Terre Siciliane IGT",
+      "garde": "2026-2028",
+      "carafage": "Aucun",
+      "temperature": "13-14°",
+      "accords": "pizza, pâtes tomate/basilic, aubergines grillées, charcuterie, thon grillé, cuisine sicilienne"
+    }
+  },
+  {
+    "nom": "Vitícola Mentridana El Mentridano Blanco 2023",
+    "millesime": 2023,
+    "couleur": "blanc",
+    "stock": 1,
+    "statut": "cave",
+    "region": "Gredos",
+    "pays": "Espagne",
+    "cepage": "Verdejo",
+    "profil": "Un blanc minéral texturé, issu d’anciennes plantations mixtes de Gredos, dominé par l’Albillo Real et d’autres variétés locales. C’est savoureux, salé et gastronomique",
+    "degustation": {
+      "couleur": "Paille avec un aspect non filtré",
+      "nez": "Pomme verte, zeste de citron, fronde du fenouil et fort caractère de pierre concassée et d’embruns marins",
+      "bouche": "Linéaire et salée, avec tendre agrumes et les fruits du verger, une touche de phénols vifs et une longue finale minérale"
+    },
+    "technique": {
+      "vinification": "Mélange de variétés blanches locales, spontanément fermentées et vieillies en grand chêne d’occasion sur lies.",
+      "classification": "D.O. Méntrida",
+      "garde": "2026-2028",
+      "carafage": "Aucun",
+      "temperature": "10-12°",
+      "accords": "poissons grillés volaille gambas légumes rôtis risotto aux champignons"
+    }
+  },
+  {
+    "nom": "Verónica Ortega Quite 2024",
+    "millesime": 2024,
+    "couleur": "rouge",
+    "stock": 1,
+    "statut": "cave",
+    "region": "Bierzo",
+    "pays": "Espagne",
+    "cepage": "Mencía",
+    "profil": "Quite est une cuvée de Bierzo autour de la Mencía, avec une approche plutôt fraîche et digeste. On est loin du côté massif que peut avoir un rouge espagnol traditionnel.",
+    "degustation": {
+      "couleur": "Rubis moyen avec des touches violettes",
+      "nez": "Framboises écrasées, myrtilles, violettes et une touche de poivre blanc et d’herbes sauvages.",
+      "bouche": "Juteux et moyennement corsé, avec des fruits rouges frais, des tanins sableux fins et une finale pure qui fait saliver"
+    },
+    "technique": {
+      "vinification": "Mencia de vieille vigne fermentée avec des levures indigènes et âgée d’environ huit mois dans des fûts de chêne français usagés.",
+      "classification": "D.O. Bierzo",
+      "garde": "2026-2028",
+      "carafage": "Aucun",
+      "temperature": "14-16°",
+      "accords": "poulet rôti aux herbes, charcuterie espagnole, tapas, champignons, voire une belle tortilla espagnole."
     }
   }
 ]
