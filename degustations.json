@@ -222,5 +222,24 @@
     "Longue garde",
     "Vin d'exception"
   ]
+},
+  {
+  "statut": "degust",
+  "annee_degustation": 2026,
+  "titre": "Massolino — Dolcetto d’Alba 2024",
+  "couleur": "rouge",
+  "lieu_achat": "Peak Wines",
+  "commentaire": "Dégusté avec une pizza maison : excellent accord. La tomate fait ressortir le fruit et la fraîcheur du vin, tandis que le fromage arrondit la bouche. Avec la pizza, le vin paraît encore plus expressif et gourmand.\n\nUne très belle surprise pour environ 15 €. Un Dolcetto accessible, gourmand et très bien fait, qui montre qu’un vin de cette gamme peut avoir beaucoup de personnalité. Typiquement le genre de bouteille à ouvrir sans occasion particulière, notamment avec une pizza ou une cuisine italienne simple.",
+  "tags": [
+    "Piémont",
+    "Dolcetto",
+    "Pizza"
+  ],
+  "date_ouverture": "4 septembre 2026",
+  "note_degustation": "🍷 Dégustation :\nUn Dolcetto qui m’a agréablement surpris par sa qualité d’exécution et son équilibre. Au nez comme en bouche, les fruits rouges dominent : cerise, petits fruits rouges frais, avec un joli côté herbacé qui apporte beaucoup de fraîcheur.\n\nEn bouche, le vin est juteux, frais et souple, avec une belle acidité et une matière suffisamment présente pour ne pas paraître simpliste. On retrouve une légère amertume en finale, typique du Dolcetto, qui apporte du relief et prolonge agréablement la dégustation.",
+  "tags_ouverture": [
+    "Accessible",
+    "Everyday"
+  ]
 }
 ]
