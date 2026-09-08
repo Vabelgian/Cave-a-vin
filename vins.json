@@ -1321,6 +1321,7 @@
   },
   {
     "nom": "Occhipinti Il Frappato 2024",
+    "photo": "frappato.webp",
     "millesime": 2024,
     "couleur": "rouge",
     "stock": 1,
@@ -1335,7 +1336,7 @@
       "bouche": "Tanin fin, bouche digeste"
     },
     "technique": {
-      "vinification": "A compléter",
+      "vinification": "Dans des cuves en ciment avec des levures indigènes, 25 jours de macération sur les peaux suivi d'un veillisement de 17 mois dans des fûts en bêton et 1 mois en bouteille",
       "classification": "Terre Siciliane IGT",
       "garde": "2026-2028",
       "carafage": "Aucun",
