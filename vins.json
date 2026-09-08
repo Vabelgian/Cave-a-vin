@@ -1296,7 +1296,7 @@
   },
   {
     "nom": "Crissante Dolcetto d’Alba “Pian delle Masche” 2024",
-    "photo": "images/Crissante_dolcetto_dalba_CF_2024_front.WEBP",
+    "photo": "images/Crissante_dolcetto_dalba_CF_2024_front.webp",
     "millesime": 2024,
     "couleur": "rouge",
     "stock": 1,
@@ -1345,6 +1345,7 @@
   },
   {
     "nom": "Vitícola Mentridana El Mentridano Blanco 2023",
+    "photo": "images/Viticola_Mentridana_El_Mentridano_blanco_2023_front/jpg",
     "millesime": 2023,
     "couleur": "blanc",
     "stock": 1,
@@ -1369,6 +1370,7 @@
   },
   {
     "nom": "Verónica Ortega Quite 2024",
+    "photo": "images/Veronica_Ortega_Quite_2023_front.webp",
     "millesime": 2024,
     "couleur": "rouge",
     "stock": 1,
