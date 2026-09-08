@@ -1092,7 +1092,7 @@
   },
   {
     "nom": "Montedidio Blanchè Compagnia Siciliana Grillo 2023",
-    "photo": "images/montedidio-blanche-grillo.jpg",
+    "photo": "images/blanche.png",
     "millesime": 2023,
     "couleur": "blanc",
     "pays": "Italie",
@@ -1346,7 +1346,7 @@
   },
   {
     "nom": "Vitícola Mentridana El Mentridano Blanco 2023",
-    "photo": "images/Viticola_Mentridana_El_Mentridano_blanco_2023_front/jpg",
+    "photo": "images/Viticola_Mentridana_El_Mentridano_blanco_2023_front.jpg",
     "millesime": 2023,
     "couleur": "blanc",
     "stock": 1,
