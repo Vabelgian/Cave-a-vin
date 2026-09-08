@@ -820,8 +820,8 @@
     "photo": "images/Fulignirosato.jpg",
     "millesime": 2025,
     "couleur": "rose",
-    "stock": 1,
-    "statut": "cave",
+    "stock": 0,
+    "statut": "bu",
     "region": "Toscane",
     "pays": "Italie",
     "cepage": "Sangiovese",
@@ -1245,11 +1245,12 @@
     }
   },
   {
-    "nom": "Dolcetto d’Alba 2024",
+    "nom": "Massolino Dolcetto d’Alba 2024",
+    "photo": "images/Massolino_dolcetto_dalba_2024_front.jpg",
     "millesime": 2024,
     "couleur": "rouge",
-    "stock": 1,
-    "statut": "cave",
+    "stock": 0,
+    "statut": "bu",
     "region": "Piémont",
     "pays": "Italie",
     "cepage": "Dolcetto",
@@ -1270,6 +1271,7 @@
   },
   {
     "nom": "Palladino Barbera d'Alba 2024",
+    "photo" : "images/Palladino_barbera_dalba_2023_front.jpg",
     "millesime": 2024,
     "couleur": "rouge",
     "stock": 1,
@@ -1294,6 +1296,7 @@
   },
   {
     "nom": "Crissante Dolcetto d’Alba “Pian delle Masche” 2024",
+    "photo": "images/Crissante_dolcetto_dalba_CF_2024_front.WEBP",
     "millesime": 2024,
     "couleur": "rouge",
     "stock": 1,
