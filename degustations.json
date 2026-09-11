@@ -112,7 +112,7 @@
     "couleur": "blanc",
     "lieu_achat": "salon",
     "fenetre": "Apogée estimée : 2028 – 2030",
-    "commentaire": "Acheté à Jurbise, 1ére bouteille d'un lot de 6.",
+    "commentaire": "Acheté à Jurbise, 1ére bouteille d'un lot de 6. Dégustation prévue lors d'un repas à base de Risotto aux cépes en octobre 2026.",
     "tags": ["Automne", "Alsace", "vin de gastronomie"],
     "badge": { "type": "blue", "icone": "garde", "texte": "Longue garde" }
   },
@@ -240,6 +240,20 @@
   "tags_ouverture": [
     "Accessible",
     "Everyday"
+  ]
+},
+  {
+  "statut": "planification",
+  "annee_affichage": 2026,
+  "titre": "Barbera Palladino",
+  "couleur": "rouge",
+  "lieu_achat": "Peak Wines",
+  "fenetre": "2026-2028",
+  "commentaire": "Barbera un peu plus évolué. A préparer lors d'une soirée spéciale Piémont avec des tagilolini al tartufo.",
+  "tags": [
+    "Piémont",
+    "Barbera",
+    "Automne"
   ]
 }
 ]
