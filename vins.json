@@ -41,7 +41,7 @@
   },
   {
     "id": 2,
-    "nom": "Andrius Sauvignon Blanc Alto Adige DOC",
+    "nom": "Andrius Sauvignon Blanc 2023",
     "photo": "images/andrius-sauvignon-blanc-alto-adige-doc.jpg",
     "couleur": "blanc",
     "pays": "Italie",
@@ -84,7 +84,7 @@
   },
   {
     "id": 3,
-    "nom": "Livio Felluga \"Potentilla\" Sauvignon Blanc",
+    "nom": "Livio Felluga \"Potentilla\" Sauvignon Blanc 2023",
     "photo": "images/livio-felluga-potentilla-sauvignon-blanc.jpg",
     "couleur": "blanc",
     "pays": "Italie",
@@ -367,7 +367,7 @@
   },
   {
     "id": 10,
-    "nom": "Domaine Wach Gewurtzaminer \"Coeur de Glace\"",
+    "nom": "Domaine Wach Gewurtzaminer \"Coeur de Glace\" 2020",
     "photo": "images/Gewurz+Coeur+de+Glace+PNG-640w.png",
     "couleur": "blanc",
     "pays": "France",
@@ -567,7 +567,7 @@
   },
   {
     "id": 15,
-    "nom": "Saint Véran par Stéphanie Saumaize",
+    "nom": "Saint Véran par Stéphanie Saumaize 2024",
     "photo": "images/stveran.webp",
     "couleur": "blanc",
     "pays": "France",
@@ -1059,8 +1059,8 @@
     "region": "Loire – Pays Nantais",
     "cepage": "Melon de Bourgogne",
     "style": "Sec, frais, salin, apéritif",
-    "statut": "cave",
-    "stock": 1,
+    "statut": "bu",
+    "stock": 0,
     "profil": "Château historique de La Chapelle-Heulin, entouré d'un vignoble de 45 hectares regroupé sur un terroir sableux homogène, avec des vignes de 35 ans d'âge moyen travaillées avec soin (taille guyot, ébourgeonnage manuel). L'élevage sur lies fines (~8 mois) apporte rondeur et ce léger perlant caractéristique du Muscadet « sur lie ». L'archétype du vin d'huîtres et de fruits de mer, à boire jeune et frais. Millésime à vérifier sur l'étiquette.",
     "notes_experts": {
       "wine_advocate": "N/a",
