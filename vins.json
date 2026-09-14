@@ -1318,6 +1318,7 @@
   },
   {
     "nom": "Occhipinti Il Frappato 2024",
+    "photo": "images/frappato.webp",
     "millesime": 2024,
     "couleur": "rouge",
     "stock": 1,
@@ -1342,6 +1343,7 @@
   },
   {
     "nom": "Vitícola Mentridana El Mentridano Blanco 2023",
+    "photo": "images/Viticola_Mentridana_El_Mentridano_blanco_2023_front.jpg",
     "millesime": 2023,
     "couleur": "blanc",
     "stock": 1,
@@ -1366,6 +1368,7 @@
   },
   {
     "nom": "Verónica Ortega Quite 2024",
+    "photo": "images/Veronica_Ortega_Quite_2023_front.webp",
     "millesime": 2024,
     "couleur": "rouge",
     "stock": 1,
@@ -1390,9 +1393,10 @@
   },
   {
     "nom": "Kanonkop Kadette \"Cape Blend\"",
+    "photo": "images/Kadette-Cape-Blend-NV-scaled.jpg",
     "millesime": 2023,
     "couleur": "rouge",
-    "stock": 1,
+    "stock": 4,
     "statut": "cave",
     "region": "Stellenbosch",
     "pays": "Afrique du Sud",
