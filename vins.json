@@ -41,13 +41,16 @@
   },
   {
     "id": 2,
-    "nom": "Andrius Sauvignon Blanc 2023",
+    "nom": "Andrius Sauvignon Blanc Alto Adige DOC",
     "photo": "images/andrius-sauvignon-blanc-alto-adige-doc.jpg",
     "couleur": "blanc",
     "pays": "Italie",
     "region": "Alto Adige",
     "cepage": "Assemblage",
     "style": "Tendu, cristallin, aromatique",
+    "identite": {
+      "cepage_detail": "Pinot Bianco, Chardonnay, Sauvignon Blanc"
+    },
     "statut": "cave",
     "stock": 1,
     "profil": "Ce vin est vraiment l'école Alto Adige : pureté, fraîcheur, précision aromatique, gros travail sur la minéralité. La coopérative Cantina Terlano a été fondée en 1893 et est aujourd'hui l'une des références de l'Alto Adige. Leur philosophie repose sur des vins de grande longévité, grâce à une vinification sur lies prolongée.",
@@ -81,7 +84,7 @@
   },
   {
     "id": 3,
-    "nom": "Livio Felluga \"Potentilla\" Sauvignon Blanc 2023",
+    "nom": "Livio Felluga \"Potentilla\" Sauvignon Blanc",
     "photo": "images/livio-felluga-potentilla-sauvignon-blanc.jpg",
     "couleur": "blanc",
     "pays": "Italie",
@@ -364,7 +367,7 @@
   },
   {
     "id": 10,
-    "nom": "Domaine Wach Gewurtzaminer \"Coeur de Glace\" 2020",
+    "nom": "Domaine Wach Gewurtzaminer \"Coeur de Glace\"",
     "photo": "images/Gewurz+Coeur+de+Glace+PNG-640w.png",
     "couleur": "blanc",
     "pays": "France",
@@ -564,7 +567,7 @@
   },
   {
     "id": 15,
-    "nom": "Saint Véran par Stéphanie Saumaize 2024",
+    "nom": "Saint Véran par Stéphanie Saumaize",
     "photo": "images/stveran.webp",
     "couleur": "blanc",
     "pays": "France",
@@ -817,8 +820,8 @@
     "photo": "images/Fulignirosato.jpg",
     "millesime": 2025,
     "couleur": "rose",
-    "stock": 0,
-    "statut": "bu",
+    "stock": 1,
+    "statut": "cave",
     "region": "Toscane",
     "pays": "Italie",
     "cepage": "Sangiovese",
@@ -1056,8 +1059,8 @@
     "region": "Loire – Pays Nantais",
     "cepage": "Melon de Bourgogne",
     "style": "Sec, frais, salin, apéritif",
-    "statut": "bu",
-    "stock": 0,
+    "statut": "cave",
+    "stock": 1,
     "profil": "Château historique de La Chapelle-Heulin, entouré d'un vignoble de 45 hectares regroupé sur un terroir sableux homogène, avec des vignes de 35 ans d'âge moyen travaillées avec soin (taille guyot, ébourgeonnage manuel). L'élevage sur lies fines (~8 mois) apporte rondeur et ce léger perlant caractéristique du Muscadet « sur lie ». L'archétype du vin d'huîtres et de fruits de mer, à boire jeune et frais. Millésime à vérifier sur l'étiquette.",
     "notes_experts": {
       "wine_advocate": "N/a",
@@ -1089,7 +1092,7 @@
   },
   {
     "nom": "Montedidio Blanchè Compagnia Siciliana Grillo 2023",
-    "photo": "images/blanche.png",
+    "photo": "images/montedidio-blanche-grillo.jpg",
     "millesime": 2023,
     "couleur": "blanc",
     "pays": "Italie",
@@ -1242,12 +1245,11 @@
     }
   },
   {
-    "nom": "Massolino Dolcetto d’Alba 2024",
-    "photo": "images/Massolino_dolcetto_dalba_2024_front.jpg",
+    "nom": "Dolcetto d’Alba 2024",
     "millesime": 2024,
     "couleur": "rouge",
-    "stock": 0,
-    "statut": "bu",
+    "stock": 1,
+    "statut": "cave",
     "region": "Piémont",
     "pays": "Italie",
     "cepage": "Dolcetto",
@@ -1268,7 +1270,6 @@
   },
   {
     "nom": "Palladino Barbera d'Alba 2024",
-    "photo" : "images/Palladino_barbera_dalba_2023_front.jpg",
     "millesime": 2024,
     "couleur": "rouge",
     "stock": 1,
@@ -1293,7 +1294,6 @@
   },
   {
     "nom": "Crissante Dolcetto d’Alba “Pian delle Masche” 2024",
-    "photo": "images/Crissante_dolcetto_dalba_CF_2024_front.webp",
     "millesime": 2024,
     "couleur": "rouge",
     "stock": 1,
@@ -1318,7 +1318,6 @@
   },
   {
     "nom": "Occhipinti Il Frappato 2024",
-    "photo": "images/frappato.webp",
     "millesime": 2024,
     "couleur": "rouge",
     "stock": 1,
@@ -1333,7 +1332,7 @@
       "bouche": "Tanin fin, bouche digeste"
     },
     "technique": {
-      "vinification": "Dans des cuves en ciment avec des levures indigènes, 25 jours de macération sur les peaux suivi d'un veillisement de 17 mois dans des fûts en bêton et 1 mois en bouteille",
+      "vinification": "A compléter",
       "classification": "Terre Siciliane IGT",
       "garde": "2026-2028",
       "carafage": "Aucun",
@@ -1343,7 +1342,6 @@
   },
   {
     "nom": "Vitícola Mentridana El Mentridano Blanco 2023",
-    "photo": "images/Viticola_Mentridana_El_Mentridano_blanco_2023_front.jpg",
     "millesime": 2023,
     "couleur": "blanc",
     "stock": 1,
@@ -1368,7 +1366,6 @@
   },
   {
     "nom": "Verónica Ortega Quite 2024",
-    "photo": "images/Veronica_Ortega_Quite_2023_front.webp",
     "millesime": 2024,
     "couleur": "rouge",
     "stock": 1,
@@ -1389,6 +1386,29 @@
       "carafage": "Aucun",
       "temperature": "14-16°",
       "accords": "poulet rôti aux herbes, charcuterie espagnole, tapas, champignons, voire une belle tortilla espagnole."
+    }
+  },
+  {
+    "nom": "Kanonkop Kadette \"Cape Blend\"",
+    "millesime": 2023,
+    "couleur": "rouge",
+    "stock": 1,
+    "statut": "cave",
+    "region": "Stellenbosch",
+    "pays": "Afrique du Sud",
+    "cepage": "Pinotage + assemblage",
+    "profil": "Kanonkop est l'un des domaines emblématiques de Stellenbosch et une référence historique pour le Pinotage, cépage emblématique de l'Afrique du Sud. Avec Kadette, le domaine propose une expression plus accessible et immédiate de son style, tout en conservant une identité typiquement sud-africaine.\n\nKadette est un assemblage rouge dominé par le Pinotage, complété par des cépages bordelais tels que Cabernet Sauvignon, Merlot et Cabernet Franc. Le résultat recherche davantage l'équilibre entre fruit, fraîcheur, épices et structure qu'une puissance excessive.\n\nIl devrait particulièrement bien fonctionner avec les viandes grillées ou rôties, les plats mijotés et une cuisine automnale aux champignons et aux épices.\n\nDans la cave, présence de 2 millésimes 2023, 1 2021 et 1 2020.",
+    "degustation": {
+      "couleur": "Rouge rubis profond",
+      "nez": "Cassis, framboises, cerises, noir, prunes, cannelle, allspice et un soupçon de chocolat.",
+      "bouche": "Le palais est vif et frais, avec de succulentes saveurs de baies d'été. Le fruit est soutenu par une firme, mais soyeuse structure de tanin. Long finale."
+    },
+    "technique": {
+      "vinification": "La fermentation a eu lieu dans des fermenteurs à béton ouvert à 28°C. Le Les peaux flottantes ont été poinçonnées mécaniquement, toutes les 2 heures pendant fermentation. Le jus a été retiré des peaux après 3 à 5 jours. Après fermentation malolactique le vin a été mûri pendant 12 mois en 2ème et 3ème remplir 225L fûts de chêne français.",
+      "garde": "2026-2032",
+      "carafage": "30-45 minutes d'air",
+      "temperature": "15-16°",
+      "accords": "Pizza, pâtes, viandes rouges, BBQ"
     }
   }
 ]
