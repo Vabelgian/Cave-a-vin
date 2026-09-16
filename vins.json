@@ -41,16 +41,13 @@
   },
   {
     "id": 2,
-    "nom": "Andrius Sauvignon Blanc Alto Adige DOC",
+    "nom": "Andrius Sauvignon Blanc 2023",
     "photo": "images/andrius-sauvignon-blanc-alto-adige-doc.jpg",
     "couleur": "blanc",
     "pays": "Italie",
     "region": "Alto Adige",
     "cepage": "Assemblage",
     "style": "Tendu, cristallin, aromatique",
-    "identite": {
-      "cepage_detail": "Pinot Bianco, Chardonnay, Sauvignon Blanc"
-    },
     "statut": "cave",
     "stock": 1,
     "profil": "Ce vin est vraiment l'école Alto Adige : pureté, fraîcheur, précision aromatique, gros travail sur la minéralité. La coopérative Cantina Terlano a été fondée en 1893 et est aujourd'hui l'une des références de l'Alto Adige. Leur philosophie repose sur des vins de grande longévité, grâce à une vinification sur lies prolongée.",
@@ -84,7 +81,7 @@
   },
   {
     "id": 3,
-    "nom": "Livio Felluga \"Potentilla\" Sauvignon Blanc",
+    "nom": "Livio Felluga \"Potentilla\" Sauvignon Blanc 2020",
     "photo": "images/livio-felluga-potentilla-sauvignon-blanc.jpg",
     "couleur": "blanc",
     "pays": "Italie",
