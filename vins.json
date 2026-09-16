@@ -735,7 +735,7 @@
     "cepage": "Touriga Nacional, Touriga Franca, Tinta Roriz",
     "style": "Puissant, solaire, fût de chêne",
     "statut": "cave",
-    "stock": 4,
+    "stock": 3,
     "profil": "Issu des vignobles de schiste portugais, ce Reserva exprime un profil solaire et puissant où se mêlent fruits noirs, épices douces et nuances de vanille. Sa structure affirmée et sa belle profondeur en font un vin particulièrement adapté aux viandes grillées et aux plats riches..",
     "notes_experts": {
       "wine_advocate": "N/a",
@@ -1092,7 +1092,7 @@
   },
   {
     "nom": "Montedidio Blanchè Compagnia Siciliana Grillo 2023",
-    "photo": "images/montedidio-blanche-grillo.jpg",
+    "photo": "images/blanche.png",
     "millesime": 2023,
     "couleur": "blanc",
     "pays": "Italie",
@@ -1211,7 +1211,7 @@
     }
   },
   {
-    "nom": "Montedidio Privè Nerello Mascalese",
+    "nom": "Montedidio Privè Nerello Mascalese 2022",
     "photo": "images/montedidio-prive-nerello.webp",
     "millesime": 2025,
     "couleur": "rouge",
@@ -1220,7 +1220,7 @@
     "cepage": "Nerello Mascalese",
     "style": "Solaire, généreux, fruité",
     "statut": "cave",
-    "stock": 1,
+    "stock": 5,
     "profil": "Nerello Mascalese en appellation Sicilia, produit par Montedidio (maison du Salento). Contrairement aux Etna Rosso d'altitude au profil pâle et tendu, ce Privè exprime une facette plus méridionale et charnue du cépage : fruits rouges mûrs, épices, chaleur maîtrisée (~14,5%). Millésime à vérifier sur la bouteille.",
     "degustation": {
       "couleur": "À compléter",
