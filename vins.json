@@ -820,8 +820,8 @@
     "photo": "images/Fulignirosato.jpg",
     "millesime": 2025,
     "couleur": "rose",
-    "stock": 1,
-    "statut": "cave",
+    "stock": 0,
+    "statut": "bu",
     "region": "Toscane",
     "pays": "Italie",
     "cepage": "Sangiovese",
@@ -1011,9 +1011,9 @@
     }
   },
   {
-    "nom": "Massimo Firelli Susumaniello « Prestige »",
+    "nom": "Massimo Firelli Susumaniello « Prestige » 2022",
     "photo": "images/massimo-firelli-susumaniello-prestige.webp",
-    "millesime": 2024,
+    "millesime": 2022,
     "couleur": "rouge",
     "pays": "Italie",
     "region": "Pouilles – Salento",
@@ -1021,7 +1021,7 @@
     "style": "Opulent, gourmand, sucrosité marquée",
     "statut": "cave",
     "stock": 1,
-    "profil": "Cuvée prestige élaborée au cœur du Salento à partir du Susumaniello, un des cépages les plus rares et anciens des Pouilles, quasiment disparu avant sa redécouverte récente. Son nom dérive de « somarello » (petit âne), l'animal qui transportait autrefois la vendange. Style résolument moderne et gourmand : puissant (14,5%), avec un sucre résiduel notable (~10 g/l) qui le classe en demi-sec — à savoir avant de le servir. Millésime à vérifier sur l'étiquette (le 2020 a été médaillé d'or au Berlin Wine Trophy et au Concours Mondial de Bruxelles).",
+    "profil": "Cuvée prestige élaborée au cœur du Salento à partir du Susumaniello, un des cépages les plus rares et anciens des Pouilles, quasiment disparu avant sa redécouverte récente. Son nom dérive de « somarello » (petit âne), l'animal qui transportait autrefois la vendange. Style résolument moderne et gourmand : puissant (14,5%), avec un sucre résiduel notable (~10 g/l) qui le classe en demi-sec — à savoir avant de le servir.",
     "notes_experts": {
       "wine_advocate": "N/a",
       "jancis_robinson": "N/a",
@@ -1059,8 +1059,8 @@
     "region": "Loire – Pays Nantais",
     "cepage": "Melon de Bourgogne",
     "style": "Sec, frais, salin, apéritif",
-    "statut": "cave",
-    "stock": 1,
+    "statut": "bu",
+    "stock": 0,
     "profil": "Château historique de La Chapelle-Heulin, entouré d'un vignoble de 45 hectares regroupé sur un terroir sableux homogène, avec des vignes de 35 ans d'âge moyen travaillées avec soin (taille guyot, ébourgeonnage manuel). L'élevage sur lies fines (~8 mois) apporte rondeur et ce léger perlant caractéristique du Muscadet « sur lie ». L'archétype du vin d'huîtres et de fruits de mer, à boire jeune et frais. Millésime à vérifier sur l'étiquette.",
     "notes_experts": {
       "wine_advocate": "N/a",
@@ -1246,10 +1246,11 @@
   },
   {
     "nom": "Dolcetto d’Alba 2024",
+    "photo": "images/Massolino_dolcetto_dalba_2024_front.jpg",
     "millesime": 2024,
     "couleur": "rouge",
-    "stock": 1,
-    "statut": "cave",
+    "stock": 0,
+    "statut": "bu",
     "region": "Piémont",
     "pays": "Italie",
     "cepage": "Dolcetto",
@@ -1270,6 +1271,7 @@
   },
   {
     "nom": "Palladino Barbera d'Alba 2024",
+    "photo": "images/Palladino_barbera_dalba_2023_front.jpg",
     "millesime": 2024,
     "couleur": "rouge",
     "stock": 1,
@@ -1294,6 +1296,7 @@
   },
   {
     "nom": "Crissante Dolcetto d’Alba “Pian delle Masche” 2024",
+    "photo": "images/Crissante_dolcetto_dalba_CF_2024_front.webp",
     "millesime": 2024,
     "couleur": "rouge",
     "stock": 1,
