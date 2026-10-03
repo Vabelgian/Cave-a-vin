@@ -255,5 +255,25 @@
     "Barbera",
     "Automne"
   ]
+},
+  {
+  "statut": "degust",
+  "annee_degustation": 2026,
+  "titre": "Kanonkop Kadette 2023",
+  "couleur": "rouge",
+  "lieu_achat": "Carrefour",
+  "commentaire": "Un rouge sud-africain fruité, frais et fumé, dont la structure tannique semble mieux s'exprimer à table qu'en dégustation isolée. Une très belle association avec le burger gourmet maison.",
+  "tags": [
+    "Burger",
+    "Afrique du Sud",
+    "Cuisine simple"
+  ],
+  "date_ouverture": "2 octobre 2026",
+  "note_degustation": "Le nez\n\nUn nez fruité et frais, accompagné d'une note fumée bien perceptible. Après une trentaine de minutes, le vin semble plus ouvert et gagne en profondeur.\n\n👄 La bouche\n\nÀ l'ouverture, les tanins sont perceptibles et apportent une légère astringence. Le vin présente une certaine retenue, sans pour autant empêcher le plaisir de dégustation.\n\nAprès 30 minutes, il paraît plus ouvert et plus sérieux dans son expression. La structure reste présente, mais l'impression générale évolue favorablement.\n\n🍔 L'accord mets-vin\n\nAvec le burger gourmet maison, l'accord est une réussite totale. L'astringence ressentie à l'ouverture disparaît complètement au contact du plat. Le vin trouve sa place aux côtés de la viande et de ses saveurs grillées.\n\n🏁 La finale\n\nUne finale suffisamment séduisante pour donner envie de reprendre une gorgée. Un élément important du plaisir ressenti pendant le repas.",
+  "tags_ouverture": [
+    "Solaire",
+    "Pinotage",
+    "Structuré"
+  ]
 }
 ]
