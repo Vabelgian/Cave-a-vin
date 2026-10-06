@@ -1048,46 +1048,6 @@
     }
   },
   {
-    "nom": "Château Cassemichère Muscadet Sèvre et Maine sur Lie",
-    "photo": "images/cassemichere-muscadet.jpg",
-    "millesime": null,
-    "couleur": "blanc",
-    "pays": "France",
-    "region": "Loire – Pays Nantais",
-    "cepage": "Melon de Bourgogne",
-    "style": "Sec, frais, salin, apéritif",
-    "statut": "bu",
-    "stock": 0,
-    "profil": "Château historique de La Chapelle-Heulin, entouré d'un vignoble de 45 hectares regroupé sur un terroir sableux homogène, avec des vignes de 35 ans d'âge moyen travaillées avec soin (taille guyot, ébourgeonnage manuel). L'élevage sur lies fines (~8 mois) apporte rondeur et ce léger perlant caractéristique du Muscadet « sur lie ». L'archétype du vin d'huîtres et de fruits de mer, à boire jeune et frais. Millésime à vérifier sur l'étiquette.",
-    "notes_experts": {
-      "wine_advocate": "N/a",
-      "jancis_robinson": "N/a",
-      "james_suckling": "N/a",
-      "peak_wines": "N/a"
-    },
-    "degustation": {
-      "couleur": "Jaune pâle brillant à reflets argentés",
-      "nez": "Fleurs blanches (aubépine), agrumes (pamplemousse, citron), fruits frais",
-      "bouche": "Attaque souple, matière charnue et harmonieuse, arômes de poire et citron, finale délicatement saline, croquante et longue"
-    },
-    "technique": {
-      "vinification": "Élevage ~8 mois sur lies fines",
-      "classification": "Muscadet Sèvre et Maine sur Lie AOP",
-      "garde": "2–4 ans",
-      "carafage": "Non",
-      "temperature": "8–10°C",
-      "accords": "Huîtres, fruits de mer, crustacés, poissons, viandes blanches, apéritif"
-    },
-    "journal": {
-      "date": "",
-      "occasion": "",
-      "avec_quoi": "",
-      "ressenti": "",
-      "evolution_verre": "",
-      "note_personnelle": ""
-    }
-  },
-  {
     "nom": "Montedidio Blanchè Compagnia Siciliana Grillo 2023",
     "photo": "images/blanche.png",
     "millesime": 2023,
