@@ -492,7 +492,7 @@
     "cepage": "Nero d'Avola",
     "style": "Solaire, puissant, généreux",
     "statut": "cave",
-    "stock": 3,
+    "stock": 2,
     "profil": "Ce 100% Nero d'Avola est cultivé principalement sur les collines de la Sicile occidentale entre 300 et 500 mètres d'altitude. Le style moderne cherche à dompter la fougue du cépage pour créer un vin immédiat, soyeux et extrêmement flatteur.",
     "notes_experts": {
       "wine_advocate": "N/a",
@@ -1356,12 +1356,12 @@
     "photo": "images/Kadette-Cape-Blend-NV-scaled.jpg",
     "millesime": 2023,
     "couleur": "rouge",
-    "stock": 3,
+    "stock": 5,
     "statut": "cave",
     "region": "Stellenbosch",
     "pays": "Afrique du Sud",
     "cepage": "Pinotage + assemblage",
-    "profil": "Kanonkop est l'un des domaines emblématiques de Stellenbosch et une référence historique pour le Pinotage, cépage emblématique de l'Afrique du Sud. Avec Kadette, le domaine propose une expression plus accessible et immédiate de son style, tout en conservant une identité typiquement sud-africaine.\n\nKadette est un assemblage rouge dominé par le Pinotage, complété par des cépages bordelais tels que Cabernet Sauvignon, Merlot et Cabernet Franc. Le résultat recherche davantage l'équilibre entre fruit, fraîcheur, épices et structure qu'une puissance excessive.\n\nIl devrait particulièrement bien fonctionner avec les viandes grillées ou rôties, les plats mijotés et une cuisine automnale aux champignons et aux épices.\n\nDans la cave, présence des millésimes 2023, 2021 et 2020.",
+    "profil": "Kanonkop est l'un des domaines emblématiques de Stellenbosch et une référence historique pour le Pinotage, cépage emblématique de l'Afrique du Sud. Avec Kadette, le domaine propose une expression plus accessible et immédiate de son style, tout en conservant une identité typiquement sud-africaine.\n\nKadette est un assemblage rouge dominé par le Pinotage, complété par des cépages bordelais tels que Cabernet Sauvignon, Merlot et Cabernet Franc. Le résultat recherche davantage l'équilibre entre fruit, fraîcheur, épices et structure qu'une puissance excessive.\n\nIl devrait particulièrement bien fonctionner avec les viandes grillées ou rôties, les plats mijotés et une cuisine automnale aux champignons et aux épices.\n\nDans la cave, présence de deux millésimes 2023, un 2021 et deux 2020.",
     "degustation": {
       "couleur": "Rouge rubis profond",
       "nez": "Cassis, framboises, cerises, noir, prunes, cannelle, allspice et un soupçon de chocolat.",
