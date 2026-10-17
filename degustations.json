@@ -105,17 +105,6 @@
     "tags": ["Barolo"],
     "badge": { "type": "green", "icone": "check", "texte": "Grand Repas" }
   },
-  {
-    "statut": "planification",
-    "annee_affichage": 2026,
-    "titre": "Domaine de l'envol Pinot gris 2024",
-    "couleur": "blanc",
-    "lieu_achat": "salon",
-    "fenetre": "Apogée estimée : 2028 – 2030",
-    "commentaire": "Acheté à Jurbise, 1ére bouteille d'un lot de 6. Dégustation prévue lors d'un repas à base de Risotto aux cépes en octobre 2026.",
-    "tags": ["Automne", "Alsace", "vin de gastronomie"],
-    "badge": { "type": "blue", "icone": "garde", "texte": "Longue garde" }
-  },
  {
   "statut": "degust",
   "annee_degustation": 2026,
@@ -274,6 +263,26 @@
     "Solaire",
     "Pinotage",
     "Structuré"
+  ]
+},
+  {
+  "statut": "degust",
+  "annee_degustation": 2026,
+  "titre": "Domaine de l'Envol pinot gris 2024",
+  "couleur": "blanc",
+  "lieu_achat": "Salon",
+  "commentaire": "1ére bouteille d'un lot acheté au salon du vin de Jurbise. Lors d'une soirée Père-fils, avec zakouskis de poissons et risotto aux girolles. Ce que je reviens de ce vin c'est la très nette différence entre le pinot gris Alsacien et Vénitien. C'est un vin d'automne/hiver grâce à ça très bonne minéralité et son style enveloppant en bouche. Un vin qui apporte de la matière et de la texture au plat.",
+  "tags": [
+    "Fruits jaune",
+    "Minéralité",
+    "Automne"
+  ],
+  "date_ouverture": "16 octobre 2026",
+  "note_degustation": "Au nez, ce qui ressort c'est les fruits jaunes. Poire, mûres, coing, éventuellement mirabelle et abricot. En bouche, également, puis directement le coté gras du vin avec sa belle minéralité. Je dirais même calcaire. Le coté \"granite\" du vin qui ressort. Le vin occupe de l'espace en bouche, avec une certaine ampleur et une texture enveloppante. Cependant, il n'est pas lourd.",
+  "tags_ouverture": [
+    "Automne",
+    "Calcaire",
+    "Sous-Bois"
   ]
 }
 ]
