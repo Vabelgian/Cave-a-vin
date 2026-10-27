@@ -1202,25 +1202,25 @@
     }
   },
   {
-    "nom": "Dolcetto d’Alba 2024",
+    "nom": "Dolcetto d’Alba 2025",
     "photo": "images/Massolino_dolcetto_dalba_2024_front.jpg",
     "millesime": 2024,
     "couleur": "rouge",
-    "stock": 0,
-    "statut": "bu",
+    "stock": 6,
+    "statut": "cave",
     "region": "Piémont",
     "pays": "Italie",
     "cepage": "Dolcetto",
     "profil": "Massolino est une référence de Serralunga d'Alba, surtout connue pour ses Barolo, et son Dolcetto est un classique bien fait : robe pourpre dense, nez de cerise noire, mûre et prune, avec la petite amertume d'amande typique du cépage. Acidité modérée, tanins souples.",
     "degustation": {
       "couleur": "Rubis intense",
-      "nez": "Myrtilles, violette, épices subtiles",
-      "bouche": "Tannins souples, très buvable"
+      "nez": "Fruits rouges frais, cerise, fruits des bois et notes herbacées. Des nuances florales peuvent compléter le bouquet.",
+      "bouche": " Fruité, souple et gourmand, avec une acidité rafraîchissante, des tanins présents mais accessibles et une finale agréable. Une belle intensité sans lourdeur."
     },
     "technique": {
       "vinification": "Fermenté à environ 30 °C avec une macération de 7–9 jours dans l’acier inoxydable, suivie d’une fermentation malolactique et de quelques mois dans l’acier/le ciment.",
       "classification": "Dolcetto d’Alba DOC",
-      "garde": "2026-2029",
+      "garde": "2026-2028, 2029 possible",
       "carafage": "Aucun",
       "temperature": "14-16°",
       "accords": "cuisine italienne du quotidien — pâtes à la tomate, pizza, charcuterie/salumi, risotto, volaille rôtie, fromages à pâte pressée jeunes, plats de champignons."
