@@ -284,5 +284,23 @@
     "Calcaire",
     "Sous-Bois"
   ]
+},
+  {
+  "statut": "degust",
+  "annee_degustation": 2026,
+  "titre": "Saint-Véran — Stéphanie Saumaize",
+  "couleur": "blanc",
+  "lieu_achat": "Salon",
+  "commentaire": "2éme bouteille. La fraîcheur est toujours bien présente, mais le profil aromatique reste particulièrement discret. La bouche est agréable, équilibrée et sans lourdeur, sans pour autant offrir une grande intensité aromatique. Comme lors de la première dégustation, c'est véritablement avec le poisson que le vin prend une autre dimension : il gagne en présence et semble trouver tout son équilibre à table. Un Chardonnay qui se révèle davantage dans l'accompagnement gastronomique que dégusté seul à l'apéritif.",
+  "tags": [
+    "Frais",
+    "Discret"
+  ],
+  "date_ouverture": "25 octobre",
+  "note_degustation": "Après deux dégustations, je ne ressens pas de nécessité particulière à attendre davantage pour le voir évoluer. Son expression semble plutôt relever du style du vin que d'un manque de maturité. À redécouvrir au printemps, avec un beau plat de poisson.",
+  "tags_ouverture": [
+    "De table",
+    "Poissons"
+  ]
 }
 ]
