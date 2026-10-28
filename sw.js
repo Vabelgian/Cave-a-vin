@@ -1,10 +1,10 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // Vinea — Service Worker
-// Version : cave-v8 (cache d'images persistant, photos disponibles hors ligne)
+// Version : cave-v9 (cache d'images persistant, photos disponibles hors ligne)
 // ─────────────────────────────────────────────────────────────────────────────
 
 // Cache des pages et des données : renouvelé à chaque changement de VERSION
-const VERSION = 'cave-v8';
+const VERSION = 'cave-v9';
 
 // Cache des photos : NE CHANGE PAS quand VERSION change, les photos déjà vues
 // restent donc disponibles hors ligne après une mise à jour de l'app.
@@ -144,28 +144,53 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // 4. DONNÉES (JSON, articles.js) : cache d'abord + mise à jour en arrière-plan ─
-  const isData = url.split('?')[0].endsWith('.json') || url.includes('articles.js');
+ 
+  // 4. DONNÉES (JSON, articles.js) : réseau d'abord + cache en secours
+  const isData =
+    url.split('?')[0].endsWith('.json') ||
+    url.includes('articles.js');
 
   if (isData) {
-    event.respondWith(
-      caches.open(VERSION).then(cache =>
-        cache.match(request).then(cached => {
-          const networkFetch = fetch(request)
-            .then(response => {
-              if (response.ok) cache.put(request, response.clone());
-              return response;
-            })
-            .catch(() => null);
+    event.respondWith((async () => {
+      const cache = await caches.open(VERSION);
 
-          if (cached) {
-            event.waitUntil(networkFetch);
-            return cached;
+      try {
+        // Demande une réponse fraîche au serveur
+        const response = await fetch(request, {
+          cache: 'no-store'
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        // Actualise le cache pour une utilisation hors ligne
+        await cache.put(request, response.clone());
+
+        return response;
+      } catch (error) {
+        // Hors ligne ou serveur indisponible :
+        // on conserve l'accès aux dernières données en cache
+        const cached = await cache.match(request);
+
+        if (cached) {
+          return cached;
+        }
+
+        return new Response(
+          JSON.stringify({
+            error: 'Données indisponibles'
+          }),
+          {
+            status: 503,
+            headers: {
+              'Content-Type': 'application/json'
+            }
           }
-          return networkFetch.then(response => response || Response.error());
-        })
-      )
-    );
+        );
+      }
+    })());
+
     return;
   }
 
