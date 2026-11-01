@@ -412,8 +412,8 @@
     "cepage": "Chardonnay",
     "style": "Minéral, pierre à fusil, aromatique",
     "statut": "cave",
-    "stock": 3,
-    "profil": "100% Chardonnay, vinifié en cuve inox avec élevage sur lies fines. Robe paille, nez d'agrumes et notes minérales, joli équilibre et longueur sympa. Domaine Colbois est un vignoble respecté localement, produisant un Chablis franc, minéral, bien fait, dans le style classique.",
+    "stock": 6,
+    "profil": "100% Chardonnay, vinifié en cuve inox avec élevage sur lies fines. Robe paille, nez d'agrumes et notes minérales, joli équilibre et longueur sympa. Domaine Colbois est un vignoble respecté localement, produisant un Chablis franc, minéral, bien fait, dans le style classique. Présence de 3 bouteilles du millésime 2025.",
     "notes_experts": {
       "wine_advocate": "N/a",
       "jancis_robinson": "N/a",
@@ -1378,6 +1378,7 @@
   {
     "nom": "Domaine Colbois Bourgogne Aligoté 2025",
     "millesime": 2025,
+    "photo": "images/aligote.png",
     "couleur": "blanc",
     "stock": 3,
     "statut": "cave",
@@ -1386,6 +1387,7 @@
     "cepage": "Aligoté",
     "profil": "Le Domaine Colbois, installé à Chitry-le-Fort au cœur de l'Auxerrois depuis 1970 (Michel, rejoint par son fils Benjamin en 2009), est une valeur sûre pour ses blancs, qu'ils soient de chardonnay ou d'aligoté. Cet aligoté provient de vieilles vignes (environ 40 ans), vinifié aux levures indigènes avec un court élevage en cuve. C'est l'aligoté dans sa version moderne : tendu, aromatique, bien plus sérieux que sa réputation de simple vin d'apéritif.",
     "degustation": {
+      "couleur": "La robe est brillante avec des reflets jaunes pâle, vert",
       "nez": "Pomme verte, herbe fraîche, pamplemousse, pierre à fusil",
       "bouche": "Attaque vive et croquante, belle tension, finale fraîche et saline"
     },
@@ -1401,6 +1403,7 @@
   {
     "nom": "Domaine Wach Riesling Grand Cru Kastelberg 2021",
     "millesime": 2021,
+    "photo": "images/Kastelberg.png",
     "couleur": "blanc",
     "stock": 2,
     "statut": "cave",
@@ -1409,6 +1412,7 @@
     "cepage": "Riesling",
     "profil": "Le Kastelberg, à Andlau, est le seul grand cru d'Alsace planté entièrement sur schiste : une très forte pente, moins de 6 hectares et un terroir rare, terre d'élection du riesling. Le Domaine Wach (Domaine des Marronniers) en fait la fierté de sa gamme : un riesling sec, plein et minéral. Le millésime 2021, frais et vif en Alsace, promet un vin droit, précis, qui gagnera en complexité avec quelques années de cave.",
     "degustation": {
+      "couleur": "La robe est brillante avec des reflets jaunes pâle, vert",
       "nez": "Citron vert, agrumes, pierre à fusil, notes fumées et minérales",
       "bouche": "Sec, plein, tension minérale, finale longue et saline"
     },
@@ -1424,6 +1428,7 @@
   {
     "nom": "Château Saint-Martin de la Garrigue Grès de Montpellier 2021",
     "millesime": 2021,
+    "photo": "images/Grès.jpg",
     "couleur": "rouge",
     "stock": 6,
     "statut": "cave",
@@ -1447,6 +1452,7 @@
   {
     "nom": "Domaine Manuel Olivier Bourgogne Dijon Chardonnay 2023",
     "millesime": 2023,
+    "photo": "images/",
     "couleur": "blanc",
     "stock": 6,
     "statut": "cave",
