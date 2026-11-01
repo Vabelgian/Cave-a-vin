@@ -412,8 +412,8 @@
     "cepage": "Chardonnay",
     "style": "Minéral, pierre à fusil, aromatique",
     "statut": "cave",
-    "stock": 6,
-    "profil": "100% Chardonnay, vinifié en cuve inox avec élevage sur lies fines. Robe paille, nez d'agrumes et notes minérales, joli équilibre et longueur sympa. Domaine Colbois est un vignoble respecté localement, produisant un Chablis franc, minéral, bien fait, dans le style classique. Présence dans la cave de 3 millésimes 2025",
+    "stock": 3,
+    "profil": "100% Chardonnay, vinifié en cuve inox avec élevage sur lies fines. Robe paille, nez d'agrumes et notes minérales, joli équilibre et longueur sympa. Domaine Colbois est un vignoble respecté localement, produisant un Chablis franc, minéral, bien fait, dans le style classique.",
     "notes_experts": {
       "wine_advocate": "N/a",
       "jancis_robinson": "N/a",
@@ -1373,6 +1373,99 @@
       "carafage": "30-45 minutes d'air",
       "temperature": "15-16°",
       "accords": "Pizza, pâtes, viandes rouges, BBQ"
+    }
+  },
+  {
+    "nom": "Domaine Colbois Bourgogne Aligoté 2025",
+    "millesime": 2025,
+    "couleur": "blanc",
+    "stock": 3,
+    "statut": "cave",
+    "region": "Bourgogne",
+    "pays": "France",
+    "cepage": "Aligoté",
+    "profil": "Le Domaine Colbois, installé à Chitry-le-Fort au cœur de l'Auxerrois depuis 1970 (Michel, rejoint par son fils Benjamin en 2009), est une valeur sûre pour ses blancs, qu'ils soient de chardonnay ou d'aligoté. Cet aligoté provient de vieilles vignes (environ 40 ans), vinifié aux levures indigènes avec un court élevage en cuve. C'est l'aligoté dans sa version moderne : tendu, aromatique, bien plus sérieux que sa réputation de simple vin d'apéritif.",
+    "degustation": {
+      "nez": "Pomme verte, herbe fraîche, pamplemousse, pierre à fusil",
+      "bouche": "Attaque vive et croquante, belle tension, finale fraîche et saline"
+    },
+    "technique": {
+      "vinification": "Levures indigènes, court élevage en cuve",
+      "classification": "Bourgogne Aligoté AOC",
+      "garde": "2026-2028",
+      "carafage": "Aucun",
+      "temperature": "10-12°",
+      "accords": "Apéritif, gougères, escargots, fruits de mer, poissons grillés, fromage de chèvre frais"
+    }
+  },
+  {
+    "nom": "Domaine Wach Riesling Grand Cru Kastelberg 2021",
+    "millesime": 2021,
+    "couleur": "blanc",
+    "stock": 2,
+    "statut": "cave",
+    "region": "Alsace",
+    "pays": "France",
+    "cepage": "Riesling",
+    "profil": "Le Kastelberg, à Andlau, est le seul grand cru d'Alsace planté entièrement sur schiste : une très forte pente, moins de 6 hectares et un terroir rare, terre d'élection du riesling. Le Domaine Wach (Domaine des Marronniers) en fait la fierté de sa gamme : un riesling sec, plein et minéral. Le millésime 2021, frais et vif en Alsace, promet un vin droit, précis, qui gagnera en complexité avec quelques années de cave.",
+    "degustation": {
+      "nez": "Citron vert, agrumes, pierre à fusil, notes fumées et minérales",
+      "bouche": "Sec, plein, tension minérale, finale longue et saline"
+    },
+    "technique": {
+      "vinification": "A complèter",
+      "classification": "Alsace Grand Cru Kastelberg AOC",
+      "garde": "2026-2046",
+      "carafage": "Non mais laisser respirer dans le verre",
+      "temperature": "8-12°",
+      "accords": "Poissons nobles, volaille à la crème, choucroute de la mer, fromages à pâte dure"
+    }
+  },
+  {
+    "nom": "Château Saint-Martin de la Garrigue Grès de Montpellier 2021",
+    "millesime": 2021,
+    "couleur": "rouge",
+    "stock": 6,
+    "statut": "cave",
+    "region": "Languedoc – Grès de Montpellier",
+    "pays": "France",
+    "cepage": "Mourvèdre, Syrah, Grenache",
+    "profil": "Le Château Saint-Martin de la Garrigue, entre Béziers et Montpellier, à quelques kilomètres de la Méditerranée, cultive environ 63 hectares autour d'un château Renaissance, sur des grès calcaires. Grès de Montpellier est sa cuvée de référence en rouge, un assemblage de Mourvèdre, Syrah et Grenache, élevé en fût. Un vin plus structuré et profond que les cuvées d'entrée de gamme du domaine, avec le soleil du Languedoc et une vraie capacité de garde.",
+    "degustation": {
+      "nez": "Fruits noirs mûrs, olive noire, épices, garrigue (typique de la cuvée)",
+      "bouche": "Volume, tanins bien intégrés, chaleur méditerranéenne, finale persistante"
+    },
+    "technique": {
+      "vinification": "A complèter",
+      "classification": "AOC Languedoc Grès de Montpellier",
+      "garde": "2026-2034",
+      "carafage": "1h",
+      "temperature": "16-17°",
+      "accords": "Viandes rouges, gibier, plats mijotés, fromages affinés"
+    }
+  },
+  {
+    "nom": "Domaine Manuel Olivier Bourgogne Dijon Chardonnay 2023",
+    "millesime": 2023,
+    "couleur": "blanc",
+    "stock": 6,
+    "statut": "cave",
+    "region": "Bourgogne",
+    "pays": "France",
+    "cepage": "Chardonnay",
+    "profil": "Le Domaine Manuel Olivier, basé à Nuits-Saint-Georges, est un domaine familial de quatre générations qui s'étend sur une trentaine d'hectares de chardonnay, pinot noir et aligoté. Ce Bourgogne Chardonnay est issu de coteaux calcaires pentus autour de Dijon, vers 360 m d'altitude : un blanc d'entrée de gamme de bonne facture, ouvert, fruité et frais.",
+    "degustation": {
+      "couleur": "A complèter",
+      "nez": "Fruits à chair blanche, abricot mûr, agrumes",
+      "bouche": "Frais, fruité, droit, finale calcaire"
+    },
+    "technique": {
+      "vinification": "A compléter",
+      "classification": "Bourgogne AOC",
+      "garde": "2026-2029",
+      "carafage": "Non",
+      "temperature": "10-12°",
+      "accords": "Poissons, volaille, viandes blanches, fromages à pâte molle, gougères"
     }
   }
 ]
