@@ -302,5 +302,60 @@
     "De table",
     "Poissons"
   ]
+},
+  {
+  "statut": "planification",
+  "annee_affichage": 2026,
+  "titre": "Nativ Eremo San Quirico 2019",
+  "couleur": "rouge",
+  "lieu_achat": "Vivino",
+  "fenetre": "2028-2030",
+  "commentaire": "Ouverture prévue en décembre 2026 avec du gibier.",
+  "tags": [
+    "Taurasi",
+    "Gibier",
+    "Automne"
+  ]
+},
+  {
+  "statut": "planification",
+  "annee_affichage": 2027,
+  "titre": "Au bon climat Chardonnay Bien Nacido Vineyard 2021",
+  "couleur": "blanc",
+  "lieu_achat": "Peak wines",
+  "fenetre": "2027-2030",
+  "commentaire": "Ouverture prévue en janvier 2027 avec un bon plat de poissons/crustacés.",
+  "tags": [
+    "Californie",
+    "Grande table",
+    "repas gastronomique"
+  ]
+},
+  {
+  "statut": "planification",
+  "annee_affichage": 2027,
+  "titre": "Massimo Firelli Susumaniello « Prestige » 2022",
+  "couleur": "rouge",
+  "lieu_achat": "Bourse",
+  "fenetre": "2027",
+  "commentaire": "A boire absolument 2027 avant sa fin. idéalement avec plat italien.",
+  "tags": [
+    "Pouilles",
+    "Pâtes",
+    "Puissant"
+  ]
+},
+  {
+  "statut": "planification",
+  "annee_affichage": 2027,
+  "titre": "Verónica Ortega Quite 2024",
+  "couleur": "rouge",
+  "fenetre": "2027-2028",
+  "commentaire": "Ouvrir au printemps avec une belle table en terrasse. Tapas et soleil.",
+  "tags": [
+    "Bierzo",
+    "Printemps",
+    "Finesse"
+  ]
 }
 ]
