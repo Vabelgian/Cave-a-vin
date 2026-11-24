@@ -140,7 +140,7 @@
 },
   {
   "statut": "planification",
-  "annee_affichage": 2027,
+  "annee_affichage": 2026,
   "titre": "Leirana Albariño 2024",
   "couleur": "blanc",
   "lieu_achat": "Peak Wines",
@@ -229,20 +229,6 @@
   "tags_ouverture": [
     "Accessible",
     "Everyday"
-  ]
-},
-  {
-  "statut": "planification",
-  "annee_affichage": 2026,
-  "titre": "Barbera Palladino",
-  "couleur": "rouge",
-  "lieu_achat": "Peak Wines",
-  "fenetre": "2026-2028",
-  "commentaire": "Barbera un peu plus évolué. A préparer lors d'une soirée spéciale Piémont avec des tagilolini al tartufo.",
-  "tags": [
-    "Piémont",
-    "Barbera",
-    "Automne"
   ]
 },
   {
