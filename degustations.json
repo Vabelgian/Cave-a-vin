@@ -357,5 +357,25 @@
     "Printemps",
     "Finesse"
   ]
+},
+  {
+  "statut": "degust",
+  "annee_degustation": 2026,
+  "titre": "Palladino – Barbera d'Alba 2024",
+  "couleur": "rouge",
+  "lieu_achat": "Peak Wines",
+  "commentaire": "Dégusté lors d'une soirée italienne :\n\nAntipasti : mortadelle, copa, morceaux de fromage à la truffe et grissinis.\n\nPlat principal : tagliolini à la tartufatta.\n\nFromages : Castelmagno, Asiago stagionato affiné 3 à 4 mois, Provolone dolce et Asiago jeune (20 jours).",
+  "tags": [
+    "Italie",
+    "Expressif",
+    "Piémont"
+  ],
+  "date_ouverture": "6 novembre 2026",
+  "note_degustation": "Nez\n\nÀ l'ouverture, très belle expression aromatique avec une première impression particulièrement séduisante : explosion de fruits rouges, donnant immédiatement envie de découvrir le vin (« wouah »).\n\nAprès cette première expression, le nez devient moins démonstratif, tout en conservant une sensation de fraîcheur.\n\nBouche\n\nVin doté d'un beau volume et d'une texture ronde et enveloppante, particulièrement après aération.\n\nL'équilibre semble s'améliorer progressivement avec le temps. Le vin trouve véritablement son expression après environ 1 h à 1 h 30 d'aération.\n\nPlus enveloppant et ample qu'un Dolcetto, avec une personnalité qui se prête particulièrement bien à l'accompagnement gastronomique.\n\nAccords et impressions\n\nTrès bel accord avec les tagliolini à la tartufatta. Le vin accompagne harmonieusement le plat, qui semble même révéler davantage ses qualités et son expression.\n\nLes antipasti ont constitué une belle introduction à la dégustation.\n\nPlusieurs fromages italiens ont été proposés en fin de repas, mais leur influence sur le vin n'a pas été suffisamment évaluée pour être intégrée au bilan.\n\nBilan personnel\n\nTrès grande satisfaction pour cette dégustation. Une belle découverte du Barbera, avec un nez expressif à l'ouverture, une bouche généreuse et enveloppante après aération et une excellente association avec la truffe.\n\nCette expérience confirme l'intérêt du Barbera à table et met en évidence une personnalité différente de celle du Dolcetto : davantage de volume et de rondeur.\n\nConseil personnel pour une prochaine bouteille : prévoir environ 1 h à 1 h 30 d'aération avant le plat principal.",
+  "tags_ouverture": [
+    "Aromatique",
+    "Enveloppant",
+    "Truffes"
+  ]
 }
 ]
